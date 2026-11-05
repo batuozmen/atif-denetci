@@ -1,0 +1,44 @@
+{
+  "ref_id": "5",
+  "query_title": "Trends of male factor infertility, an important cause of infertility: A review of literature",
+  "query_doi": "10.4103/0974-1208.170370",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Trends of male factor infertility, an important cause of infertility: A review of literature",
+  "verified_authors": [
+    "Naina Kumar",
+    "Amit Kant Singh"
+  ],
+  "verified_year": "2015",
+  "verified_venue": "Journal of Human Reproductive Sciences",
+  "verified_doi": "10.4103/0974-1208.170370",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 1163,
+  "abstract": "Infertility and problems of impaired fecundity have been a concern through ages and is also a significant clinical problem today, which affects 8–12% of couples worldwide. Of all infertility cases, approximately 40–50% is due to “male factor” infertility and as many as 2% of all men will exhibit suboptimal sperm parameters. It may be one or a combination of low sperm concentration, poor sperm motility, or abnormal morphology. The rates of infertility in less industrialized nations are markedly higher and infectious diseases are responsible for a greater proportion of infertility. The present literature will help in knowing the trends of male factor infertility in developing nations like India and to find out in future, various factors that may be responsible for male infertility.",
+  "tldr": "The present literature will help in knowing the trends of male factor infertility in developing nations like India and to find out in future, various factors that may be responsible for male infertility.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.4103/0974-1208.170370",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

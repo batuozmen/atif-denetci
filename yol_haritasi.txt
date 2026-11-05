@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 21 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik ve Künye Eşleşme Güveni)
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 22 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik, Künye Güveni ve Uçtan Uca Test)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -345,6 +345,30 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
   - Regresyon: toplam 53 test PASS; altın set 8/8 ve 30/30 korunuyor.
   - Bilinen Sınır: 0.70 eşiği ampiriktir; gerçek makale setiyle kalibre edilmeli
     (ADIM 22 uçtan uca test).
+
+[✅ TAMAMLANDI] ADIM 22: Uçtan Uca Gerçek Test (Manuscript.docx + İnternet + Ollama)
+  - Eklenen Dosyalar: tests/e2e_smoke.py, tests/e2e_diag.py
+  - Yapılan Test: Manuscript.docx -> ilk 5 tekil kaynak -> gerçek API çekimi
+    (Sci-Hub KAPALI) -> Ollama qwen2.5:3b ile anlam kararı.
+  - Sonuçlar:
+      * Ayrıştırma: 124 kaynak / 177 atıf, 0.2 sn.
+      * Çekim: 5/5 kaynak bulundu, 4.7-8.2 sn/kaynak, eşleşme skorları 0.95-1.00.
+      * Doğrulama: ilk çağrı 19 sn (model yükleme), sonrası 2.4-5.2 sn.
+      * Toplam: 70.8 sn (5 kaynak için). 124 kaynak tahmini ~25-30 dk.
+      * Kararlar: 4 KANIT_YETERSİZ, 1 KISMEN_DESTEKLENİYOR.
+  - Ortaya Çıkan Yeni Hata (H4 - kritik):
+      * İlk 10 atıf (CIT_1..CIT_10) makalenin BAŞLIK + YAZAR + KURUM bloğundan
+        geliyor. Yazar üst simgeleri ([1], [2]...) metin içi atıf sanılmış;
+        "iddia cümlesi" 851 karakterlik künye paragrafı olmuş.
+      * Bu yüzden e2e kararları anlamsız: sistem, künye paragrafını referans
+        makaleyle karşılaştırıyor.
+      * Gerçek atıflar (ör. "Infertility is defined as ...") doğru yakalanıyor.
+  - Arayüz Durumu:
+      * Streamlit sunucusu açılıyor (health endpoint HTTP 200).
+      * `python app.py` hatasız tamamlanıyor (exit 0, yalnızca ScriptRunContext uyarıları).
+      * Görsel/etkileşimli kontrol bu ortamda yapılamadı (tarayıcı yok;
+        Streamlit AppTest sandbox temp kısıtına takıldı).
+  - Not: Bu adımda ürün kodu değiştirilmedi.
 
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ

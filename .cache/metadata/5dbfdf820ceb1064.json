@@ -1,0 +1,46 @@
+{
+  "ref_id": "1",
+  "query_title": "Fertility and infertility: Definition and epidemiology",
+  "query_doi": "10.1016/j.clinbiochem.2018.03.012",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Fertility and infertility: Definition and epidemiology",
+  "verified_authors": [
+    "Mélodie Vander Borght",
+    "Christine Wyns"
+  ],
+  "verified_year": "2018",
+  "verified_venue": "Clinical Biochemistry",
+  "verified_doi": "10.1016/j.clinbiochem.2018.03.012",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 2368,
+  "abstract": "Infertility is a disease characterized by the failure to establish a clinical pregnancy after 12 months of regular and unprotected sexual intercourse. It is estimated to affect between 8 and 12% of reproductive-aged couples worldwide. Males are found to be solely responsible for 20-30% of infertility cases but contribute to 50% of cases overall. Secondary infertility is the most common form of female infertility around the globe, often due to reproductive tract infections. The three major factors influencing the spontaneous probability of conception are the time of unwanted non-conception, the age of the female partner and the disease-related infertility. The chance of becoming spontaneously pregnant declines with the duration before conception. The fertility decline in female already starts around 25-30 years of age and the median age at last birth is 40-41 years in most studied populations experiencing natural fertility. The disease-related infertility may affect both genders or be specific to one gender. The factors affecting both genders' fertility are hypogonadotrophic hypogonadism, hyperprolactinemia, disorders of ciliary function, cystic fibrosis, infections, systemic diseases and lifestyle related factors/diseases. Premature ovarian insufficiency, polycystic ovary syndrome, endometriosis, uterine fibroids and endometrial polyps may play a role in female infertility. Male infertility may be due to testicular and post-testicular deficiencies. Semen decline that has been observed over the years, endocrine disrupting chemicals and consanguinity are other factors that may be involved.",
+  "tldr": "The chance of becoming spontaneously pregnant declines with the duration before conception, and the three major factors influencing the spontaneous probability of conception are the time of unwanted non-conception, the age of the female partner and the disease-related infertility.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "http://hdl.handle.net/2078.1/197803",
+  "local_pdf_path": null,
+  "metadata_warnings": [
+    "⚠️ Yazar Uyuşmazlığı: Kaynakçada 'VanderBorght' belirtilmiş ancak makalenin resmi yazarları: Mélodie Vander Borght, Christine Wyns."
+  ],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

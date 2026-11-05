@@ -1,0 +1,53 @@
+{
+  "ref_id": "4",
+  "query_title": "Male infertility",
+  "query_doi": "10.1038/s41572-023-00459-w",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Male infertility",
+  "verified_authors": [
+    "Michael L. Eisenberg",
+    "Sandro C. Esteves",
+    "Dolores J. Lamb",
+    "James M. Hotaling",
+    "Aleksander Giwercman",
+    "Kathleen Hwang",
+    "Yu-Sheng Cheng"
+  ],
+  "verified_year": "2023",
+  "verified_venue": "Nature Reviews Disease Primers",
+  "verified_doi": "10.1038/s41572-023-00459-w",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 558,
+  "abstract": "… that infertility affects 8–12% of couples globally, with a male factor being a primary or contributing cause in approximately 50% of couples. Causes of male … can affect male fertility, which …",
+  "tldr": "In this Primer, Eisenberg and colleagues provide an overview of the epidemiology, aetiology, diagnosis, prevention and treatment of male infertility, focusing on impairments in spermatogenesis.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar",
+    "Google Scholar"
+  ],
+  "pdf_url": "https://www.nature.com/articles/s41572-023-00459-w.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}
