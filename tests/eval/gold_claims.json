@@ -1,0 +1,37 @@
+[
+  {"id": "N1", "category": "sayi_eslesme", "expected": "DESTEKLENİYOR", "claim": "Çalışmada hastaların %72'sinde tedaviye yanıt alınmıştır.", "evidence": "Tedaviye yanıt oranı hastaların %72'sinde gözlenmiştir."},
+  {"id": "N2", "category": "sayi_eslesme", "expected": "DESTEKLENİYOR", "claim": "Örneklerin yüzde 45'inde mutasyon saptandı.", "evidence": "Mutasyon, örneklerin %45'inde tespit edildi."},
+  {"id": "N3", "category": "sayi_eslesme", "expected": "DESTEKLENİYOR", "claim": "Yan etki oranı %3.2 olarak bildirilmiştir.", "evidence": "Advers olay insidansı %3.2 idi."},
+  {"id": "N4", "category": "sayi_eslesme", "expected": "DESTEKLENİYOR", "claim": "Hastaların yüzde sekseninde iyileşme görüldü.", "evidence": "İyileşme hastaların %80'inde kaydedildi."},
+  {"id": "N5", "category": "sayi_eslesme", "expected": "DESTEKLENİYOR", "claim": "Dünyanın yüzde 90'ı sudan oluşur.", "evidence": "Yüzde doksanı su olan dünyamız biyosfer açısından eşsizdir."},
+
+  {"id": "C1", "category": "sayi_celiskisi", "expected": "ÇELİŞİYOR", "claim": "Dünyanın yüzde 90'ı sudan oluşur.", "evidence": "Dünya yüzeyinin yaklaşık %71'i su ile kaplıdır."},
+  {"id": "C2", "category": "sayi_celiskisi", "expected": "ÇELİŞİYOR", "claim": "Hastaların %45'inde yanıt alındı.", "evidence": "Yanıt oranı hastaların %60'ında gözlendi."},
+  {"id": "C3", "category": "sayi_celiskisi", "expected": "ÇELİŞİYOR", "claim": "Yan etki oranı %3.2 idi.", "evidence": "Yan etki oranı %2.8 olarak raporlandı."},
+  {"id": "C4", "category": "sayi_celiskisi", "expected": "ÇELİŞİYOR", "claim": "Örneklerin yüzde 30'unda direnç vardı.", "evidence": "Direnç örneklerin %50'sinde saptandı."},
+  {"id": "C5", "category": "sayi_celiskisi", "expected": "ÇELİŞİYOR", "claim": "Sağkalım oranı %85'tir.", "evidence": "Beş yıllık sağkalım %68 olarak bulundu."},
+
+  {"id": "G1", "category": "negasyon", "expected": "ÇELİŞİYOR", "claim": "İlaç depresyon belirtilerini azaltır.", "evidence": "İlaç depresyon belirtilerini azaltmaz."},
+  {"id": "G2", "category": "negasyon", "expected": "ÇELİŞİYOR", "claim": "Bu tedavi etkilidir.", "evidence": "Bu tedavinin etkili olmadığı gösterilmiştir."},
+  {"id": "G3", "category": "negasyon", "expected": "ÇELİŞİYOR", "claim": "The drug reduces depressive symptoms.", "evidence": "The drug does not reduce depressive symptoms."},
+  {"id": "G4", "category": "negasyon", "expected": "ÇELİŞİYOR", "claim": "İlaç anlamlı klinik iyileşme gösterdi.", "evidence": "İlaç anlamlı klinik iyileşme göstermedi."},
+  {"id": "G5", "category": "negasyon", "expected": "ÇELİŞİYOR", "claim": "Smoking is associated with lung cancer.", "evidence": "Smoking is not associated with lung cancer."},
+
+  {"id": "Y1", "category": "yon_celiskisi", "expected": "ÇELİŞİYOR", "claim": "İlaç depresyon belirtilerini artırdı.", "evidence": "İlaç depresyon belirtilerini azalttı."},
+  {"id": "Y2", "category": "yon_celiskisi", "expected": "ÇELİŞİYOR", "claim": "Tedavi kan basıncını yükseltti.", "evidence": "Tedavi kan basıncını düşürdü."},
+  {"id": "Y3", "category": "yon_celiskisi", "expected": "ÇELİŞİYOR", "claim": "The intervention increased survival.", "evidence": "The intervention decreased survival."},
+  {"id": "Y4", "category": "yon_celiskisi", "expected": "ÇELİŞİYOR", "claim": "Egzersiz semptomları iyileştirdi.", "evidence": "Egzersiz semptomları kötüleştirdi."},
+
+  {"id": "A1", "category": "alakasiz", "expected": "KANIT_YETERSİZ", "claim": "Dünyanın yüzde 90'ı sudan oluşur.", "evidence": "Kemoterapi hastalarında nötrofil sayısı günlük takip edilmiştir."},
+  {"id": "A2", "category": "alakasiz", "expected": "KANIT_YETERSİZ", "claim": "Bu ilaç depresyonu iyileştirir.", "evidence": "Borsa endeksleri yılın ikinci çeyreğinde yükselmiştir."},
+  {"id": "A3", "category": "alakasiz", "expected": "KANIT_YETERSİZ", "claim": "Egzersiz kalp sağlığını korur.", "evidence": "Müzikal yetenek erken çocuklukta gelişir."},
+  {"id": "A4", "category": "alakasiz", "expected": "KANIT_YETERSİZ", "claim": "Aşı bulaş riskini düşürür.", "evidence": "Deniz kaplumbağalarının yuvalama alanları azalmaktadır."},
+  {"id": "A5", "category": "alakasiz", "expected": "KANIT_YETERSİZ", "claim": "Uyku eksikliği bağışıklığı zayıflatır.", "evidence": "Romanın ana karakteri köyüne geri döner."},
+
+  {"id": "P1", "category": "paraphrase", "expected": "DESTEKLENİYOR", "claim": "Düzenli egzersiz kalp hastalığı riskini azaltır.", "evidence": "Regular exercise lowers the risk of cardiovascular disease."},
+  {"id": "P2", "category": "paraphrase", "expected": "DESTEKLENİYOR", "claim": "Sigara içmek akciğer kanseri riskini artırır.", "evidence": "Smoking increases the risk of lung cancer."},
+  {"id": "P3", "category": "paraphrase", "expected": "DESTEKLENİYOR", "claim": "Bu ilaç depresyon tedavisinde etkilidir.", "evidence": "Depresyon tedavisinde bu ilacın etkili olduğu gösterilmiştir."},
+  {"id": "P4", "category": "paraphrase", "expected": "DESTEKLENİYOR", "claim": "Hipertansiyon böbrek hasarına yol açabilir.", "evidence": "Hypertension may lead to kidney damage."},
+  {"id": "P5", "category": "paraphrase", "expected": "DESTEKLENİYOR", "claim": "Aşı, hastalığa yakalanma riskini düşürür.", "evidence": "Vaccination reduces the risk of infection."},
+  {"id": "P6", "category": "paraphrase", "expected": "DESTEKLENİYOR", "claim": "Uyku eksikliği bağışıklık sistemini zayıflatır.", "evidence": "Sleep deprivation weakens the immune system."}
+]
