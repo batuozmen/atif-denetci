@@ -1,0 +1,43 @@
+{
+  "ref_id": "APA_28",
+  "query_title": "The pharmacology of sigma-1 receptors",
+  "query_doi": "10.1016/j.pharmthera.2009.07.001",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "The pharmacology of sigma-1 receptors",
+  "verified_authors": [
+    "Tangui Maurice",
+    "Tsung-Ping Su"
+  ],
+  "verified_year": "2009",
+  "verified_venue": "Pharmacology &amp; Therapeutics",
+  "verified_doi": "10.1016/j.pharmthera.2009.07.001",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 661,
+  "abstract": "Originally considered an enigmatic protein, the sigma-1 receptor has recently been identified as a unique ligand-regulated molecular chaperone in the endoplasmic reticulum of cells. This discovery causes us to look back at the many proposed roles of this receptor, even before its molecular function was identified, in many diseases such as methamphetamine or cocaine addiction, amnesia, pain, depression, Alzheimer’s disease, stroke, retinal neuroprotection, HIV infection, and cancer. In this review, we examine the reports that have clearly shown an agonist-antagonist relationship regarding sigma-1 receptors in models of those diseases and also review the relatively known mechanisms of action of sigma-1 receptors in an attempt to spur the speculation of readers on how the sigma-1 receptor at the endoplasmic reticulum might relate to so many diseases. We found that the most prominent action of sigma-1 receptors in biological systems including cell lines, primary cultures, and animals is the regulation and modulation of voltage-regulated and ligand-gated ion channels, including Ca2+-, K+-, Na+, Cl-, and SK channels, and NMDA and IP3 receptors. We found that the final output of the action of sigma-1 receptor agonists is to inhibit all above-mentioned voltage-gated ion channels, while they potentiate ligand-gated channels. The inhibition or potentiation induced by agonists is blocked by sigma-1 receptor antagonists. Other mechanisms of action of sigma-1 receptors, and to some extent those of sigma-2 receptors, were also considered. We conclude that the sigma-1 and sigma-2 receptors represent potential fruitful targets for therapeutic developments in combating many human diseases.",
+  "tldr": "The sigma-1 and sigma-2 receptors represent potential fruitful targets for therapeutic developments in combating many human diseases and are reviewed in an attempt to spur the speculation of readers on how the sigma-1 receptor at the endoplasmic reticulum might relate to so many diseases.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/2785038",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

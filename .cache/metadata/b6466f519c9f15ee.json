@@ -1,0 +1,49 @@
+{
+  "ref_id": "APA_36",
+  "query_title": "Depression: a new animal model sensitive to antidepressant treatments",
+  "query_doi": "10.1038/266730a0",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Depression: a new animal model sensitive to antidepressant treatments",
+  "verified_authors": [
+    "R. D. PORSOLT",
+    "M. LE PICHON",
+    "M. JALFRE"
+  ],
+  "verified_year": "1977",
+  "verified_venue": "Nature",
+  "verified_doi": "10.1038/266730a0",
+  "pmid": "559941",
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 4601,
+  "abstract": "A MAJOR problem in the search for new antidepressant drugs is the lack of animal models which both resemble depressive illness and are selectively sensitive to clinically effective antidepressant treatments. We have been working on a new behavioural model in the rat which attempts to meet these two requirements. The method is based on the observation that a rat, when forced to swim in a situation from which there is no escape, will, after an initial period of vigorous activity, eventually cease to move altogether making only those …",
+  "tldr": "Results presented below indicate that immobility is reduced by different treatments known to be therapeutic in depression including three drugs, iprindole, mianserin and viloxazine which although clinically active show little or no ‘antidepressant’ activity in the usual animal tests.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + PubMed + Semantic Scholar + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed",
+    "Semantic Scholar",
+    "Google Scholar"
+  ],
+  "pdf_url": "http://www.nature.com/articles/266730a0.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

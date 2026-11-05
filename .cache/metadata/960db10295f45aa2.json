@@ -1,0 +1,46 @@
+{
+  "ref_id": "APA_58",
+  "query_title": "Validity, reliability and utility of the chronic mild stress model of depression",
+  "query_doi": "10.1007/s002130050456",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Validity, reliability and utility of the chronic mild stress model of depression: a 10-year review and evaluation",
+  "verified_authors": [
+    "Paul Willner"
+  ],
+  "verified_year": "1997",
+  "verified_venue": "Psychopharmacology",
+  "verified_doi": "10.1007/s002130050456",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 1856,
+  "abstract": "This paper evaluates the validity, reliability and utility of the chronic mild stress (CMS) model of depression. In the CMS model, rats or mice are exposed sequentially, over a period of weeks, to a variety of mild stressors, and the measure most commonly used to track the effects is a decrease in consumption of a palatable sweet solution. The model has good predictive validity (behavioural changes are reversed by chronic treatment with a wide variety of antidepressants), face validity (almost all demonstrable symptoms of depression …",
+  "tldr": "Overall, the CMS procedure appears to be at least as valid as any other animal model of depression, and can be used to study problems that are extremely difficult to address by other means.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar",
+    "Google Scholar"
+  ],
+  "pdf_url": "http://link.springer.com/content/pdf/10.1007/s002130050456.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

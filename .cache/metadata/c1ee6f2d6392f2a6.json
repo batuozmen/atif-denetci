@@ -1,0 +1,40 @@
+{
+  "ref_id": "APA_39",
+  "query_title": "Memantine reverses depressive-like behavior and oxidative stress induced by chronic mild stress in rats",
+  "query_doi": "10.1007/s11011-012-9281-2",
+  "exists_online": false,
+  "title_match_score": 0.0,
+  "verified_title": "",
+  "verified_authors": [],
+  "verified_year": null,
+  "verified_venue": "",
+  "verified_doi": null,
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 0,
+  "abstract": "",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "Bulunamadı",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar"
+  ],
+  "sources_found": [],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [
+    "⚠️ Başlık–DOI Uyuşmazlığı: Kaynakçada yazılan DOI (10.1007/s11011-012-9281-2) 'Memantine treatment reverses anhedonia, normalizes corticosterone levels and increases BDNF lev' başlıklı farklı bir makaleye aittir!",
+    "🚨 Bu makale CrossRef, OpenAlex, PubMed, Semantic Scholar ve Google Scholar dizinlerinde BULUNAMADI! Yapay zeka tarafından uydurulmuş (halüsinasyon) veya başlığı yanlış yazılmış olabilir."
+  ],
+  "has_full_text": false,
+  "has_abstract": false,
+  "full_text_length": 0
+}

@@ -1,0 +1,42 @@
+{
+  "ref_id": "APA_48",
+  "query_title": "Stahl’s Essential Psychopharmacology: Neuroscientific Basis and Practical Applications",
+  "query_doi": "10.1017/9781108975292",
+  "exists_online": true,
+  "title_match_score": 0.9512195121951219,
+  "verified_title": "[B] Essential psychopharmacology: Neuroscientific basis and practical applications",
+  "verified_authors": [],
+  "verified_year": null,
+  "verified_venue": "",
+  "verified_doi": null,
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 0,
+  "abstract": "Stahl's Essential Psychopharmacology has established itself as the preeminent source of education and information in its field. This much expanded second edition enlists advances in neurobiology, and recent clinical developments, to explain with renewed clarity the concepts underlying drug treatment of psychiatric disorders. New neurotransmitter systems, new theories on schizophrenia, clinical advances in antipsychotic and antidepressant therapy, new coverage of attention deficit disorder, sleep disorders and drug abuse, and a …",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Sci-Hub"
+  ],
+  "sources_found": [
+    "Google Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [
+    "⚠️ Başlık–DOI Uyuşmazlığı: Kaynakçada yazılan DOI (10.1017/9781108975292) 'Stahl's Essential Psychopharmacology' başlıklı farklı bir makaleye aittir!"
+  ],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

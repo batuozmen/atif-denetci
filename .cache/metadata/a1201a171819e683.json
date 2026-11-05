@@ -1,0 +1,41 @@
+{
+  "ref_id": "APA_11",
+  "query_title": "Oxidative stress and antioxidants for idiopathic oligoasthenoteratospermia: Is it justified?",
+  "query_doi": "10.4103/0970-1591.78437",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Oxidative stress and antioxidants for idiopathic oligoasthenoteratospermia: Is it justified?",
+  "verified_authors": [
+    "Ashok Agarwal",
+    "LuckyH Sekhon"
+  ],
+  "verified_year": "2011",
+  "verified_venue": "Indian Journal of Urology",
+  "verified_doi": "10.4103/0970-1591.78437",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 134,
+  "abstract": "Oxidative stress contributes to defective spermatogenesis and the poor quality of sperm associated with idiopathic male factor infertility. The aim of this study was to review the current literature on the effects of various types of antioxidant supplements in patients to improve fertilization and pregnancy rates in subfertile males with idiopathic oligoasthenoteratozoospermia (iOAT). Review of recent publications through PubMed and the Cochrane database. Oxidative stress is implicated in impaired spermatogenesis leading to the poor semen parameters and increased DNA damage and apoptosis in iOAT. Strategies to modulate the level of oxidative stress within the male reproductive tract include the use of oral antioxidant compounds to reinforce the body's defence against oxidative damage. In our evaluation, carnitines were considered the most established pharmacotherapeutic agent to treat iOAT, as evidence and data concerning carnitine supplementation have been shown to be most consistent and relevant to the population of interest. Other therapies, such as combined vitamin E and C therapy, are still considered controversial as vitamin C can act as a pro-oxidant in certain instances and the results of randomized controlled trials have failed to show significant benefit to sperm parameters and pregnancy rates. There is a need for further investigation with randomized controlled studies to confirm the efficacy and safety of antioxidant supplementation in the medical treatment of idiopathic male infertility as well as the need to determine the dosage required to improve semen parameters, fertilization rates and pregnancy outcomes in iOAT.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "https://doi.org/10.4103/0970-1591.78437",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

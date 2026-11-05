@@ -1,0 +1,50 @@
+{
+  "ref_id": "APA_22",
+  "query_title": "mTORdependent synapse formation underlies the rapid antidepressant effects of NMDA antagonists",
+  "query_doi": "10.1126/science.1190287",
+  "exists_online": true,
+  "title_match_score": 0.9947089947089947,
+  "verified_title": "mTOR-Dependent Synapse Formation Underlies the Rapid Antidepressant Effects of NMDA Antagonists",
+  "verified_authors": [
+    "Nanxin Li",
+    "Boyoung Lee",
+    "Rong-Jian Liu",
+    "Mounira Banasr",
+    "Jason M. Dwyer",
+    "Masaaki Iwata",
+    "Xiao-Yuan Li",
+    "George Aghajanian",
+    "Ronald S. Duman"
+  ],
+  "verified_year": "2010",
+  "verified_venue": "Science",
+  "verified_doi": "10.1126/science.1190287",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 2870,
+  "abstract": "Antidepressant Action of Ketamine In contrast to the weeks or months of treatment required for standard antidepressant medication, ketamine administration produces an antidepressant response within 4 to 6 hours in depressed patients. What lies behind the rapid actions of ketamine? Li et al. (p. 959; see the Perspective by Cryan and O'Leary) found that ketamine administration resulted in fast activation of mammalian target of rapamycin (mTOR) signaling and increased levels of synaptic proteins in the rat prefrontal cortex. Ketamine rapidly increased the density and function of the dendritic spines of layer V pyramidal neurons in the prefrontal cortex. Thus, the behavioral actions of ketamine in models of depression and antidepressant response are dependent on mTOR signaling. Ketamine, an anaesthetic and recreational drug, rapidly increases synaptic signaling and antidepressant behavioral responses. The rapid antidepressant response after ketamine administration in treatment-resistant depressed patients suggests a possible new approach for treating mood disorders compared to the weeks or months required for standard medications. However, the mechanisms underlying this action of ketamine [a glutamate N-methyl-d-aspartic acid (NMDA) receptor antagonist] have not been identified. We observed that ketamine rapidly activated the mammalian target of rapamycin (mTOR) pathway, leading to increased synaptic signaling proteins and increased number and function of new spine synapses in the prefrontal cortex of rats. Moreover, blockade of mTOR signaling completely blocked ketamine induction of synaptogenesis and behavioral responses in models of depression. Our results demonstrate that these effects of ketamine are opposite to the synaptic deficits that result from exposure to stress and could contribute to the fast antidepressant actions of ketamine.",
+  "tldr": "The results demonstrate that the effects of ketamine are opposite to the synaptic deficits that result from exposure to stress and could contribute to the fast antidepressant actions of ketamines.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/3116441",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

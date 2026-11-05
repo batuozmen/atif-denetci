@@ -1,0 +1,47 @@
+{
+  "ref_id": "APA_7",
+  "query_title": "Disruption of the NMDA receptor GluN2A subunit abolishes inflammation-induced depression",
+  "query_doi": "10.1016/j.bbr.2018.10.011",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Disruption of the NMDA receptor GluN2A subunit abolishes inflammation-induced depression",
+  "verified_authors": [
+    "Ester Francija",
+    "Zorica Petrovic",
+    "Zeljka Brkic",
+    "Milos Mitic",
+    "Jelena Radulovic",
+    "Miroslav Adzic"
+  ],
+  "verified_year": "2019",
+  "verified_venue": "Behavioural Brain Research",
+  "verified_doi": "10.1016/j.bbr.2018.10.011",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 38,
+  "abstract": "HighlightsGluN2A KO mice displayed resiliance to depressive‐like behaviour upon LPS.GluN2A KO mice abolishes LPS induced inflammation.LPS treated GluN2A KO mice showed elevated proBDNF in the PFC & hippocampus and increased NCAM in PFC.GluN2A KO mice exhibited sustained PSA‐NCAM levels in the PFC and hippocampus.GluN2A KO potentiated synaptic stabilization through NCAM in the PFC upon LPS. Abstract Recent reports have demonstrated that lipopolysaccharide (LPS)‐induced depressive‐like behaviour is mediated via NMDA receptor. In this study, we further investigated the role of GluN2 A subunit of NMDA receptor in synaptic processes in the prefrontal cortex (PFC) and hippocampus of GluN2 A knockout (KO) mice in LPS‐induced depressive‐like behavior. Our data suggest that LPS‐treated mice, lacking GluN2 A subunit, did not exhibit depressive‐like behaviour. This was accompanied by unaltered levels of IL‐6 and significant changes in neuroplasticity markers and glutamate receptor subunits composition in PFC and hippocampus. In particular, an immune challenge in GluN2 A KO mice resulted in unchanged PSA‐NCAM levels and proBDNF increase in both brain structures as well as in increase in BDNF levels in hippocampus. Furthermore, the absence of GluN2 A resulted in increased levels of all NCAM isoforms in PFC upon LPS which was followed with a decrease in GluN1 and GluN2B subunits. The levels of AMPA receptor subunits (GluA1, GluA3, and GluA4) in the hippocampus of GluN2 A mice were unaltered upon the treatment and abundantly present in the PFC of KO mice. These results indicate that the GluN2 A subunit is critical in neuroinflammation‐related depression, that its absence abolishes LPS‐induced depressive phenotype, sustains PSA‐NCAM levels, increases proBDNF signalling in the PFC and hippocampus and potentiates synaptic stabilization through NCAM in the PFC upon an immune challenge.",
+  "tldr": "The results indicate that the GluN2 A subunit is critical in neuroinflammation‐related depression, that its absence abolishes LPS‐induced depressive phenotype, sustains PSA‐NCAM levels, increases proBDNF signalling in the PFC and hippocampus and potentiates synaptic stabilization through NCAM in thePFC upon an immune challenge.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/6309738",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

@@ -1,0 +1,42 @@
+{
+  "ref_id": "APA_59",
+  "query_title": "Chronic mild stress (CMS) revisited: consistency and behaviouralneurobiological concordance in the effects of CMS",
+  "query_doi": "10.1159/000087097",
+  "exists_online": true,
+  "title_match_score": 0.9954337899543378,
+  "verified_title": "Chronic Mild Stress (CMS) Revisited: Consistency and Behavioural-Neurobiological Concordance in the Effects of CMS",
+  "verified_authors": [
+    "Paul Willner"
+  ],
+  "verified_year": "2005",
+  "verified_venue": "Neuropsychobiology",
+  "verified_doi": "10.1159/000087097",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 1652,
+  "abstract": "The chronic mild stress (CMS) model of depression has high validity but has in the past been criticized for being difficult to replicate. However, a large number of recent publications have confirmed that CMS causes behavioural changes in rodents that parallel symptoms of depression. This review summarizes studies from over sixty independent research groups that have reported decreases in reactivity to rewards, and a variety of other depression-like behaviours, in rats or mice, following exposure to CMS. Together, these changes are referred to as a ‘depressive’ behavioural profile. Almost every study that has examined the effects of chronic antidepressant treatment in these procedures has reported that antidepressants were effective in reversing or preventing these ‘depressive’ behavioural changes. (The single exception is a study in which the duration of treatment was too brief to constitute an adequate trial.) There are also a handful of reports of CMS causing significant effects in the opposite direction, termed here an ‘anomalous’ behavioural profile. There are six neurobiological parameters that have been studied in both ‘anhedonic’ and ‘anomalous’ animals: psychostimulant and place-conditioning effects of dopamine agonists; dopamine D&lt;sub&gt;2&lt;/sub&gt; receptor number and message; inhibition of dopamine turnover by quinpirole, and beta-adrenergic receptor binding. On all six measures, CMS caused opposite effects in animals displaying ‘depressive’ and ‘anomalous’ profiles. Thus, there is overwhelming evidence that under appropriate experimental conditions, CMS can cause antidepressant-reversible depressive-like effects in rodents; however, the ‘anomalous’ profile that is occasionally reported appears to be a genuine phenomenon, and these two sets of behavioural effects appear to be associated with opposite patterns of neurobiological changes.",
+  "tldr": "There is overwhelming evidence that under appropriate experimental conditions, CMS can cause antidepressant-reversible depressive-like effects in rodents; however, the ‘anomalous’ profile that is occasionally reported appears to be a genuine phenomenon, and these two sets of behavioural effects appear to be associated with opposite patterns of neurobiological changes.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.karger.com/Article/Pdf/87097",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

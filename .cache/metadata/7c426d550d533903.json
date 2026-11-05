@@ -1,0 +1,53 @@
+{
+  "ref_id": "APA_41",
+  "query_title": "Ketamine and memantine reverse behavioral and neurochemical alterations induced by chronic mild stress",
+  "query_doi": null,
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Ketamine treatment reverses behavioral and physiological alterations induced by chronic mild stress in rats",
+  "verified_authors": [
+    "Lêda S.B. Garcia",
+    "Clarissa M. Comim",
+    "Samira S. Valvassori",
+    "Gislaine Z. Réus",
+    "Laura Stertz",
+    "Flávio Kapczinski",
+    "Elaine C. Gavioli",
+    "João Quevedo"
+  ],
+  "verified_year": "2009",
+  "verified_venue": "Progress in Neuro-Psychopharmacology and Biological Psychiatry",
+  "verified_doi": "10.1016/j.pnpbp.2009.01.004",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 242,
+  "abstract": "Several studies have supported the idea that ionotropic glutamate N-methyl-d-aspartate receptor (NMDA) is an important player in the etiology of psychopathologies, such as anxiety disorders and major depression. Additionally, studies have shown that ketamine induces antidepressant effects in humans as well as in rodents subjected to animal models of depression. In this context, the present study was aimed to evaluate behavioral and physiological effects of acute and chronic administration of ketamine, a NMDA receptor …",
+  "tldr": "These findings support the idea of a putative role of NMDA receptors in mood-related symptoms, and rapid and robust effects of ketamine in reverting mainly physiological alterations induced by chronic mild stressful situations in rats.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar",
+    "Google Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

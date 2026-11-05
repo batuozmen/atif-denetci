@@ -1,0 +1,47 @@
+{
+  "ref_id": "APA_63",
+  "query_title": "Chronic antidepressants potentiate via sigma-1 receptors the brain-derived neurotrophic factor-induced signaling for glutamate release",
+  "query_doi": "10.1074/jbc.M508157200",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Chronic Antidepressants Potentiate via Sigma-1 Receptors the Brain-derived Neurotrophic Factor-induced Signaling for Glutamate Release",
+  "verified_authors": [
+    "Yuki Yagasaki",
+    "Tadahiro Numakawa",
+    "Emi Kumamaru",
+    "Teruo Hayashi",
+    "Tsung-Ping Su",
+    "Hiroshi Kunugi"
+  ],
+  "verified_year": "2006",
+  "verified_venue": "Journal of Biological Chemistry",
+  "verified_doi": "10.1074/jbc.M508157200",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 123,
+  "abstract": "Up-regulation of BDNF (brain-derived neurotrophic factor) has been suggested to contribute to the action of antidepressants. However, it is unclear whether chronic treatment with antidepressants may influence acute BDNF signaling in central nervous system neurons. Because BDNF has been shown by us to reinforce excitatory glutamatergic transmission in cultured cortical neurons via the phospholipase-gamma (PLC-gamma)/inositol 1,4,5-trisphosphate (IP3)/Ca2+ pathway (Numakawa, T., Yamagishi, S., Adachi, N., Matsumoto, T., Yokomaku, D., Yamada, M., and Hatanaka, H. (2002) J. Biol. Chem. 277, 6520-6529), we examined in this study the possible effects of pretreatment with antidepressants on the BDNF signaling through the PLC-gamma)/IP3/Ca2+ pathway. Furthermore, because the PLC-gamma/IP3/Ca2+ pathway is regulated by sigma-1 receptors (Hayashi, T., and Su, T. P. (2001) Proc. Natl. Acad. Sci. U. S. A. 98, 491-496), we examined whether the BDNF signaling is modulated by sigma-1 receptors (Sig-1R). We found that the BDNF-stimulated PLC-gamma activation and the ensued increase in intracellular Ca2+ ([Ca2+]i) were potentiated by pretreatment with imipramine or fluvoxamine, so was the BDNF-induced glutamate release. Furthermore, enhancement of the interaction between PLC-gamma and TrkB (receptor for BDNF) after imipramine pretreatment was observed. Interestingly, BD1047, a potent Sig-1R antagonist, blocked the imipramine-dependent potentiation on the BDNF-induced PLC-gamma activation and glutamate release. In contrast, overexpression of Sig-1R per se, without antidepressant pretreatment, enhances BDNF-induced PLC-gamma activation and glutamate release. These results suggest that antidepressant pretreatment selectively enhance the BDNF signaling on the PLC-gamma/IP3/Ca2+ pathway via Sig-1R, and that Sig-1R plays an important role in BDNF signaling leading to glutamate release.",
+  "tldr": "It is found that the BDNF-stimulated PLC-γ activation and the ensued increase in intracellular Ca2+ ([Ca2+]i) were potentiated by pretreatment with imipramine or fluvoxamine, and that Sig-1R plays an important role in BDNF signaling leading to glutamate release.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "http://www.jbc.org/article/S0021925819466295/pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

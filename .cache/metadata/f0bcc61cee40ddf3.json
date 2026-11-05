@@ -1,0 +1,44 @@
+{
+  "ref_id": "APA_16",
+  "query_title": "Causes and consequences of oxidative stress in spermatozoa",
+  "query_doi": "10.1071/RD15325",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Causes and consequences of oxidative stress in spermatozoa",
+  "verified_authors": [
+    "Robert John Aitken",
+    "Zamira Gibb",
+    "Mark A. Baker",
+    "Joel Drevet",
+    "Parviz Gharagozloo"
+  ],
+  "verified_year": "2015",
+  "verified_venue": "Reproduction, Fertility and Development",
+  "verified_doi": "10.1071/RD15325",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 442,
+  "abstract": "Spermatozoa are highly vulnerable to oxidative attack because they lack significant antioxidant protection due to the limited volume and restricted distribution of cytoplasmic space in which to house an appropriate armoury of defensive enzymes. In particular, sperm membrane lipids are susceptible to oxidative stress because they abound in significant amounts of polyunsaturated fatty acids. Susceptibility to oxidative attack is further exacerbated by the fact that these cells actively generate reactive oxygen species (ROS) in order to drive the increase in tyrosine phosphorylation associated with sperm capacitation. However, this positive role for ROS is reversed when spermatozoa are stressed. Under these conditions, they default to an intrinsic apoptotic pathway characterised by mitochondrial ROS generation, loss of mitochondrial membrane potential, caspase activation, phosphatidylserine exposure and oxidative DNA damage. In responding to oxidative stress, spermatozoa only possess the first enzyme in the base excision repair pathway, 8-oxoguanine DNA glycosylase. This enzyme catalyses the formation of abasic sites, thereby destabilising the DNA backbone and generating strand breaks. Because oxidative damage to sperm DNA is associated with both miscarriage and developmental abnormalities in the offspring, strategies for the amelioration of such stress, including the development of effective antioxidant formulations, are becoming increasingly urgent.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "https://connectsci.au/rd/article-pdf/28/2/1/315512/rd15325.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

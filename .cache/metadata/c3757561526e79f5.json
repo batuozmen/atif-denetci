@@ -1,0 +1,47 @@
+{
+  "ref_id": "APA_32",
+  "query_title": "Sigma-1 receptor involvement in antidepressant effects of dextromethorphan",
+  "query_doi": "10.1016/j.bbr.2015.03.024",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Involvement of AMPA receptors in the antidepressant-like effects of dextromethorphan in mice",
+  "verified_authors": [
+    "Linda Nguyen",
+    "Rae R. Matsumoto"
+  ],
+  "verified_year": "2015",
+  "verified_venue": "Behavioural Brain Research",
+  "verified_doi": "10.1016/j.bbr.2015.03.024",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 51,
+  "abstract": "Dextromethorphan (DM) is an antitussive with rapid acting antidepressant potential based on pharmacodynamic similarities to ketamine. Building upon our previous finding that DM produces antidepressant-like effects in the mouse forced swim test (FST), the present study aimed to establish the antidepressant-like actions of DM in the tail suspension test (TST), another well-established model predictive of antidepressant efficacy. Additionally, using the TST and FST, we investigated the role of α-amino-3-hydroxy-5-methyl-4-isoxazole propionic …",
+  "tldr": "The data show that DM exerts antidepressant-like actions through AMPA receptors, further suggesting DM may act as a safe and effective fast acting antidepressant drug.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar",
+    "Google Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

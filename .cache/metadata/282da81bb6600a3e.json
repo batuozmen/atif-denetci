@@ -1,0 +1,44 @@
+{
+  "ref_id": "APA_64",
+  "query_title": "The chronic unpredictable mild stress protocol for inducing depression-like behavior in rodents",
+  "query_doi": "10.3791/52587",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "The Forced Swim Test as a Model of Depressive-like Behavior",
+  "verified_authors": [
+    "Roni Yankelevitch-Yahav",
+    "Motty Franko",
+    "Avrham Huly",
+    "Ravid Doron"
+  ],
+  "verified_year": "2015",
+  "verified_venue": "Journal of Visualized Experiments",
+  "verified_doi": "10.3791/52587",
+  "pmid": "25867960",
+  "pmcid": "PMC2699451",
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 881,
+  "abstract": "The goal of the present protocol is to describe the forced swim test (FST), which is one of the most commonly used assays for the study of depressive-like behavior in rodents. The FST is based on the assumption that when placing an animal in a container filled with water, it will first make efforts to escape but eventually will exhibit immobility that may be considered to reflect a measure of behavioral despair. This test has been extensively used because it involves the exposure of the animals to stress, which was shown to have a role in the tendency for major depression. Additionally, the FST has been shown to share some of the factors that are influenced or altered by depression in humans, including changes in food consumption, sleep abnormalities and drug-withdrawal-induced anhedonia. The main advantages of this procedure are that it is relatively easy to perform and that its results are easily and quickly analyzed. Moreover, its sensitivity to a broad range of antidepressant drugs that makes it a suitable screening test is one of the most important features leading to its high predictive validity. Despite its appeal, this model has a number of disadvantages. First, the issue of chronic augmentation is problematic in this test because in real life patients need to be treated for at least several weeks before they experience any relief from their symptoms. Last, due to the aversiveness of the FST, it is important to take into account possible influences it might have on brain structure/function if brain analyses are to be carried out following this procedure.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + PubMed + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed"
+  ],
+  "pdf_url": "http://europepmc.org/pmc/articles/PMC4401172",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

@@ -1,0 +1,44 @@
+{
+  "ref_id": "APA_53",
+  "query_title": "Effect of AXS-05 (Dextromethorphan–Bupropion) in patients with major depressive disorder",
+  "query_doi": "10.1176/appi.ajp.21080800",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Effect of AXS-05 (Dextromethorphan-Bupropion) in Major Depressive Disorder: A Randomized Double-Blind Controlled Trial",
+  "verified_authors": [
+    "Herriot Tabuteau",
+    "Amanda Jones",
+    "Ashley Anderson",
+    "Mark Jacobson",
+    "Dan V. Iosifescu"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "American Journal of Psychiatry",
+  "verified_doi": "10.1176/appi.ajp.21080800",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 140,
+  "abstract": "OBJECTIVE: Altered glutamatergic neurotransmission is implicated in the pathogenesis of major depressive disorder. AXS-05 (dextromethorphan-bupropion) is an oral NMDA receptor antagonist and sigma-1 receptor agonist, which utilizes inhibition of CYP2D6 to increase its bioavailability. This phase 2 trial assessed the efficacy and safety of dextromethorphan-bupropion in the treatment of major depressive disorder. METHODS: This randomized, double-blind, multicenter, parallel-group trial evaluated dextromethorphan-bupropion versus the active comparator sustained-release bupropion in patients 18-65 years old with a diagnosis of major depressive disorder of moderate or greater severity. Patients were randomly assigned to receive either dextromethorphan-bupropion (45 mg/105 mg tablet) or bupropion (105 mg tablet), once daily for the first 3 days and twice daily thereafter, for a total of 6 weeks. The primary endpoint was overall treatment effect on Montgomery-Åsberg Depression Rating Scale (MADRS) score (average of the change from baseline for weeks 1-6), assessed in all randomized patients whose diagnosis and severity were confirmed by an independent assessor and who received at least one dose of study medication and had at least one postbaseline assessment. RESULTS: Of 97 patients randomized, 17 did not have a confirmed diagnosis and severity based on the independent assessment, resulting in 80 patients in the efficacy population (dextromethorphan-bupropion, N=43; bupropion, N=37). The mean change from baseline in MADRS score over weeks 1-6 (overall treatment effect) was significantly greater with dextromethorphan-bupropion than with bupropion (-13.7 points vs. -8.8 points; least-squares mean difference=-4.9; 95% CI=-3.1, -6.8). MADRS score change with dextromethorphan-bupropion was significantly greater than with bupropion at week 2 and every time point thereafter (week 6: -17.3 vs. -12.1 points; least-squares mean difference=-5.2, 95% CI=-1.1, -9.3). Remission rates were significantly greater with dextromethorphan-bupropion at week 2 and every time point thereafter (week 6: 46.5% vs. 16.2%; least-squares mean difference=30.3%, 95% CI=11.2, 49.4). Response rates (≥50% decrease in MADRS score from baseline) at week 6 were 60.5% with dextromethorphan-bupropion and 40.5% with bupropion (least-squares mean difference=19.9%, 95% CI=-1.6, 41). Most secondary outcomes favored dextromethorphan-bupropion. The most common adverse events with dextromethorphan-bupropion were dizziness, nausea, dry mouth, decreased appetite, and anxiety. Dextromethorphan-bupropion was not associated with psychotomimetic effects, weight gain, or sexual dysfunction. CONCLUSIONS: In patients with major depression, dextromethorphan-bupropion (AXS-05) significantly improved depressive symptoms compared with bupropion and was generally well tolerated.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

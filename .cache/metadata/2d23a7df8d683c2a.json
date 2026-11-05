@@ -1,0 +1,45 @@
+{
+  "ref_id": "APA_8",
+  "query_title": "The role of sigma-1 receptor in neuroplasticity and brain disorders",
+  "query_doi": "10.1002/syn.21549",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Sigma‐1 receptor chaperones regulate the secretion of brain‐derived neurotrophic factor",
+  "verified_authors": [
+    "Michiko Fujimoto",
+    "Teruo Hayashi",
+    "Roman Urfer",
+    "Shiro Mita",
+    "Tsung‐Ping Su"
+  ],
+  "verified_year": "2012",
+  "verified_venue": "Synapse",
+  "verified_doi": "10.1002/syn.21549",
+  "pmid": "22337473",
+  "pmcid": "PMC2597158",
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 126,
+  "abstract": "Abstract The sigma‐1 receptor (Sig‐1R) is a novel endoplasmic reticulum (ER) molecular chaperone that regulates protein folding and degradation. The Sig‐1R activation by agonists is known to improve memory, promote cell survival, and exert an antidepressant‐like action in animals. Cutamesine (SA4503), a selective Sig‐1R ligand, was shown to increase BDNF in the hippocampus of rats. How exactly the intracellular chaperone Sig‐1R or associated ligand causes the increase of BDNF or any other neurotrophins is unknown. We examined here whether the action of Sig‐1Rs may relate to the post‐translational processing and release of BDNF in neuroblastoma cell lines. We used in vitro assays and confirmed that cutamesine possesses the bona fide Sig‐1R agonist property by causing the dissociation of BiP from Sig‐1Rs. The C‐terminus of Sig‐1Rs exerted robust chaperone activity by completely blocking the aggregation of BDNF and GDNF in vitro. Chronic treatment with cutamesine in rat B104 neuroblastoma caused a time‐ and dose‐dependent potentiation of the secretion of BDNF without affecting the mRNA level of BDNF. Cutamesine decreased the intracellular level of pro‐BDNF and mature BDNF whereas increased the extracellular level of mature BDNF. The pulse‐chase experiment indicated that the knockdown of Sig‐1Rs decreased the secreted mature BDNF in B104 cells without affecting the synthesis of BDNF. Our findings indicate that, in contrast to clinically used antidepressants that promote the transcriptional upregulation of BDNF, the Sig‐1R agonist cutamesine potentiates the post‐translational processing of neurotrophins. This unique pharmacological profile may provide a novel therapeutic opportunity for the treatment of neuropsychiatric disorders. Synapse, 2012. © 2012 Wiley Periodicals, Inc.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + PubMed + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed"
+  ],
+  "pdf_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/3824965",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

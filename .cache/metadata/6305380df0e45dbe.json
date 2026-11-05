@@ -1,0 +1,45 @@
+{
+  "ref_id": "APA_13",
+  "query_title": "The role of sigma-1 receptor in neuroplasticity and brain disorders",
+  "query_doi": "10.1002/syn",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "The sigma-1 receptor: roles in neuronal plasticity and disease",
+  "verified_authors": [
+    "Saïd Kourrich",
+    "Tsung-Ping Su",
+    "Michiko Fujimoto",
+    "Antonello Bonci"
+  ],
+  "verified_year": "2012",
+  "verified_venue": "Trends in Neurosciences",
+  "verified_doi": "10.1002/syn",
+  "pmid": "23102998",
+  "pmcid": "PMC3322989",
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 234,
+  "abstract": "Sigma-1 receptors (Sig-1Rs) have been implicated in many neurological and psychiatric conditions. Sig-1Rs are intracellular chaperones that reside specifically at the endoplasmic reticulum (ER)-mitochondrion interface, referred to as the mitochondrion-associated ER membrane (MAM). Here, Sig-1Rs regulate ER-mitochondrion Ca(2+) signaling. In this review, we discuss the current understanding of Sig-1R functions. Based on this, we suggest that the key cellular mechanisms linking Sig-1Rs to neurological disorders involve the translocation of Sig-1Rs from the MAM to other parts of the cell, whereby Sig-1Rs bind and modulate the activities of various ion channels, receptors, or kinases. Thus, Sig-1Rs and their associated ligands may represent new avenues for treating aspects of neurological and psychiatric diseases.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + PubMed + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "PubMed"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

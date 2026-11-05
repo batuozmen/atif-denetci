@@ -1,0 +1,51 @@
+{
+  "ref_id": "APA_17",
+  "query_title": "Baicalin ameliorates chronic unpredictable mild stress-induced depression through the BDNF/ERK/CREB signaling pathway",
+  "query_doi": "10.1016/j.bbr.2021.113463",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Baicalin ameliorates chronic unpredictable mild stress-induced depression through the BDNF/ERK/CREB signaling pathway",
+  "verified_authors": [
+    "Zhixia Jia",
+    "Jiali Yang",
+    "Zhuoqing Cao",
+    "Jing Zhao",
+    "Jinhu Zhang",
+    "Ye Lu",
+    "Li Chu",
+    "Shaodan Zhang",
+    "Yuan Chen",
+    "Lin Pei"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "Behavioural Brain Research",
+  "verified_doi": "10.1016/j.bbr.2021.113463",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 73,
+  "abstract": "Brain-derived neurotrophic factor (BDNF) can activate the extracellular regulated protein kinase (ERK)/cAMP response element binding protein (CREB) cascade revealing an important role in antidepressant effects. Here, we studied the neuroprotective effect of baicalin (BA) in mice with chronic unpredictable mild stress (CUMS)-induced via a BDNF/ERK/CREB signaling pathway. Depression was induced via six weeks of CUMS in male ICR mice, and drug therapy was given simultaneously for the last three weeks. Cognitive dysfunctions were then evaluated via sucrose preference test (SPT), open field test (OFT), Morris water maze test (MWM), tail suspension test (TST), and novelty suppressed feeding test (NSF). Western blot and real-time PCR were then used to detect the relative expression of ERK, CREB, p-ERK, and p-CREB. Integrated optical density (IOD) tests of p-ERK and p-CREB were then evaluated via immunofluorescence. The behavior results showed that the cognitive dysfunctions increased in the CUMS group versus the control (CON) group (p <  0.01). There were decreases in fluoxetine (FLU) and BA groups (p <  0.05, p <  0.01). The protein ratios of p-ERK/ERK, p-CREB/CREB and ERK mRNA, and CREB mRNA expression decreased in the CUMS group (p <  0.01) and markedly increased in the FLU and BA groups (p <  0.05, p <  0.01). The IOD value of the p-ERK and p-CREB in the CUMS group was decreased versus the CON group (p <  0.01), and these changes were improved via BA and FLU treatment (p <  0.05, p <  0.01). This study indicated that BA can improve cognitive functions and has antidepressant effects in mice, which may be associated with activation of the BDNF/ERK/CREB signaling pathway in the hippocampus.",
+  "tldr": "It is indicated that BA can improve cognitive functions and has antidepressant effects in mice, which may be associated with activation of the BDNF/ERK/CREB signaling pathway in the hippocampus.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.1016/j.bbr.2021.113463",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

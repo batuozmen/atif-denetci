@@ -1,0 +1,47 @@
+{
+  "ref_id": "APA_49",
+  "query_title": "A review of the neuropharmacology of bupropion, a dual norepinephrine-dopamine reuptake inhibitor",
+  "query_doi": "10.4088/pcc.v06n0403",
+  "exists_online": true,
+  "title_match_score": 0.9795918367346939,
+  "verified_title": "A Review of the Neuropharmacology of Bupropion, a Dual Norepinephrine and Dopamine Reuptake Inhibitor",
+  "verified_authors": [
+    "Stephen M. Stahl",
+    "James Pradko",
+    "Barbara R. Haight",
+    "Jack G. Modell",
+    "Carol B. Rockett",
+    "Susan Learned-Coughlin"
+  ],
+  "verified_year": "2004",
+  "verified_venue": "The Primary Care Companion For CNS Disorders",
+  "verified_doi": "10.4088/pcc.v06n0403",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 513,
+  "abstract": "BACKGROUND: The neurochemical and biological effects of antidepressant medications have become better defined over the last decade. When the anti-depressant bupropion was introduced in the United States in 1989, the specific pharmacologic basis of its clinical effects was uncertain. Research conducted over the past decade has significantly advanced the understanding of the neuropharmacology of bupropion and has demonstrated a novel mechanism of antidepressant activity. This article discusses the mechanism of action of bupropion and relates the drug's neuropharmacologic effects to its clinical efficacy and tolerability profiles. DATA SOURCES: Data were obtained via the MEDLINE database in an English-language search spanning the period 1965 to May 2002 and using the search terms bupropion, bupropion SR, and antidepressants, as well as from the manufacturer's bupropion databases. CONCLUSIONS: The preclinical and clinical data show that bupropion acts via dual inhibition of norepinephrine and dopamine reuptake and is devoid of clinically significant serotonergic effects or direct effects on postsynaptic receptors. Dual norepinephrine and dopamine reuptake inhibition is associated with a unique clinical profile. Bupropion has demonstrated efficacy comparable to that of other antidepressants. However, because bupropion is a selective norepinephrine and dopamine reuptake inhibitor with no serotonergic activity, common antidepressant-associated side effects, such as sexual dysfunction, weight gain, and sedation, are not associated with bupropion therapy.",
+  "tldr": "The preclinical and clinical data show that bupropion acts via dual inhibition of norepinephrine and dopamine reuptake and is devoid of clinically significant serotonergic effects or direct effects on postsynaptic receptors.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/514842",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

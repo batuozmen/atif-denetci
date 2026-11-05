@@ -1,0 +1,42 @@
+{
+  "ref_id": "APA_49",
+  "query_title": "Oxidative stress and sperm function: A systematic review on evaluation and management",
+  "query_doi": "10.1080/2090598X.2019.1599624",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Oxidative stress and sperm function: A systematic review on evaluation and management",
+  "verified_authors": [
+    "Sulagna Dutta",
+    "Ahmad Majzoub",
+    "Ashok Agarwal"
+  ],
+  "verified_year": "2019",
+  "verified_venue": "Arab Journal of Urology",
+  "verified_doi": "10.1080/2090598X.2019.1599624",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 519,
+  "abstract": "Objective: To review and present the most distinct concepts on the association of reactive oxygen species (ROS) with male reproduction.Methods: The Preferred Reporting Items for Systematic Reviews and Meta Analyses (PRISMA) guidelines were used to search PubMed, Medline, EMBASE, and the Cochrane electronic databases for studies investigating the role of oxidative stress (OS) on sperm function.Results: The literature search yielded 1857 studies, of which 1791 articles were excluded because of irrelevance of data, non-English language, non-human nature or because they were case reports or commentaries. All included studies were reviews (46), meta-analyses (one), original research studies (18) and guideline articles (one). The studies were published between 1984 and 2018. Under normal physiological conditions, ROS are vital for sperm maturation, hyperactivation, capacitation, acrosome reaction, as well as fertilisation. However, a number of endogenous and exogenous causes may induce supra-physiological levels of ROS resulting in lipid peroxidation, sperm DNA fragmentation and apoptosis, and consequently infertility. Several laboratory testing methods can be used in infertile men to diagnose OS. Treatment usually involves antioxidant supplementation and, when possible, elimination of the causative factor.Conclusion: OS is an important cause of male factor infertility. Its assessment provides essential information that can guide treatment strategies aimed at improving the male’s reproductive potential.Abbreviations: bp: base-pair; CAT: catalase; LPO: lipid peroxidation; MDA: malondialdehyde; MiOXSYS: Male Infertility Oxidative System; mtDNA: mitochondrial DNA; NAD(PH): nicotinamide adenine dinucleotide (phosphate); NO: nitric oxide; 8-OHdG: 8-hydroxy-2’-deoxyguanosine; ORP: oxidation–reduction potential; OS: oxidative stress; PKA: protein kinase A; PLA2: phospholipase A2; PRISMA: Preferred Reporting Items for Systematic Reviews and Meta-Analyses; PUFA: poly-unsaturated fatty acid; ROS: reactive oxygen species; SOD: superoxide dismutase; TAC: total antioxidant capacity; TBA: thiobarbituric acid",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "https://www.tandfonline.com/doi/pdf/10.1080/2090598X.2019.1599624",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

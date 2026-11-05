@@ -1,0 +1,46 @@
+{
+  "ref_id": "APA_14",
+  "query_title": "Efficacy and safety of dextromethorphan–bupropion in major depressive disorder",
+  "query_doi": "10.4088/JCP.21m14345",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Efficacy and Safety of AXS-05 (Dextromethorphan-Bupropion) in Patients With Major Depressive Disorder",
+  "verified_authors": [
+    "Dan V. Iosifescu",
+    "Amanda Jones",
+    "Cedric O’Gorman",
+    "Caroline Streicher",
+    "Samantha Feliz",
+    "Maurizio Fava",
+    "Herriot Tabuteau"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "The Journal of Clinical Psychiatry",
+  "verified_doi": "10.4088/JCP.21m14345",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 135,
+  "abstract": "Objective: Altered glutamatergic neurotransmission has been implicated in the pathogenesis of depression. This trial evaluated the efficacy and safety of AXS-05 (dextromethorphan-bupropion), an oral N-methyl-D-aspartate (NMDA) receptor antagonist and σ1 receptor agonist, in the treatment of major depressive disorder (MDD). Methods: This double-blind, phase 3 trial, was conducted between June 2019 and December 2019. Patients with a DSM-5 diagnosis of MDD were randomized in a 1:1 ratio to receive dextromethorphan-bupropion (45 mg-105 mg tablet) or placebo, orally (once daily for days 1–3, twice daily thereafter) for 6 weeks. The primary endpoint was the change from baseline to week 6 in the Montgomery-Asberg Depression Rating Scale (MADRS) total score. Other efficacy endpoints and variables included MADRS changes from baseline at week 1 and 2, clinical remission (MADRS score ≤ 10), clinical response (≥ 50% reduction in MADRS score from baseline), clinician- and patient-rated global assessments, Quick Inventory of Depressive Symptomatology-Self-Rated, Sheehan Disability Scale, and quality of life measures. Results: A total of 327 patients were randomized: 163 patients to dextromethorphan-bupropion and 164 patients to placebo. Mean baseline MADRS total scores were 33.6 and 33.2 in the dextromethorphan-bupropion and placebo groups, respectively. The least-squares mean change from baseline to week 6 in MADRS total score was −15.9 points in the dextromethorphan-bupropion group and −12.0 points in the placebo group (least-squares mean difference, −3.87; 95% confidence interval , −1.39 to −6.36; P = .002). Dextromethorphan-bupropion was superior to placebo for MADRS improvement at all time points including week 1 (P = .007) and week 2 (P < .001). Remission was achieved by 39.5% of patients with dextromethorphan-bupropion versus 17.3% with placebo (treatment difference, 22.2; 95% CI, 11.7 to 32.7; P < .001), and clinical response by 54.0% versus 34.0%, respectively (treatment difference, 20.0%; 95% CI, 8.4%, 31.6%; P < .001), at week 6. Results for most secondary endpoints were significantly better with dextromethorphan-bupropion than with placebo at almost all time points (eg, CGI-S least-squares mean difference at week 6, −0.48; 95% CI, −0.48 to −0.79; P = .002). The most common adverse events in the dextromethorphan-bupropion group were dizziness, nausea, headache, somnolence, and dry mouth. Dextromethorphan-bupropion was not associated with psychotomimetic effects, weight gain, or increased sexual dysfunction. Conclusions: In this phase 3 trial in patients with MDD, treatment with dextromethorphan-bupropion (AXS-05) resulted in significant improvements in depressive symptoms compared to placebo starting 1 week after treatment initiation and was generally well tolerated. Trial Registration: ClinicalTrials.gov Identifier: NCT04019704",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "https://www.psychiatrist.com/read-pdf/41226",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

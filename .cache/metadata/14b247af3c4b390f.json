@@ -1,0 +1,45 @@
+{
+  "ref_id": "1",
+  "query_title": "Attention is all you need",
+  "query_doi": null,
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Attention Is All You Need: An Analysis Of The Valuation Of Artificial Intelligence Tokens",
+  "verified_authors": [
+    "Mfon Akpan"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "",
+  "verified_doi": "10.2139/ssrn.4993784",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 5,
+  "abstract": "This study discusses the parameters that define the value of artificial intelligence (AI) tokens based on user interaction, their pricing mechanism, and their correlation with the predicted value thus evaluating AI token valuation based on user engagement, pricing, and website visits. This study tests hypotheses that examine the factors that influence the value of AI tokens. Using data from ten AI tokens, the study employs correlation and regression analyses to examine these relationships. The results show that monthly active users (MAU) and website visits significantly predict valuation, while pricing shows a marginal effect. This research provides insights for stakeholders in understanding economic factors affecting AI token values, emphasizing user engagement and pricing strategies.&amp;nbsp;",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "https://virtusinterpress.org/spip.php?action=telecharger&arg=13696&hash=c932820221b47cd1bd765c0808afb5a3802c0237",
+  "local_pdf_path": null,
+  "metadata_warnings": [
+    "⚠️ Yıl Uyuşmazlığı: Kaynakçada '2017' yazılmış ancak makalenin resmi yayın yılı '2024'.",
+    "⚠️ Yazar Uyuşmazlığı: Kaynakçada 'Vaswani' belirtilmiş ancak makalenin resmi yazarları: Mfon Akpan."
+  ],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

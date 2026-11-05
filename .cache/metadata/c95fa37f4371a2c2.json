@@ -1,0 +1,44 @@
+{
+  "ref_id": "APA_25",
+  "query_title": "GABAergic control of depression-related brain states",
+  "query_doi": "10.1016/bs.apha.2014.11.003",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "GABAergic Control of Depression-Related Brain States",
+  "verified_authors": [
+    "Bernhard Luscher",
+    "Thomas Fuchs"
+  ],
+  "verified_year": "2015",
+  "verified_venue": "Advances in Pharmacology",
+  "verified_doi": "10.1016/bs.apha.2014.11.003",
+  "pmid": "25637439",
+  "pmcid": "PMC6633524",
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 145,
+  "abstract": "The GABAergic deficit hypothesis of major depressive disorders (MDDs) posits that reduced γ-aminobutyric acid (GABA) concentration in brain, impaired function of GABAergic interneurons, altered expression and function of GABA(A) receptors, and changes in GABAergic transmission dictated by altered chloride homeostasis can contribute to the etiology of MDD. Conversely, the hypothesis posits that the efficacy of currently used antidepressants is determined by their ability to enhance GABAergic neurotransmission. We here provide an update for corresponding evidence from studies of patients and preclinical animal models of depression. In addition, we propose an explanation for the continued lack of genetic evidence that explains the considerable heritability of MDD. Lastly, we discuss how alterations in GABAergic transmission are integral to other hypotheses of MDD that emphasize (i) the role of monoaminergic deficits, (ii) stress-based etiologies, (iii) neurotrophic deficits, and (iv) the neurotoxic and neural circuit-impairing consequences of chronic excesses of glutamate. We propose that altered GABAergic transmission serves as a common denominator of MDD that can account for all these other hypotheses and that plays a causal and common role in diverse mechanistic etiologies of depressive brain states and in the mechanism of action of current antidepressant drug therapies.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + PubMed + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed"
+  ],
+  "pdf_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4784429/pdf/nihms764558.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [
+    "⚠️ Yıl Uyuşmazlığı: Kaynakçada '2011' yazılmış ancak makalenin resmi yayın yılı '2015'."
+  ],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

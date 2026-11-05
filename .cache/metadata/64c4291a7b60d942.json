@@ -1,0 +1,43 @@
+{
+  "ref_id": "APA_15",
+  "query_title": "Male Infertility and Oxidative Stress: A Focus on the Underlying Mechanisms",
+  "query_doi": "10.3390/antiox11020306",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Male Infertility and Oxidative Stress: A Focus on the Underlying Mechanisms",
+  "verified_authors": [
+    "Robert John Aitken",
+    "Joël R. Drevet",
+    "Aron Moazamian",
+    "Parviz Gharagozloo"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "Antioxidants",
+  "verified_doi": "10.3390/antiox11020306",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 215,
+  "abstract": "Reactive oxygen species (ROS) play a critical role in defining the functional competence of human spermatozoa. When generated in moderate amounts, ROS promote sperm capacitation by facilitating cholesterol efflux from the plasma membrane, enhancing cAMP generation, inducing cytoplasmic alkalinization, increasing intracellular calcium levels, and stimulating the protein phosphorylation events that drive the attainment of a capacitated state. However, when ROS generation is excessive and/or the antioxidant defences of the reproductive system are compromised, a state of oxidative stress may be induced that disrupts the fertilizing capacity of the spermatozoa and the structural integrity of their DNA. This article focusses on the sources of ROS within this system and examines the circumstances under which the adequacy of antioxidant protection might become a limiting factor. Seminal leukocyte contamination can contribute to oxidative stress in the ejaculate while, in the germ line, the dysregulation of electron transport in the sperm mitochondria, elevated NADPH oxidase activity, or the excessive stimulation of amino acid oxidase action are all potential contributors to oxidative stress. A knowledge of the mechanisms responsible for creating such stress within the human ejaculate is essential in order to develop better antioxidant strategies that avoid the unintentional creation of its reductive counterpart.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "https://www.mdpi.com/2076-3921/11/2/306/pdf?version=1644833988",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

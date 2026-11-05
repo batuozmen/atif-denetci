@@ -1,0 +1,43 @@
+{
+  "ref_id": "APA_21",
+  "query_title": "Role of glutamate signaling in depression and antidepressant action",
+  "query_doi": null,
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "The role of glutamate on the action of antidepressants",
+  "verified_authors": [
+    "Kenji Hashimoto"
+  ],
+  "verified_year": "2011",
+  "verified_venue": "Progress in Neuro-Psychopharmacology and Biological Psychiatry",
+  "verified_doi": "10.1016/j.pnpbp.2010.06.013",
+  "pmid": "20600468",
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 147,
+  "abstract": "Major depressive disorder (MDD) is a common, chronic, recurrent mental illness that affects millions of individuals worldwide. Currently available antidepressants are known to affect the monoaminergic (e.g., serotonin, norepinephrine, and dopamine) systems in the brain. Accumulating evidence suggests that the glutamatergic neurotransmission via the excitatory amino acid glutamate also plays an important role in the neurobiology and treatment of this disease. Clinical studies have demonstrated that the non-competitive N-methyl-d-aspartate (NMDA) receptor antagonist ketamine has rapid antidepressant effects in treatment-resistant patients with MDD, suggesting the role of glutamate in the pathophysiology of treatment-resistant MDD. Furthermore, a number of preclinical studies demonstrated that the agents which act at glutamate receptors such as NMDA receptors, α-amino-3-hydroxy-5-methyl-4-isoxazole propionic acid (AMPA) receptors and metabotropic glutamate receptors (mGluRs) might have antidepressant-like activities in animal models of depression. In this article, the author reviews the role of glutamate in the neuron-glia communication induced by potential antidepressants.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + PubMed + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

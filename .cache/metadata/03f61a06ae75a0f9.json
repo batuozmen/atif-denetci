@@ -1,0 +1,44 @@
+{
+  "ref_id": "APA_47",
+  "query_title": "Serotonergic drugs for depression and beyond",
+  "query_doi": "10.2174/1389450111314050007",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Serotonergic Drugs for Depression and Beyond",
+  "verified_authors": [
+    "Stephen M. Stahl",
+    "Clara Lee-Zimmerman",
+    "Sylvia Cartwright",
+    "Debbi Ann Morrissette"
+  ],
+  "verified_year": "2013",
+  "verified_venue": "Current Drug Targets",
+  "verified_doi": "10.2174/1389450111314050007",
+  "pmid": "23531115",
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 271,
+  "abstract": "The current generation of antidepressant drugs acts predominantly by targeting the serotonin transporter (SERT). The original trend to do this selectively (e.g., with SSRIs or selective serotonin reuptake inhibitors) has given way to combining various additional pharmacologic mechanisms with SERT inhibition, including dual actions by single drugs (e.g., SNRIs or serotonin norepinephrine reuptake inhibitors), or by augmenting SSRIs with a second drug of a different mechanism (e.g., bupropion with dopamine and norepinephrine reuptake inhibition; trazodone with 5HT2A antagonism; mirtazapine with 5HT2A/5HT2C/5HT3/alpha2 antagonism; buspirone or some atypical antipsychotics with 5HT1A partial agonism; other atypical antipsychotics with 5HT2C/5HT7 antagonism and other mechanisms). Novel drugs in development include those that combine multiple simultaneous pharmacologic mechanisms in addition to SERT inhibition within the same molecule, such as vilazodone (combining 5HT1A partial agonism with SERT inhibition), triple reuptake inhibitors (combining norepinephrine and dopamine reuptake inhibition with SERT inhibition), and vortioxetine, a multimodal antidepressant combining actions at the G protein receptor mode (5HT1A and 5HT1B partial agonism and 5HT7 antagonism), at the ion channel mode (5HT3 antagonism) as well as the neurotransmitter transporter mode (SERT inhibition). These various strategies that build upon SERT inhibition provide promise for novel therapeutic approaches to depression, including the possibility of targeting residual symptoms not well treated by SERT inhibition alone, and reducing side effects, such as sexual dysfunction.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + PubMed + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

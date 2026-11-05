@@ -1,0 +1,46 @@
+{
+  "ref_id": "APA_2",
+  "query_title": "Poly (ADPribose) glycohydrolase is an upstream regulator of Ca 2+ fluxes in oxidative cell death",
+  "query_doi": "10.1007/s00018-010-0533-1",
+  "exists_online": true,
+  "title_match_score": 0.989247311827957,
+  "verified_title": "Poly(ADP-ribose)glycohydrolase is an upstream regulator of Ca2+ fluxes in oxidative cell death",
+  "verified_authors": [
+    "C. Blenn",
+    "P. Wyrsch",
+    "J. Bader",
+    "M. Bollhalder",
+    "Felix R. Althaus"
+  ],
+  "verified_year": "2011",
+  "verified_venue": "Cellular and Molecular Life Sciences",
+  "verified_doi": "10.1007/s00018-010-0533-1",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 71,
+  "abstract": "Oxidative DNA damage to cells activates poly(ADP-ribose)polymerase-1 (PARP-1) and the poly(ADP-ribose) formed is rapidly degraded to ADP-ribose by poly(ADP-ribose)glycohydrolase (PARG). Here we show that PARP-1 and PARG control extracellular Ca(2+) fluxes through melastatin-like transient receptor potential 2 channels (TRPM2) in a cell death signaling pathway. TRPM2 activation accounts for essentially the entire Ca(2+) influx into the cytosol, activating caspases and causing the translocation of apoptosis inducing factor (AIF) from the inner mitochondrial membrane to the nucleus followed by cell death. Abrogation of PARP-1 or PARG function disrupts these signals and reduces cell death. ADP-ribose-loading of cells induces Ca(2+) fluxes in the absence of oxidative damage, suggesting that ADP-ribose is the key metabolite of the PARP-1/PARG system regulating TRPM2. We conclude that PARP-1/PARG control a cell death signal pathway that operates between five different cell compartments and communicates via three types of chemical messengers: a nucleotide, a cation, and proteins.",
+  "tldr": "It is shown that PARP-1 and PARG control a cell death signal pathway that operates between five different cell compartments and communicates via three types of chemical messengers: a nucleotide, a cation, and proteins.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://link.springer.com/content/pdf/10.1007/s00018-010-0533-1.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

@@ -1,0 +1,43 @@
+{
+  "ref_id": "APA_65",
+  "query_title": "NMDA receptor activation stimulates hypoxiainduced TRPM2 channel activation, mitochondrial oxidative stress, and apoptosis in neuronal cell line: modular role of memantine",
+  "query_doi": "10.1016/j.brainres.2023.148232",
+  "exists_online": true,
+  "title_match_score": 0.9970326409495549,
+  "verified_title": "NMDA Receptor Activation Stimulates Hypoxia-Induced TRPM2 Channel Activation, Mitochondrial Oxidative Stress, and Apoptosis in Neuronal Cell Line: Modular Role of Memantine",
+  "verified_authors": [
+    "Kenan Yıldızhan",
+    "Mustafa Nazıroğlu"
+  ],
+  "verified_year": "2023",
+  "verified_venue": "Brain Research",
+  "verified_doi": "10.1016/j.brainres.2023.148232",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 47,
+  "abstract": "TRPM2 channel is activated by the increase of hypoxia (HYP)-mediated excessive mitochondrial (mROS) and cytosolic (cROS) free reactive oxygen species generation and intracellular free Ca2+ ([Ca2+]i) influx. The stimulations of the N-methyl-D-aspartate(NMDA) receptor and TRPM2 channel induce mROS and apoptosis in the neurons, although their inhibitions via the treatments of memantine (MEM) and MK-801 decrease mROS and apoptosis. However, the molecular mechanisms underlying MEM treatment and NMDA inhibition' neuroprotection via TRPM2 inhibition in the HYP remain elusive. We investigated the modulator role of MEM and NMDA via the modulation of TRPM2 on oxidative neurodegeneration and apoptosis in SH-SY5Y neuronal cells. Six groups were induced in the SH-SY5Y and HEK293 cells as follows: Control, MEM, NMDA blocker (MK-801), HYP (CoCl2), HYP+MEM, and HYP+MK-801. The HYP caused to the increases of TRPM2 and PARP-1 expressions, and TRPM2 agonist (H2O2 and ADP-ribose)-induced TRPM2 current density and [Ca2+]i concentration via the upregulation of mitochondrial membrane potential, cROS, and mROS generations. The alterations were not observed in the absence of TRPM2 in the HEK293 cells. The increase of cROS, mROS, lipid peroxidation, cell death (propidium iodide/Hoechst) rate, apoptosis, caspase -3, caspase -8, and caspase -9 were restored via upregulation of glutathione and glutathione peroxidase by the treatments of TRPM2 antagonists (ACA or 2-APB), MEM, and MK-801. In conclusion, the inhibition of NMDA receptor via MEM treatment modulated HYP-mediated mROS, apoptosis, and TRPM2-induced excessive [Ca2+]i and may provide an avenue for protecting HYP-mediated neurodegenerative diseases associated with the increase of mROS, [Ca2+]i, and apoptosis.",
+  "tldr": "The inhibition of NMDA receptor via MEM treatment modulated HYP-mediated mROS, apoptosis, and TRPM2-induced excessive [Ca2+]i and may provide an avenue for protecting HYp-mediated neurodegenerative diseases associated with the increase of mR OS, [Ca 2+] i, and apoptosis.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

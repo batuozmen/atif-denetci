@@ -1,0 +1,233 @@
+================================================================================
+TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
+PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
+================================================================================
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 15 Tamamlandı (3 Katmanlı Hakem Mimarisi & Başlık-DOI Çapraz Denetimi)
+
+--------------------------------------------------------------------------------
+BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
+--------------------------------------------------------------------------------
+Yöntem 1 (En Kolay - Tek Tık):
+  - Klasörün içindeki [baslat.bat] dosyasına çift tıkla.
+  - Tarayıcında (http://localhost:8501) otomatik olarak Türkçe görsel arayüz açılır.
+
+Yöntem 2 (VS Code / Terminal Üzerinden):
+  - Terminali aç ve şu komutu çalıştır:
+    .\.venv\Scripts\streamlit.exe run app.py
+
+--------------------------------------------------------------------------------
+BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
+--------------------------------------------------------------------------------
+[✅ TAMAMLANDI] ADIM 1: Ortam Kurulumu ve Paketlerin Yüklenmesi
+  - Oluşturulanlar: .venv/ ve requirements.txt
+  - Yapılanlar: Python 3.12 sanal ortamı kuruldu; pymupdf, python-docx, requests,
+    beautifulsoup4, lxml, sentence-transformers, torch, ollama, streamlit, pandas
+    paketleri yüklendi.
+
+[✅ TAMAMLANDI] ADIM 2: Akıllı Makale ve Atıf Ayrıştırıcı (document_parser.py)
+  - Oluşturulan Dosya: document_parser.py
+  - Yapılanlar:
+    * Word (.docx), PDF (.pdf) ve metin (.txt) makalelerini okuyan, "Kaynaklar /
+      Kaynakça / References" bölümünü otomatik ayıran modül yazıldı.
+    * Numaralı ([1], [2, 3], [3-6]) ve APA ((Yılmaz ve ark., 2022), Smith et al. (2021))
+      atıflarını bağlam penceresiyle yakalayıp kaynakçayla eşleştiren yapı kuruldu.
+    * TÜBİTAK Biçimsel Denetimi: "Hayalet Atıf" ve "Yetim Kaynak" tespiti eklendi.
+
+[✅ TAMAMLANDI] ADIM 3: 8 Kanallı Akademik İnternet Avcısı (academic_fetcher.py)
+  - Oluşturulan Dosya: academic_fetcher.py
+  - Yapılanlar:
+    * CrossRef, OpenAlex, PubMed & PMC, Semantic Scholar (TL;DR), arXiv,
+      DergiPark / TR Dizin ve Google Scholar üzerinden makale gerçeklik kontrolü
+      ve özet/PDF indirme şelalesi kuruldu.
+    * Geri Çekilmiş Makale (Retracted Paper) alarmı eklendi.
+    * Sci-Hub Otomatik Tam Metin Kilit Açıcı ve Agent-Reach / Jina Reader eklendi.
+    * Sahte kaynak yerine 3 gerçek alternatif makale önerici eklendi.
+
+[✅ TAMAMLANDI] ADIM 4: Çok Dilli Semantik RAG & Anlam Çıkarımı (rag_verifier.py)
+  - Oluşturulan Dosya: rag_verifier.py
+  - Yapılanlar:
+    * RTX 3050 (4 GB VRAM) koruması için "paraphrase-multilingual-MiniLM-L12-v2"
+      çok dilli modeli işlemciye (CPU) sabitlendi.
+    * Paragraf + Cümle İçi Hassas Eşleştirme ve Sayısal Normalleştirici
+      ("yüzde doksan" <-> "%90") eklendi.
+
+[✅ TAMAMLANDI] ADIM 5: Görsel TÜBİTAK Denetim Arayüzü ve Başlatıcı (app.py & baslat.bat)
+  - Oluşturulan Dosyalar: app.py ve baslat.bat
+
+[✅ TAMAMLANDI] ADIM 6: Çift Sütunlu PDF Hassasiyet Düzeltmesi ve Ollama Kurulumu
+  - Yapılanlar:
+    * Ollama içine `qwen2.5:3b` (1.9 GB) yerel dil modeli indirildi ve aktif edildi.
+    * Etik kurul numaralarının (`2024/07-12`) atıf sanılması engellendi ve tireli
+      yazar soyadlarının (`Yankelevitch-Yahav`) normalize edilerek eşleşmesi sağlandı.
+
+[✅ TAMAMLANDI] ADIM 7: Canlı Modül Yenileme ve 5 Kat Paralel Hızlandırma
+  - Yapılanlar:
+    * `app.py` içine alt modülleri her çalışmada diskten tazeleyen kod eklendi.
+    * Kaynakların internetten 5'er 5'er aynı anda çekilmesi ve `.cache` önbellekten
+      anında okunması sağlandı.
+
+[✅ TAMAMLANDI] ADIM 8: Şapkalı Yabancı Harfler, 2022a/2022b ve İkinci Güvenlik Taraması
+  - Güncellenen Dosya: document_parser.py
+  - Yapılan Değişiklikler (fphar-17-1910199.pdf Detaylı İncelemesi Sonrası):
+    1. Yabancı/Şapkalı Harf Desteği: `Castrén` içindeki `é` gibi tüm dünya
+       harflerini tanıyan ve soyadı eşleştirirken standartlaştıran yapı eklendi.
+    2. 2022a / 2022b ve Çoklu Yıl Desteği: Aynı yazarın aynı yıldaki birden fazla
+       yayınının (`Iosifescu, 2022a, 2022b` ve `Santarelli, 2017b`) birbirini
+       ezmeden ayrı ayrı eşleşmesi sağlandı.
+    3. Kaynakçada Yapışan Makaleleri Ayırıcı: Çift sütunlu PDF'lerde iki makale
+       aynı bloğa yapışsa bile (`Hayashi, 2015`, `Liu and Sun, 2018`) otomatik
+       olarak ayrı kaynaklara bölünmesi ve ham metin içinde de aranması sağlandı.
+    4. PDF Sayfa Altbilgisi Temizleyici ve İkinci Güvenlik Taraması:
+       Sayfa geçişlerinde dergi altbilgilerinin (`frontiersin.org` vb.) parantezleri
+       bölmesi engellendi; ayrıca bir kaynağa "Yetim Kaynak" demeden önce ana
+       metnin tamamında "Yazar Soyadı + Yıl" ikilisini arayan ikinci güvenlik
+       taraması eklendi.
+
+[✅ TAMAMLANDI] ADIM 9: Word (.docx) Vancouver / Tıp Formatı ve Tek Harf Koruması
+  - Güncellenen Dosya: document_parser.py
+  - Yapılan Değişiklikler (Manuscript.docx ve fphar-17-1910199.pdf Testleri Sonrası):
+    1. Tek Harfli Baş Harf ve Künye Filtresi (`H (2026)` Düzeltmesi):
+       Makalelerin 1. sayfasındaki künye kutusunda (`CITATION ... Fröksüz H (2026)`)
+       yazarın isim baş harfi olan tek harfli `H` ifadesinin soyadı sanılması
+       engellendi (soyadlarının en az 2 harfli olması şartı ve `CITATION` filtresi
+       eklendi).
+    2. Yuvarlak Parantezli Numaralı Atıf Desteği (`(1)`, `(2, 3)`, `(1–5)`):
+       Tıp ve biyoloji makalelerinde köşeli parantez `[1]` yerine kullanılan
+       yuvarlak parantez içi numaralı atıfları (`(1)`, `(3–6)`) yakalayan motor
+       eklendi (`Fig. (1)`, `30(2)` cilt/sayı gibi ifadeleri eleyecek korumayla).
+    3. Word (.docx) Üst Simge (Superscript) ve Eklenti Alan Kodu Okuyucu:
+       Word belgelerinde üst simge (`¹‚²`, `1-4`) olarak yazılmış atıfları ve
+       Mendeley/EndNote/Zotero alan kutularını (`w:sdt`, `w:fldSimple`, `w:hyperlink`)
+       XML ağacından doğrudan okuyan ve `Ca²⁺`, `cm²`, `10⁶` gibi kimyasal/birim
+       üst simgelerini ayırt eden akıllı okuyucu eklendi.
+    4. Nokta Sonrası Atıf ve Vancouver Yazar Soyadı Temizleyici:
+       Cümle noktasından sonra gelen `. (1, 2)` atıflarının kendi cümlesinde kalması
+       ve Vancouver formatındaki `Fauser BCJM` gibi yazar isimlerinden `BCJM`
+       kısaltmasının temizlenerek gerçek soyadının (`Fauser`) ayıklanması sağlandı.
+
+[✅ TAMAMLANDI] ADIM 10: Eşleşme Kanıt Tablosu ve Tek Tıkla Canlı Tuzak (Sabotaj) Testi
+  - Güncellenen Dosya: app.py
+  - Yapılan Değişiklikler:
+    1. 📋 Eşleşme Kanıt Tablosu:
+       1. Aşama özetinin hemen altına eklenen açılır tabloda her bir kaynağın
+       (`[1]..[124]` veya `[APA_1]..[APA_71]`) ilk yazarı, yılı, metinde kaç kez
+       kullanıldığı, hangi parantez işaretiyle (`(1, 2)`, `(3–5)`) yakalandığı ve
+       metinde geçtiği gerçek kanıt cümlesi şeffaf biçimde listelenir.
+    2. 🧪 Tek Tıkla Canlı Tuzak (Sabotaj) Testi:
+       Kullanıcının yüklediği gerçek makale üzerinde (dosyayı bozmadan bellekte)
+       1 kasıtlı Hayalet Atıf ve 1 kasıtlı Yetim Kaynak enjekte ederek sistemin
+       her iki hatayı da anında yakaladığını canlı olarak kanıtlayan test butonu
+       eklendi.
+
+[✅ TAMAMLANDI] ADIM 11: Çoklu Aynı Yıl Kaynak Ayrımı (Stahl 2013 / Reus 2012) ve Kanıt Senkronu
+  - Güncellenen Dosya: document_parser.py
+  - Yapılan Değişiklikler:
+    1. Tek Yazar vs. Çok Yazar (`et al.`) Ayrımı:
+       Kaynakçada aynı yazar ve aynı yıla ait birden fazla makale bulunduğunda
+       (`[APA_47] Stahl, 2013` tek yazarlı ve `[APA_50] Stahl et al., 2013` çok
+       yazarlı gibi), metin içindeki `(Stahl, 2013)` atıfının tek yazarlı makaleye,
+       `(Stahl et al., 2013)` atıfının ise çok yazarlı makaleye ayrı ayrı
+       bağlanması sağlandı.
+    2. Çoklu Eşleşme Cümle Bağlantısı ve Kesin Tutarlılık Kuralı:
+       Aynı yazar ve yıla ait iki makale (`[APA_40]` ve `[APA_42] Reus, 2012`)
+       ortak parantezle atıf aldığında kanıt cümlesinin her iki kaynağa da
+       bağlanması ve "Metinde Kullanım" sayısının doğrudan bağlı kanıt cümlesi
+       sayısına eşitlenmesi sağlandı (tabloda sayı yazarken yanında "Yetim"
+       yazması çelişkisi tamamen giderildi).
+
+[✅ TAMAMLANDI] ADIM 12: 2. Sekmenin Yüklenen Makaleyle Canlı Bağlanması ve Hızlı Test Butonları
+  - Güncellenen Dosya: app.py
+  - Yapılan Değişiklikler:
+    1. Yüklenen Makaleden Otomatik Cümle & Kaynak Seçici (Açılır Liste):
+       1. Sekmede bir makale yüklendiğinde, 2. Sekme artık sabit "Transformer"
+       örneği yerine doğrudan yüklenen makaledeki tüm gerçek atıf cümlelerini ve
+       eşleşen kaynaklarını açılır listede sunar; seçilen atıf kutulara otomatik
+       olarak yerleşir.
+    2. 🎲 "Makalemden Rastgele 1 Atıf Seç ve Tek Tıkla Doğrula" Butonu:
+       Tek tıkla makaleden rastgele bir atıf seçip internetten (PubMed / CrossRef /
+       Sci-Hub) makaleyi çekerek anlam çıkarımını saniyeler içinde ekrana basar.
+    3. ⚡ "Makalemden İlk 5 Atıfı Tek Tıkla Hızlı Denetle (Önizleme)" Butonu:
+       124 kaynağın tamamını beklemeden makalenin ilk 5 atıfını internetten çekip
+       anlam doğrulamasını hızlıca test etme imkanı eklendi.
+
+[✅ TAMAMLANDI] ADIM 13: 2. Sekme Çoklu / Aralıklı (`1-50` vb.) / Tekil Atıf Seçim ve Sorgulama Merkezi
+  - Güncellenen Dosya: app.py
+  - Yapılan Değişiklikler:
+    1. Gereksiz "Rastgele Atıf" butonu kaldırıldı.
+    2. ☑️ İnteraktif Kutucuklu (Checkbox) Atıf Seçim Tablosu:
+       Yüklenen makaledeki tüm atıflar (`1..N`) solunda onay kutucuklarıyla
+       listelenir; kullanıcı ister tek bir atıfı, ister birden fazla atıfı
+       fareyle işaretleyerek seçebilir.
+    3. 🔢 Aralık Seçici (`Başlangıç No – Bitiş No`), Tümünü Seç ve Temizle:
+       `1 - 50`, `51 - 100` veya istenen herhangi bir aralık girilip tek tıkla
+       o aralıktaki tüm atıflar seçilebilir; ayrıca "Tümünü Seç" ve "Seçimi Temizle"
+       butonları eklendi.
+    4. Hızlı Seçmeli İnternet & Anlam Sorgusu:
+       Sadece seçilen atıflara ait tekil kaynaklar 5'li paralel modda internetten
+       çekilir (daha önce çekilmiş olanlar hafızadan anında alınır) ve sonuçlar
+       aynı ekranda detaylı kanıt kartlarıyla gösterilir.
+
+[✅ TAMAMLANDI] ADIM 14: "Sahte / İnternette Yok" vs "Hayalet Atıf" Ayrımı ve KEYWORDS Başlık Temizliği
+  - Güncellenen Dosyalar: document_parser.py, app.py
+  - Yapılan Değişiklikler:
+    1. 🚨 "Sahte / İnternette Yok" ve 👻 "Hayalet Atıf" Kutularının Ayrılması:
+       Arayüzde kafa karışıklığını önlemek için kaynakçada yazılı olup PubMed /
+       CrossRef / OpenAlex'te gerçekte var olmayan uydurma makaleler
+       ("🚨 Sahte / İnternette Yok") ile kaynakça listesine hiç yazılmamış atıflar
+       ("👻 Hayalet Atıf") iki ayrı sayaç kutusuna bölündü.
+    2. PDF Bölüm Başlığı ve `KEYWORDS ... 1 Introduction` Temizliği:
+       PDF okunurken `KEYWORDS ... 1 Introduction` veya `2 Materials and methods`
+       gibi bölüm başlıklarının ilk cümlenin başına yapışıp yapay zeka hakemini
+       yanıltması engellendi.
+
+[✅ TAMAMLANDI] ADIM 15: 3 Katmanlı "Sahteye Sıfır Tolerans, Gerçeğe Tam Adalet" Hakem Mimarisi
+  - Güncellenen Dosyalar: document_parser.py, academic_fetcher.py, rag_verifier.py, app.py
+  - Yapılan Değişiklikler:
+    1. Katman 1 — PDF Satır Sonu DOI Onarımı ve Başlık–DOI Çapraz Denetimi:
+       - Çift sütunlu PDF'lerde satır sonunda bölünen DOI numaraları
+         (`10. 1016/...`, `10.1016/j.biopsych. 2021.05.008` vb.) boşluksuz
+         olarak tam birleştirildi; makalenin kendi sayfa üst/alt bilgisi DOI'sinin
+         (`Buran Kavuran et al. 10.3389/...`) kaynakçaya karışması engellendi.
+       - Aksanlı yazar soyadı (`Réus` == `Reus`, `Castrén` == `Castren`) ve
+         İngiliz/Amerikan bilimsel yazım farkları (`behavioural` == `behavioral`)
+         eşitlendi.
+       - Başlık benzerlik motoruna "Ayırt Edici Bilimsel Terim" zorunluluğu
+         eklendi; böylece genel kelimeler (`Mechanism of action of...`) yüzünden
+         farklı bir ilacın makalesiyle (`bupropion` vs `cariprazine`) yanlış
+         eşleşme yapılması veya uydurma başlıkların onay alması tamamen önlendi.
+       - Başlık–DOI Çapraz Kontrolü: Kaynakçada yazılan DOI başka bir makaleye
+         aitse uyarı üretilmesi ve yazılan başlığın gerçek makalesinin aranması
+         sağlandı.
+    2. Katman 2 — Derin Özet Birleştirme:
+       CrossRef'te kısa özet olan makalelerde PubMed, Semantic Scholar (TL;DR +
+       Abstract) ve OpenAlex kanallarının tamamı taranarak en zengin özetin
+       çekilmesi sağlandı.
+    3. Katman 3 — 4 Dereceli Şeffaf Hakem Kararı (`☑️ Özet Düzeyinde Uyumlu`):
+       Tam metin PDF'i yayıncı tarafından ücretli/kilitli olan %100 gerçek
+       makalelerde, cümlenin bilimsel kavramları makale özetiyle örtüştüğünde
+       haksız yere "Kanıt Yetersiz" demek yerine "☑️ KISMEN_DESTEKLENİYOR
+       (Özet Düzeyinde Uyumlu / Tam Metin Kilitli)" kararı verilmesi sağlandı.
+
+--------------------------------------------------------------------------------
+BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
+--------------------------------------------------------------------------------
+1. Biçimsel Makale & Kaynakça Denetimi (document_parser.py):
+   - Desteklenen Dosyalar : Word (.docx), PDF (.pdf), Metin (.txt)
+   - Desteklenen Formatlar: Vancouver Numaralı ([1], (1), (2, 3), (3-6), üst simge ¹‚²)
+                            ve APA Yazar-Yıl ((Yılmaz, 2022), (Smith et al., 2021a, 2021b))
+   - Doğrulama Testleri   :
+     * Manuscript.docx (124 Kaynakça, 177 Metin İçi Atıf -> 0 Hayalet, 0 Yetim)
+     * fphar-17-1910199.pdf (71 Kaynakça, 105 Metin İçi Atıf -> 0 Hayalet, 0 Yetim)
+
+2. 8 Kanallı Akademik İnternet Avcısı (academic_fetcher.py):
+   - Kanallar: CrossRef, OpenAlex, PubMed & PMC, Semantic Scholar (TL;DR),
+     arXiv, DergiPark / TR Dizin, Google Scholar, Sci-Hub ve Jina Reader.
+   - Güvenlik: Retracted (Geri Çekilmiş) yayın tespiti, Başlık-DOI Çapraz Denetimi,
+     ve "Ayırt Edici Bilimsel Terim" zorunluluğu ile sahte atıflara sıfır tolerans.
+
+3. Çok Dilli Semantik RAG & 4 Dereceli Hakem Motoru (rag_verifier.py):
+   - Donanım Dostu Mimari: CPU üzerinde Çok Dilli Vektör Arama + RTX 3050 (4 GB VRAM)
+     üzerinde yerel Ollama (`qwen2.5:3b`) anlam çıkarımı.
+   - 4 Dereceli Karar: ✅ Tam Desteklenen, ☑️ Özet Düzeyinde Uyumlu (Kilitli Tam Metin),
+     ⚠️ Kanıt Yetersiz / Alakasız Atıf, ❌ Çelişen ve 🚨 Sahte / İnternette Yok.
+================================================================================

@@ -1,0 +1,46 @@
+{
+  "ref_id": "APA_39",
+  "query_title": "Memantine reverses depressive-like behavior and oxidative stress induced by chronic mild stress in rats",
+  "query_doi": "10.1007/s11011-012-9281-2",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Memantine treatment reverses anhedonia, normalizes corticosterone levels and increases BDNF levels in the prefrontal cortex induced by chronic mild stress in rats",
+  "verified_authors": [
+    "Gislaine Z. Réus",
+    "Helena M. Abelaira",
+    "Roberto B. Stringari",
+    "Gabriel R. Fries",
+    "Flávio Kapczinski",
+    "João Quevedo"
+  ],
+  "verified_year": "2012",
+  "verified_venue": "Metabolic Brain Disease",
+  "verified_doi": "10.1007/s11011-012-9281-2",
+  "pmid": "22327556",
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 80,
+  "abstract": "Memantine is a N-methyl-D-aspartate (NMDA) receptor antagonist and several studies have pointed to the NMDA receptor antagonists as a potential therapeutic target for the treatment of depression. The present study was aimed to evaluate the behavioral and physiological effects of administration of memantine in rats exposed to the chronic mild stress (CMS) model. To this aim, after 40 days of exposure to CMS procedure, rats were treated with memantine (20 mg/kg) for 7 days. In this study, sweet food consumption, adrenal gland weight, corticosterone levels, and brain-derived-neurotrophic factor (BDNF) protein levels in the prefrontal cortex, hippocampus and amygdala were assessed. Our results demonstrated that chronic stressful situations induced anhedonia, hypertrophy of adrenal gland weight, and an increase of corticosterone levels in rats, but did not alter BDNF protein levels in the rat brain. Memantine treatment reversed anhedonia and the increase of adrenal gland weight, normalized corticosterone levels and increased BDNF protein levels in the prefrontal cortex in stressed rats. Finally, these findings further support the hypothesis that NMDA receptor antagonists such as memantine could be helpful in the pharmacological treatment of depression.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + PubMed + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed"
+  ],
+  "pdf_url": "http://link.springer.com/content/pdf/10.1007/s11011-012-9281-2.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

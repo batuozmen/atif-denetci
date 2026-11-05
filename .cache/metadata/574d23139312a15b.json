@@ -1,0 +1,45 @@
+{
+  "ref_id": "APA_71",
+  "query_title": "TRP channels in excitotoxicity",
+  "query_doi": "10.1177/10738584241246530",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "TRP Channels in Excitotoxicity",
+  "verified_authors": [
+    "Pengyu Zong",
+    "Nicholas Legere",
+    "Jianlin Feng",
+    "Lixia Yue"
+  ],
+  "verified_year": "2025",
+  "verified_venue": "The Neuroscientist",
+  "verified_doi": "10.1177/10738584241246530",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 12,
+  "abstract": "Glutamate excitotoxicity is a central mechanism contributing to cellular dysfunction and death in various neurological disorders and diseases, such as stroke, traumatic brain injury, epilepsy, schizophrenia, addiction, mood disorders, Huntington’s disease, Alzheimer’s disease, Parkinson’s disease, multiple sclerosis, pathologic pain, and even normal aging-related changes. This detrimental effect emerges from glutamate binding to glutamate receptors, including α-amino-3-hydroxy-5-methyl-4-isoxazolepropionic acid receptors, N-methyl-d-aspartate receptors, kainate receptors, and GluD receptors. Thus, excitotoxicity could be prevented by targeting glutamate receptors and their downstream signaling pathways. However, almost all the glutamate receptor antagonists failed to attenuate excitotoxicity in human patients, mainly due to the limited understanding of the underlying mechanisms regulating excitotoxicity. Transient receptor potential (TRP) channels serve as ancient cellular sensors capable of detecting and responding to both external and internal stimuli. The study of human TRP channels has flourished in recent decades since the initial discovery of mammalian TRP in 1995. These channels have been found to play pivotal roles in numerous pathologic conditions, including excitotoxicity. In this review, our focus centers on exploring the intricate interactions between TRP channels and glutamate receptors in excitotoxicity.",
+  "tldr": "The focus is on exploring the intricate interactions between TRP channels and glutamate receptors in excitotoxicity, which has been found to play pivotal roles in numerous pathologic conditions, including excitotoxicity.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://journals.sagepub.com/doi/pdf/10.1177/10738584241246530",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

@@ -1,0 +1,42 @@
+{
+  "ref_id": "APA_70",
+  "query_title": "Brain-derived neurotrophic factor (BDNF)-TrkB signaling in inflammation-related depression and potential therapeutic targets",
+  "query_doi": "10.2174/1570159x14666160119094646",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Brain-derived Neurotrophic Factor (BDNF)-TrkB Signaling in Inflammation-related Depression and Potential Therapeutic Targets",
+  "verified_authors": [
+    "Ji-chun Zhang",
+    "Wei Yao",
+    "Kenji Hashimoto"
+  ],
+  "verified_year": "2016",
+  "verified_venue": "Current Neuropharmacology",
+  "verified_doi": "10.2174/1570159x14666160119094646",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 541,
+  "abstract": "Depression is the most prevalent and among the most debilitating of psychiatric disorders. The precise neurobiology of this illness is unknown. Several lines of evidence suggest that peripheral and central inflammation plays a role in depressive symptoms, and that anti-inflammatory drugs can improve depressive symptoms in patients with inflammation-related depression. Signaling via brain-derived neurotrophic factor (BDNF) and its receptor, tropomycin receptor kinase B (TrkB) plays a key role in the pathophysiology of depression and in the therapeutic mechanisms of antidepressants. A recent paper showed that lipopolysaccharide (LPS)-induced inflammation gave rise to depression-like phenotype by altering BDNF-TrkB signaling in the prefrontal cortex, hippocampus, and nucleus accumbens, areas thought to be involved in the antidepressant effects of TrkB agonist, 7,8-dihydroxyflavone (7,8-DHF) and TrkB antagonist, ANA-12. Here we provide an overview of the tryptophan-kynurenine pathway and BDNF-TrkB signaling in the pathophysiology of inflammation-induced depression, and propose mechanistic actions for potential therapeutic agents. Additionally, the authors discuss the putative role of TrkB agonists and antagonists as novel therapeutic drugs for inflammation-related depression.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "http://www.eurekaselect.com/article/73123",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

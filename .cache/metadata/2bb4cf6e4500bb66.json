@@ -1,0 +1,44 @@
+{
+  "ref_id": "APA_57",
+  "query_title": "Aerobic exercise improves depressive-like behavior in CUMS-induced rats via the SIRT3/ROS/NLRP3 signaling pathway",
+  "query_doi": "10.3390/life13081711",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Aerobic Exercise Improves Depressive-like Behavior in CUMS-Induced Rats via the SIRT3/ROS/NLRP3 Signaling Pathway",
+  "verified_authors": [
+    "Lijun Wang",
+    "Yuanyuan Liu",
+    "Tuo Xu"
+  ],
+  "verified_year": "2023",
+  "verified_venue": "Life",
+  "verified_doi": "10.3390/life13081711",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 8,
+  "abstract": "Objective: This study aimed to investigate the effect of exercise on depressive-like behavior induced by chronic unpredictable mild stress (CUMS) in rats and to explore the role of the SIRT3/ROS/NLRP3 signaling pathway in this process. Methods: Twenty-nine male 8-week-old Sprague Dawley rats were divided into a control group (CON) (nine rats) and a model group (twenty rats). Thirteen chronic stress stimuli were randomly applied once or twice per day for 35 days to induce depression in the model group rats. After the model was established, the model group rats were randomly divided into the CUMS group (CUMS) and the aerobic exercise + CUMS group (EX + CUMS). The EX + CUMS group received 8 weeks of aerobic exercise intervention for 6 days per week. Behavioral assessments were performed using the sucrose preference test and forced swimming test. The expression of SIRT3, NLRP3, IL-1β, and IL-18 in the hippocampus was detected using RT-PCR. The ROS level in the hippocampus was detected using immunofluorescence. The protein levels of SIRT3 and NLRP3 in the hippocampus were detected using western blotting. The protein levels of IL-1β and IL-18 in the hippocampus were measured using ELISA. Results: After 5 weeks of chronic stress stimuli, the hippocampal function of rats in the CUMS model group was impaired, and their sucrose preference was reduced, while their forced swimming time was prolonged. The expression of SIRT3 decreased, ROS increased, and the expression of NLRP3 and the levels of IL-1β and IL-18 increased. Aerobic exercise increased the sucrose preference of rats, shortened their immobility time, increased the expression of SIRT3, and reduced the levels of ROS, NLRP3, IL-1β, and IL-18. Conclusion: Exercise can improve the depressive behavior of CUMS model rats, and its mechanism may be related to the upregulation of SIRT3 in the hippocampus, which plays an anti-inflammatory role.",
+  "tldr": "Exercise can improve the depressive behavior of CUMS model rats, and its mechanism may be related to the upregulation of SIRT3 in the hippocampus, which plays an anti-inflammatory role.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/2075-1729/13/8/1711/pdf?version=1691567371",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

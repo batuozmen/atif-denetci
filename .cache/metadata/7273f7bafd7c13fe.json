@@ -1,0 +1,46 @@
+{
+  "ref_id": "APA_61",
+  "query_title": "Dependence of NMDA/GSK-3β mediated metaplasticity on TRPM2 channels at hippocampal CA3-CA1 synapses",
+  "query_doi": "10.1186/1756-6606-4-44",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Dependence of NMDA/GSK-3β Mediated Metaplasticity on TRPM2 Channels at Hippocampal CA3-CA1 Synapses",
+  "verified_authors": [
+    "Yu-Feng Xie",
+    "Jillian C Belrose",
+    "Gang Lei",
+    "Michael Tymianski",
+    "Yasuo Mori",
+    "John F MacDonald",
+    "Michael F Jackson"
+  ],
+  "verified_year": "2011",
+  "verified_venue": "Molecular Brain",
+  "verified_doi": "10.1186/1756-6606-4-44",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 69,
+  "abstract": "Abstract Transient receptor potential melastatin 2 (TRPM2) is a calcium permeable non-selective cation channel that functions as a sensor of cellular redox status. Highly expressed within the CNS, we have previously demonstrated the functional expression of these channels in CA1 pyramidal neurons of the hippocampus. Although implicated in oxidative stress-induced neuronal cell death, and potentially in neurodegenerative disease, the physiological role of TRPM2 in the central nervous system is unknown. Interestingly, we have shown that the activation of these channels may be sensitized by co-incident NMDA receptor activation, suggesting a potential contribution of TRPM2 to synaptic transmission. Using hippocampal cultures and slices from TRPM2 null mice we demonstrate that the loss of these channels selectively impairs NMDAR-dependent long-term depression (LTD) while sparing long-term potentiation. Impaired LTD resulted from an inhibition of GSK-3β, through increased phosphorylation, and a reduction in the expression of PSD95 and AMPARs. Notably, LTD could be rescued in TRPM2 null mice by recruitment of GSK-3β signaling following dopamine D2 receptor stimulation. We propose that TRPM2 channels play a key role in hippocampal synaptic plasticity .",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "https://link.springer.com/content/pdf/10.1186/1756-6606-4-44.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

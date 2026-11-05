@@ -1,0 +1,45 @@
+{
+  "ref_id": "APA_3",
+  "query_title": "Treatment with TREK1 and TRPC3/6 ion channel inhibitors upregulates microRNA expression in a mouse model of chronic mild stress",
+  "query_doi": "10.1016/j.neulet.2017.07.017",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Treatment with TREK1 and TRPC3/6 ion channel inhibitors upregulates microRNA expression in a mouse model of chronic mild stress",
+  "verified_authors": [
+    "İlay Buran",
+    "Ebru Önalan Etem",
+    "Ahmet Tektemur",
+    "Halit Elyas"
+  ],
+  "verified_year": "2017",
+  "verified_venue": "Neuroscience Letters",
+  "verified_doi": "10.1016/j.neulet.2017.07.017",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 35,
+  "abstract": "Depression is a common mental disorder characterized by the mood of deep sadness. Recent studies have demonstrated that microRNAs and ion channels have significant roles in the etiopathogenesis of depression. Therefore, we investigated the effects of the TREK1 ion channel inhibitor anandamide and the TRPC3/6 inhibitor norgestimate on microRNA expression and antidepressant effect in the mouse chronic mild stress (CMS) model of depression. Male BALB/c mice were divided into groups as control, CMS, CMS+sertraline, CMS+anandamide, CMS+sertraline+anandamide, CMS+norgestimate and CMS+sertraline+norgestimate. Forced swim test (FST) and Sucrose Preference Test (SPT) were utilized to assess depression levels. Anandamide and norgestimate were administered subcutaneously (5mg/kg/day), and sertraline was applied intraperitoneally (10mg/kg/day) for two days during FST. miRNA and ion channel gene expression levels in the prefrontal cortex were assessed with qRT-PCR. qRT-PCR results demonstrated that there was a significant increase in miR-9-5p, miR-128-1-5p, and miR-382-5p, and a significant decrease in miR-16-5p, miR-129-5p, and miR-219a-5p in the CMS group compared with the control group. Generally, anandamide and norgestimate significantly increased all miRNA expression. It was also determined that anandamide and norgestimate had an antidepressant action in FST when used alone and especially when used in conjunction with sertraline. Based on the study results, it could be argued that an increase in miR-9-5p and miR-128-1-5p, consistent with the literature, could play significant roles in the etiopathogenesis of depression. The antidepressant action of anandamide and norgesimate in FST showed for the first time that these inhibitors could be used as in conjuction with sertraline in depression treatment.",
+  "tldr": "The antidepressant action of anandamide and norgesimate in FST showed for the first time that these inhibitors could be used as in conjuction with sertraline in depression treatment.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://hdl.handle.net/11508/48888",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

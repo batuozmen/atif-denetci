@@ -1,0 +1,44 @@
+{
+  "ref_id": "APA_11",
+  "query_title": "Dynamic plasticity: the role of glucocorticoids, brain-derived neurotrophic factor and other trophic factors in stressrelated structural remodeling",
+  "query_doi": "10.1016/j.neuroscience.2012.08.034",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Dynamic plasticity: The role of glucocorticoids, brain-derived neurotrophic factor and other trophic factors",
+  "verified_authors": [
+    "J.D. Gray",
+    "T.A. Milner",
+    "B.S. McEwen"
+  ],
+  "verified_year": "2013",
+  "verified_venue": "Neuroscience",
+  "verified_doi": "10.1016/j.neuroscience.2012.08.034",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 249,
+  "abstract": "Brain-derived neurotrophic factor (BDNF) is a secreted protein that has been linked to numerous aspects of plasticity in the central nervous system (CNS). Stress-induced remodeling of the hippocampus, prefrontal cortex and amygdala is coincident with changes in the levels of BDNF, which has been shown to act as a trophic factor facilitating the survival of existing and newly born neurons. Initially, hippocampal atrophy after chronic stress was associated with reduced BDNF, leading to the hypothesis that stress-related learning deficits resulted from suppressed hippocampal neurogenesis. However, recent evidence suggests that BDNF also plays a rapid and essential role in regulating synaptic plasticity, providing another mechanism through which BDNF can modulate learning and memory after a stressful event. Numerous reports have shown BDNF levels are highly dynamic in response to stress, and not only vary across brain regions but also fluctuate rapidly, both immediately after a stressor and over the course of a chronic stress paradigm. Yet, BDNF alone is not sufficient to effect many of the changes observed after stress. Glucocorticoids and other molecules have been shown to act in conjunction with BDNF to facilitate both the morphological and molecular changes that occur, particularly changes in spine density and gene expression. This review briefly summarizes the evidence supporting BDNF’s role as a trophic factor modulating neuronal survival, and will primarily focus on the interactions between BDNF and other systems within the brain to facilitate synaptic plasticity. This growing body of evidence suggests a more nuanced role for BDNF in stress-related learning and memory, where it acts primarily as a facilitator of plasticity and is dependent upon the coactivation of glucocorticoids and other factors as the determinants of the final cellular response.",
+  "tldr": "A growing body of evidence suggests a more nuanced role for BDNF in stress-related learning and memory, where it acts primarily as a facilitator of plasticity and is dependent upon the coactivation of glucocorticoids and other factors as the determinants of the final cellular response.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/3743657",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

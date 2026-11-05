@@ -1,0 +1,45 @@
+{
+  "ref_id": "APA_4",
+  "query_title": "Inhibition of TRPC1, TRPM4 and CHRNA6 ion channels ameliorates depression-like behavior in rats",
+  "query_doi": "10.1016/j.bbr.2022.113765",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Inhibition of TRPC1, TRPM4 and CHRNA6 ion channels ameliorates depression-like behavior in rats",
+  "verified_authors": [
+    "İlay Kavuran Buran",
+    "Ebru Onalan Etem",
+    "Ahmet Tektemur"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "Behavioural Brain Research",
+  "verified_doi": "10.1016/j.bbr.2022.113765",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 11,
+  "abstract": "The roles of ion channels, miRNAs and, neurotransmitters in the pathophysiology of major depressive disorder (MDD) are not yet fully elucidated. The current study aims to investigate ion channel gene expressions in the brain, the therapeutic efficacies of TRPC1, TRPM4, and CHRNA6 inhibitors, miRNAs specific to these ion channels and, neurotransmitter interactions in a chronic unpredictable mild stress (CUMS) induced MDD rat model. 48 two-month-old male albino Wistar rats were divided into Control, CUMS, Sham, CUMS+Pico145 (TRPC1 inhibitor), CUMS+9-Phe (TRPM4 inhibitor), and CUMS+BPiDl (CHRNA6 inhibitor) groups. Seven-weeks CUMS was used to induce MDD. Inhibitors were administered subacutely on the final of CUMS. Rats were subjected to behavioral tests. Gene expression levels were analyzed using qRT-PCR and neurotransmitter levels using ELISA. CUMS lead to a significant upregulation in the expression of 13 ion channels in the hippocampus, and 16 ion channels in the prefrontal cortex. Behavioral experiments determined the antidepressant effects as follows: Pico145>BPiDl>9-Phe. Compared to the Control, serotonin and noradrenaline levels remained unchanged, whereas dopamine levels increased. Acetylcholine levels decreased in CUMS and CUMS+Pico145 groups. CUMS significantly altered the expression of 6 miRNAs in the brain. BPiDl upregulated the expression of miR-6334 and Pico145 upregulated the expression of miR-135b-5p and miR-875 in the prefrontal cortex. The interactions of ion channels, miRNAs, and disruptions of neurotransmitter networks can play an important role in the pathophysiology of MDD. Moreover, as shown in this study, ion channel inhibitors have significant potential in the treatment of this disease.",
+  "tldr": "Ion channel inhibitors have significant potential in the treatment of this disease and are investigated in a chronic unpredictable mild stress (CUMS) induced MDD rat model.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://hdl.handle.net/11508/57972",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

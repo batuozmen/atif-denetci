@@ -1,0 +1,45 @@
+{
+  "ref_id": "APA_18",
+  "query_title": "Rapid-acting oral drug (auvelity) for major depressive disorder",
+  "query_doi": "10.1016/j.amsu.2022.104629",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Rapid-acting oral drug (Auvelity) for major depressive disorder",
+  "verified_authors": [
+    "Yumna Khabir",
+    "Mahnoor Rehan Hashmi",
+    "Adam Ali Asghar"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "Annals of Medicine &amp; Surgery",
+  "verified_doi": "10.1016/j.amsu.2022.104629",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 18,
+  "abstract": "Major depressive disorder (MDD) has been ranked as the third cause of the burden of disease worldwide in 2008 by WHO, which has pro-jected that this disease will rank first by 2030 [1]. The symptoms of MDD include persistently low moods, anhedonia or decreased interest in pleasurable activities, feelings of guilt or worthlessness, lack of energy, poor concentration, changes in appetite, psychomotor retardation, agitation, sleep disturbances, and suicidal thoughts [1]. A diagnosis of MDD requires five of the symptoms above, of which one must be depression or anhedonia causing impairment in social or occupational functioning, as defined by the Diagnostic and Statistical Manual of Mental Disorders, 5th Edition (DSM-5) [1]. It has been discovered that GABA, an inhibitory neurotransmitter, as well as glutamate and glycine, two important excitatory neurotrans-mitters, are involved in the etiology of depression GABA levels in the brain, cerebrospinal fluid, and plasma have been reported to be decreased in depressed people GABA is thought to work as an antidepressant by blocking ascending monoamine pathways, including those in the mesolimbic and mesocortical systems The common medications recommended for initial treatment of MDD are selective serotonin reuptake inhibitors (Fluoxetine, paroxetine, sertraline, citalopram, and escitalopram), serotonergic noradrenergic reuptake inhibitors (Venlafaxine",
+  "tldr": "It has been discovered that GABA, an inhibitory neurotransmitter, as well as glutamate and glycine, two important excitatory neurotrans-mitters, are involved in the etiology of depression.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.1016/j.amsu.2022.104629",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

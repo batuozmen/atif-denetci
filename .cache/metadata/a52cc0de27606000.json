@@ -1,0 +1,51 @@
+{
+  "ref_id": "APA_16",
+  "query_title": "Regionally specific regulation of ERK MAP kinase in a model of antidepressantsensitive chronic depression",
+  "query_doi": "10.1016/j.biopsych",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Regionally Specific Regulation of ERK MAP Kinase in a Model of Antidepressant-Sensitive Chronic Depression",
+  "verified_authors": [
+    "Shannon L. Gourley",
+    "Florence J. Wu",
+    "Drew D. Kiraly",
+    "Jonathan E. Ploski",
+    "Alexia T. Kedves",
+    "Ronald S. Duman",
+    "Jane R. Taylor"
+  ],
+  "verified_year": "2008",
+  "verified_venue": "Biological Psychiatry",
+  "verified_doi": "10.1016/j.biopsych",
+  "pmid": "42574925",
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 264,
+  "abstract": "BACKGROUND: Elevated phosphorylation of neurotrophin-regulated transcription factors, such as cyclic adenosine monophosphate (cAMP)-response element binding protein (CREB), in the hippocampus has been proposed as a common mediator of antidepressant (ADT) efficacy in otherwise naïve rodents. The intracellular factors by which ADTs and glucocorticoids, causal factors in depression, regulate depression-like behavior remain unclear, but extracellular signal-regulated kinase 1/2 (ERK1/2), upstream of CREB, is a …",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + PubMed + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "PubMed",
+    "Google Scholar"
+  ],
+  "pdf_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2277331/pdf/nihms39306.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

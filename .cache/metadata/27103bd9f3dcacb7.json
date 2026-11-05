@@ -1,0 +1,43 @@
+{
+  "ref_id": "APA_6",
+  "query_title": "Synaptic dysfunction in depression: potential therapeutic targets",
+  "query_doi": "10.1126/science.1222939",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Synaptic Dysfunction in Depression: Potential Therapeutic Targets",
+  "verified_authors": [
+    "Ronald S. Duman",
+    "George K. Aghajanian"
+  ],
+  "verified_year": "2012",
+  "verified_venue": "Science",
+  "verified_doi": "10.1126/science.1222939",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 1667,
+  "abstract": "Basic and clinical studies demonstrate that depression is associated with reduced size of brain regions that regulate mood and cognition, including the prefrontal cortex and the hippocampus, and decreased neuronal synapses in these areas. Antidepressants can block or reverse these neuronal deficits, although typical antidepressants have limited efficacy and delayed response times of weeks to months. A notable recent discovery shows that ketamine, a N -methyl- d -aspartate receptor antagonist, produces rapid (within hours) antidepressant responses in patients who are resistant to typical antidepressants. Basic studies show that ketamine rapidly induces synaptogenesis and reverses the synaptic deficits caused by chronic stress. These findings highlight the central importance of homeostatic control of mood circuit connections and form the basis of a synaptogenic hypothesis of depression and treatment response.",
+  "tldr": "Findings highlight the central importance of homeostatic control of mood circuit connections and form the basis of a synaptogenic hypothesis of depression and treatment response.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/4424898",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

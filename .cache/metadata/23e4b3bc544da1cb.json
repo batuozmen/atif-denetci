@@ -1,0 +1,52 @@
+{
+  "ref_id": "APA_52",
+  "query_title": "Resilience and vulnerability to stress-induced anhedonia: unveiling brain gene expression and mitochondrial dynamics in a mouse chronic stress depression model",
+  "query_doi": "10.3390/biom13121782",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Resilience and Vulnerability to Stress-Induced Anhedonia: Unveiling Brain Gene Expression and Mitochondrial Dynamics in a Mouse Chronic Stress Depression Model",
+  "verified_authors": [
+    "Tatyana Strekalova",
+    "Evgeniy Svirin",
+    "Anna Gorlova",
+    "Elizaveta Sheveleva",
+    "Alisa Burova",
+    "Adel Khairetdinova",
+    "Kseniia Sitdikova",
+    "Elena Zakharova",
+    "Alexander M. Dudchenko",
+    "Aleksey Lyundup",
+    "Sergey Morozov"
+  ],
+  "verified_year": "2023",
+  "verified_venue": "Biomolecules",
+  "verified_doi": "10.3390/biom13121782",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 25,
+  "abstract": "The role of altered brain mitochondrial regulation in psychiatric pathologies, including Major Depressive Disorder (MDD), has attracted increasing attention. Aberrant mitochondrial functions were suggested to underlie distinct inter-individual vulnerability to stress-related MDD syndrome. In this context, insulin receptor sensitizers (IRSs) that regulate brain metabolism have become a focus of recent research, as their use in pre-clinical studies can help to elucidate the role of mitochondrial dynamics in this disorder and contribute to the development of new antidepressant treatment. Here, following 2-week chronic mild stress (CMS) using predation, social defeat, and restraint, MDD-related behaviour and brain molecular markers have been investigated along with the hippocampus-dependent performance and emotionality in mice that received the IRS dicholine succinate (DS). In a sucrose test, mice were studied for the key feature of MDD, a decreased sensitivity to reward, called anhedonia. Based on this test, animals were assigned to anhedonic and resilient-to-stress-induced-anhedonia groups, using a previously established criterion of a decrease in sucrose preference below 65%. Such assignment was based on the fact that none of control, non-stressed animals displayed sucrose preference that would be smaller than this value. DS-treated stressed mice displayed ameliorated behaviours in a battery of assays: sucrose preference, coat state, the Y-maze, the marble test, tail suspension, and nest building. CMS-vulnerable mice exhibited overexpression of the inflammatory markers Il-1β, tnf, and Cox-1, as well as 5-htt and 5-ht2a-R, in various brain regions. The alterations in hippocampal gene expression were the closest to clinical findings and were studied further. DS-treated, stressed mice showed normalised hippocampal expression of the plasticity markers Camk4, Camk2, Pka, Adcy1, Creb-ar, Nmda-2r-ar, and Nmda-2r-s. DS-treated and non-treated stressed mice who were resilient or vulnerable to anhedonia were compared for hippocampal mitochondrial pathway regulation using Illumina profiling. Resilient mice revealed overexpression of the mitochondrial complexes NADH dehydrogenase, succinate dehydrogenase, cytochrome bc1, cytochrome c oxidase, F-type and V-type ATPases, and inorganic pyrophosphatase, which were decreased in anhedonic mice. DS partially normalised the expression of both ATPases. We conclude that hippocampal reduction in ATP synthesis is associated with anhedonia and pro-inflammatory brain changes that are ameliorated by DS.",
+  "tldr": "H hippocampal reduction in ATP synthesis is associated with anhedonia and pro-inflammatory brain changes that are ameliorated by DS, and hippocampal mitochondrial pathway regulation is compared for hippocampal mitochondrial pathway regulation using Illumina profiling.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/2218-273X/13/12/1782/pdf?version=1702386071",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

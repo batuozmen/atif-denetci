@@ -1,0 +1,43 @@
+{
+  "ref_id": "APA_48",
+  "query_title": "Stahl’s Essential Psychopharmacology: Neuroscientific Basis and Practical Applications",
+  "query_doi": "10.1017/9781108975292",
+  "exists_online": true,
+  "title_match_score": 1.0,
+  "verified_title": "Stahl's Essential Psychopharmacology",
+  "verified_authors": [
+    "Stephen M. Stahl"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "",
+  "verified_doi": "10.1017/9781108975292",
+  "pmid": "41292463",
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 482,
+  "abstract": "Long established as the preeminent source in its field, the eagerly anticipated fifth edition of Dr Stahl's essential textbook of psychopharmacology is here! With its use of icons and figures that form Dr Stahl's unique 'visual language', the book is the single most readable source of information on disease and drug mechanisms for all students and mental health professionals seeking to understand and utilize current therapeutics, and to anticipate the future for novel medications. Every aspect of the book has been updated, with the clarity of explanation that only Dr Stahl can bring. The new edition includes over 500 new or refreshed figures, an intuitive color scheme, fourteen new uses for older drugs and eighteen brand new drugs, coverage of Parkinson's Disease Psychosis, behavioural symptoms of dementia, and mixed features in major depressive episodes, and expanded information on the medical uses of cannabis and hallucinogen assisted psychotherapy.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + PubMed + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Sci-Hub",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed"
+  ],
+  "pdf_url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/3480EFF4825666B1849F65D2E2D18755/9781108838573c1_1-28.pdf/chemical_neurotransmission.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [
+    "⚠️ Yıl Uyuşmazlığı: Kaynakçada '2026' yazılmış ancak makalenin resmi yayın yılı '2021'."
+  ],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

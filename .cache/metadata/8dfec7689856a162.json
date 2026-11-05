@@ -1,0 +1,42 @@
+{
+  "ref_id": "APA_12",
+  "query_title": "Role of glutamate signaling in depression and antidepressant action",
+  "query_doi": "10.1016/j.biopsych.2011.05.008",
+  "exists_online": true,
+  "title_match_score": 0.6917293233082706,
+  "verified_title": "Targeting glutamate signalling in depression: progress and prospects",
+  "verified_authors": [],
+  "verified_year": null,
+  "verified_venue": "",
+  "verified_doi": null,
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 0,
+  "abstract": "… of the glutamate system have … the role of glutamate signalling in depression and discusses the potential of ketamine and other glutamate signalling modulators as novel antidepressant …",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Sci-Hub"
+  ],
+  "sources_found": [
+    "Google Scholar"
+  ],
+  "pdf_url": "https://www.academia.edu/download/75712607/Mathew2017.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [
+    "⚠️ Başlık–DOI Uyuşmazlığı: Kaynakçada yazılan DOI (10.1016/j.biopsych.2011.05.008) 'An Initial Study of Neural Responses to Monetary Incentives as Related to Treatment Outcome in ' başlıklı farklı bir makaleye aittir!"
+  ],
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}
