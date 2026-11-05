@@ -1,0 +1,46 @@
+{
+  "ref_id": "117",
+  "query_title": "Human pulmonary artery smooth muscle cell dysfunction is regulated by miR-509-5p in hypoxic environment",
+  "query_doi": "10.1080/15384101.2022.2044147",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Human pulmonary artery smooth muscle cell dysfunction is regulated by miR-509-5p in hypoxic environment",
+  "verified_authors": [
+    "Jingjing Wang",
+    "Rong Jiang",
+    "Yanlin Tan",
+    "Kuan Cheng"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "Cell Cycle",
+  "verified_doi": "10.1080/15384101.2022.2044147",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 7,
+  "abstract": "ABSTRACT Reportedly, dysfunction of human pulmonary arterial smooth muscle cells (PASMCs) is associated with the pathogenesis of pulmonary arterial hypertension (PAH). Herein, the role of miR-509-5p in hypoxia-induced PASMCs and the underlying mechanism were explored. PASMCs were cultured under both normoxia and hypoxia conditions. Quantitative real-time polymerase-chain reaction (qPCR) was employed for quantifying the expressions of miR-509-5p and DNMT1 mRNA in the serum of PAH patients and PASMCs. MiR-509-5p mimics and inhibitors were then, respectively, transfected into PAMSCs, and CCK-8 and Transwell assays were utilized to detect PASMCs’ proliferation and migration. Flow cytometry was executed for evaluating PASMCs’ apoptosis. Interrelation between miR-509-5p and DNMT1 was determined utilizing bioinformatics analysis and dual-luciferase reporter assay. Western blot assay was used to detect the expression of DNMT1 or SOD2. MiR-509-5p in serum samples of patients with PAH as well as hypoxia-induced PASMCs was significantly down-regulated, whereas DNMT1 was markedly up-regulated. MiR-509-5p mimics reduces the proliferation and migration of PASMCs, but promotes the apoptosis; conversely, miR-509-5p inhibitors exerted opposite effects. DNMT1 was identified as a target gene of miR-509-5p, and overexpression of DNMT1 reversed the biological functions of miR-509-5p in regulating the phenotypes of PAMSCs. MiR-509-5p up-regulated the expression of SOD2 by down-regulating DNMT1. MiR-509-5p regulates the proliferation, migration and apoptosis of PASMCs, and restoration of miR-509-5p may be a promising strategy to treat PAH.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.tandfonline.com/doi/pdf/10.1080/15384101.2022.2044147?needAccess=true&role=button",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

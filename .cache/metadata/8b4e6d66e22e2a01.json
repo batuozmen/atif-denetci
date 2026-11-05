@@ -1,0 +1,46 @@
+{
+  "ref_id": "86",
+  "query_title": "Telmisartan protects male reproductive function by modulating biochemical, oxidative stress, apoptosis, and DNA integrity in cyclophosphamide-exposed rats",
+  "query_doi": "10.1016/j.toxrep.2026.102225",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Telmisartan protects male reproductive function by modulating biochemical, oxidative stress, apoptosis, and DNA integrity in cyclophosphamide-exposed rats",
+  "verified_authors": [
+    "Ahmed Ageeb Kassid",
+    "Ahmed Mohammed Mahmood",
+    "Khalid Ali Obaid",
+    "Maha H. Philip Rahmani"
+  ],
+  "verified_year": "2026",
+  "verified_venue": "Toxicology Reports",
+  "verified_doi": "10.1016/j.toxrep.2026.102225",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 1,
+  "abstract": "Background: Cyclophosphamide (CPA) is a common chemotherapy drug known to cause significant damage to testicular health. It induces oxidative stress, inflammation, cell death, and DNA damage. Telmisartan blocks the angiotensin II type 1 receptor and has some activity on PPAR-γ, a receptor involved in cell regulation. It has been shown to have antioxidant and cell-protecting effects in other organs, but its potential to safeguard reproductive health has not been thoroughly investigated. Objective: This study aimed to evaluate the protection exerted by telmisartan against CPA-induced testicular injury in rats, addressing its anti-inflammatory and anti-apoptotic mechanisms. Methods: 56 adult male Sprague-Dawley rats were randomized into seven groups: control, telmisartan control, CPA induction, three telmisartan treatment groups (3, 5, and 7 mg/kg/day), and a melatonin positive control. Treatments have been given for 8 days; CPA (150 mg/kg, i.p.) on the second day. The serum reproductive hormones, sperm quality, oxidative stress factors, apoptotic genes (Bax, Bcl-2, caspase-3), DNA fragmentation, and histopathology were assessed. Results: CPA inhibited testosterone, LH, and FSH, decreased sperm quality, increased oxidative stress, proapoptotic markers, and induced DNA fragmentation. Telmisartan improved all of these parameters by administration on a dose-dependent basis, and the treatment with higher doses returned hormone levels, sperm quality, antioxidant defenses and apoptotic balance back to near-normal levels. Telmisartan had similar protective actions to those of melatonin, given at high doses. Conclusion: Telmisartan protects from CPA-related testicular toxicity via anti-inflammatory and anti-apoptotic actions.",
+  "tldr": "Telmisartan protects from CPA-related testicular toxicity via anti-inflammatory and anti-apoptotic actions, and had similar protective actions to those of melatonin, given at high doses.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.1016/j.toxrep.2026.102225",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

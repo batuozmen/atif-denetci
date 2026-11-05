@@ -1,0 +1,46 @@
+{
+  "ref_id": "108",
+  "query_title": "Loss of Zona Pellucida Binding Proteins in the Acrosomal Matrix Disrupts Acrosome Biogenesis and Sperm Morphogenesis",
+  "query_doi": "10.1128/MCB.01029-07",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Loss of Zona Pellucida Binding Proteins in the Acrosomal Matrix Disrupts Acrosome Biogenesis and Sperm Morphogenesis",
+  "verified_authors": [
+    "Yi-Nan Lin",
+    "Angshumoy Roy",
+    "Wei Yan",
+    "Kathleen H. Burns",
+    "Martin M. Matzuk"
+  ],
+  "verified_year": "2007",
+  "verified_venue": "Molecular and Cellular Biology",
+  "verified_doi": "10.1128/MCB.01029-07",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 246,
+  "abstract": "Zona pellucida binding protein 1 (ZPBP1), a spermatid and spermatozoon protein that localizes to the acrosome, was originally identified in pigs and named for its binding to the oocyte zona pellucida. In an in silico search for germ cell-specific genes, Zpbp1 and its novel paralog, Zpbp2, were discovered and confirmed to be expressed only in the testes in both mice and humans. To study the in vivo functions of both ZPBP proteins, we disrupted Zpbp1 and Zpbp2 in mice. Males lacking ZPBP1 were sterile, with abnormal round-headed sperm morphology and no forward sperm motility. Ultrastructural studies demonstrated that absence of ZPBP1 prevents proper acrosome compaction, resulting in acrosome fragmentation and disruption of the Sertoli-spermatid junctions. Males null for ZPBP2 were subfertile, demonstrated aberrant acrosomal membrane invaginations, and produced dysmorphic sperm with reduced ability to penetrate zona pellucida. Molecular phylogenetic analysis of ZPBPs from amphibians, birds, and mammals suggests that these paralogous genes coevolved to play cooperative roles during spermiogenesis. Whereas ZPBP1 was discovered for an in vitro role in sperm-egg interactions, we have shown that both ZPBP proteins play an earlier structural role during spermiogenesis.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "https://journals.asm.org/doi/pdf/10.1128/MCB.01029-07",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "SemanticScholar: ConnectionError: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Max retries exceeded with url: /graph/v1/paper/DOI:10.1128/MCB.01029-07?fields=title%2Cauthors%2Cyear%2Cabstract%2Ctldr%2CopenAccessPdf%2CexternalIds%2CcitationCount%2Cvenue (Caused by NameResolutionErro",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

@@ -1,0 +1,48 @@
+{
+  "ref_id": "74",
+  "query_title": "Piperine mitigates oxidative stress, inflammation, and apoptosis in the testicular damage induced by cyclophosphamide in mice",
+  "query_doi": "10.1002/jbt.23696",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Piperine mitigates oxidative stress, inflammation, and apoptosis in the testicular damage induced by cyclophosphamide in mice",
+  "verified_authors": [
+    "Fatemeh Fani",
+    "Seyed Jalal Hosseinimehr",
+    "Mehryar Zargari",
+    "Mansoureh Mirzaei",
+    "Abbasali Karimpour Malekshah",
+    "Fereshteh Talebpour Amiri"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Journal of Biochemical and Molecular Toxicology",
+  "verified_doi": "10.1002/jbt.23696",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 7,
+  "abstract": "Abstract Although cyclophosphamide (CP) has been approved as an anticancer drug, its toxic effect on most organs, especially the testis, has been established. Piperine (PIP) is an alkaloid that has antioxidant, antiapoptotic, and anti‐inflammatory activities. This study was investigated the protective effects of PIP on CP‐induced testicular toxicity in the mice. In this experimental study, 48 adult male BALB/c mice (30−35 g) were divided into six groups ( n = 8), receiving normal saline (C), 5 mg/kg of PIP (PIP5), 10 mg/kg of PIP (PIP10), 200 mg/kg of CP, 200 mg/kg of CP + PIP5, and 200 mg/kg of CP + PIP10. On the eighth day of the study, blood and testis samples were prepared for serum testosterone hormone quantification, sperm analysis, histological, and immunohistochemical assays. The results of this study showed that CP induced testicular toxicity with the decrease of sperm count, motility, and viability. Also, CP treatment caused histological structure alterations in the testis, including exfoliation, degeneration, vacuolation of spermatogenic cells, and reducing the thickness of the epithelium and the diameter of the seminiferous tubule. In addition, CP decreased glutathione (GSH) levels, increased malondialdehyde (MDA) levels, Caspase‐3, and NF‐κB. At the same time, PIP treatment reduced testicular histopathological abnormalities, oxidative stress, and apoptosis that were induced by CP. These results showed that PIP improved CP‐induced testicular toxicity in mice, which can be related to its antioxidant, antiapoptotic, and anti‐inflammatory activities.",
+  "tldr": "PIP improved CP‐induced testicular toxicity in mice, which can be related to its antioxidant, antiapoptotic, and anti‐inflammatory activities.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/jbt.23696",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

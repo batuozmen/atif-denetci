@@ -1,0 +1,42 @@
+{
+  "ref_id": "78",
+  "query_title": "The Protective Role of Atorvastatin against the Damage Induced by Cyclophosphamide on the Kidney and Testis of Adult Male Albino Rat: Histological, Biochemical and Histomorphmetric Study",
+  "query_doi": "10.21608/mjcu.2020.118544",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "The Protective Role of Atorvastatin against the Damage Induced by Cyclophosphamide on the Kidney and Testis of Adult Male Albino Rat: Histological, Biochemical and Histomorphmetric Study",
+  "verified_authors": [
+    "HANAN N. GADALLAH"
+  ],
+  "verified_year": "2020",
+  "verified_venue": "",
+  "verified_doi": "10.21608/mjcu.2020.118544",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 5,
+  "abstract": "Abstract Background: Cyclophosphamide (CP) is commonly used as chemotherapy for many cancers as well as autoimmune disorders. However, upon treatment, it was found that it had side effect which was the cause of histological and biochemical changes due to its oxidative stress capability. Atorvastatin (ATV) at a therapeutic low dose has been found to have antioxidant and anti-inflammatory properties. Aim of Study: The present work was designed to evaluate the adverse effect of cyclophosphamide on the histology and oxidative markers of the kidneys and testes of adult male albino rats. Moreover, the study evaluated the role of Atorv-astatin in prevention and treatment of the possible renal and testicular histological and biochemical alterations induced by cyclophosphamide. Material and Methods: Twenty-four adult male albino rats were utilized in the present study, six in each group; Group I (control group), Group II receiving Cyclophosph-mideonly, Group III receiving Atorvastatin 10 days after-Cyclophosphmide, Group IV receiving Atorvastatin 5 days before and 5 days after Cyclophosphmide. The kidneys and testes of all rats were dissected and removed for investigation using light microscopic study, biochemical analysis, histomor-phometrical and statistical study. Results: Light microscopic examination of the renal cortex of the kidneys of group II showed shrunken renal glomeruli with subsequent widening of the Bowman's space, and inter-stitial inflammatory cellular infiltration. The proximal and distal convoluted tubules appeared dilated. Examination of the rat testes of group II displayed histological changes in theform of irregular distorted seminiferous tubules with marked degenerative changes of the spermatogenic epithelium. The interstitial spaces were wide containing pyknotic Leydig cells, dilated congested blood vessels and interstitial acidophilic exudate. The renal glomeruli and seminiferous tubules showed increased amount of collagen fibers deposition in the interstitial tissue in Masson's stained sections. Light microscopic exam-ination of the kidneys and testes of group III and IV showed recovery of the histological changes. Conclusion: Atorvastatin intake implicated outstanding structural recovery approaching the structural and biochemical parameters of the control group, but the improvement in group IVwas much better than in group III.",
+  "tldr": "Evaluating the adverse effect of cyclophosphamide on the histology and oxidative markers of the kidneys and testes of adult male albino rats found that improvement in group IV was much better than in group III, and atorvastatin intake implicated outstanding structural recovery.",
+  "full_text": "",
+  "content_source": "OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://mjcu.journals.ekb.eg/article_118544_85d34d92a1ccb710a63d83c334de1b4b.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "CrossRef: ConnectionError: HTTPSConnectionPool(host='api.crossref.org', port=443): Max retries exceeded with url: /works/10.21608/mjcu.2020.118544 (Caused by NameResolutionError(\"HTTPSConnection(host='api.crossref.org', port=443): Failed to resolve 'api.crossref.org' ([Errno 11001] getaddrinfo faile",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

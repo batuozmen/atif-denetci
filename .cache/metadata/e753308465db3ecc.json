@@ -1,0 +1,49 @@
+{
+  "ref_id": "28",
+  "query_title": "Oxidative stress-related miRNAs in spermatozoa may reveal the severity of damage in grade III varicocele",
+  "query_doi": "10.1111/and.13598",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Oxidative stress‐related miRNAs in spermatozoa may reveal the severity of damage in grade III varicocele",
+  "verified_authors": [
+    "Amir Mehdi Ashrafzade",
+    "Mohammad Ali Sadighi Gilani",
+    "Tohid Rezaei Topraggaleh",
+    "Mina Khojasteh",
+    "Mehdi Sepidarkish",
+    "Parinaz Borjian Boroujeni",
+    "Mohammad Reza Zamanian"
+  ],
+  "verified_year": "2020",
+  "verified_venue": "Andrologia",
+  "verified_doi": "10.1111/and.13598",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 24,
+  "abstract": "Varicocele is associated with excessive production of reactive oxygen species (ROS). Although the harmful effects of ROS on sperm DNA, proteins and lipids are well documented, its impact on the expression of miRNAs in spermatozoa has not been fully understood. In this study, the expression patterns of microRNAs (miRNAs), miR-21, miR-34a and miR-122a as well as the level of ROS in the fertile control (FC; proven fertility without varicocele, n = 15) and grade III varicocele patients with normal (VN; n = 15) and abnormal (VA; n = 15) spermogram were investigated. The real-time PCR was performed to analyse the expression of the miRNAs, while oxidative stress was evaluated by measuring the concentrations of MDA. Our results showed that the expression levels of miR-21 (p = .001), miR-34a, (p = .007) and miR-122a (p < .001) were significantly decreased in spermatozoa of VN and VA patients in comparison with the fertile group. Also, increased levels of oxidative stress were detected in semen samples of varicocele patients compared with the fertile control (p < .0001). Overall, these findings demonstrate oxidative stress changes the expression pattern of some miRNAs, and these alterations could be a valuable diagnostic marker for the diagnosis and prognosis of varicocele-induced oxidative stress to retain the male fertility during the spermatogenesis process.",
+  "tldr": "Findings demonstrate oxidative stress changes the expression pattern of some miRNAs, and these alterations could be a valuable diagnostic marker for the diagnosis and prognosis of varicocele‐induced oxidative stress to retain the male fertility during the spermatogenesis process.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1111%2Fand.13598",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

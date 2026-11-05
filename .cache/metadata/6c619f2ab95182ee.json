@@ -1,0 +1,46 @@
+{
+  "ref_id": "19",
+  "query_title": "Comparison of the effects of two different antioxidant combinations on sperm parameters",
+  "query_doi": "10.22541/au.161370067.77037168/v1",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "COMPARISON OF THE EFFECTS OF TWO DIFFERENT ANTIOXIDANT COMBINATIONS ON SPERM PARAMETERS",
+  "verified_authors": [
+    "Mehmet Yariş",
+    "Nebil Akdogan",
+    "Murat Ozturk",
+    "Aliseydi Bozkurt"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "",
+  "verified_doi": "10.22541/au.161370067.77037168/v1",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 10,
+  "abstract": "Male infertility may be the result of some identifiable conditions (varicocele, cryptorchidism, hypogonadism, and genetic abnormalities), but there is no identified cause in 30-40% of infertile men. Studies show that the use of antioxidants has a beneficial effect on fertility, especially on sperm quality, and therefore recommended as a potentially effective treatment for male infertility. However, it is argued that this treatment is not based on sufficient evidence and has no effect on the rate of healthy pregnancy. Aim: In this study, two different antioxidant combinations with different doses and contents were evaluated in terms of their effect on sperm parameters. Materials and Methods: A total of 122 patients diagnosed with idiopathic infertility were enrolled in our multicenter study. The patients were divided into two different groups: The first group used Proxeed Plus sachets 2x1 and the second group used Carniact Duo tablets 2x1 for six months. The total semen volume, total sperm count and concentration, motile sperm count, and morphological findings of the patients were compared at the end of the six months. The mean age of the patients participating in the study was 30.8 ± 6.05 years. No significant difference was found between the two groups in terms of baseline sperm count. Results: There was a significant difference between the baseline and sixth-month values of the patients using both combinations. However, no significant statistical difference was found between the groups according to the sixth-month data. Conclusion: The combinations of both antioxidants had a positive effect on sperm parameters, and the use of different doses and contents had a similar effect. Keywords: Antioxidants, Infertility, Vitamins, Spermiogram,",
+  "tldr": "The combinations of both antioxidants had a positive effect on sperm parameters, and the use of different doses and contents had a similar effect.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.authorea.com/doi/pdf/10.22541/au.161370067.77037168",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

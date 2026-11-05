@@ -1,0 +1,52 @@
+{
+  "ref_id": "70",
+  "query_title": "Coenzyme Q10 and Melatonin for the Treatment of Male Infertility: A Narrative Review",
+  "query_doi": "10.3390/nu14214585",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Coenzyme Q10 and Melatonin for the Treatment of Male Infertility: A Narrative Review",
+  "verified_authors": [
+    "Gianpaolo Lucignani",
+    "Letizia Maria Ippolita Jannello",
+    "Irene Fulgheri",
+    "Carlo Silvani",
+    "Matteo Turetti",
+    "Franco Gadda",
+    "Paola Viganò",
+    "Edgardo Somigliana",
+    "Emanuele Montanari",
+    "Luca Boeri"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "Nutrients",
+  "verified_doi": "10.3390/nu14214585",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 35,
+  "abstract": "Background: Lifestyle and environmental factors can negatively impact fertility by means of oxidative stress. In this context, antioxidant supplementation therapy has gained much interest in recent years, and different molecules, alone or in combination, have been studied. Objective: The purpose of the present review is to investigate the evidence regarding the efficacy of coenzyme Q10 (CoQ10) and melatonin on male infertility. Methods: A literature search using PUBMED database from 2000 to October 2022 was performed to explore the role of CoQ10 and melatonin on male reproductive function. Conclusions: The analysis involved a narrative synthesis. CoQ10, alone or in combination, appears to reduce testicular oxidative stress and sperm DNA fragmentation and to improve sperm parameters; particularly sperm motility. Moreover, CoQ10 treatment is associated with higher pregnancy rates, both naturally and through assisted reproductive technology (ART). Larger studies are needed to precisely determine its clinical efficacy. Melatonin is a known antioxidant and preclinical studies have shown its ability to modulate reproductive function through hormonal and immune system regulation and sperm cell proliferation. Regardless, clinical studies are necessary to assess its potential in male infertility.",
+  "tldr": "CoQ10, alone or in combination, appears to reduce testicular oxidative stress and sperm DNA fragmentation and to improve sperm parameters; particularly sperm motility, and CoQ10 treatment is associated with higher pregnancy rates, both naturally and through assisted reproductive technology (ART).",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/2072-6643/14/21/4585/pdf?version=1667273453",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

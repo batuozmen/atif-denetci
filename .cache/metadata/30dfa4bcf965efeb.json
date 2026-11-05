@@ -1,0 +1,52 @@
+{
+  "ref_id": "123",
+  "query_title": "Experimental validation of miRNA targets",
+  "query_doi": "10.1016/j.ymeth.2007.09.005",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Experimental validation of miRNA targets",
+  "verified_authors": [
+    "Donald E. Kuhn",
+    "Mickey M. Martin",
+    "David S. Feldman",
+    "Alvin V. Terry",
+    "Gerard J. Nuovo",
+    "Terry S. Elton"
+  ],
+  "verified_year": "2008",
+  "verified_venue": "Methods",
+  "verified_doi": "10.1016/j.ymeth.2007.09.005",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 419,
+  "abstract": "MicroRNAs are natural, single-stranded, small RNA molecules that regulate gene expression by binding to target mRNAs and suppress its translation or initiate its degradation. In contrast to the identification and validation of many miRNA genes is the lack of experimental evidence identifying their corresponding mRNA targets. The most fundamental challenge in miRNA biology is to define the rules of miRNA target recognition. This is critical since the biological role of individual miRNAs will be dictated by the mRNAs …",
+  "tldr": "It is proposed that multiple criteria should be met before miRNA target validation should be considered \"confirmed,\" and several methods by which to validate miRNA targets are outlined.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar",
+    "Google Scholar"
+  ],
+  "pdf_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/2237914",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

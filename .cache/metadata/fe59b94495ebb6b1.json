@@ -1,0 +1,49 @@
+{
+  "ref_id": "40",
+  "query_title": "Mitigating cyclophosphamide-associated gonadotoxicity in male Wistar rats: exploring the therapeutic potential of hesperidin",
+  "query_doi": "10.3389/fvets.2024.1376225",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Mitigating cyclophosphamide-associated gonadotoxicity in male Wistar rats: exploring the therapeutic potential of hesperidin",
+  "verified_authors": [
+    "B. Hari Priya",
+    "B. Ramya",
+    "Swathi Bora",
+    "P. Shivakumar",
+    "A. Rohan",
+    "T. Vagdevi",
+    "A. Amoolya Rao"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Frontiers in Veterinary Science",
+  "verified_doi": "10.3389/fvets.2024.1376225",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 14,
+  "abstract": "Hesperidin, a bioactive flavanone glycoside prevalent in citrus fruits, with remarkable therapeutic properties stands out as a formidable defender against the debilitating reproductive toxicity associated with Cyclophosphamide (CYP) chemotherapy. This study explores the protective potential of hesperidin (HSP@100 mg/kg b.wt PO daily) against CYP-induced (@ 40 mg/kg b.wt IP once in a week) reproductive toxicity in male Wistar rats as several studies were documented on single dose toxicity of CYP. In this experiment, we chose multidosage drug effects, which are more relevant in chemotherapy. Twenty-four rats were divided into four groups: Group 1 (Control), group 2 (CYP-treated), group 3 (HSP-treated), and group 4 (CYP + HSP-treated) for 28 days. The experimental design included assessments of relative testicular weight, semen analysis, testosterone levels, oxidative stress markers, inflammatory cytokines, gross and histopathological changes, and immunohistochemical evaluation. The results revealed that the administration of CYP led to a significant reduction in testicular weight, sperm count, motility, and testosterone levels, accompanied by increased oxidative stress and inflammatory response. Hesperidin co-administration demonstrated a protective effect by restoring these parameters to near-normal levels. Histopathological analysis revealed improved testicular architecture in the group 4 compared with the group 2. Oxidative stress indices indicated that hesperidin attenuated CYP-induced damage by reducing malondialdehyde levels, enhancing superoxide dismutase activity and maintaining glutathione levels. Similarly, inflammatory cytokine analysis demonstrated anti-inflammatory effects of hesperidin by reducing tumor necrosis factor-alpha (TNF-α) and elevating interleukin-10 (IL-10) levels in the group 4. Immunohistochemical evaluation of nuclear factor-kappa B (NF-κB) revealed increased inflammation in the CYP group, while hesperidin significantly reduced NF-κB expression, suggesting its anti-inflammatory properties.",
+  "tldr": "The results revealed that the administration of CYP led to a significant reduction in testicular weight, sperm count, motility, and testosterone levels, accompanied by increased oxidative stress and inflammatory response, and Hesperidin co-administration demonstrated a protective effect by restoring these parameters to near-normal levels.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.3389/fvets.2024.1376225",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

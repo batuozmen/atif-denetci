@@ -1,0 +1,49 @@
+{
+  "ref_id": "22",
+  "query_title": "SP057EFFECTS OF PROXEED PLUS IN THE PREVENTION AND TREATMENT OF CISPLATIN NEPHROTOXICITY: AN EXPERIMENTAL RAT STUDY",
+  "query_doi": "10.1093/ndt/gfy104.SP057",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "SP057EFFECTS OF PROXEED PLUS IN THE PREVENTION AND TREATMENT OF CISPLATIN NEPHROTOXICITY: AN EXPERIMENTAL RAT STUDY",
+  "verified_authors": [
+    "Elif Ece Dogan",
+    "Mehmet Şerif Aydın",
+    "Eray Metin Güler",
+    "Abdurrahim Kocyigit",
+    "Meltem Gursu",
+    "Mesut Seker",
+    "Rumeyza Kazancioglu"
+  ],
+  "verified_year": "2018",
+  "verified_venue": "Nephrology Dialysis Transplantation",
+  "verified_doi": "10.1093/ndt/gfy104.SP057",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 2,
+  "abstract": "INTRODUCTION AND AIMS: Cisplatin is widely used in solid organ cancer chemotherapy. One of the most important side effects of cisplatin is nephrotoxicity. The antioxidant properties of Proxeed Plus (PP) molecules and minerals provide a significant increase in sperm count and function. In our study, the effect of Proxeed Plus was evaluated histopathologically and biochemically in the prevention and treatment of cisplatin nephrotoxicity. METHODS: In our study, 40 rats were included. The rats were divided into five groups of (CIS), (PP+CIS), (PP+CIS+PP), (PP), (Control). At the end of the treatment, the rats were sacrified and intracardiac blood samples and kidney tissues were taken. Renal damage markers (BUN, creatinine), oxidative stress parameters (TAS, TOS, OSI), DNA damage, proinflammatory cytokines (TNF-alpha, IL-1 Beta, IL-6) and antiinflammatory cytokine (IL-10) were measured by biochemical evaluation. Histopathological evaluation of renal structure was studied with haematoxylin eosin. In addition, the apoptosis was examined by TUNEL method and caspase 3. RESULTS: Only in the cisplatin group were present higher BUN, creatinine, TOS, OSI, DNA damage, proinflammatory cytokines, and lower TAS and IL-10 values than the other groups. Although, BUN, creatinine, TOS, OSI, DNA damage, proinflammatory cytokines values were significantly lower in the group treated with PP than cisplatin group, values were significantly higher than control group. The BUN, creatinine, TOS, OSI, DNA damage, proinflammatory cytokines values of the group, which used PP before and after cisplatin, were significantly lower than those of both group used only cisplatin and used PP before cisplatin; There was no significant difference with the control group. Histopathological evaluation showed significant improvement in haematoxylin eosin staining compared to only cisplatin treated group than in both groups treated with PP. In the TUNEL and caspase 3 staining, in which apoptosis was assessed, the apoptosis rate was significantly lower in the group treated with Proxeed plus before and after cisplatin than in the group treated with both PP before cisplatin and cisplatin alone. CONCLUSIONS: The effect of Proxeed plus, which contains several molecules of nephrotoxic activity in previous studies, on cisplatin nephrotoxicity was investigated for the first time. The use of Proxeed plus before and after cisplatin has been demonstrated by both biochemical and histopathological mechanisms that prevent nephrotoxic effect.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://academic.oup.com/ndt/article-pdf/33/suppl_1/i364/24823579/gfy104.sp057.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

@@ -1,0 +1,46 @@
+{
+  "ref_id": "39",
+  "query_title": "The mechanisms of cyclophosphamide-induced testicular toxicity and the protective agents",
+  "query_doi": "10.1080/17425255.2017.1277205",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "The mechanisms of cyclophosphamide-induced testicular toxicity and the protective agents",
+  "verified_authors": [
+    "Emad Ghobadi",
+    "Milad Moloudizargari",
+    "Mohammad Hossein Asghari",
+    "Mohammad Abdollahi"
+  ],
+  "verified_year": "2017",
+  "verified_venue": "Expert Opinion on Drug Metabolism &amp; Toxicology",
+  "verified_doi": "10.1080/17425255.2017.1277205",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 148,
+  "abstract": "INTRODUCTION: Cyclophosphamide (CP) is an alkylating antineoplastic agent with known toxicity to the male reproductive system. Areas covered: This review summarizes the known mechanisms by which CP exerts its toxic effects on the male reproductive system and the methods utilized to prevent such effects so that it could be further investigated and applied in clinical use. Keywords including ['Cyclophosphamide' AND 'male reproductive' OR' sperm toxicity' OR 'spermatotoxicity' OR 'infertility] were searched through Google Scholar, PubMed and Scopus databases based on PRISMA guidelines. After removing duplicates and irrelevant data, 76 papers were reviewed concerning the outcomes of treatment of male mice, rats, and humans with CP and the effects of co-administration of various natural and synthetic compounds on male reproductive system. Expert opinion: CP exerts its effect mainly by inducing oxidative stress and changing gene expression in spermatocytes variably during different stages of development. These effects could be either restored or prevented by the administration of compounds with antioxidant properties and those which target the biochemical alterations induced by CP.",
+  "tldr": "This review summarizes the known mechanisms by which CP exerts its toxic effects on the male reproductive system and the methods utilized to prevent such effects so that it could be further investigated and applied in clinical use.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

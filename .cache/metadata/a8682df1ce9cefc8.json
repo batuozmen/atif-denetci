@@ -1,0 +1,49 @@
+{
+  "ref_id": "94",
+  "query_title": "Ethanolic extract of Moringa oleifera leaves alleviate cyclophosphamide-induced testicular toxicity by improving endocrine function and modulating cell specific gene expression in mouse testis",
+  "query_doi": "10.1016/j.jep.2020.112922",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Ethanolic extract of Moringa oleifera leaves alleviate cyclophosphamide-induced testicular toxicity by improving endocrine function and modulating cell specific gene expression in mouse testis",
+  "verified_authors": [
+    "Guruprasad Nayak",
+    "Arpitha Rao",
+    "Prashansha Mullick",
+    "Srinivas Mutalik",
+    "Sneha Guruprasad Kalthur",
+    "Satish Kumar Adiga",
+    "Guruprasad Kalthur"
+  ],
+  "verified_year": "2020",
+  "verified_venue": "Journal of Ethnopharmacology",
+  "verified_doi": "10.1016/j.jep.2020.112922",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 56,
+  "abstract": "ETHNOPHARMACOLOGICAL RELEVANCE\nMoringa oleifera Lam. is known for its nutritional and ethno medicinal values due to the presence of wide array of phytochemicals with multiple biological activities. We have previously reported that ethanolic extract of Moringa oleifera leaves (MOE) ameliorated cyclophosphamide (CP)-induced testicular toxicity and improved functional integrity of spermatozoa as well as spermatogenic cells.\n\n\nAIM OF THE STUDY\nThe present study was planned to investigate whether the mitigation of CP-induced testicular toxicity by MOE is mediated via modulation of endocrine profile, genes associated with function of different cell types and enhancement of DNA repair response in spermatogonial cells.\n\n\nMATERIAL AND METHODS\nAdult Swiss albino mice (8 week) were injected with CP (100 mg/kg, one dose in a week for 3 weeks) and MOE (100 mg/kg, 5 doses in a week for 4 weeks) either alone or in combination intraperitoneally. At 35 day post CP injection (first dose), the functional characteristics such as count, motility, head morphology and DNA integrity were assessed in epididymal spermatozoa. Key reproductive hormones like testosterone, follicle stimulating hormone (FSH) and Inhibin B concentration were analyzed in serum and testis. In addition, m-RNA expression of genes pertaining to the function of Leydig, Sertoli and spermatogonial cells as well as antioxidant enzymes were evaluated in the testis. To understand the DNA damage and repair process in germ cells, pre-pubertal (2 week) mice were administered with single dose of CP (200 mg/kg) and/or MOE (100 mg/kg) and analyzed for expression of DNA damage (γ-H2AX, P53 and Caspase3) and repair genes (Rad51 and Ku80) in isolated spermatogonial cells at various time points after treatment.\n\n\nRESULTS\nCP administration resulted in decrease in count, motility and increase in morphological defects and DNA damage in spermatozoa. Testosterone level was marginally decreased while there was a significant increase in FSH (p < 0.001) and decrease in inhibin B (p < 0.05) observed in CP treated mice. Administration of MOE prior to CP, improved sperm functional characteristics, decreased FSH and increased inhibin B levels. Expression of Abp was down-regulated while Transferrin, Fshr and Gata4 (Sertoli cell specific genes) were up-regulated in testis treated with CP. Administration of CP down-regulated the expression of Oct4 and Ddx4 (Spermatogonia specific genes). MOE administration was shown to ameliorate CP-induced damage by modulating the expression of genes specific to Sertoli and spermatogenic cells. Furthermore, MOE treatment reduced CP-induced DNA damage as evident from lower percentage of γ-H2AX positive spermatogonial cells.\n\n\nCONCLUSION\nAdministration of MOE mitigated CP-induced testicular damage by improving blood and, intra-testicular hormonal milieu as well as modulating the expression of genes pertaining to Sertoli and spermatogonial cells.",
+  "tldr": "Investigation of whether the mitigation of CP-induced testicular toxicity by MOE is mediated via modulation of endocrine profile, genes associated with function of different cell types and enhancement of DNA repair response in spermatogonial cells found it to be so.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

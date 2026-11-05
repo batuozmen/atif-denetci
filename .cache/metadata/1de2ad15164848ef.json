@@ -1,0 +1,45 @@
+{
+  "ref_id": "55",
+  "query_title": "The therapeutic effect of hesperetin on doxorubicin-induced testicular toxicity: Potential roles of the mechanistic target of rapamycin kinase (mTOR) and dynamin-related protein 1 (DRP1)",
+  "query_doi": "10.1016/j.taap.2021.115833",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "The therapeutic effect of hesperetin on doxorubicin-induced testicular toxicity: Potential roles of the mechanistic target of rapamycin kinase (mTOR) and dynamin-related protein 1 (DRP1)",
+  "verified_authors": [
+    "Ahmet Tektemur",
+    "Nalan Kaya Tektemur",
+    "Elif Erdem Güzel"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "Toxicology and Applied Pharmacology",
+  "verified_doi": "10.1016/j.taap.2021.115833",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 21,
+  "abstract": "Clinical utilization of doxorubicin (DOX), which is a commonly used chemotherapeutic, is restricted due to toxic effects on various tissues. Using hesperetin (HST), an antioxidant used in Chinese traditional medicine protects testis against DOX-induced toxicity although the molecular mechanisms are not well-known. The study was aimed to examine the possible role of the mechanistic target of rapamycin kinase (mTOR) and dynamin 1-like dynamin-related protein 1 (DRP1) in the therapeutic effects of HST on the DOX-induced testicular toxicity. Rats were divided into Control, DOX, DOX + HST, and HST groups (n = 7). Single-dose DOX (15 mg/kg) was administered intraperitoneally and HST (50 mg/kg) was administered by oral gavage every other day for 28 days. Total antioxidant status (TAS), histopathological evaluations, immunohistochemistry, and gene expression level detection analyses were performed. Histopathologically, DOX-induced testicular damage was ameliorated by HST treatment. DOX reduced testicular TAS levels and increased oxidative stress markers, 8-Hydroxy-deoxyguanosine (8-OHdG), and 4-Hydroxynonenal (4-HNE). Also, upregulated mTOR and DRP1 expressions with DOX exposure were decreased after HST treatment in the testis (p < 0.05). On the other hand, DOX-administration downregulated miR-150-5p and miR-181b-2-3p miRNAs, targeting mTOR and mRNA levels of beclin 1 (BECN1) and autophagy-related 5 (ATG5), autophagic markers. Furthermore, these levels were nearly similar to control testis samples in the DOX + HST group (p < 0.05). The study demonstrated that HST may have a therapeutic effect on DOX-induced testicular toxicity by removing reactive oxygen species (ROS) and by modulating the mTOR and DRP1 expressions, which have a critical role in regulating the balance of generation/elimination of ROS.",
+  "tldr": "It is demonstrated that HST may have a therapeutic effect on DOX-induced testicular toxicity by removing reactive oxygen species (ROS) and by modulating the mTOR and DRP1 expressions, which have a critical role in regulating the balance of generation/elimination of ROS.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://hdl.handle.net/11508/57941",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

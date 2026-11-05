@@ -1,0 +1,43 @@
+{
+  "ref_id": "84",
+  "query_title": "Preventive effects of quercetin against inflammation and apoptosis in cyclophosphamide-induced testicular damage",
+  "query_doi": "10.22038/ijbms.2024.74458.16177",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Preventive effects of quercetin against inflammation and apoptosis in cyclophosphamide-induced testicular damage.",
+  "verified_authors": [
+    "Duygu Uzun-Goren",
+    "Yeşim Hülya Uz"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Iranian Journal of Basic Medical Sciences",
+  "verified_doi": "10.22038/ijbms.2024.74458.16177",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 8,
+  "abstract": "Objective(s): We aimed to investigate the effects of quercetin (QRC) against cyclophosphamide (CP)-induced testicular damage and how it interacts with apoptotic and inflammatory signaling pathways. Materials and Methods: Forty male Wistar rats were randomly divided into four groups, 10 in each group; Control group (corn oil, intragastrically, 14 days), QRC group (100 mg/kg QRC, dissolved in corn oil, 14 days), CP group (200 mg/kg CP, intraperitoneally, single dose on the 7th day), and CP+QRC group (100 mg/kg QRC, intragastrically, 14 days and 200 mg/kg CP, intraperitoneally, single dose on the 7th day). Animals were sacrificed one day after the last QRC application and the effects of quercetin were evaluated by histological, morphometrical, and hormonal parameters. Also, nuclear factor kappa B (NFkB), nuclear factor erythroid 2 related factor 2 (Nrf2), Bcl-2 associated X protein (Bax), and B-cell lymphoma-2 (Bcl-2) immunoreactivities were evaluated immunohistochemically. Results: CP increased the testicular weight/body weight ratio, significantly decreasing body weights and testicular weights. All hormone levels were also reduced significantly. Morphometrically, seminiferous tubules diameter and germinal epithelial thickness decreased, while a significant increase was determined in interstitial field width in addition to histological damage. Furthermore, immunohistochemical findings also indicated that NFkB and Bax immunoreactivity were increased in the CP group, whereas significant decrease was seen in Nrf2 and Bcl-2 immunoreactivity. Apoptotic cell and tubule index were reduced in CP. QRC ensured improvement in all findings. Conclusion: Data showed us, that QRC may have preventive effects in CP-induced testicular damage by acting on NFkB, Nrf2, Bax, and Bcl-2 pathways.",
+  "tldr": "It is shown that quercetin may have preventive effects in CP-induced testicular damage by acting on NFkB, Nrf2, Bax, and Bcl-2 pathways.",
+  "full_text": "",
+  "content_source": "OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11017851/pdf/IJBMS-27-647.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

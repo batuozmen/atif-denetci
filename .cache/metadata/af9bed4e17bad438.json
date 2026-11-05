@@ -1,0 +1,46 @@
+{
+  "ref_id": "98",
+  "query_title": "Testicular Function After Cytotoxic Chemotherapy: Evidence of Leydig Cell Insufficiency",
+  "query_doi": "10.1200/JCO.1999.17.5.1493",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Testicular Function After Cytotoxic Chemotherapy: Evidence of Leydig Cell Insufficiency",
+  "verified_authors": [
+    "S. J. Howell",
+    "J. A. Radford",
+    "W.D.J. Ryder",
+    "S. M. Shalet"
+  ],
+  "verified_year": "1999",
+  "verified_venue": "Journal of Clinical Oncology",
+  "verified_doi": "10.1200/JCO.1999.17.5.1493",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 160,
+  "abstract": "PURPOSE: To evaluate testicular function in men after treatment with cytotoxic chemotherapy. PATIENTS AND METHODS: We measured testosterone, sex hormone–binding globulin (SHBG), luteinizing hormone (LH), and follicle-stimulating hormone (FSH) levels in 209 men after treatment with mechlorethamine, vinblastine, procarbazine, and prednisone, hybrid chemotherapy, or high-dose chemotherapy and in 54 healthy age-matched controls. RESULTS: The mean age of the patients was 38 years (range, 19 to 68 years), and all patients had received chemotherapy between 1 and 22 years previously. Patients had significantly higher mean LH (7.9 v 4.1 IU/L; P &lt; .0001) and FSH levels (18.8 v 3.1 IU/L; P &lt; .0001) than controls. There was no significant difference in mean total testosterone level between the patients and controls, but there was a trend toward a lower mean testosterone/SHBG ratio in the patients (0.63 v 0.7; P = .08). Analysis of the hormonal parameters using a model that allowed for the effects of increasing age on testicular function showed evidence of significant recovery of gonadal function in the first 10 years after treatment. Fifty-two percent of patients had LH levels at or above the upper limit of normal, and 32% of patients had increased LH with testosterone levels in the lower half of the normal range, suggesting a degree of Leydig cell impairment. CONCLUSION: In a significant proportion of men, there is good evidence of Leydig cell dysfunction after cytotoxic chemotherapy. The clinical significance of this Leydig cell dysfunction is not clear, but some of these men may benefit from testosterone replacement. Further studies are warranted.",
+  "tldr": "In a significant proportion of men, there is good evidence of Leydig cell dysfunction after cytotoxic chemotherapy, and some of these men may benefit from testosterone replacement.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

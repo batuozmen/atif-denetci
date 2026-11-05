@@ -1,0 +1,48 @@
+{
+  "ref_id": "60",
+  "query_title": "Melatonin Ameliorates Cyclophosphamide-Induced Spermatogenesis Disorder by Reducing Pyroptosis",
+  "query_doi": "10.1155/2023/2186029",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Melatonin Ameliorates Cyclophosphamide‐Induced Spermatogenesis Disorder by Reducing Pyroptosis",
+  "verified_authors": [
+    "Zhan Song",
+    "Jiahui Wang",
+    "Peng Zhu",
+    "Zhixin Wang",
+    "Xuexia Liu",
+    "Fujun Liu"
+  ],
+  "verified_year": "2023",
+  "verified_venue": "Andrologia",
+  "verified_doi": "10.1155/2023/2186029",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 8,
+  "abstract": "As a chemotherapeutic drug, cyclophosphamide (CP) has a negative impact on male fertility due to its reproductive toxicity. Melatonin (Mel) promotes the male reproductive system and increases testosterone synthesis. This study is aimed at exploring the molecular mechanism of Mel as a protector of male fertility against CP‐induced cytotoxicity. A CP toxicity model was established in adult ICR male mice by intraperitoneal injection of 100 mg/kg CP every other day for a week. Protective effects of Mel on the testis from CP‐induced damage were evaluated using four groups of ICR male mice that received intraperitoneal injections of normal saline, 100 mg/kg CP, 10 mg/kg Mel, or the same dosage of CP and Mel, respectively. Testis morphology was observed by hematoxylin and eosin (HE) staining. Sperm quality parameters were evaluated, and sperm function was studied by in vitro fertilization (IVF). Proliferation, meiosis, and pyroptosis markers were examined by western blot. Results showed that CP treatment induced testis toxicity in a time‐dependent manner with the most severe damage to the testis at two weeks post CP treatment. CP‐treated mice showed reduced testicular weight and impaired spermatogenesis by downregulating PCNA and SYCP3, reduced serum testosterone levels, decreased sperm counts and motility, increased seminiferous tubule vacuolization, and oxidative damage to spermatogenic cells. All these effects, apart from testicular weight, could be ameliorated by Mel administration. The IVF experiment revealed that CP treatment reduced the rates of sperm fertilization and blastocyst development, which were also enhanced by Mel. Mel‐treated mice also showed increased expression of proliferation‐associated protein PCNA and meiosis‐associated proteins REC8, STRA8, and SYCP3, which were all reduced by CP. Furthermore, Mel inhibited the pyroptosis of spermatogenic cells by reducing GSDMD and IL18 expression. In conclusion, this study indicated that Mel might protect the testis from CP‐induced DNA damage to germ cells through the alleviation of pyroptosis.",
+  "tldr": "Mel might protect the testis from CP-induced DNA damage to germ cells through the alleviation of pyroptosis, according to a study exploring the molecular mechanism of Mel as a protector of male fertility againstCP-induced cytotoxicity.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "http://downloads.hindawi.com/journals/and/2023/2186029.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

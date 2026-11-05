@@ -1,0 +1,50 @@
+{
+  "ref_id": "92",
+  "query_title": "Protection of cyclophosphamide-induced toxicity in reproductive tract histology, sperm characteristics, and DNA damage by an herbal source; evidence for role of free-radical toxic stress",
+  "query_doi": "10.1177/0960327108102046",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Protection of cyclophosphamide-induced toxicity in reproductive tract histology, sperm characteristics, and DNA damage by an herbal source; evidence for role of free-radical toxic stress",
+  "verified_authors": [
+    "MA Rezvanfar",
+    "RA Sadrkhanlou",
+    "A Ahmadi",
+    "H Shojaei-Sadee",
+    "MA Rezvanfar",
+    "A Mohammadirad",
+    "A Salehnia",
+    "M Abdollahi"
+  ],
+  "verified_year": "2008",
+  "verified_venue": "Human &amp; Experimental Toxicology",
+  "verified_doi": "10.1177/0960327108102046",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 220,
+  "abstract": "Cyclophosphamide (CP) as an anticancer alkylating agent has been known as a male reproductive tract toxicant. The aim of this study was to examine whether Satureja khuzestanica essential oil (SKEO) as an established herbal antioxidant, might protect tract rat reproductive system from toxicity of CP. To reach this aim, total antioxidant power (TAP) and lipid peroxidation (LPO) in testis and plasma, blood levels of sex hormones, sperm characteristics, DNA integrity and chromatin quality, and fertility in male rats were tested. Histopathological analysis of testes and epididymides and staining of mast cells were performed for assessment of spermatogenic disorders. CP (6 mg/kg/day) and SKEO (225 mg/kg/day) were administered alone or in combination by gavage for 28 days. In the CP-exposed rats, testicular and plasma LPO increased, TAP decreased, plasma testosterone diminished, and both spermatogenesis and fertility were impaired. In CP-treated rats, a decrease in sperm quality was associated with increased DNA damage and decreased chromatin quality. Coadministration of SKEO significantly improved CP-induced changes in plasma testosterone, sperm quality, spermatogenesis and fertility, toxic stress, and DNA damage. It is concluded that CP-induced toxic effects on androgenesis and spermatogenesis is mediated by free radicals. SKEO protects reproductive system from toxicity of CP through its antioxidant potential and androgenic activity.",
+  "tldr": "It is concluded that CP-induced toxic effects on androgenesis and spermatogenesis is mediated by free radicals and SKEO protects reproductive system from toxicity of CP through its antioxidant potential and androgenic activity.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://journals.sagepub.com/doi/pdf/10.1177/0960327108102046",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

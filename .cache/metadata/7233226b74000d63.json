@@ -1,0 +1,43 @@
+{
+  "ref_id": "57",
+  "query_title": "Cyclophosphamide-induced testicular injury is associated with inflammation, oxidative stress, and apoptosis in mice: Protective role of taxifolin",
+  "query_doi": "10.1016/j.repbio.2024.100990",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Cyclophosphamide-induced testicular injury is associated with inflammation, oxidative stress, and apoptosis in mice: Protective role of taxifolin",
+  "verified_authors": [
+    "Afaf F. Almuqati"
+  ],
+  "verified_year": "2025",
+  "verified_venue": "Reproductive Biology",
+  "verified_doi": "10.1016/j.repbio.2024.100990",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 16,
+  "abstract": "Testicular damage is a major complication of chemotherapeutic cyclophosphamide (CP) compound. Taxifolin (TX), a natural flavonoid with well-established anti-inflammatory and antioxidant properties, is commonly found in various medicinal plants and foods. This study investigated the protective effect of TX against testicular damage in CP-administered mice. Mice were administered with TX at the doses of 10, 25, and 50 mg/kg for 15 days followed by a single CP injection on the 16th day. CP-administered mice demonstrated significantly decreased testosterone levels and low sperm parameters (count, viability, motility). TX administration significantly improved sperm parameters and testosterone levels and effectively mitigated histopathological testicular changes in CP-administered animals. Moreover, TX administration decreased oxidative stress markers and boosted antioxidants (superoxide dismutase, catalase, and reduced glutathione), suppressed and NF-κB p65 and pro-inflammatory cytokines [TNF-α (tumor necrosis factor-alpha) and IL-6 (interleukin-6)], and reduced apoptosis as depicted by testicular levels of caspase-3, Bcl-2, and Bax. Thus, TX could be a highly potent compound to counter CP-linked testicular damage through modulation of oxidative stress, inflammation, and apoptosis, warranting further studies to evaluate the role of TX in human CP-induced testicular injury.",
+  "tldr": "Taxifolin could be a highly potent compound to counter CP-linked testicular damage through modulation of oxidative stress, inflammation, and apoptosis, warranting further studies to evaluate the role of TX in human CP-induced testicular injury.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

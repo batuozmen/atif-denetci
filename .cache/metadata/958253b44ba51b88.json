@@ -1,0 +1,50 @@
+{
+  "ref_id": "65",
+  "query_title": "Medical perspective in testicular ischemia-reperfusion injury",
+  "query_doi": "10.3892/etm.2017.4289",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Medical perspective in testicular ischemia-reperfusion injury",
+  "verified_authors": [
+    "Salvatore Arena",
+    "Roberta Iacona",
+    "Pietro Antonuccio",
+    "Tiziana Russo",
+    "Vincenzo Salvo",
+    "Eloisa Gitto",
+    "Pietro Impellizzeri",
+    "Carmelo Romeo"
+  ],
+  "verified_year": "2017",
+  "verified_venue": "Experimental and Therapeutic Medicine",
+  "verified_doi": "10.3892/etm.2017.4289",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 85,
+  "abstract": "Testicular torsion or torsion of the spermatic cord is one of the most serious urological conditions. It causes testicular injury, which potentially leads to male subfertility. The turning of the spermatic cord and spermatic structures around themselves results in biochemical and histological changes; however, following testicular detorsion, tissues undergo reperfusion that causes more severe damage than that induced by ischemia. Since the primary causes of testicular damage are reactive oxygen species production, an increase in intra-mitochondrial calcium concentration and an increased rate of cellular apoptosis, different medications may potentially be effective. It seems that several medications, experimentally and sometimes clinically, serve an adjuvant role in the cellular damage that occurs following ischemia-reperfusion. Antioxidants, calcium channel blockers, phytotherapeutical medicinals, anaesthetics, hormones and platelet inhibitors may potentially create a solid basis for an adjuvant restoring therapy and ameliorate testicular function following torsion. The current study aimed to review the relevant literature and discuss the actions of a number of molecules that may protect the testes during ischemia/reperfusion injury.",
+  "tldr": "Antioxidants, calcium channel blockers, phytotherapeutical medicinals, anaesthetics, hormones and platelet inhibitors may potentially create a solid basis for an adjuvant restoring therapy and ameliorate testicular function following torsion.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.3892/etm.2017.4289",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

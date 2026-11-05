@@ -1,0 +1,48 @@
+{
+  "ref_id": "18",
+  "query_title": "Comparison of 3- and 6-Month Outcomes of Combined Oral L-Carnitine Fumarate and Acetyl-L-Carnitine Therapy, Included in an Antioxidant Formulation, in Patients with Idiopathic Infertility",
+  "query_doi": "10.1177/15579883211036790",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Comparison of 3- and 6-Month Outcomes of Combined Oral L-Carnitine Fumarate and Acetyl-L-Carnitine Therapy, Included in an Antioxidant Formulation, in Patients with Idiopathic Infertility",
+  "verified_authors": [
+    "Marek Szymański",
+    "Tomasz Wandtke",
+    "Karolina Wasilow",
+    "Marek Andryszczyk",
+    "Radosław Janicki",
+    "Piotr Domaracki"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "American Journal of Men's Health",
+  "verified_doi": "10.1177/15579883211036790",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 17,
+  "abstract": "The male factor is responsible for infertility in about 35–40% of all cases. Idiopathic oligo- and/or astheno- and/or therato-zoospermia is one of the most common male fertility disorders and remains a significant therapeutic challenge. The primary cause of idiopathic male infertility remains unknown but seems to be associated with oxidative stress. Objective: The use of antioxidative formulation to improve qualitative and quantitative deficiencies in the male gametes. In total, 78 subjects were treated with a combination of 1,725 mg L-carnitine fumarate, 500 mg acetyl-L-carnitine, 90 mg vitamin C, 20 mg coenzyme Q 10 , 10 mg zinc, 200 µg folic acid, 50 µg selenium, and 1.5 µg vitamin B 12 (Proxeed ® Plus, Sigma-Tau, Italy) for 6 months; the preparation was taken twice daily from the time idiopathic infertility was diagnosed. Basic seminal parameters were evaluated by a European Society of Human Reproduction and Embryology (ESHRE) -certified embryologist following the fifth edition of the World Health Organisation (2010) guidelines at three time points: at baseline and 3 and 6 months of treatment. Improvements in semen parameters (differing in terms of dynamics) were evident at 3 months and gradually improved over the 6 months of treatment. Each parameter: sperm concentration, total sperm count, sperm total and progressive motility improved significantly after treatment except for the percentage of sperm of abnormal morphology and ejaculate volume. Proxeed Plus was effective for patients with idiopathic infertility; however, a long treatment period is needed to achieve optimal results.",
+  "tldr": "Each parameter: sperm concentration, total sperm count, sperm total and progressive motility improved significantly after treatment except for the percentage of sperm of abnormal morphology and ejaculate volume.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://journals.sagepub.com/doi/pdf/10.1177/15579883211036790",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

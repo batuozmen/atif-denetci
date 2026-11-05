@@ -1,0 +1,50 @@
+{
+  "ref_id": "114",
+  "query_title": "Bta-miR-146a Inhibits Proliferation and Promotes Apoptosis of Bovine Immature Sertoli Cells by Targeting SMAD4 via the TGF-β/MAPK Signaling Pathway",
+  "query_doi": "10.3390/ijms27177554",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Bta-miR-146a Inhibits Proliferation and Promotes Apoptosis of Bovine Immature Sertoli Cells by Targeting SMAD4 via the TGF-β/MAPK Signaling Pathway",
+  "verified_authors": [
+    "Qiwen Lu",
+    "Quanheng Guo",
+    "Yanlong Zhou",
+    "Qiuyan Tao",
+    "Ruiwen Chen",
+    "Qianchao Xu",
+    "Zhihui Zhao",
+    "Ping Jiang"
+  ],
+  "verified_year": "2026",
+  "verified_venue": "International Journal of Molecular Sciences",
+  "verified_doi": "10.3390/ijms27177554",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 2,
+  "abstract": "Sertoli cells (SCs) are essential for spermatogenesis and provide structural and nutritional support to germ cells in the Chinese Holstein cattle testis. Although microRNAs (miRNAs) are known to regulate SC function, the specific role of Bta-miR-146a in bovine SCs is unclear. This study investigated the mechanisms by which Bta-miR-146a regulates bovine immature SCs. Using molecular cloning, we constructed Bta-miR-146a overexpression and interference vectors and transfected them into SCs via lipofection. Quantitative real-time PCR (RT-qPCR), 5-ethynyl-2′-deoxyuridine (EdU) proliferation assays, Cell Counting Kit-8 (CCK-8) viability assays, and flow cytometry revealed that Bta-miR-146a overexpression inhibited SC proliferation and promoted apoptosis, whereas Bta-miR-146a inhibition increased proliferation and suppressed apoptosis. Dual-luciferase reporter assays confirmed that SMAD4 is a direct target of Bta-miR-146a; SMAD4 interference reduced SC proliferation and increased apoptosis, whereas overexpression had the opposite effect. Furthermore, activity of this gene modulates the TGFβ/MAPK signaling pathway; SMAD4 interference reduces the expression of TGFβ, TGF-βRII, DAXX, MAP3K5, P38, and MAX. These findings indicate that the Bta-miR-146a/SMAD4/TGFβ/MAPK axis is a key regulator of SC proliferation and apoptosis, offering insights into the molecular mechanisms underlying bovine spermatogenesis and potential targets for improving reproductive performance.",
+  "tldr": "The findings indicate that the Bta-miR-146a/SMAD4/TGFβ/MAPK axis is a key regulator of SC proliferation and apoptosis, offering insights into the molecular mechanisms underlying bovine spermatogenesis and potential targets for improving reproductive performance.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.3390/ijms27177554",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

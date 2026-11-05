@@ -1,0 +1,50 @@
+{
+  "ref_id": "113",
+  "query_title": "Double‐blind, randomised, placebo‐controlled trial on the effect of L‐carnitine and L‐acetylcarnitine on sperm parameters in men with idiopathic oligoasthenozoospermia",
+  "query_doi": "10.1111/and.13267",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Double‐blind, randomised, placebo‐controlled trial on the effect of L‐carnitine and L‐acetylcarnitine on sperm parameters in men with idiopathic oligoasthenozoospermia",
+  "verified_authors": [
+    "Sava Micic",
+    "Natasa Lalic",
+    "Dejan Djordjevic",
+    "Nebojsa Bojanic",
+    "Natasa Bogavac‐Stanojevic",
+    "Gian Maria Busetto",
+    "Ashraf Virmani",
+    "Ashok Agarwal"
+  ],
+  "verified_year": "2019",
+  "verified_venue": "Andrologia",
+  "verified_doi": "10.1111/and.13267",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 103,
+  "abstract": "Carnitine is essential for energy metabolism and spermatozoa maturation. Combining L-carnitine and L-acetylcarnitine with micronutrients has been investigated as a treatment for infertility in men. We evaluated the effects of a therapeutic formulation, Proxeed Plus, on sperm parameters in oligoasthenozoospermic men. This prospective, randomised, double-blind, placebo-controlled clinical trial involved 175 males (19-44 years) with idiopathic oligoasthenozoospermia who failed to impregnate their partners (12 months). Males received Proxeed Plus or placebo for 3 and 6 months. Sperm volume, progressive motility and vitality significantly (p < 0.001) improved after 6 months compared to baseline. Sperm DNA fragmentation index significantly decreased compared to baseline (p < 0.001) and the 3-month therapy (p = 0.014) in treated men. Increased seminal carnitine and α-glucosidase concentration also positively correlated with improved progressive motility. Decreased DNA fragmentation index was the good predictor of progressive sperm motility >10%, and simultaneous measurement of changes in sperm vitality and DNA fragmentation index gave the highest probability of sperm motility 10% (AUC = 0.924; 95% CI = 0.852-0.996; p < 0.001). Logistic regression analyses revealed DNA fragmentation index decrease as the only independent predictor of sperm motility 10% (OR = 1.106; p = 0.034). We have demonstrated the beneficial effects of carnitine derivatives on progressive motility, vitality and sperm DNA fragmentation. Combining metabolic and micronutritive factors is beneficial for male infertility.",
+  "tldr": "The beneficial effects of carnitine derivatives on progressive motility, vitality and sperm DNA fragmentation are demonstrated and combining metabolic and micronutritive factors is beneficial for male infertility.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://onlinelibrary.wiley.com/doi/pdf/10.1111/and.13267",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

@@ -1,0 +1,48 @@
+{
+  "ref_id": "90",
+  "query_title": "Ameliorative effects of rutin and rutin-loaded chitosan nanoparticles on testicular oxidative stress and histological damage induced by cyclophosphamide in male rats",
+  "query_doi": "10.1016/j.fct.2024.114436",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Ameliorative effects of rutin and rutin-loaded chitosan nanoparticles on testicular oxidative stress and histological damage induced by cyclophosphamide in male rats",
+  "verified_authors": [
+    "Dina A. AbdElrazek",
+    "Neven H. Hassan",
+    "Marwa A. Ibrahim",
+    "Eman I. Hassanen",
+    "Khaled Y. Farroh",
+    "H.I. Abass"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Food and Chemical Toxicology",
+  "verified_doi": "10.1016/j.fct.2024.114436",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 21,
+  "abstract": "Cyclophosphamide (CP) is broadly used to kill various tumor cells; however, its repeated uses have been reported to cause reproductive dysfunction and infertility. Natural flavonoid, rutin (RUT), possesses strong antioxidant and antiapoptotic activity that is attributed to ameliorate the reproductive dysfunction induced by CP. Many previous studies proved that the formulation of flavonoids in nanoemulsion has a promising perspective in mitigating the side effects of chemotherapy. Therefore, the main objective of this study was to investigate the ameliorative effects of RUT and RUT-loaded chitosan nanoparticles (RUT-CH NPs) against CP-induced reproductive dysfunction in male rats. For this aim, thirty-six male albino rats were randomly allocated into six groups as follows: control, RUT, RUT-CH NPs, CP, CP + RUT, and CP + RUT-CH NPs. In the CP groups, a single intraperitoneal injection of CP (150 mg/kg bwt) was administered on the first day of the experiment. RUT and RUT-CH NPs were orally administered either alone or with CP injection at a dose of 10 mg/kg bwt per day for 60 days. The results revealed that CP administration caused significant testicular oxidative stress damage through increasing the nitric oxide and malondialdehyde levels as well as decreasing the total antioxidant capacity and reduced glutathione contents. It also impaired spermatogenesis and steroidogenesis via altering the transcriptase levels of CYP11A1, HSD-3b, StAR, Bax, bcl-2, and Nrf-2 genes. Otherwise, the oral intake of either RUT or RUT-CH NPs with CP injection effectively attenuated these alterations and significantly improved the microscopic appearance of testicular tissue. In conclusion, this study highlights the potential of RUT either free or NPs in mitigating CP-induced testicular dysfunction via its antioxidant and anti-apoptotic properties.",
+  "tldr": "The results revealed that CP administration caused significant testicular oxidative stress damage through increasing the nitric oxide and malondialdehyde levels as well as decreasing the total antioxidant capacity and reduced glutathione contents, which highlighted the potential of RUT either free or NPs in mitigating CP-induced testicular dysfunction via its antioxidant and anti-apoptotic properties.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

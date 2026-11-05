@@ -1,0 +1,44 @@
+{
+  "ref_id": "27",
+  "query_title": "Role of microRNAs in mammalian spermatogenesis and testicular germ cell tumors",
+  "query_doi": "10.1530/REP-14-0239",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Role of microRNAs in mammalian spermatogenesis and testicular germ cell tumors",
+  "verified_authors": [
+    "Li Wang",
+    "Chen Xu"
+  ],
+  "verified_year": "2015",
+  "verified_venue": "Reproduction",
+  "verified_doi": "10.1530/REP-14-0239",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 77,
+  "abstract": "Abstract microRNAs (miRNAs) are a class of small endogenous RNAs, 19–25 nucleotides in size, which play a role in the regulation of gene expression at transcriptional and post-transcriptional levels. Spermatogenesis is a complex process through which spermatogonial stem cells (SSCs) proliferate and differentiate into mature spermatozoa. A large number of miRNAs are abundantly expressed in spermatogenic cells. Growing evidence supports the essential role of miRNA regulation in normal spermatogenesis and male fertility and cumulative research has shown that this form of regulation contributes to the etiology of testicular germ cell tumors (TGCTs). In this review, we addressed recent advancements of miRNA expression profiles in testis and focused on the regulatory functions of miRNA in the process of SSC renewal, spermatogonial mitosis, spermatocyte meiosis, spermiogenesis, and the occurrence of TGCTs.",
+  "tldr": "This review addressed recent advancements of miRNA expression profiles in testis and focused on the regulatory functions of miRNAs in the process of SSC renewal, spermatogonial mitosis, sPermatocyte meiosis, s permiogenesis, and the occurrence of TGCTs.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://academic.oup.com/reproduction/article-pdf/149/3/R127/64131448/r127.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

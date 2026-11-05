@@ -1,0 +1,47 @@
+{
+  "ref_id": "12",
+  "query_title": "Antioxidant Supplementation on Male Fertility—A Systematic Review",
+  "query_doi": "10.3390/antiox12040836",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Antioxidant Supplementation on Male Fertility—A Systematic Review",
+  "verified_authors": [
+    "Fotios Dimitriadis",
+    "Hendrik Borgmann",
+    "Julian Struck",
+    "Johannes Salem",
+    "Timur Kuru"
+  ],
+  "verified_year": "2023",
+  "verified_venue": "Antioxidants",
+  "verified_doi": "10.3390/antiox12040836",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 77,
+  "abstract": "Our aim was to review the current literature regarding the effect of antioxidant supplementation (AS) on male fertility parameters, as AS is commonly used to treat male infertility due to the availability and affordability of antioxidants in many parts of the world. Materials and methods: PubMed, Medline, and Cochrane electronic bibliographies were searched using the modified Preferred Reporting Items for Systemic Reviews and Meta-Analyses (PRISMA) guidelines to evaluate studies on the benefit of antioxidant therapy on infertile men. Results were analyzed regarding the following aspects: (a) ingredient and dose; (b) potential mechanism of action and rationale for use; and (c) effect on various reported outcomes. Results: Thus, 29 studies found a substantial positive effect of AS on outcomes of assisted reproductive therapy (ART), WHO semen parameters, and live-birth rate. Carnitines, Vitamin E and C, N-acetyl cysteine, coenzyme Q10, selenium, zinc, folic acid, and lycopene were beneficial ingredients. Nevertheless, some studies did not show a substantial change in one or more factors. Conclusion: AS seems to have a positive effect on male fertility. Environmental factors may play an increasing role in fertility. Further studies are needed to determine the optimal AS combination and the influence of environmental factors.",
+  "tldr": "It is found that a substantial positive effect of AS seems to have a positive effect on male fertility, and environmental factors may play an increasing role in fertility.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/2076-3921/12/4/836/pdf?version=1680154652",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

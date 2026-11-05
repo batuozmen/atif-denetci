@@ -1,0 +1,46 @@
+{
+  "ref_id": "61",
+  "query_title": "Unravelling the Protective Effects of Emodin Against Cyclophosphamide Induced Gonadotoxicity in Male Wistar Rats",
+  "query_doi": "10.2147/DDDT.S333383",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Unravelling the Protective Effects of Emodin Against Cyclophosphamide Induced Gonadotoxicity in Male Wistar Rats",
+  "verified_authors": [
+    "Yinhua Wang",
+    "Zhaoling Zou",
+    "Amit Jaisi",
+    "Opeyemi Joshua Olatunji"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "Drug Design, Development and Therapy",
+  "verified_doi": "10.2147/DDDT.S333383",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 19,
+  "abstract": "BACKGROUND: Over the past few decades, cyclophosphamide (CP) has been extensively used as a broad-spectrum alkylating agent for the treatment of various cancers and solid tumors. However, the therapeutic actions on CP are not limited to only cancer cells, as it simultaneously exerts significant toxicities on healthy cells through the instigation of oxidative stress and oxidative damages. CP induced testicular toxicity is associated with impaired spermatogenesis, reduced sperm functionality, reproductive hormone and testicular weight. This study was aimed at unravelling the protective effects of emodin (EMD) on testicular toxicity following CP treatment. METHODS: Twenty-four male Wistar rats were allotted into 4 groups as normal control group (NCG), CP control group (CPCG), EMD25+CP (25 mg/kg in 5% tween 80) and EMD50+CP groups (50 mg/kg in 5% tween 80). EMD was orally administered for 35 consecutive days, while four doses of CP (100 mg/kg/week) were administered intraperitoneally from the second to fifth week of treatment. Thereafter, the animals were sacrificed and histopathological examination of the testes as well as serum/testicular biochemical assays were conducted. RESULTS: The results revealed that CP significantly impeded sperm function parameters including sperm count, viability and motility as well as decreased reproductive hormones (testosterone, LH and FSH) levels. In addition, CP enhanced testicular oxidative stress and proinflammatory markers (MDA, IL-6 and TNF-α), while simultaneously decreasing testicular antioxidant enzymes (GSH, GPx, SOD and CAT). Evidence of marked histopathological alterations was also observed in the H&E stained testicular tissues of CP treated rats. EMD significantly prevented these CP induced negative effects. CONCLUSION: This study provides a basis for the potential use of EMD in counteracting chemotherapy induced testicular toxicity. The results further suggest that EMD testicular protective effects in CP-treated rats may be mediated through its modulatory role on oxidative stress and inflammation.",
+  "tldr": "This study provides a basis for the potential use of EMD in counteracting chemotherapy induced testicular toxicity and suggests that EMD testicular protective effects in CP-treated rats may be mediated through its modulatory role on oxidative stress and inflammation.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.dovepress.com/getfile.php?fileID=75068",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

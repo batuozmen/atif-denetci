@@ -1,0 +1,51 @@
+{
+  "ref_id": "54",
+  "query_title": "Effects of Iloprost on TRPM7-Mediated Apoptosis and Oxidative Stress in an Experimental Testicular Torsion–Detorsion Model",
+  "query_doi": "10.3390/ijms27167454",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Effects of Iloprost on TRPM7-Mediated Apoptosis and Oxidative Stress in an Experimental Testicular Torsion–Detorsion Model",
+  "verified_authors": [
+    "Nalan Kaya Tektemur",
+    "Aysenur Bilgetay Unlu",
+    "Merve Kavak Balgetir",
+    "Ahmet Tektemur",
+    "Gonca Ozan Kocamuftuoglu",
+    "Ramazan Fazil Akkoc",
+    "Osman Fatih Yilmaz",
+    "Esra Aydemir",
+    "Tuncay Kuloglu"
+  ],
+  "verified_year": "2026",
+  "verified_venue": "International Journal of Molecular Sciences",
+  "verified_doi": "10.3390/ijms27167454",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 1,
+  "abstract": "Testicular torsion is a urological emergency that causes ischemia–reperfusion (I/R) injury and may result in irreversible germ cell loss and impaired fertility. Oxidative stress, inflammation, and apoptotic pathways play central roles in its pathogenesis. Transient Receptor Potential Melastatin-7 (TRPM7), a bifunctional ion channel/kinase, has recently been implicated in I/R-related cellular injury. Iloprost, a prostacyclin analogue with vasodilatory and antioxidant properties, may offer protective effects; however, its impact on TRPM7-mediated pathways in testicular I/R injury remains unclear. This study aimed to investigate the effects of iloprost on oxidative stress, apoptosis, and TRPM7 expression in an experimental testicular torsion–detorsion model. Thirty-five male Sprague Dawley rats were randomized into five groups: control, sham, iloprost, torsion–detorsion (T/D), and T/D + iloprost. After 60 min of torsion and subsequent detorsion, iloprost (2 µg/kg, intraperitoneal) was administered in the treatment group. Testicular tissues and serum samples were analyzed after 48 h. Histopathology (H&amp;E), apoptosis (TUNEL assay), TRPM7 immunohistochemistry and mRNA expression (RT-qPCR), and serum total antioxidant status (TAS) and total oxidant status (TOS) were evaluated. Torsion–detorsion significantly increased TOS levels, apoptotic cell ratio (ACR), TRPM7 expression, and Bax mRNA expression, while reducing TAS levels (p &lt; 0.05). Iloprost administration significantly improved oxidative stress parameters, restoring TAS and reducing TOS compared with the untreated T/D group. However, it did not significantly reduce histopathological damage, ACR, TRPM7 expression, or Bax mRNA expression. Bcl-2 expression remained largely unchanged across groups. Iloprost improved systemic oxidative status in testicular I/R injury but did not significantly attenuate TRPM7 expression, apoptotic changes, or structural damage under the experimental conditions used. The concurrent increase in TRPM7 expression and apoptotic indices following torsion–detorsion suggests an association between these alterations; however, the present study does not establish a causal relationship between TRPM7 and apoptosis. As TRPM7 activity was not directly assessed or experimentally manipulated, further studies involving TRPM7 inhibition or genetic silencing are required to determine its mechanistic role in testicular I/R-induced apoptosis.",
+  "tldr": "The concurrent increase in TRPM7 expression and apoptotic indices following torsion–detorsion suggests an association between these alterations; however, the present study does not establish a causal relationship between TRPM7 and apoptosis.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.3390/ijms27167454",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

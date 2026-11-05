@@ -1,0 +1,51 @@
+{
+  "ref_id": "99",
+  "query_title": "Cyclophosphamide activates ferroptosis-induced dysfunction of Leydig cells via SMAD2 pathway",
+  "query_doi": "10.1093/biolre/ioae020",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Cyclophosphamide activates ferroptosis-induced dysfunction of Leydig cells via SMAD2 pathway",
+  "verified_authors": [
+    "Senlin Liao",
+    "Cun Wei",
+    "Guanyang Wei",
+    "Haoyu Liang",
+    "Fan Peng",
+    "Lei Zhao",
+    "Ziguang Li",
+    "Cundong Liu",
+    "Qizhao Zhou"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Biology of Reproduction",
+  "verified_doi": "10.1093/biolre/ioae020",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 5,
+  "abstract": "Abstract Cyclophosphamide (CP) is a widely used chemotherapeutic drug and immunosuppressant in the clinic, and the hypoandrogenism caused by CP is receiving more attention. Some studies found that ferroptosis is a new mechanism of cell death closely related to chemotherapeutic drugs and plays a key role in regulating reproductive injuries. The purpose of this study is to explore ferroptosis' role in testicular Leydig cell dysfunction and molecular mechanisms relating to it. In this study, the level of ferroptosis in the mouse model of testicular Leydig cell dysfunction induced by CP was significantly increased and further affected testosterone synthesis. The ferroptosis inhibitors ferrostatin-1 (Fer-1) and iron chelator deferoxamine (DFO) can improve injury induced by CP. The results of immunohistochemistry showed that Fer-1 and DFO could improve the structural disorder of seminiferous tubules and the decrease of the number of Leydig cells in testicular tissue induced by CP. Immunofluorescence and western blot confirmed that Fer-1 and DFO could improve the expression of key enzymes in testosterone synthesis. The activation of SMAD family member 2 (Smad2)/cyclin-dependent kinase inhibitor 1A (Cdkn1a) pathway can improve the ferroptosis of Leydig cells induced by CP and protect the function of Leydig cells. By inhibiting the Smad2/Cdkn1a signal pathway, CP can regulate ferroptosis, resulting in testicular Leydig cell dysfunction. In this study, CP-induced hypoandrogenism is explained theoretically and a potential therapeutic strategy is provided. Graphical Abstract",
+  "tldr": "The level of ferroptosis in the mouse model of testicular Leydig cell dysfunction induced by CP was significantly increased and further affected testosterone synthesis and a potential therapeutic strategy is provided.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://academic.oup.com/biolreprod/advance-article-pdf/doi/10.1093/biolre/ioae020/56716950/ioae020.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

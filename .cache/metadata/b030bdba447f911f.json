@@ -1,0 +1,45 @@
+{
+  "ref_id": "63",
+  "query_title": "A Time-Course Study of Chronic Paternal Cyclophosphamide Treatment in Rats: Effects on Pregnancy Outcome and the Male Reproductive and Hematologic Systems",
+  "query_doi": "10.1095/biolreprod37.2.317",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "A Time-Course Study of Chronic Paternal Cyclophosphamide Treatment in Rats: Effects on Pregnancy Outcome and the Male Reproductive and Hematologic Systems1",
+  "verified_authors": [
+    "Jacquetta M. Trasler",
+    "Barbara F. Hales",
+    "Bernard Robaire"
+  ],
+  "verified_year": "1987",
+  "verified_venue": "Biology of Reproduction",
+  "verified_doi": "10.1095/biolreprod37.2.317",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 91,
+  "abstract": "We have found previously that daily treatment of male rats for 11 wk with low doses of the anticancer drug cyclophosphamide had no apparent effect on male reproductive organ weights, epididymal sperm counts, or serum hormones at the end of the treatment period; yet, upon breeding to untreated females, these males produced a high rate of post-implantation loss and fetal anomalies. The present study was designed to investigate the time course and dose response of the effects of chronic cyclophosphamide treatment on the male reproductive and hematologic systems. Male Sprague-Dawley rats were gavage-fed for 1, 3, 6 and 9 wk with saline (control), or 5.1 (low dose) or 6.8 (high dose) mg/kg/day of cyclophosphamide. After each of the treatment periods, males were mated to determine the effect on pregnancy outcome, then killed, and the effects on the male reproductive and hematologic systems were assessed. After 6 wk of treatment, a sharp increase in mortality was found between the 5.1 and 6.8 mg/kg/day doses of cyclophosphamide. The high dose of cyclophosphamide induced higher levels of pre- and post-implantation loss but fewer fetal anomalies than did the low dose. The low dose of cyclophosphamide did not affect reproductive organ weights; in contrast, the high dose caused decreases in epididymal, ventral prostate, and seminal vesicle weights after 3, 6, and 9 wk. Testicular and epididymal sperm counts were decreased in a dose-dependent manner after 3 wk; in addition, the high dose led to a decrease in epididymal sperm counts after 6 wk of treatment. Another rapidly proliferative tissue, the bone marrow, was dramatically affected by both doses of cyclophosphamide at all time points, with leukocyte counts decreasing to 40% of control by 1 wk. After 9 wk of treatment, effects on the male reproductive system were less marked, compared to earlier time points, whereas those on the hematologic system and pregnancy outcome persisted. Thus chronic low-dose treatment of male rats with cyclophosphamide not only had early and striking effects on the bone marrow and the pregnancy outcome but also affected the male reproductive system in a clear time- and dose-dependent manner.",
+  "tldr": "Chronic low-dose treatment of male rats with cyclophosphamide not only had early and striking effects on the bone marrow and the pregnancy outcome but also affected the male reproductive system in a clear time- and dose-dependent manner.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

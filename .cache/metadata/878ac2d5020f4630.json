@@ -1,0 +1,49 @@
+{
+  "ref_id": "59",
+  "query_title": "Hesperidin Mitigates Cyclophosphamide-Induced Testicular Dysfunction via Altering the Hypothalamic Pituitary Gonadal Axis and Testicular Steroidogenesis, Inflammation, and Apoptosis in Male Rats",
+  "query_doi": "10.3390/ph16020301",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Hesperidin Mitigates Cyclophosphamide-Induced Testicular Dysfunction via Altering the Hypothalamic Pituitary Gonadal Axis and Testicular Steroidogenesis, Inflammation, and Apoptosis in Male Rats",
+  "verified_authors": [
+    "Tarek Khamis",
+    "Abdelmonem Awad Hegazy",
+    "Samaa Salah Abd El-Fatah",
+    "Eman Ramadan Abdelfattah",
+    "Marwa Mohamed Mahmoud Abdelfattah",
+    "Liana Mihaela Fericean",
+    "Ahmed Hamed Arisha"
+  ],
+  "verified_year": "2023",
+  "verified_venue": "Pharmaceuticals",
+  "verified_doi": "10.3390/ph16020301",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 52,
+  "abstract": "Cyclophosphamide (CP) is a cytotoxic, cell cycle, non-specific, and antiproliferative drug. This study aimed to address the toxic effects of CP on male fertility and the possible ameliorative role of hesperidin (HSP). Thirty-two adult albino rats were randomly divided into four groups, namely, the negative control, HSP, CP-treated, and CP+HSP-treated groups. The CP-treated rats showed a significant reduction in the levels of serum LH, FSH, testosterone, prolactin, testicular glutathione peroxidase (GPx), and total antioxidant capacity (TAC) with an elevation in levels of malondialdehyde (MDA), and p53, and iNOS immune expression, compared to the control group. A significant downregulation in hypothalamic KISS-1, KISS-1r, and GnRH, hypophyseal GnRHr, and testicular mRNA expression of steroidogenesis enzymes, PGC-1α, PPAR-1, IL10, and GLP-1, as well as a significant upregulation in testicular mRNA of P53 and IL1β mRNA expression, were detected in the CP-treated group in comparison to that in the control group. The administration of HSP in CP-treated rats significantly improved the levels of serum LH, FSH, testosterone, prolactin, testicular GPx, and TAC, with a reduction in levels of MDA, and p53, and iNOS immune expression compared to the CP-treated group. A significant upregulation in hypophyseal GnRHr, and testicular mRNA expression of CYP19A1 enzymes, PPAR-1, IL10, and GLP-1, as well as a significant downregulation in testicular mRNA of P53 and IL1β mRNA expression, were detected in the CP+HSP-treated group in comparison to that in the CP-treated group. In conclusion, HSP could be a potential auxiliary agent for protection from the development of male infertility.",
+  "tldr": "The administration of HSP inCP-treated rats significantly improved the levels of serum LH, FSH, testosterone, prolactin, testicular GPx, and TAC, with a reduction in levels of MDA, and p53, and iNOS immune expression compared to the CP-treated group.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/1424-8247/16/2/301/pdf?version=1677124124",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

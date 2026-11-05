@@ -24,8 +24,10 @@ Görevleri:
 from __future__ import annotations
 
 import json
+import queue
 import re
 import sys
+import threading
 from dataclasses import dataclass, field, asdict
 from typing import List, Dict, Optional, Tuple, Any
 
@@ -54,6 +56,27 @@ PREFERRED_OLLAMA_MODELS = [
 # Zayıf künye eşleşmesi: bu skorun altındaki kaynaklarla anlam karşılaştırması
 # yapılmaz; sonuç "DOGRULANAMADI" olur (yanlış makaleyle hüküm vermemek için).
 MIN_TRUSTED_MATCH = 0.70
+
+# Yerel dil modeli bu süre içinde yanıt vermezse değerlendirme kural katmanına düşer.
+# Ollama kilitlenmelerinde arayüzün donmasını engeller (ADIM 26).
+LLM_TIMEOUT = 90.0
+
+
+def _call_with_timeout(fn: Any, timeout: float) -> Tuple[str, Any]:
+    """fn'i daemon iş parçacığında çalıştırır; süre aşımında ('timeout', None) döner."""
+    result_queue: "queue.Queue" = queue.Queue()
+
+    def worker() -> None:
+        try:
+            result_queue.put(("ok", fn()))
+        except Exception as exc:  # noqa: BLE001
+            result_queue.put(("err", exc))
+
+    threading.Thread(target=worker, daemon=True).start()
+    try:
+        return result_queue.get(timeout=timeout)
+    except queue.Empty:
+        return ("timeout", None)
 
 
 # ---------------------------------------------------------------------------
@@ -697,8 +720,10 @@ class SemanticRAGVerifier:
         )
 
         llm_result: Optional[Dict[str, Any]] = None
-        try:
-            resp = ollama.chat(
+        timed_out = False
+
+        def _call_llm() -> Any:
+            return ollama.chat(
                 model=self.ollama_model,
                 messages=[
                     {"role": "system", "content": system_prompt},
@@ -707,45 +732,59 @@ class SemanticRAGVerifier:
                 format="json",
                 options={"temperature": 0.0, "num_ctx": 3072},
             )
-            content = (
-                getattr(getattr(resp, "message", None), "content", None)
-                or resp.get("message", {}).get("content", "")
+
+        status, payload = _call_with_timeout(_call_llm, LLM_TIMEOUT)
+        if status == "timeout":
+            timed_out = True
+        elif status == "ok":
+            try:
+                resp = payload
+                content = (
+                    getattr(getattr(resp, "message", None), "content", None)
+                    or resp.get("message", {}).get("content", "")
+                )
+                parsed = json.loads(content)
+                raw_verdict = str(parsed.get("verdict", "")).upper().strip()
+
+                if "KISMEN" in raw_verdict or "PARTIAL" in raw_verdict:
+                    verdict = "KISMEN_DESTEKLENİYOR"
+                elif "DESTEK" in raw_verdict or "SUPPORT" in raw_verdict:
+                    verdict = "DESTEKLENİYOR"
+                elif "ÇELİŞ" in raw_verdict or "CELIS" in raw_verdict or "CONTRADICT" in raw_verdict:
+                    verdict = "ÇELİŞİYOR"
+                else:
+                    verdict = "KANIT_YETERSİZ"
+
+                explanation = (parsed.get("explanation") or "").strip()
+                if not explanation:
+                    explanation = self._fallback_explanation(verdict, heuristic)
+                if verdict == "KISMEN_DESTEKLENİYOR" and (
+                    "kilitli" not in explanation.lower() and "özet" not in explanation.lower()
+                ):
+                    explanation = "☑️ Özet Düzeyinde Uyumlu (tam metin kilitli). " + explanation
+
+                llm_result = {
+                    "verdict": verdict,
+                    "confidence": float(parsed.get("confidence", heuristic["confidence"])),
+                    "explanation": explanation,
+                    "claim_meaning": parsed.get("claim_meaning") or heuristic["claim_meaning"],
+                    "evidence_meaning": parsed.get("evidence_meaning") or heuristic["evidence_meaning"],
+                    "suggested_revision": parsed.get("suggested_revision") or heuristic["suggested_revision"],
+                    "model_used": f"Ollama ({self.ollama_model}) + Çok Dilli Semantik RAG",
+                }
+            except Exception:
+                # Ollama kapalıysa veya model henüz indirilmemişse sistem çökmez;
+                # kural tabanlı NLI motoru devreye girer.
+                llm_result = None
+
+        combined = self._combine_decisions(heuristic, llm_result)
+        if timed_out:
+            combined["explanation"] = (
+                f"⚠️ Yerel dil modeli {LLM_TIMEOUT:g} sn içinde yanıt vermedi (zaman aşımı); "
+                "kural tabanlı değerlendirme kullanıldı. " + combined.get("explanation", "")
             )
-            parsed = json.loads(content)
-            raw_verdict = str(parsed.get("verdict", "")).upper().strip()
-
-            if "KISMEN" in raw_verdict or "PARTIAL" in raw_verdict:
-                verdict = "KISMEN_DESTEKLENİYOR"
-            elif "DESTEK" in raw_verdict or "SUPPORT" in raw_verdict:
-                verdict = "DESTEKLENİYOR"
-            elif "ÇELİŞ" in raw_verdict or "CELIS" in raw_verdict or "CONTRADICT" in raw_verdict:
-                verdict = "ÇELİŞİYOR"
-            else:
-                verdict = "KANIT_YETERSİZ"
-
-            explanation = (parsed.get("explanation") or "").strip()
-            if not explanation:
-                explanation = self._fallback_explanation(verdict, heuristic)
-            if verdict == "KISMEN_DESTEKLENİYOR" and (
-                "kilitli" not in explanation.lower() and "özet" not in explanation.lower()
-            ):
-                explanation = "☑️ Özet Düzeyinde Uyumlu (tam metin kilitli). " + explanation
-
-            llm_result = {
-                "verdict": verdict,
-                "confidence": float(parsed.get("confidence", heuristic["confidence"])),
-                "explanation": explanation,
-                "claim_meaning": parsed.get("claim_meaning") or heuristic["claim_meaning"],
-                "evidence_meaning": parsed.get("evidence_meaning") or heuristic["evidence_meaning"],
-                "suggested_revision": parsed.get("suggested_revision") or heuristic["suggested_revision"],
-                "model_used": f"Ollama ({self.ollama_model}) + Çok Dilli Semantik RAG",
-            }
-        except Exception:
-            # Ollama kapalıysa veya model henüz indirilmemişse bile sistem asla çökmez;
-            # Çok dilli vektör + sayısal/kavramsal NLI motoru devreye girer!
-            llm_result = None
-
-        return self._combine_decisions(heuristic, llm_result)
+            combined["model_used"] = "Kural Motoru (Ollama zaman aşımı)"
+        return combined
 
     @staticmethod
     def _match_confidence(paper: FetchedPaper) -> Tuple[bool, float, str]:

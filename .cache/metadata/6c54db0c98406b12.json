@@ -1,0 +1,44 @@
+{
+  "ref_id": "77",
+  "query_title": "Combined protective effect of zinc oxide nanoparticles and melatonin on cyclophosphamide-induced toxicity in testicular histology and sperm parameters in adult Wistar rats",
+  "query_doi": "10.29252/ijrm.15.7.403",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Combined protective effect of zinc oxide nanoparticles and melatonin on cyclophosphamide-induced toxicity in testicular histology and sperm parameters in adult Wistar rats",
+  "verified_authors": [
+    "Fereshte Torabi",
+    "Majid Malekzadeh Shafaroudi",
+    "Nourollah Rezaei"
+  ],
+  "verified_year": "2017",
+  "verified_venue": "International Journal of Reproductive BioMedicine",
+  "verified_doi": "10.29252/ijrm.15.7.403",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 70,
+  "abstract": "BACKGROUND: Cyclophosphamide (CP) has been known as an anticancer drug with several side effects on various organs such as a male reproductive system that can cause infertility. OBJECTIVE: To evaluate the possible combined effects of zinc oxide nanoparticles (nZno) and melatonin (Mel) on sperm parameters and histopathological changes of the testis in CP-treated rats. MATERIALS AND METHODS: 42 adult male Wistar rats were divided into six groups. GI: control, GII: 60 mg/kg/wk CP, GIII and GIV, 10 mg/kg/wk Mel and 5mg/kg/wk nZno and GV: 5 mg/kg/wk nZno and 10 mg/kg/wk Mel were given 2 hr prior to CP injection, respectively,GVI: 5mg/kg/wk nZno and 10 mg/kg/wk Mel simultaneously. After 8 wk of treatment, rats were sacrificed and testis and epididymis were harvested for further evaluation. RESULTS: The CP-treated group showed significant decreases in the body, testes and epididymis weights and sperm parameters (sperm count, viability, motility) with an increase abnormal sperms when compared with the control (p<0.001), as well as many histological alterations included decreased diameters of seminiferous tubules and Johnsen's Testicular Score (with degeneration, desquamation, multi-nucleated giant cell formation), whereas combined treatment (GV), showed more protective effects on CP-induced reproductive system damage compared with groups III or IV (p<0.001). CONCLUSION: These results suggest simultaneous administration of Mel and nZno have more effectively protections against CP-induced reproductive damage than Mel or nZno alone.",
+  "tldr": "Combined treatment (GV), showed more protective effects on CP-induced reproductive system damage compared with groups III or IV (p<0.001), suggesting simultaneous administration of Mel and nZno have more effectively protections against CP- induced reproductive damage than Mel or nZ no alone.",
+  "full_text": "",
+  "content_source": "OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.29252/ijrm.15.7.403",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "CrossRef: ConnectionError: HTTPSConnectionPool(host='api.crossref.org', port=443): Max retries exceeded with url: /works/10.29252/ijrm.15.7.403 (Caused by NameResolutionError(\"HTTPSConnection(host='api.crossref.org', port=443): Failed to resolve 'api.crossref.org' ([Errno 11001] getaddrinfo failed)\"",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

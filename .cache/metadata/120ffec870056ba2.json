@@ -1,0 +1,45 @@
+{
+  "ref_id": "45",
+  "query_title": "Seventy-Day Toxicity Study in Juvenile Sprague-Dawley Rats with Semicarbazide (SEM) from Weaning to Sexual Maturity",
+  "query_doi": "10.1155/2022/5059761",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Seventy-Day Toxicity Study in Juvenile Sprague-Dawley Rats with Semicarbazide (SEM) from Weaning to Sexual Maturity",
+  "verified_authors": [
+    "Vijaykumar Malashetty",
+    "Raghunandan Deshpande",
+    "Somnathreddy Patil"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "Journal of Toxicology",
+  "verified_doi": "10.1155/2022/5059761",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 6,
+  "abstract": "The study was conducted to evaluate the toxicological effects, functional observation battery tests, and sexual maturity of semicarbazide oral gavage administration to juvenile Sprague-Dawley rats for 70 days at 0, 15, 30, and 60 mg/kg/day weaning to sexual maturity. At 60 mg/kg/day, there was a delay in mean age at acquisition of balano-preputial and vaginal patency and a decrease in body weight and food consumption in males. Treatment increased reticulocyte count, aspartate aminotransferase, and alanine aminotransferase levels in both sexes and decreased hematocrit and protein in males. Increased absolute and relative liver and spleen weight in both sexes were observed. Male rats had lower thymus and testes weights, whereas female rats had lower uterine weights. Semicarbazide caused significant changes in sperm motility, sperm count, and sperm abnormality. Histopathologically, semicarbazide caused cortical hypertrophy in adrenals and increased extramedullary hematopoiesis in the spleen; hepatocellular hypertrophy, follicular epithelial hypertrophy in the thyroid, and degeneration of seminiferous tubules in the testis were observed at 60 mg/kg/day when compared to control. Results suggest that 60 mg/kg/day of semicarbazide can exert systemic toxicity in juvenile rats. The no observed adverse effect level (NOAEL) of semicarbazide for juvenile Sprague-Dawley rats was estimated to be 30 mg/kg/day.",
+  "tldr": "It is suggested that 60 mg/kg/day of semicarbazide can exert systemic toxicity in juvenile rats and cause significant changes in sperm motility, sperm count, and sperm abnormality.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "http://downloads.hindawi.com/journals/jt/2022/5059761.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

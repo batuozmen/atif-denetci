@@ -1,0 +1,47 @@
+{
+  "ref_id": "93",
+  "query_title": "Testicular oxidative DNA damage induced by cyclophosphamide and the impact role of pumpkin seed extract: Descriptive histopathological, ultrastructural, and immunohistochemical analysis",
+  "query_doi": "10.21608/bvmj.2024.301525.1841",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Testicular oxidative DNA damage induced by cyclophosphamide and the impact role of pumpkin seed extract: Descriptive histopathological, ultrastructural, and immunohistochemical analysis",
+  "verified_authors": [
+    "Eman Mohamed Samy",
+    "Muhamad Abd-Elraouf",
+    "AbdelBassat Almashed",
+    "Shawaky Mostafa",
+    "Ahmed Tantawy"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Benha Veterinary Medical Journal",
+  "verified_doi": "10.21608/bvmj.2024.301525.1841",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 1,
+  "abstract": "Keywords Cyclophosphamide (CP) is an anticancer and immunosuppressive drug associated with various complications, including cytotoxicity and infertility. This study aimed to evaluate the protective effect of pumpkin seed extract (PSE) against acute testicular damage induced by CP. Twenty-four male albino rats were divided into four equal groups: Group I, control (0.5 ml/kg saline); Group II, CP-treated group (20 mg/kg); Group III, PSE group (600 mg/ kg); Group IV, CP (20 mg/kg) + PSE (600 mg/ kg) treated group. PSE was orally given to rats for 14 successive days while CP was administered intraperitoneally for 7 consecutive days from the 8th day of the study. The intraperitoneal injection of CP-induced reduction in the testicular weight, serum testosterone levels, and sperm quality (count, motility, viability, and morphology). In addition, there were severe testicular disruption, impaired spermatogenesis, and marked apoptosis of germ cells. Ultrastructural, most germ cells appeared as irregular shrunken bodies with cytoplasmic vacuolation, mitochondrial swelling, and nuclear lysis. Spermatozoa showed marked irregularity with disrupted acrosomal cap and plasma membrane. The immunohistochemistry result confirmed this damage where there was a significant decrease in PCNA‐positive germ cells. Pretreatment with PSE significantly alleviated the histological testicular changes caused by CP and enhanced the spermatogenesis process evidenced by an increased number of PCNA-positive basal germ cell nuclei compared to the CP group. Furthermore, PSE improved the serum testosterone levels and sperm quality. In conclusion, PSE pretreatment effectively preserved the testicular histoarchitecture by attenuating the testicular oxidative DNA damage induced by CP..",
+  "tldr": "PSE pretreatment effectively preserved the testicular histoarchitecture by attenuating the testicular oxidative DNA damage induced by CP, and improved the serum testosterone levels and sperm quality.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://bvmj.journals.ekb.eg/article_384919_6d00e100b2fe2a6d72545e7e677a2f92.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

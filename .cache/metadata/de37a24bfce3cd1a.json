@@ -1,0 +1,47 @@
+{
+  "ref_id": "25",
+  "query_title": "MicroRNAs and spermatogenesis",
+  "query_doi": "10.1016/j.fertnstert.2014.04.025",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "MicroRNAs and spermatogenesis",
+  "verified_authors": [
+    "Noora Kotaja"
+  ],
+  "verified_year": "2014",
+  "verified_venue": "Fertility and Sterility",
+  "verified_doi": "10.1016/j.fertnstert.2014.04.025",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 273,
+  "abstract": "… of miRNA pathways for normal spermatogenesis, and functional studies have been designed to dissect the roles of specific miRNAs … of miRNAs in the regulation of spermatogenesis and …",
+  "tldr": "The current findings that support the central role of miRNAs in the regulation of spermatogenesis and male fertility are discussed.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar",
+    "Google Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.1016/j.fertnstert.2014.04.025",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

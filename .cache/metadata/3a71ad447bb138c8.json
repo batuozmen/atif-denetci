@@ -1,0 +1,48 @@
+{
+  "ref_id": "95",
+  "query_title": "Involvement of Cytokines and Hormones in the Development of Spermatogenesis In Vitro from Spermatogonial Cells of Cyclophosphamide-Treated Immature Mice",
+  "query_doi": "10.3390/ijms22041672",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Involvement of Cytokines and Hormones in the Development of Spermatogenesis In Vitro from Spermatogonial Cells of Cyclophosphamide-Treated Immature Mice",
+  "verified_authors": [
+    "Ronnie Solomon",
+    "Ali AbuMadighem",
+    "Joseph Kapelushnik",
+    "Bat-Chen Amano",
+    "Eitan Lunenfeld",
+    "Mahmoud Huleihel"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "International Journal of Molecular Sciences",
+  "verified_doi": "10.3390/ijms22041672",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 17,
+  "abstract": "Aggressive chemotherapy treatment may lead to male infertility. Prepubertal boys do not produce sperm at this age, however, they have spermatogonial stem cells in their testes. Here, we examined the effect of intraperitoneal injection of cyclophosphamide (CP) on the capacity of immature mice (IM) to develop spermatogenesis in vivo and in vitro [using methylcellulose culture system (MCS)]. Our results show a significant decrease in testicular weight, total number of testicular cells, and the number of Sertoli, peritubular, premeiotic, and meiotic/post-meiotic cells, but an increase in the percentages of damaged seminiferous tubules in CP-treated IM compared to control. The functionality of Sertoli cells was significantly affected. The addition of testosterone to isolated cells from seminiferous tubules of CP-treated IM significantly increased the percentages of premeiotic (CD9-positive cells) and meiotic/post-meiotic cells (ACROSIN-positive cells) developed in MCS compared to control. The addition of FSH did not affect developed cells in MCS compared to control, but in combination with testosterone, it significantly decreased the percentages of CD9-positive cells and ACROSIN-positive cells. The addition of IL-1 did not affect developed cells in MCS compared to control, but in combination with testosterone, it significantly increased the percentages of VASA-positive cells and BOULE-positive cells compared to IL-1 or testosterone. Addition of TNF significantly increased only CD9-positive cells in MCS compared to control, but in combination with testosterone, it significantly decreased ACROSIN-positive cells compared to testosterone. Our results show a significant impairment of spermatogenesis in the testes of CP-treated IM, and that spermatogonial cells from these mice proliferate and differentiate to meiotic/post-meiotic cells under in vitro culture conditions.",
+  "tldr": "A significant impairment of spermatogenesis in the testes of CP-treated IM is shown, and that sperMatogonial cells from these mice proliferate and differentiate to meiotic/post-meiotic cells under in vitro culture conditions.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/1422-0067/22/4/1672/pdf?version=1613727326",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

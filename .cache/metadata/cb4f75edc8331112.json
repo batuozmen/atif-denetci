@@ -1,0 +1,50 @@
+{
+  "ref_id": "79",
+  "query_title": "Ganoderma lucidum Polysaccharide Peptide Alleviates Cyclophosphamide-Induced Male Reproductive Injury by Reducing Oxidative Stress and Apoptosis",
+  "query_doi": "10.3390/biomedicines12081632",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Ganoderma lucidum Polysaccharide Peptide Alleviates Cyclophosphamide-Induced Male Reproductive Injury by Reducing Oxidative Stress and Apoptosis",
+  "verified_authors": [
+    "Hang Zhang",
+    "Nannan Li",
+    "Yukun Zhang",
+    "Yue Cheng Xu",
+    "Feng Lai Lu",
+    "Dongmei Lin",
+    "Shuqian Lin",
+    "Min Li",
+    "Baoxue Yang"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Biomedicines",
+  "verified_doi": "10.3390/biomedicines12081632",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 19,
+  "abstract": "Chemotherapy is an important factor leading to male infertility. It is crucial to discover safe and effective treatments to prevent male reproductive injury caused by chemotherapy. The Ganoderma lucidum polysaccharide peptide (GLPP) has multiple pharmacological activities. The purpose of this study was to determine whether GLPP could protect the male sperm production from chemotherapeutic injury using a mouse model, with testicular damage induced by cyclophosphamide (CP). CP (50 mg/kg/day) was injected intraperitoneally into male ICR mice gavaged with different doses of GLPP at certain spermatogenic stages. The experimental results showed that GLPP alleviated the CP-induced reduction in reproductive organ coefficients and sperm parameters and reduced the morphological damage of testicular tissues in a dose-dependent manner. GLPP significantly improved the reproductive index, sperm-related parameters, sex hormone levels, and histological testis architecture at different spermatogenic stages. Furthermore, GLPP significantly increased superoxide dismutase (SOD), glutathione (GSH), catalase (CAT), Nrf2, and HO-1, and decreased malondialdehyde (MDA) and Keap-1 in the testicular tissue, indicating reduced oxidative stress. In addition, GLPP limited CP-induced apoptosis via a reduction in Bax expression and increase in Bcl-2 expression. This study suggests that GLPP plays a protective role in spermatogenesis by reducing chemotherapeutic injury and might be developed into drug for male patients receiving chemotherapy.",
+  "tldr": "It is suggested that GLPP plays a protective role in spermatogenesis by reducing chemotherapeutic injury and might be developed into drug for male patients receiving chemotherapy.",
+  "full_text": "",
+  "content_source": "OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.3390/biomedicines12081632",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "CrossRef: ConnectionError: HTTPSConnectionPool(host='api.crossref.org', port=443): Max retries exceeded with url: /works/10.3390/biomedicines12081632 (Caused by NameResolutionError(\"HTTPSConnection(host='api.crossref.org', port=443): Failed to resolve 'api.crossref.org' ([Errno 11001] getaddrinfo fa",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

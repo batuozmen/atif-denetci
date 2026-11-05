@@ -1,0 +1,44 @@
+{
+  "ref_id": "13",
+  "query_title": "Systematic review of antioxidant types and doses in male infertility: Benefits on semen parameters, advanced sperm function, assisted reproduction and live-birth rate",
+  "query_doi": "10.1016/j.aju.2017.11.013",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Systematic review of antioxidant types and doses in male infertility: Benefits on semen parameters, advanced sperm function, assisted reproduction and live-birth rate",
+  "verified_authors": [
+    "Ahmad Majzoub",
+    "Ashok Agarwal"
+  ],
+  "verified_year": "2018",
+  "verified_venue": "Arab Journal of Urology",
+  "verified_doi": "10.1016/j.aju.2017.11.013",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 238,
+  "abstract": "Abstract Objective: To explore the current evidence concerning the effect of oral antioxidant supplementation on various male fertility outcomes, as antioxidants are widely available compounds that are commonly used for the treatment of male infertility. Materials and methods: PubMed, Medline and Cochrane electronic databases were searched according to a modified Preferred Reporting Items for Systemic Reviews and Meta-Analyses (PRISMA) guidelines looking for studies investigating the effect of antioxidant therapy on infertile men. The studies were explored looking for antioxidants: (i) types and doses; (ii) mechanism of action and rationale for use; and (iii) effect on the different outcome measures reported. Results: In all, 26 studies reported a significant positive effect of antioxidant therapy on basic semen parameters, advanced sperm function, outcomes of assisted reproductive therapy, and live-birth rate. Vitamin E, vitamin C, carnitines, N-acetyl cysteine, co-enzyme Q10, zinc, selenium, folic acid and lycopene were most commonly used. The vitamins’ mechanism of action and reported doses is presented in Tables 1 and 2. Conclusion: Antioxidants generally have a favourable effect on male fertility. Further studies are needed to identify the optimal antioxidant regimen that can be used safely and efficiently in clinical practice.",
+  "tldr": "Antioxidants generally have a favourable effect on male fertility and further studies are needed to identify the optimal antioxidant regimen that can be used safely and efficiently in clinical practice.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.1016/j.aju.2017.11.013",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

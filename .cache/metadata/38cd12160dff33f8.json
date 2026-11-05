@@ -1,0 +1,48 @@
+{
+  "ref_id": "111",
+  "query_title": "The CatSper calcium channel in human sperm: relation with motility and involvement in progesterone-induced acrosome reaction",
+  "query_doi": "10.1093/humrep/det454",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "The CatSper calcium channel in human sperm: relation with motility and involvement in progesterone-induced acrosome reaction",
+  "verified_authors": [
+    "Lara Tamburrino",
+    "Sara Marchiani",
+    "Federico Minetti",
+    "Gianni Forti",
+    "Monica Muratori",
+    "Elisabetta Baldi"
+  ],
+  "verified_year": "2014",
+  "verified_venue": "Human Reproduction",
+  "verified_doi": "10.1093/humrep/det454",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 136,
+  "abstract": "STUDY QUESTION: Does CatSper have a role in the achievement of human sperm motility and in the Progesterone (P)-induced acrosome reaction (AR)? SUMMARY ANSWER: CatSper1 expression is associated with human sperm progressive motility and the P-induced AR; it may have a role in the pathogenesis of asthenozoospermia. WHAT IS KNOWN ALREADY: Knockout mice for any of the Catsper family genes fail to acquire hyperactivated motility and are infertile. CatSper channels mediate P-induced Ca(2+) influx in human sperm. The role of CatSper in human sperm hyperactivated/activated motility and in asthenospermia is less clear. A few men with CatSper mutations have been described but the phenotype regarding sperm motility has not been well established. STUDY DESIGN, SIZE, DURATION: The effects of two Catsper inhibitors, NNC55-0396 (NNC, 10 and 20 µM) and Mibefradil (Mib, 30 and 40 µM), were tested on human sperm motility parameters and the P-induced AR. Catsper1 protein expression was evaluated in unselected and swim-up selected sperm samples and in sperm from normo- and astheno-zoospermic subjects. PARTICIPANTS/MATERIALS, SETTING, METHODS: Semen sample kinematic parameters were analysed by a CASA system. A fluorescent-labelled lectin was used to evaluate P-induced AR in live sperm by fluorescence microscopy. CatSper1 protein expression was determined by western blot analysis and by flow cytometry. Intracellular calcium concentrations ([Ca(2+)]i) were evaluated by a spectrofluorimetric method following sperm loading with the calcium-sensitive probe fura 2/AM. MAIN RESULTS AND THE ROLE OF CHANCE: CatSper1 protein was localized in the tail of human sperm. CatSperI expression was higher in swim up selected than unselected sperm both when measured by western blot or by flow cytometry (52.7 ± 15.8% versus 27.2 ± 9.01%, n = 7, P < 0.01). Basal and P-stimulated [Ca(2+)]i were significantly higher in swim-up selected compared with unselected sperm. CatSper1 expression (western blot analysis) was found to be decreased in sperm from asthenozoospermic (n = 10) compared with those from normozoospermic (n = 9) men (intensity values relative to β-actin: 244.4 ± 69.3 versus 385.8 ± 139.5, P < 0.01). A positive correlation was found between CatSper1 protein expression and the percentage of sperm with progressive motility (n = 19, r = 0.59, P = 0.007). NNC (10 µM) and Mib (30 µM) significantly reduced the percentage of sperm with progressive motility and several kinematic parameters but did not affect the percentage of hyperactivated sperm. Their effects were the same whether they were added to swim-up selected and capacitated sperm or were added to the swim-up medium. Mib was found to have a slight but significant effect on sperm viability at both concentrations tested. P-stimulated AR was significantly reduced by both inhibitors (P < 0.05). Overall, our results indicate that, in human sperm, CatSper channel expression and function are associated with progressive motility and may be involved in the pathogenesis of asthenozoospermia. LIMITATIONS, REASONS FOR CAUTION: In general, studies evaluating the effect of inhibitors have the limitation of the specificity of the molecules. We show here that Mib may have toxic effect on human sperm. Although most of the parameters have been evaluated in live sperm, the toxic effect could have contributed to the observed decreases. More studies are necessary to evaluate further the role of CatSper1 in asthenozoospermia. WIDER IMPLICATIONS OF THE FINDINGS: In view of the involvement in P-induced AR and of the evidence of a role in the pathogenesis of astenozoospermia, CatSper channels may represent a promising target for the development of new drugs for the treatment of male infertility and for non-hormonal contraception. STUDY FUNDING/COMPETING INTEREST(S): This work was supported by grants from Ministry of University and Scientific Research (Prin project to E.B. and FIRB project to S.M) and Regione Toscana (to G.F.). The authors have no conflicts of interest to declare.",
+  "tldr": "Results indicate that, in human sperm, CatSper channel expression and function are associated with progressive motility and may be involved in the pathogenesis of asthenozoospermia.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://flore.unifi.it/bitstream/2158/841096/1/tamburrino%20et%20al%2c%20HR%202014.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

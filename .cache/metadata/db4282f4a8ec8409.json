@@ -1,0 +1,49 @@
+{
+  "ref_id": "36",
+  "query_title": "Identification and profiling of microRNAs during sheep’s testicular development",
+  "query_doi": "10.3389/fvets.2025.1538990",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Identification and profiling of microRNAs during sheep’s testicular development",
+  "verified_authors": [
+    "Binpeng Xi",
+    "Xuejiao An",
+    "Yaojing Yue",
+    "Haimiao Shen",
+    "Gaohui Han",
+    "Yanan Yang",
+    "Shengguo Zhao"
+  ],
+  "verified_year": "2025",
+  "verified_venue": "Frontiers in Veterinary Science",
+  "verified_doi": "10.3389/fvets.2025.1538990",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 7,
+  "abstract": "The normal development of the testis is essential for male reproduction, as it is the site of sperm production and a prerequisite for spermatogenesis. MiRNAs play crucial roles in various testicular biological processes, including cell proliferation, spermatogenesis, hormone secretion, metabolism, and reproductive regulation. In this study, we utilized deep sequencing data to analyze the expression patterns of small RNAs in testicular tissues of Southern × Hu sheep F1 hybrids at 0, 3, 6 months, and 1 year of age, thereby exploring the functions of miRNAs in testicular development and spermatogenesis. A total of 787 known miRNAs and 415 novel miRNAs were identified. We identified 217, 254, 405, 130, 305, and 138 DE miRNAs in the testes of M0 vs. M3, M0 vs. M6, M0 vs. Y1, M3 vs. M6, M3 vs. Y1, and M6 vs. Y1, respectively. GO annotation and KEGG pathway analysis of DE miRNA target genes revealed that target genes such as YAP1 , ITGB1 , DOT1L , SMAD4 , and SOX9 may be involved in various biological processes, including reproductive pathways such as FOXO, Hippo, Wnt, cAMP, Rap1, and MAPK signaling pathways. The expression levels of 12 randomly selected miRNAs in testes at 0, 3, 6 months, and 1 year of age were detected by qRT-PCR, and the results were consistent with the sequencing data. This study characterized and investigated the differential expression of miRNAs in sheep testes at different developmental stages using deep sequencing technology. These findings will contribute to a deeper understanding of the functions of miRNAs in regulating testicular development and enhancing reproductive performance in male sheep.",
+  "tldr": "Deep sequencing data is utilized to analyze the expression patterns of small RNAs in testicular tissues of Southern × Hu sheep F1 hybrids at 0, 3, 6 months, and 1 year of age, thereby exploring the functions of miRNAs in testicular development and spermatogenesis and contributing to a deeper understanding of the functions of miRNAs in regulating testicular development and enhancing reproductive performance in male sheep.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.3389/fvets.2025.1538990",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

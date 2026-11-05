@@ -1,0 +1,48 @@
+{
+  "ref_id": "122",
+  "query_title": "Global change of microRNA expression induced by vitamin C treatment on immature boar Sertoli cells",
+  "query_doi": "10.1016/j.theriogenology.2022.02.005",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Global change of microRNA expression induced by vitamin C treatment on immature boar Sertoli cells",
+  "verified_authors": [
+    "Cai-Xia Yang",
+    "Yu-Wei Yang",
+    "Qiao Mou",
+    "Lu Chen",
+    "Li-Jun Huo",
+    "Zhi-Qiang Du"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "Theriogenology",
+  "verified_doi": "10.1016/j.theriogenology.2022.02.005",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 7,
+  "abstract": "Sertoli cells (SCs), the only somatic constituent of the testicular seminiferous epithelium, are vital to spermatogenesis. We previously found that vitamin C (ascorbic acid, AA) can reprogram the transcriptome, and promote the proliferation and reproductive function of pig immature SCs (iSCs). However, the global change of microRNAs (miRNA) expression and its effect on pig iSCs as induced by vitamin C treatment is still unknown. Here, we performed small RNA sequencing on pig iSCs after 250 μM AA2P (l-ascorbic acid 2-phosphate sesquimagnesium salt hydrate) treatment for 36h. Total number of detected miRNAs ranged from 326 to 335 known, and 400-570 novel miRNAs. Of the top ten highly expressed miRNAs, we found that 8 were common (miR-21-5p, let-7i-5p, miR-30a-5p, let-7f-5p, let-7g, miR-100, miR-10a-5p and miR-30d), which were predicted to target mRNAs involved in cell development and differentiation. We identified 78 differentially expressed (DE) miRNAs (|log2 (Fold Change)|≥1; Padj.<0.05), including 7 known and 71 novel miRNAs. We further selected 13 highly and stably expressed DE miRNAs (4 up-regulated: miR-184, novel-miR-610, novel-miR-316 and novel-miR-1274; 9 down-regulated: miR-222, miR-221-5p, miR-221-3p, miR-210, miR-146b, miR-146a-5p, novel-miR-182, novel-miR-1088 and novel-miR-1016), and performed integrated analysis on the miRNA-mRNA regulatory network. DE mRNAs negatively targeted by these 13 DE miRNAs were enriched in multiple GO and KEGG signaling pathways (e.g. pyruvate and steroid metabolic processes, developmental process in reproduction, response to oxidative stress, Glycolysis/Gluconeogenesis and HIF-1). We validated 8 DE miRNAs and their 12 DE mRNA targets, most of them showed expression patterns consistent with (mi)RNA-seq results. Taken together, our findings demonstrate that vitamin C could induce the global change of miRNAs, which possibly regulate cell proliferation, energy metabolism and male reproduction as induced by vitamin C treatment on pig iSCs.",
+  "tldr": "It is demonstrated that vitamin C could induce the global change of miRNAs, which possibly regulate cell proliferation, energy metabolism and male reproduction as induced by vitamin C treatment on pig iSCs.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

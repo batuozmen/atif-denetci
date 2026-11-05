@@ -1,0 +1,51 @@
+{
+  "ref_id": "68",
+  "query_title": "Micronutrient–Antioxidant Therapy and Male Fertility Improvement During ART Cycles",
+  "query_doi": "10.3390/nu17020324",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Micronutrient–Antioxidant Therapy and Male Fertility Improvement During ART Cycles",
+  "verified_authors": [
+    "Marwa Lahimer",
+    "Severine Capelle",
+    "Elodie Lefranc",
+    "Dorian Bosquet",
+    "Nadia Kazdar",
+    "Anne Ledu",
+    "Mounir Agina",
+    "Rosalie Cabry",
+    "Moncef BenKhalifa"
+  ],
+  "verified_year": "2025",
+  "verified_venue": "Nutrients",
+  "verified_doi": "10.3390/nu17020324",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 16,
+  "abstract": "Today, accumulating evidence highlights the impact of oxidative stress (OS) on semen quality. It is considered to be a key factor contributing to the decline in male fertility. OS is detected in 30–80% of men with infertility, highlighting its strong association with impaired reproductive function and with clinical outcomes following the use of assisted reproductive technologies. Spermatozoa are particularly vulnerable to oxidative damage due to their high content of polyunsaturated fatty acids (PUFAs) and limited antioxidant defense abilities. OS arises from an imbalance between the production of reactive oxygen species and the capacity to neutralize or repair their adverse effects. Evidence indicates that OS leads to lipid peroxidation, protein oxidation, mitochondrial dysfunction, and genomic instability. Micronutrient–antioxidant therapies can play a key role in infertility improvement by neutralizing free radicals and preventing cellular damage. Many different micronutrients, including L-carnitine, L-glutathione, coenzyme Q10, selenium, and zinc, as well as vitamins complexes, are proposed to improve sperm parameters and male fertility potential. This study aims to review the impact of antioxidant supplementation on semen parameters, including sperm volume, motility, concentration, morphology, genome integrity (maturity and fragmentation), and in vitro fertilization (IVF) outcomes. Antioxidant intake and a balanced lifestyle reduce oxidative stress and mitochondrial dysfunction, enhancing the spermatogenesis and spermiogenesis processes, improving sperm quality, and protecting DNA integrity.",
+  "tldr": "The impact of antioxidant supplementation on semen parameters, including sperm volume, motility, concentration, morphology, genome integrity (maturity and fragmentation), and in vitro fertilization (IVF) outcomes is reviewed.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/2072-6643/17/2/324/pdf?version=1737100509",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

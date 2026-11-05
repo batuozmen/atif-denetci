@@ -1,0 +1,47 @@
+{
+  "ref_id": "33",
+  "query_title": "Declining levels of miR-382-3p at puberty trigger the onset of spermatogenesis",
+  "query_doi": "10.1016/j.omtn.2021.07.001",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Declining levels of miR-382-3p at puberty trigger the onset of spermatogenesis",
+  "verified_authors": [
+    "Alka Gupta",
+    "Kamal Mandal",
+    "Parminder Singh",
+    "Rajesh Sarkar",
+    "Subeer S. Majumdar"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "Molecular Therapy - Nucleic Acids",
+  "verified_doi": "10.1016/j.omtn.2021.07.001",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 11,
+  "abstract": "A major change in the transcriptome of testicular Sertoli cells (Scs) at the onset of puberty enables them to induce robust spermatogenesis. Through comprehensive literature mining, we generated a list of genes crucial for Sc functioning and computationally predicted the microRNAs regulating them. Differential expression analysis of microRNAs in infant and pubertal rat Scs showed that miR-382-3p levels decline significantly in pubertal Scs. Interestingly, miR-382-3p was found to regulate genes like Ar and Wt1 , which are crucial for functional competence of Scs. We generated a transgenic (Tg) mouse model in which pubertal decline of miR-382-3p was prevented by its overexpression in pubertal Scs. Elevated miR-382-3p restricted the functional maturation of Scs at puberty, leading to infertility. Prevention of decline in miR-382-3p expression in pubertal Scs was responsible for defective blood-testis barrier (BTB) formation, severe testicular defects, low epididymal sperm counts and loss of fertility in these mice. This provided substantial evidence that decline in levels of miR-382-3p at puberty is the essential trigger for onset of robust spermatogenesis at puberty. Hence, sustained high levels of miR-382-3p in pubertal Scs could be one of the underlying causes of idiopathic male infertility and should be considered for diagnosis and treatment of infertility.",
+  "tldr": "Evidence is provided that sustained high levels of miR-382-3p in pubertal Scs could be one of the underlying causes of idiopathic male infertility and should be considered for diagnosis and treatment of infertility.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "http://www.cell.com/article/S2162253121001669/pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

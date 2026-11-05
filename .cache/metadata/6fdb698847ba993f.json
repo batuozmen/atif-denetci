@@ -1,0 +1,52 @@
+{
+  "ref_id": "20",
+  "query_title": "Oligoastenospermic men treated with proxeed plus showed correlation between sperm motility and seminal carnitine",
+  "query_doi": "10.1016/j.fertnstert.2016.07.847",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Oligoastenospermic men treated with proxeed plus showed correlation between sperm motility and seminal carnitine",
+  "verified_authors": [
+    "S. Micic",
+    "N. Lalic",
+    "N. Bojanic",
+    "D. Djordjevic",
+    "A. Virmani",
+    "A. Agarwal"
+  ],
+  "verified_year": "2016",
+  "verified_venue": "Fertility and Sterility",
+  "verified_doi": "10.1016/j.fertnstert.2016.07.847",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 5,
+  "abstract": "Objective To study L-carnitine (LC) and acetyl-L-carnitine (ALC) which are involved in energy metabolism and promote sperm motility and maturation. Studies have reported either no effect or that therapy with combined high dose LC and ALC significantly increase sperm parameters (forward motility and concentration). Design The study was randomized, double blind, placebo controlled (DBPC) and examined the effect of test formulation, Proxeed Plus, containing LC 2g and ALC 1g, as well as antioxidants, vitamins and minerals, in men with …",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar",
+    "Google Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.1016/j.fertnstert.2016.07.847",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

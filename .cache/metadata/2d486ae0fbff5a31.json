@@ -1,0 +1,45 @@
+{
+  "ref_id": "76",
+  "query_title": "Effect of fenugreek seeds extract on cyclophosphamide-induced histomorphometrical, ultrastructural and biochemical changes in testes of albino mice",
+  "query_doi": "10.1177/0748233711412427",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Effect of fenugreek seeds extract on cyclophosphamide-induced histomorphometrical, ultrastructural and biochemical changes in testes of albino mice",
+  "verified_authors": [
+    "Saber A Sakr",
+    "Hoda A Mahran",
+    "Samah M Abo-El-Yazid"
+  ],
+  "verified_year": "2012",
+  "verified_venue": "Toxicology and Industrial Health",
+  "verified_doi": "10.1177/0748233711412427",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 32,
+  "abstract": "Cyclophosphamide (CPA) is an anticancer drug used in the treatment of a variety of neoplastic lesions. On the other hand, treatment with CPA was accompanied by different toxic effects on different body organs. The present work was conducted to study the effect of fenugreek seed extract on histomorphometrical and ultrastructural changes induced by CPA in testes of albino mice. Twenty animals were given CPA (7.0 mg/kg body weight) three times/week orally for 8 weeks and were killed after 4 and 8 weeks. Testis of CPA-treated mice showed many histological alterations including appearance of irregular seminiferous tubules, reduction in the number of all spermatogenic cells, degeneration of Leydig cells and appearance of intertubular hemorrhage. Concerning the ultrastructural changes, abnormalities in spermatogonia (A and B), spermatocytes, round and elongated spermatids were observed. Degenerated Sertoli cells and degenerated interstitial tissue with abnormal Leydig cells were also seen. Moreover, administration of CPA to animals significantly increased malondialdehyde (MDA, lipid peroxidation marker) and decreased superoxide dismutase (SOD) and catalase (CAT). These changes were time-dependent. Treating animals with CPA and fenugreek seed extract (0.4 g/kg body weight) led to an improvement in the histological and ultrastructural pictures of the testis together with reduction in the level of serum MDA and increase in the activities of serum SOD and CAT. In conclusion, the results of the present work indicated that fenugreek had ameliorative effect against testis damage induced by CPA and this may be mediated by its potent antioxidant activities.",
+  "tldr": "It is indicated that fenugreek had ameliorative effect against testis damage induced by CPA and this may be mediated by its potent antioxidant activities.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://journals.sagepub.com/doi/pdf/10.1177/0748233711412427",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

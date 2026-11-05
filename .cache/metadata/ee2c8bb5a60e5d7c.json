@@ -1,0 +1,52 @@
+{
+  "ref_id": "103",
+  "query_title": "The Murine SCP3 Gene Is Required for Synaptonemal Complex Assembly, Chromosome Synapsis, and Male Fertility",
+  "query_doi": "10.1016/S1097-2765(00)80404-9",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "The Murine SCP3 Gene Is Required for Synaptonemal Complex Assembly, Chromosome Synapsis, and Male Fertility",
+  "verified_authors": [
+    "Li Yuan",
+    "Jian-Guo Liu",
+    "Jian Zhao",
+    "Eva Brundell",
+    "Bertil Daneholt",
+    "Christer Höög"
+  ],
+  "verified_year": "2000",
+  "verified_venue": "Molecular Cell",
+  "verified_doi": "10.1016/S1097-2765(00)80404-9",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 715,
+  "abstract": "During meiosis, the homologous chromosomes pair and recombine. An evolutionarily conserved protein structure, the synaptonemal complex (SC), is located along the paired meiotic chromosomes. We have studied the function of a structural component in the axial/lateral element of the SC, the synaptonemal complex protein 3 (SCP3). A null mutation in the SCP3 gene was generated, and we noted that homozygous mutant males were sterile due to massive apoptotic cell death during meiotic prophase. The SCP3-deficient male mice …",
+  "tldr": "A null mutation in the SCP3 gene was generated, and it was noted that homozygous mutant males were sterile due to massive apoptotic cell death during meiotic prophase, and a residual chromatin organization remained in the mutant meiotic cells.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar",
+    "Google Scholar"
+  ],
+  "pdf_url": "http://www.cell.com/article/S1097276500804049/pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

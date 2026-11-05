@@ -1,0 +1,49 @@
+{
+  "ref_id": "38",
+  "query_title": "Phycobiliproteins Ameliorate Gonadal Toxicity in Male Mice Treated with Cyclophosphamide",
+  "query_doi": "10.3390/nu13082616",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Phycobiliproteins Ameliorate Gonadal Toxicity in Male Mice Treated with Cyclophosphamide",
+  "verified_authors": [
+    "Jorge Briseño-Bugarín",
+    "Isabel Hernández-Ochoa",
+    "Xelha Araujo-Padilla",
+    "María Angélica Mojica-Villegas",
+    "Ricardo Iván Montaño-González",
+    "Gabriela Gutiérrez-Salmeán",
+    "Germán Chamorro-Cevallos"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "Nutrients",
+  "verified_doi": "10.3390/nu13082616",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 26,
+  "abstract": "Cyclophosphamide (CP)—which is used to treat autoimmune diseases and cancer—is related to gonadotoxicity attributed to oxidative stress. As phycobiliproteins (PBPs) are strong antioxidants that are unexplored as protective agents against male gonadotoxicity, our work aimed to investigate the effects of PBP crude extract on testicular damage and sperm parameter alterations caused by CP in mice. Three doses of PBP (50, 100, and 200 mg/kg) were tested in the experimental groups (n = 8 per group), administered concomitantly with 100 mg/kg CP. After 42 days receiving PBP daily and CP weekly, body and relative testicular weights, serum testosterone levels, testicular lipoperoxidation and antioxidant enzyme activity levels, and testicular histology and sperm parameter alterations were assessed. The results showed that PBP crude extract at 200 mg/kg prevented testosterone serum reduction, body weight loss, lipoperoxidation and enzyme activity increments, and sperm parameter alterations and partially ameliorated relative testicular weight reductions and histological damage in CP-treated mice. In conclusion, we showed that PBP crude extract (200 mg/kg) mitigated oxidative damage in the testes and ameliorated alterations in sperm parameters in mice treated with CP (100 mg/kg); therefore, PBP extract could be considered as a potential protective agent against CP toxicity.",
+  "tldr": "PBP crude extract showed that it mitigated oxidative damage in the testes and ameliorated alterations in sperm parameters in mice treated with CP (100 mg/kg); therefore, PBP extract could be considered as a potential protective agent against CP toxicity.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/2072-6643/13/8/2616/pdf?version=1627634666",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

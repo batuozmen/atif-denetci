@@ -1,0 +1,46 @@
+{
+  "ref_id": "124",
+  "query_title": "miRNA Targets: From Prediction Tools to Experimental Validation",
+  "query_doi": "10.3390/mps4010001",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "miRNA Targets: From Prediction Tools to Experimental Validation",
+  "verified_authors": [
+    "Giulia Riolo",
+    "Silvia Cantara",
+    "Carlotta Marzocchi",
+    "Claudia Ricci"
+  ],
+  "verified_year": "2020",
+  "verified_venue": "Methods and Protocols",
+  "verified_doi": "10.3390/mps4010001",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 245,
+  "abstract": "MicroRNAs (miRNAs) are post-transcriptional regulators of gene expression in both animals and plants. By pairing to microRNA responsive elements (mREs) on target mRNAs, miRNAs play gene-regulatory roles, producing remarkable changes in several physiological and pathological processes. Thus, the identification of miRNA-mRNA target interactions is fundamental for discovering the regulatory network governed by miRNAs. The best way to achieve this goal is usually by computational prediction followed by experimental validation of these miRNA-mRNA interactions. This review summarizes the key strategies for miRNA target identification. Several tools for computational analysis exist, each with different approaches to predict miRNA targets, and their number is constantly increasing. The major algorithms available for this aim, including Machine Learning methods, are discussed, to provide practical tips for familiarizing with their assumptions and understanding how to interpret the results. Then, all the experimental procedures for verifying the authenticity of the identified miRNA-mRNA target pairs are described, including High-Throughput technologies, in order to find the best approach for miRNA validation. For each strategy, strengths and weaknesses are discussed, to enable users to evaluate and select the right approach for their interests.",
+  "tldr": "This review summarizes the key strategies for miRNA target identification and all the experimental procedures for verifying the authenticity of the identified miRNA-mRNA target pairs are described, including High-Throughput technologies, in order to find the best approach for mi RNA validation.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/2409-9279/4/1/1/pdf?version=1609211571",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "PubMed: ReadTimeout: HTTPSConnectionPool(host='eutils.ncbi.nlm.nih.gov', port=443): Read timed out. (read timeout=20)",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

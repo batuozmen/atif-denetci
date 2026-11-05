@@ -1,0 +1,46 @@
+{
+  "ref_id": "91",
+  "query_title": "Silymarin mitigates toxic effects of cyclophosphamide on testicular tissue and sperm parameters in mice",
+  "query_doi": "10.1016/j.repbio.2024.100946",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Silymarin mitigates toxic effects of cyclophosphamide on testicular tissue and sperm parameters in mice",
+  "verified_authors": [
+    "Zahra Shaker Kordedeh",
+    "Saeid Ghorbani",
+    "Sepideh Ahmadi",
+    "Malek Soleimani Mehranjani"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Reproductive Biology",
+  "verified_doi": "10.1016/j.repbio.2024.100946",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 9,
+  "abstract": "Cyclophosphamide, a chemotherapy drug, increases oxidative stress in sperm and testicular tissue. This study evaluated the effect of silymarin, a potent antioxidant, on the quality of sperm and testicular tissue in mice treated with cyclophosphamide. NMRI adult male mice were divided into four groups: control; cyclophosphamide (intraperitoneal injection, 100 mg/kg, once a week); cyclophosphamide + silymarin; and silymarin (intraperitoneal injection, 200 mg/kg, every other day). After a 35-day treatment period, the caudal region of the epididymis was examined for sperm parameters, the right testis was used for stereological studies, and the left testis was used to assess biochemical factors. The data were statistically analyzed using SPSS software, one-way ANOVA and Tukey's test. In the cyclophosphamide group, there was a significant reduction in the mean total volume of testicular tissue, the average volume of seminiferous tubules and their components, and the average volume of interstitial tissue. Additionally, there was a notable decrease (p < 0.001) in the average number of Leydig cells, Sertoli cells, and sperm parameters. The mean concentration of testosterone hormone (p < 0.05) and total antioxidant capacity (TAC) level (p < 0.01) also significantly decreased, while the malondialdehyde (MDA) level increased significantly (p < 0.05). However, these adverse changes were mitigated in the cyclophosphamide + silymarin group compared to the cyclophosphamide group. Our results showed that silymarin as an antioxidant can mitigate the adverse effects of cyclophosphamide on testicular tissue and sperm parameters.",
+  "tldr": "Silymarin as an antioxidant can mitigate the adverse effects of cyclophosphamide on testicular tissue and sperm parameters, and showed that silymarin as an antioxidant can mitigate the adverse effects of cyclophosphamide on testicular tissue and sperm parameters.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

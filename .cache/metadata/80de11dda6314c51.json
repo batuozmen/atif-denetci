@@ -1,0 +1,49 @@
+{
+  "ref_id": "14",
+  "query_title": "Efficacy of Antioxidant Supplementation on Conventional and Advanced Sperm Function Tests in Patients with Idiopathic Male Infertility",
+  "query_doi": "10.3390/antiox9030219",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Efficacy of Antioxidant Supplementation on Conventional and Advanced Sperm Function Tests in Patients with Idiopathic Male Infertility",
+  "verified_authors": [
+    "Mohamed Arafa",
+    "Ashok Agarwal",
+    "Ahmad Majzoub",
+    "Manesh Kumar Panner Selvam",
+    "Saradha Baskaran",
+    "Ralf Henkel",
+    "Haitham Elbardisi"
+  ],
+  "verified_year": "2020",
+  "verified_venue": "Antioxidants",
+  "verified_doi": "10.3390/antiox9030219",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 83,
+  "abstract": "Antioxidants are used in the empirical treatment of infertile men. The aim of this study was to evaluate the effects of antioxidant therapy on conventional semen parameters and advanced sperm function tests in men seeking fertility treatment. A total of 148 infertile men of unknown etiology were divided into idiopathic (n = 119) and unexplained male infertility (UMI; n = 29). All participants were treated with the antioxidant supplement ‘FH PRO for Men’ for a period of three months. Compared with pretreatment results, there was a significant improvement in conventional semen parameters including sperm concentration, total and progressive motility and normal morphology, and seminal oxidation reduction potential (ORP), and sperm DNA fragmentation (SDF) in idiopathic infertile men. The changes were more prominent in idiopathic infertile men positive for ORP and SDF. UMI patients showed an improvement in progressive motility, ORP, and SDF after antioxidant treatment. Statistical analysis revealed that the efficacy of FH PRO for Men was significant in idiopathic male infertility compared with UMI. Treatment of idiopathic male infertility patients with the FH PRO for Men antioxidant regimen for three months resulted in a significant improvement in conventional semen parameters and sperm function. Therefore, FH PRO for Men offers promise for the medical treatment of idiopathic male infertility.",
+  "tldr": "There was a significant improvement in conventional semen parameters including sperm concentration, total and progressive motility and normal morphology, and seminal oxidation reduction potential (ORP), and sperm DNA fragmentation (SDF) in idiopathic infertile men.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/2076-3921/9/3/219/pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

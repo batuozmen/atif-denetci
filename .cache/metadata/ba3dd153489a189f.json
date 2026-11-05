@@ -1,0 +1,51 @@
+{
+  "ref_id": "56",
+  "query_title": "Determination of M1/M2 Macrophage Polarization in Ipsilateral and Contralateral Rat Testis Tissue Following Unilateral Torsion/Detorsion",
+  "query_doi": "10.1007/s43032-024-01519-6",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Determination of M1/M2 Macrophage Polarization in Ipsilateral and Contralateral Rat Testis Tissue Following Unilateral Torsion/Detorsion",
+  "verified_authors": [
+    "Merve Kavak Balgetir",
+    "Nalan Kaya Tektemur",
+    "Ahmet Tektemur",
+    "Gaffari Türk",
+    "İbrahim Halil Güngör",
+    "Aslıhan Cakir Cihangiroglu",
+    "Ramazan Fazıl Akkoç",
+    "Tuncay Kuloglu",
+    "Durrin Ozlem Dabak"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Reproductive Sciences",
+  "verified_doi": "10.1007/s43032-024-01519-6",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 9,
+  "abstract": "Abstract The present study investigates the changes in M1/M2 macrophage polarization resulting from unilateral testicular torsion in the bilateral testis. The study sample included 63 male Sprague–Dawley rats, which were randomly divided into nine groups (n = 7): Control, Sham (4 h (4 h), 24 h, 7 days (7d), 14d), and Torsion/Detorsion (T/D) (4 h, 24 h, 7d, 14d). Histopathological evaluations revealed no changes in the Sham groups, while T/D was noted to cause edema, vascular occlusion, disruption of seminiferous tubule epithelial organization, germ cell abnormalities and structural anomalies in the experimental rats, the severity and extent of which increased from 4 h to 14d after T/D. The Cosentino scores used to determine the degree of histological damage were consistent with the histopathological findings in all groups, while the Johnsen scores, as a marker of spermatogenesis, were lower in the T/D groups. Seminiferous tubule diameters and germinal epithelial thickness decreased significantly in parallel with increased tubule damage in the ipsilateral testicles. Testicular torsion significantly affected sperm motility, with significant reductions observed in the T/D 7d and T/D 14d groups. A hormone profile analysis revealed decreased testosterone levels in both the Sham and T/D groups when compared to the Controls. CD68 and CD163 immunoreactivities, as M1 and M2 macrophage surface markers, were determined in the testicular tissue using the avidin–biotin-peroxidase complex method. T/D interventions caused M1/M2 macrophage polarization changes and increased M1 macrophages, particularly in contralateral testicular tissue. The increase in M1 macrophages in contralateral testicular tissue following T/D in the present study suggests that cell processes, including macrophages, may play an important role in contralateral testicular injury.",
+  "tldr": "The increase in M1 macrophages in contralateral testicular tissue following T/D in the present study suggests that cell processes, including macrophages, may play an important role in contralateral testicular injury.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://link.springer.com/content/pdf/10.1007/s43032-024-01519-6.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

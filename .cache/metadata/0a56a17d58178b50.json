@@ -1,0 +1,47 @@
+{
+  "ref_id": "88",
+  "query_title": "Cyclophosphamide-induced testicular injury: the role of chrysin in mitigating iron overload and ferroptosis",
+  "query_doi": "10.1007/s00210-024-03519-4",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Cyclophosphamide-induced testicular injury: the role of chrysin in mitigating iron overload and ferroptosis",
+  "verified_authors": [
+    "Dalia O. Saleh",
+    "Nesma M. E. Abo El Nasr",
+    "Yosra A. Hussien",
+    "Marawan Abd El-Baset",
+    "Kawkab A. Ahmed"
+  ],
+  "verified_year": "2025",
+  "verified_venue": "Naunyn-Schmiedeberg's Archives of Pharmacology",
+  "verified_doi": "10.1007/s00210-024-03519-4",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 14,
+  "abstract": "Abstract This study evaluated the beneficial effects of chrysin against cyclophosphamide (CP)-induced testicular toxicity in rats across several parameters, including hormones, oxidative stress, inflammation, apoptosis, and protein expression. Rats were pretreated with oral doses of chrysin at 25, 50, or 100 mg/kg daily for 7 days. On the 8th day, all groups except controls received CP (200 mg/kg) injection. Chrysin doses continued for 7 more days. Hormones, oxidative stress markers, inflammatory cytokines, apoptosis regulators, and iron regulatory proteins were assessed. CP decreased testosterone, inhibin B, GSH, and GPx4 and increased FSH, cholesterol, MDA, IL-6, and BAX. It also drastically reduced TfR1, liprin, and IREB2. Chrysin dose-dependently counteracted these effects. The highest 100 mg/kg chrysin dose increased testosterone, inhibin B, GSH, GPx4, BCL2, TfR1, liprin, and IREB2 while decreasing FSH, cholesterol, MDA, IL-6, and BAX close to control levels. There were also significant incremental benefits for testosterone, inhibin B, and other parameters with higher chrysin doses. Chrysin dose-dependently attenuated CP-induced hormonal dysfunction, oxidative stress, inflammation, apoptosis, and iron-regulatory protein suppression. The maximum dose showed the most optimal protective effects in restoring the testicular toxicity markers. These results validate the promising spermatoprotective properties of chrysin against chemotherapeutic germ cell damage.",
+  "tldr": "Chrysin dose-dependently attenuated CP-induced hormonal dysfunction, oxidative stress, inflammation, apoptosis, and iron-regulatory protein suppression and validated the promising spermatoprotective properties of chrysin against chemotherapeutic germ cell damage.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://link.springer.com/content/pdf/10.1007/s00210-024-03519-4.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

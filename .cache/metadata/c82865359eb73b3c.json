@@ -1,0 +1,47 @@
+{
+  "ref_id": "35",
+  "query_title": "miR-509-5p Downregulation Is Associated With Male Infertility And Acts As A Suppressor In Testicular Germ Cell Tumor Cells Through Targeting MDM2",
+  "query_doi": "10.2147/OTT.S215998",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "&lt;p&gt;miR-509-5p Downregulation Is Associated With Male Infertility And Acts As A Suppressor In Testicular Germ Cell Tumor Cells Through Targeting MDM2&lt;/p&gt;",
+  "verified_authors": [
+    "Jinxia Sun",
+    "Lei Niu",
+    "Shanxia Gao",
+    "Xijuan Yi",
+    "Jianxia Chen"
+  ],
+  "verified_year": "2019",
+  "verified_venue": "OncoTargets and Therapy",
+  "verified_doi": "10.2147/OTT.S215998",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 16,
+  "abstract": "BACKGROUND: The dysregulation of microRNAs (miRNAs) has been linked with male infertility. miR-509-5p is highly expressed in testis and exerts suppressive effects on multiple types of human cancers. OBJECTIVES: Yet, whether miR-509-5p is connected with male infertility and plays a role in testicular germ cell tumor (TGCT) have not been explored. MATERIALS AND METHODS: This study detected miR-509-5p expression in germ cells from MA patients, and further characterize its functional roles in the proliferation and apoptosis of TGCT cells in vitro. RESULTS: We report that miR-509-5p is downregulated in germ cells from infertile men with maturation arrest (MA), which implies an inverse association between miR-509-5p level and male infertility. In addition, miR-509-5p suppresses proliferation and induces apoptosis of TGCT cells in vitro, suggesting that it exhibits tumor-suppressive effects on TGCT. Mechanistically, miR-509-5p targets the mouse double minute 2 (MDM2), an oncogenic factor in TGCT, and moreover, restored expression of MDM2 rescues miR-509-5p suppressive effects on TGCT cells, demonstrating that miR-509-5p suppresses TGCT cells through targeting MDM2. CONCLUSION: Collectively, these results implicate that miR-509-5p may participate in the pathogenesis of male infertility and TGCT through regulating proliferation and apoptosis, two critical cellular activities for spermatogenesis and TGCT tumorigenesis.",
+  "tldr": "It is implicate that miR-509-5p may participate in the pathogenesis of male infertility and TGCT through regulating proliferation and apoptosis, two critical cellular activities for spermatogenesis andTGCT tumorigenesis.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.dovepress.com/getfile.php?fileID=54402",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

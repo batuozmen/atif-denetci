@@ -1,0 +1,49 @@
+{
+  "ref_id": "32",
+  "query_title": "Pro-inflammatory cytokines and microRNAs in male infertility",
+  "query_doi": "10.1007/s11033-021-06593-6",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Pro-inflammatory cytokines and microRNAs in male infertility",
+  "verified_authors": [
+    "Hana Attia",
+    "Federica Finocchi",
+    "Monia Orciani",
+    "Meriem Mehdi",
+    "Ines Zidi Jrah",
+    "Raffaella Lazzarini",
+    "Giancarlo Balercia",
+    "Monica Mattioli Belmonte"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "Molecular Biology Reports",
+  "verified_doi": "10.1007/s11033-021-06593-6",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 42,
+  "abstract": "Abstract Background Male infertility is a problem that affects 10–15% of men of reproductive age. In particular, gametogenesis is a complex process in which inflammation may play a central role through the secretion of cytokines and the expression of microRNAs. We assessed the potential role of proinflammatory cytokines (TNF-α, IL-6 and IL-1α) and microRNAs (miR-146a-5p, miR-34a-5p and miR-23a-3p) in the seminal plasma of infertile men compared to controls, evaluating their correlation with seminal and biochemical parameters. Methods and results Expression of cytokines and microRNAs was analyzed by ELISA and q-PCR. Our data shows that IL-1α was significantly increased in the azoospermic group compared to controls, TNF-α mRNA was more expressed in the oligozoospermic group than controls. There were no significant differences in miRNAs expression among the three groups. The correlations between sperm parameters and inflammatory markers were evaluated, however no significance was highlighted. Conclusions The determination of each inflammatory marker separately in the seminal plasma of subfertile men, despite some significant differences, does not have a diagnostic value in male infertility even if an assay of selective pro-inflammatory cytokines and microRNAs in the semen may improve the diagnosis of male infertility.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "https://link.springer.com/content/pdf/10.1007/s11033-021-06593-6.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

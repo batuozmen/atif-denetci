@@ -1,0 +1,45 @@
+{
+  "ref_id": "64",
+  "query_title": "Saroglitazar Mitigated Cyclophosphamide-Induced Testicular Injury: Crosstalk Between Oxidative Stress, Inflammation and Apoptosis",
+  "query_doi": "10.3390/ph19020266",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Saroglitazar Mitigated Cyclophosphamide-Induced Testicular Injury: Crosstalk Between Oxidative Stress, Inflammation and Apoptosis",
+  "verified_authors": [
+    "Bandar H. Alanazi",
+    "Omnia A. Nour",
+    "Marwa S. Serrya"
+  ],
+  "verified_year": "2026",
+  "verified_venue": "Pharmaceuticals",
+  "verified_doi": "10.3390/ph19020266",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 4,
+  "abstract": "Background: Cyclophosphamide (CYC) is an effective chemotherapeutic agent and immunosuppressant drug. Former research showed that CYC induces testicular toxicity through oxidative stress, inflammation and apoptosis. Saroglitazar (SAR) is a dual PPARα/γ agonist, used for treatment of diabetic dyslipidemia. Purpose: This study aimed to elucidate the protective impact of SAR against CYC-linked testicular toxicity. Methods: Randomly, thirty adult male rats were alienated into control group, SAR (4 mg/kg) group, CYC (200 mg/kg) group, CYC+SAR (2 mg/kg) group and CYC+SAR (4 mg/kg) group. SAR was orally administered at two doses (2 and 4 mg/kg) for 7 days. CYC was injected intraperitoneally at dose (200 mg/kg) at day 7. Results: In comparison to the CYC group, SAR at the dose of 2 and 4 mg/kg significantly increased testis weight, testicular index, sperm count, serum testosterone and serum luteinizing hormone. Additionally, SAR at both doses induced a significant reduction in testicular MDA content in addition to increased testicular levels of GSH and TAC. Furthermore, SAR markedly upregulated testicular levels of PPARγ, Nrf2 and HO-1 in addition to decreased testicular expression of NF-κB, IL-6 and TNF-α, illustrating its antioxidant and anti-inflammatory effect. SAR also significantly decreased testicular expression of caspase-3 and Bax and increased Bcl2 expression, indicating its anti-apoptotic effect. Conclusions: SAR at doses (2 and 4 mg/kg) could ameliorate CYC-induced testicular injury in rats, possibly through antioxidant, anti-inflammatory and anti-apoptotic effect.",
+  "tldr": "Saroglitazar at doses of 2 and 4 mg/kg could ameliorate CYC-induced testicular injury in rats, possibly through antioxidant, anti-inflammatory and anti-apoptotic effect.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/1424-8247/19/2/266/pdf?version=1770256306",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

@@ -1,0 +1,51 @@
+{
+  "ref_id": "110",
+  "query_title": "Asthenozoospermia in Mice with Targeted Deletion of the Sperm Mitochondrion-Associated Cysteine-Rich Protein ( Smcp ) Gene",
+  "query_doi": "10.1128/MCB.22.9.3046-3052.2002",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Asthenozoospermia in Mice with Targeted Deletion of the Sperm Mitochondrion-Associated Cysteine-Rich Protein (\n                    Smcp\n                    ) Gene",
+  "verified_authors": [
+    "Karim Nayernia",
+    "Ibrahim M. Adham",
+    "Elke Burkhardt-Göttges",
+    "Jürgen Neesen",
+    "Mandy Rieche",
+    "Stephan Wolf",
+    "Ulrich Sancken",
+    "Kenneth Kleene",
+    "Wolfgang Engel"
+  ],
+  "verified_year": "2002",
+  "verified_venue": "Molecular and Cellular Biology",
+  "verified_doi": "10.1128/MCB.22.9.3046-3052.2002",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 126,
+  "abstract": "The sperm mitochondria-associated cysteine-rich protein (SMCP) is a cysteine- and proline-rich structural protein that is closely associated with the keratinous capsules of sperm mitochondria in the mitochondrial sheath surrounding the outer dense fibers and axoneme. To investigate the function of SMCP, we generated mice with a targeted disruption of the gene Smcp by homologous recombination. Homozygous mutant males on a mixed genetic background (C57BL/6J x 129/Sv) are fully fertile, while they are infertile on the 129/Sv background, although spermatogenesis and mating are normal. Homozygous Smcp(-/-) female mice are fertile on both genetic backgrounds. Electron microscopical examination demonstrated normal structures of sperm head, mitochondria, and tail. In vivo experiments with sperm of Smcp(-/-) 129/Sv mice revealed that the migration of spermatozoa from the uterus into the oviduct is reduced. This result is supported by the observation that sperm motility as determined by the computer-assisted semen analysis system (CASA) is significantly affected as compared to wild-type spermatozoa. In vitro fertilization assays showed that Smcp-deficient spermatozoa are able to bind to the oocyte but that the number of fertilized eggs is reduced by more than threefold relative to the wild-type control. However, removal of the zona pellucida resulted in an unaffected sperm-egg fusion which was monitored by the presence of pronuclei and generation of blastocyts. These results indicate that the infertility of the male Smcp(-/-) mice on the 129/Sv background is due to reduced motility of the spermatozoa and decreased capability of the spermatozoa to penetrate oocytes.",
+  "tldr": "The results indicate that the infertility of the male Smcp−/− mice on the 129/Sv background is due to reduced motility of the spermatozoa and decreased capability of the semen analysis system to penetrate oocytes.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://journals.asm.org/doi/pdf/10.1128/MCB.22.9.3046-3052.2002",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

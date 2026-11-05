@@ -1,0 +1,51 @@
+{
+  "ref_id": "85",
+  "query_title": "Cyclophosphamide induced oxidative stress, lipid per oxidation, apoptosis and histopathological changes in rats: Protective role of boron",
+  "query_doi": "10.1016/j.jtemb.2020.126574",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Cyclophosphamide induced oxidative stress, lipid per oxidation, apoptosis and histopathological changes in rats: Protective role of boron",
+  "verified_authors": [
+    "Mustafa Cengiz",
+    "Varol Sahinturk",
+    "Songul Cetik Yildiz",
+    "İlknur Kulcanay Şahin",
+    "Namık Bilici",
+    "Suzan Onur Yaman",
+    "Yılmaz Altuner",
+    "Sıla Appak-Baskoy",
+    "Adnan Ayhanci"
+  ],
+  "verified_year": "2020",
+  "verified_venue": "Journal of Trace Elements in Medicine and Biology",
+  "verified_doi": "10.1016/j.jtemb.2020.126574",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 85,
+  "abstract": "BACKGROUND\nCyclophosphamide (CP) is an alkylating chemotherapeutic drug used in the treatment of many types of cancer. However, as with other chemotherapeutic drugs, the use of CP is limited by the damage to healthy tissues such as testes, bladder and liver as well as cancerous tissue. Boron (B) is a trace element with many biological properties such as antioxidant, anti-apoptotic and anti-lipid per oxidation.\n\n\nMETHODS\nThis current study aims to determine protective effects of B on CP induced testicular toxicity. The rats were divided into 4 groups (control, CP, B and B plus CP groups). The testes of experimental animals were taken for histological, apoptotic markers and biochemical analysis.\n\n\nRESULTS\nThe damage to some seminifer tubules, loss of typical appearance, thinning of seminifer epithelium and relative enlargement of the tubule lumen were watched in testis of the group that administrated CP. Moreover, Bcl-2, TAC and GSH levels decreased while TOC, OSI, MDA, Bax and Caspase-3 levels increased. On the other hand, pretreatment limited to B in the B plus CP group, testicular tissue improved. In addition, Bcl-2, GSH, TAC levels increased, Bax, MDA, TOC, OSI and caspase-3 levels decreased.\n\n\nCONCLUSION\nB significantly reduced testicular lipid per-oxidation and strengthened antioxidant defenses. Our results showed that pre-treatment B can protect rat testis against CP-induced testicular damage owing to its anti-lipid per oxidation, anti-oxidant and anti-apoptotic properties.",
+  "tldr": "Results showed that pre-treatment B can protect rat testis against CP-induced testicular damage owing to its anti-lipid per oxidation, anti-oxidant and anti-apoptotic properties.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

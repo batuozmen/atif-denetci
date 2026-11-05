@@ -1,0 +1,46 @@
+{
+  "ref_id": "15",
+  "query_title": "Role of Dietary Antioxidant Supplements in Male Infertility: A Review",
+  "query_doi": "10.7759/cureus.61951",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Role of Dietary Antioxidant Supplements in Male Infertility: A Review",
+  "verified_authors": [
+    "Prajakta Ghewade",
+    "Sunita Vagha",
+    "Babaji Ghewade",
+    "Pravin Gadkari"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Cureus",
+  "verified_doi": "10.7759/cureus.61951",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 12,
+  "abstract": "Infertility, which affects around 70 million couples globally, is the inability to conceive after at least a year of continuous, unprotected sexual activity. Male-related elements are involving half of all infertility cases globally. Male infertility has various characteristics, including oligospermia, asthenozoospermia, and teratozoospermia. The purpose of this study was to assess the impact of antioxidant-rich food supplements on the properties of semen, like concentration of sperm, morphology, motility, fertility rate, and damage of DNA. Terms such as coenzyme Q10, antioxidants, folic acid, vitamin C, vitamin E, male infertility, selenium and others, were used to search for relevant research papers in the PubMed database. The findings of this study demonstrated beneficial improvements in semen parameters among infertile men who consumed dietary supplements, particularly combining antioxidants like coenzyme Q10, vitamin C, and vitamin E.",
+  "tldr": "The findings of this study demonstrated beneficial improvements in semen parameters among infertile men who consumed dietary supplements, particularly combining antioxidants like coenzyme Q10, vitamin C, and vitamin E.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.7759/cureus.61951",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

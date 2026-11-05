@@ -1,0 +1,52 @@
+{
+  "ref_id": "53",
+  "query_title": "Effects of Water Avoidance Stress as a Psychological Stress Model and Coenzyme Q10 on Reproductive, Endocrine, and Ovarian Responses in Adult Female Rats",
+  "query_doi": "10.3390/ani16132093",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Effects of Water Avoidance Stress as a Psychological Stress Model and Coenzyme Q10 on Reproductive, Endocrine, and Ovarian Responses in Adult Female Rats",
+  "verified_authors": [
+    "Ahmet Yardimci",
+    "Tugrul Ertugrul",
+    "Ebru Gokdere",
+    "Feyza Keskin Buyukbudak",
+    "Meryem Sedef Dogru",
+    "Ahmet Tektemur",
+    "Zeliha Irem Turk",
+    "Nazife Ulker Ertugrul",
+    "Serife Tutuncu",
+    "Sinan Canpolat"
+  ],
+  "verified_year": "2026",
+  "verified_venue": "Animals",
+  "verified_doi": "10.3390/ani16132093",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 1,
+  "abstract": "Psychological stress can affect female reproductive function through behavioral, endocrine, ovarian, and oxidative mechanisms. Antioxidant supplements have therefore attracted attention for their potential to mitigate stress-related reproductive alterations. Coenzyme Q10 (CoQ10) is a lipid-soluble quinone involved in mitochondrial energy metabolism and is widely used as a dietary supplement. However, whether CoQ10 modulates female reproductive responses to repeated psychological stress remains unclear. Although water avoidance stress (WAS) is a well-established psychogenic stress model, its effects on female reproductive outcomes are still not fully defined. In this study, we examined how repeated WAS affects female reproductive outcomes and whether CoQ10 modifies these effects. Twenty-eight regularly cycling female rats were assigned to sham control, WAS, CoQ10, or WAS + CoQ10 groups. WAS was applied for 1 h/day for 10 days, and CoQ10 was administered orally at 100 mg/kg/day. Repeated WAS did not significantly alter sexual incentive motivation parameters, reproductive hormones, corticosterone, total antioxidant capacity (T-AOC), 8-hydroxy-deoxyguanosine (8-OHdG), or mast cell count under the present experimental conditions (all p &gt; 0.05). However, WAS reduced male-directed active investigation time (p = 0.008) and male investigation preference ratio (p = 0.024), increased absolute ovarian and adrenal gland weights (p = 0.035 and p = 0.016, respectively), reduced primordial follicle number (p = 0.030), decreased germinative epithelium thickness (p = 0.017), lowered VEGF histoscore (p = 0.033) regardless of CoQ10 treatment, and reduced corpus luteum angiogenesis in animals not receiving CoQ10 (p = 0.030). CoQ10 reduced total investigation time toward the male (p = 0.032), male investigation preference ratio (p = 0.037), 17-β estradiol (E2) (p = 0.003), testosterone (p = 0.021), and germinative epithelium thickness (p &lt; 0.001) regardless of WAS exposure. CoQ10 also decreased kisspeptin-1 levels under non-stressed conditions (p = 0.010), while increasing corpus luteum angiogenesis under stress conditions (p = 0.003). Overall, repeated WAS produced selective behavioral and ovarian alterations rather than broad reproductive dysfunction. CoQ10 was not associated with a broadly protective or uniformly beneficial profile in this model, and its endocrine, behavioral, and ovarian effects should be interpreted with caution.",
+  "tldr": "CoQ10 did not behave as a simple protective supplement in this model; its endocrine, behavioral, and histomorphological effects do not support a favorable overall reproductive profile, and CoQ10 should be evaluated cautiously in stress-related female reproductive models rather than assumed to be protective.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.3390/ani16132093",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

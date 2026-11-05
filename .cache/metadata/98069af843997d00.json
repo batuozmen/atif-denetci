@@ -1,0 +1,53 @@
+{
+  "ref_id": "101",
+  "query_title": "Meiotic failure in male mice lacking an X-linked factor",
+  "query_doi": "10.1101/gad.1613608",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Meiotic failure in male mice lacking an X-linked factor",
+  "verified_authors": [
+    "Fang Yang",
+    "Katarina Gell",
+    "Godfried W. van der Heijden",
+    "Sigrid Eckardt",
+    "N. Adrian Leu",
+    "David C. Page",
+    "Ricardo Benavente",
+    "Chengtao Her",
+    "Christer Höög",
+    "K. John McLaughlin",
+    "Peijing Jeremy Wang"
+  ],
+  "verified_year": "2008",
+  "verified_venue": "Genes &amp; Development",
+  "verified_doi": "10.1101/gad.1613608",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 191,
+  "abstract": "Meiotic silencing of sex chromosomes may cause their depletion of meiosis-specific genes during evolution. Here, we challenge this hypothesis by reporting the identification of TEX11 as the first X-encoded meiosis-specific factor in mice. TEX11 forms discrete foci on synapsed regions of meiotic chromosomes and appears to be a novel constituent of meiotic nodules involved in recombination. Loss of TEX11 function causes chromosomal asynapsis and reduced crossover formation, leading to elimination of spermatocytes, respectively, at the pachytene and anaphase I stages. Specifically, TEX11-deficient spermatocytes with asynapsed autosomes undergo apoptosis at the pachytene stage, while those with only asynapsed sex chromosomes progress. However, cells that survive the pachytene stage display chromosome nondisjunction at the first meiotic division, resulting in cell death and male infertility. TEX11 interacts with SYCP2, which is an integral component of the synaptonemal complex lateral elements. Thus, TEX11 promotes initiation and/or maintenance of synapsis and formation of crossovers, and may provide a physical link between these two meiotic processes.",
+  "tldr": "The identification of TEX11 as the first X-encoded meiosis-specific factor in mice is reported, which promotes initiation and/or maintenance of synapsis and formation of crossovers, and may provide a physical link between these two meiotic processes.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "http://genesdev.cshlp.org/content/22/5/682.full.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

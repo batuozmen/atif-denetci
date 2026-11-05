@@ -1,0 +1,46 @@
+{
+  "ref_id": "24",
+  "query_title": "An overview of microRNAs: Biology, functions, therapeutics, and analysis methods",
+  "query_doi": "10.1002/jcp.27486",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "An overview of microRNAs: Biology, functions, therapeutics, and analysis methods",
+  "verified_authors": [
+    "Kioomars Saliminejad",
+    "Hamid Reza Khorram Khorshid",
+    "Shahrzad Soleymani Fard",
+    "Seyed Hamidollah Ghaffari"
+  ],
+  "verified_year": "2019",
+  "verified_venue": "Journal of Cellular Physiology",
+  "verified_doi": "10.1002/jcp.27486",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 2047,
+  "abstract": "Abstract MicroRNAs (miRNAs) are a class of small noncoding RNAs, which function in posttranscriptional regulation of gene expression. They are powerful regulators of various cellular activities including cell growth, differentiation, development, and apoptosis. They have been linked to many diseases, and currently miRNA‐mediated clinical trial has shown promising results for treatment of cancer and viral infection. This review provides an overview and update on miRNAs biogenesis, regulation of miRNAs expression, their biological functions, and role of miRNAs in epigenetics and cell–cell communication. In addition, alteration of miRNAs following exercise, their association with diseases, and therapeutic potential will be explained. Finally, miRNA bioinformatics tools and conventional methods for miRNA detection and quantification will be discussed.",
+  "tldr": "Altered of miRNAs following exercise, their association with diseases, and therapeutic potential will be explained, and miRNA bioinformatics tools and conventional methods for miRNA detection and quantification will be discussed.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fjcp.27486",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

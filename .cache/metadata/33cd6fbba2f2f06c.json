@@ -1,0 +1,50 @@
+{
+  "ref_id": "105",
+  "query_title": "Loss of Prm1 leads to defective chromatin protamination, impaired PRM2 processing, reduced sperm motility and subfertility in male mice",
+  "query_doi": "10.1242/dev.200330",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Loss of\n                    Prm1\n                    leads to defective chromatin protamination, impaired PRM2 processing, reduced sperm motility and subfertility in male mice",
+  "verified_authors": [
+    "Gina Esther Merges",
+    "Julia Meier",
+    "Simon Schneider",
+    "Alexander Kruse",
+    "Andreas Christian Fröbius",
+    "Gregor Kirfel",
+    "Klaus Steger",
+    "Lena Arévalo",
+    "Hubert Schorle"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "Development",
+  "verified_doi": "10.1242/dev.200330",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 62,
+  "abstract": "ABSTRACT One of the key events during spermiogenesis is the hypercondensation of chromatin by substitution of the majority of histones by protamines. In humans and mice, protamine 1 (PRM1/Prm1) and protamine 2 (PRM2/Prm2) are expressed in a species-specific ratio. Using CRISPR-Cas9-mediated gene editing, we generated Prm1-deficient mice and demonstrated that Prm1+/− mice were subfertile, whereas Prm1−/− mice were infertile. Prm1−/− and Prm2−/− sperm showed high levels of reactive oxygen species-mediated DNA damage and increased histone retention. In contrast, Prm1+/− sperm displayed only moderate DNA damage. The majority of Prm1+/− sperm were CMA3 positive, indicating protamine-deficient chromatin, although this was not the result of increased histone retention in Prm1+/− sperm. However, sperm from Prm1+/− and Prm1−/− mice contained high levels of incompletely processed PRM2. Furthermore, the PRM1:PRM2 ratio was skewed from 1:2 in wild type to 1:5 in Prm1+/− animals. Our results reveal that PRM1 is required for proper PRM2 processing to produce mature PRM2, which, together with PRM1, is able to hypercondense DNA. Thus, the species-specific PRM1:PRM2 ratio has to be precisely controlled in order to retain full fertility.",
+  "tldr": "",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex"
+  ],
+  "pdf_url": "https://journals.biologists.com/dev/article-pdf/doi/10.1242/dev.200330/2145743/dev200330.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

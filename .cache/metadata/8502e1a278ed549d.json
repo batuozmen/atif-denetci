@@ -1,0 +1,45 @@
+{
+  "ref_id": "89",
+  "query_title": "Insights Into the Ameliorative Effect of Diacerein on Cyclophosphamide‐Induced Testicular Toxicity: Targeting TLR4/NF‐κB/IL‐1β Pathway",
+  "query_doi": "10.1002/jbt.70795",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Insights Into the Ameliorative Effect of Diacerein on Cyclophosphamide‐Induced Testicular Toxicity: Targeting TLR4/NF‐κB/IL‐1β Pathway",
+  "verified_authors": [
+    "Ayaat M. Mohamed",
+    "Heba A. Habib",
+    "Gehan H. Heeba"
+  ],
+  "verified_year": "2026",
+  "verified_venue": "Journal of Biochemical and Molecular Toxicology",
+  "verified_doi": "10.1002/jbt.70795",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 1,
+  "abstract": "ABSTRACT Male infertility represents one of the most troublesome of cyclophosphamide (CYP), a frequent chemotherapeutic agent, restricting its clinical usage. Diacerein (DIA), an anthraquinone derivative inhibiting interleukin‐1 beta (IL‐1β), is often applied as an anti‐inflammatory agent in managing osteoarthritis with antioxidant and anti‐inflammatory potential, making it a hopeful therapeutic strategy for testicular dysfunction. This study was conducted to investigate the probable safeguarding afforded by DIA on CYP‐induced testicular injury in male rats, pointing to the possible mechanisms involved in DIA protection. In a 14‐day experiment, 32 adult male rats were involved in this study and distributed into four groups: control, DIA, CYP, and CYP + DIA groups. Diacerein opposed testicular damage caused by CYP, which is demonstrated by the improved histological construction and amelioration of the abnormalities in sperm indices and testosterone concentration. DIA enhanced the activity of antioxidant enzyme, superoxide dismutase, and reduced glutathione levels alongside minimized malondialdehyde and total nitrite content in the testes of CYP‐challenged rats. In testicular tissues, DIA pretreatment counteracted the up‐regulation in the toll‐like receptor 4/nuclear factor‐kappa B/IL‐1β pathway‐mediated inflammation. Moreover, DIA abrogated CYP‐provoked apoptosis, as evident by down‐regulated cleaved‐caspase‐3 expression. In summary, the results of this investigation reported that DIA's antioxidant, anti‐inflammatory, and antiapoptotic impact mediated its protective influence against CYP‐induced male organ toxicity.",
+  "tldr": "Investigating the probable safeguarding afforded by DIA on CYP‐induced testicular injury in male rats reported that DIA's antioxidant, anti‐inflammatory, and antiapoptotic impact mediated its protective influence against CYP‐induced male organ toxicity.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/jbt.70795",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

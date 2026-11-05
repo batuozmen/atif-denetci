@@ -1,0 +1,44 @@
+{
+  "ref_id": "80",
+  "query_title": "Preventive and therapeutic effects of Nasturtium officinale hydroalcoholic extract on cyclophosphamide-induced testicular toxicity in rats",
+  "query_doi": "10.22038/ajp.2025.25887",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Preventive and therapeutic effects of Nasturtium officinale hydroalcoholic extract on cyclophosphamide-induced testicular toxicity in rats.",
+  "verified_authors": [
+    "Hamideh Aboutalebi",
+    "Fatemeh Alipour",
+    "Alireza Ebrahimzadeh‐Bideskan"
+  ],
+  "verified_year": "2025",
+  "verified_venue": "Avicenna Journal of Phytomedicine",
+  "verified_doi": "10.22038/ajp.2025.25887",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 1,
+  "abstract": "Objective: Cyclophosphamide (Cy) as an alkylating chemotherapeutic agent with broad-spectrum efficacy in cancer treatment. Despite its wide spectrum of clinical usage, off-target multiple organ toxicity such as sperm and testicular injury is one of its toxic side effects. Since the Nasturtium officinale L. hydroalcoholic extract (NOE) contains a wide range of phytochemicals with various biological functions, the current study was designed to explore the protective potential of NOE on testicular toxicity caused by Cy in rats. Materials and Methods: Forty-eight adult male Wistar rats were randomly allocated into eight groups (n=6): control, Cy [received a single dose of 75 mg/kg, intraperitoneal (i.p)], NOE+Cy (Prevention): received NOE 500 and 1000 mg/kg/day, orally for 21 consecutive days and on the last day received Cy, Cy+NOE (Treatment): received NOE 500 and 1000 mg/kg/day, orally for 7 days after Cy administration for 21 consecutive days, and NOE (500 and 1000 mg/kg/day). After experiments, the testicular weight and volume, testosterone level, and sperm parameters as well as histologic and histomorphometric changes of testis were examined. Results: Base on the results, Cy caused significant decreases in testicular weight and volume, decreased testosterone level and reduced sperm count, and motility whereas increased sperm abnormality (p<0.05). Cy significantly reduced seminiferous tubules diameter, and height of the seminiferous epithelium (p<0.05). Furthermore, disorganization of seminiferous tubules diameter was increased in Cy group (p<0.05). Interestingly, pre and post-treatment with NOE could effectively improve testicular weight and volume, and testosterone level as well as sperm parameters. Furthermore, NOE administration ameliorated seminiferous tubules diameter diameter, seminiferous epithelium height (p<0.05). Conclusion: It is concluded that NOE may provide a potential protective effect for Cy-induced testicular damage.",
+  "tldr": "It is concluded that NOE may provide a potential protective effect for Cy-induced testicular damage and pre and post-treatment with NOE could effectively improve testicular weight and volume, and testosterone level as well as sperm parameters.",
+  "full_text": "",
+  "content_source": "OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12068499/pdf/AJP-15-1091.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

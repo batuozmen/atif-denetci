@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 25 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik, Front-Matter, Açıklama Tutarlılığı ve Uzun İddia Düzeltmesi)
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 26 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik, Front-Matter, Uzun İddia ve Ollama Zaman Aşımı)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -444,6 +444,28 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
       * Manuscript.docx: 124 kaynak / 167 atıf / 0 / 0 (değişmedi).
   - Testler: 9/9 yeni; toplam 75 test PASS; altın set 8/8 ve 30/30.
 
+[✅ TAMAMLANDI] ADIM 26: Ollama Zaman Aşımı ve Arayüz Donma Koruması
+  - Güncellenen Dosyalar: rag_verifier.py, tests/test_llm_timeout.py
+  - Tespit Edilen Hata: Ollama sunucusu kilitlendiğinde (model "Stopping..."
+    durumunda kalınca) uygulama 4. atıfta süresiz bekliyordu. Ekran donuyor,
+    kullanıcı ilerleme göremiyordu. Basit bir "merhaba" çağrısı bile 3 dakika
+    yanıt vermedi; sorun uygulamada değil model sunucusundaydı.
+  - Yapılan Değişiklikler:
+    1. `_call_with_timeout()`: Ollama çağrısı daemon iş parçacığında çalışır;
+       `LLM_TIMEOUT = 90 sn` içinde yanıt gelmezse zaman aşımına düşer.
+    2. Zaman aşımında kural tabanlı NLI sonucu döner; açıklamaya
+       "⚠️ Yerel dil modeli 90 sn içinde yanıt vermedi (zaman aşımı); kural
+       tabanlı değerlendirme kullanıldı" notu eklenir.
+    3. `used_llm_model` alanı "Kural Motoru (Ollama zaman aşımı)" olur; rapor
+       ve arayüzde kararın kaynağı görünür.
+  - Test Sonucu: tests/test_llm_timeout.py -> 5/5 PASS
+      * 3 sn uyuyan sahte modele karşı 0,3 sn zaman aşımı: 0,31 sn'de döndü
+      * Zaman aşımı açıklaması ve model etiketi doğrulandı
+      * Normal (hızlı) model yanıtı bozulmadı
+  - Regresyon: toplam 80 test PASS; altın set 8/8 ve 30/30.
+  - Not: Zaman aşımı HTTP istemcisine değil iş parçacığına bağlandı; böylece
+    ollama-python sürümünden bağımsız çalışır.
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
@@ -482,6 +504,8 @@ BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
      SAHTE_KAYNAK yalnızca somut kanıtla (DOI başka makaleye ait) verilir.
    - Künye Güveni (ADIM 21): başlık eşleşmesi < 0.70 ise (DOI birebir değilse)
      kaynak güvenilmez sayılır ve DOGRULANAMADI döner; `match_score` raporlanır.
+   - Dayanıklılık (ADIM 26): Ollama 90 sn içinde yanıt vermezse kural katmanına
+     düşer, arayüz donmaz; karar kaynağı "Kural Motoru (Ollama zaman aşımı)" olur.
    - Doğrulama: tests/test_decision_policy.py -> 14/14 PASS; tests/test_lookup_status.py
      -> 6/6 PASS.
 ================================================================================

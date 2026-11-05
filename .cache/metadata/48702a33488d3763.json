@@ -1,0 +1,44 @@
+{
+  "ref_id": "102",
+  "query_title": "The synaptonemal complex: structure, function, and clinical implications",
+  "query_doi": "10.1093/biolre/ioag092",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "The synaptonemal complex: structure, function, and clinical implications",
+  "verified_authors": [
+    "Fang Yang",
+    "P Jeremy Wang"
+  ],
+  "verified_year": "2026",
+  "verified_venue": "Biology of Reproduction",
+  "verified_doi": "10.1093/biolre/ioag092",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 3,
+  "abstract": "Abstract The synaptonemal complex is a highly ordered proteinaceous structure that assembles between homologous chromosomes during the prophase I of meiosis. Conserved as a tripartite architecture across species, the synaptonemal complex plays a central role in chromosome synapsis, meiotic recombination, and faithful chromosome segregation. This review marks the 70th anniversary of the discovery of the synaptonemal complex by Montrose Moses in 1956. In mammals, the synaptonemal complex is composed of eight core (canonical) structural proteins: SYCP1, SYCP2, SYCP3, SYCE1, SYCE2, SYCE3, SIX6OS1, and TEX12. The archetypal synaptonemal complex consists of two lateral elements (SYCP2 and SYCP3), a central element (SYCE1/2/3, SIX6OS1, and TEX12), and numerous transverse filaments (SYCP1). A shared structural feature of synaptonemal complex components is the presence of coiled-coil domains. Although the tripartite organization of the synaptonemal complex is evolutionarily conserved, its constituent proteins exhibit little to no sequence homology across species. In addition to these core components, a number of proteins, including HORMAD1, HORMAD2, TRIP13, SKP1, CDCA5 (Sororin), UBE2I (UBC9), SYCP2L, HSPA2, PSMA8, and FKBP6, associate with the synaptonemal complex. Beyond serving as a structural scaffold essential for homolog synapsis, synaptonemal complex proteins interact with key recombination factors such as DMC1, RAD51, and TEX11, thereby regulating recombination progression and crossover formation. Genetic, biochemical, and structural analyses of synaptonemal complex components have provided important mechanistic insights into synaptonemal complex assembly and function, as well as their clinical relevance to non-obstructive azoospermia and premature ovarian insufficiency in humans.",
+  "tldr": "Genetic, biochemical, and structural analyses of SC components have provided important mechanistic insights into SC assembly and function, as well as their clinical relevance to non-obstructive azoospermia and premature ovarian insufficiency (POI) in humans.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://academic.oup.com/biolreprod/advance-article-pdf/doi/10.1093/biolre/ioag092/68194188/ioag092.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

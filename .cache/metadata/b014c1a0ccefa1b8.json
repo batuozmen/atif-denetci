@@ -1,0 +1,48 @@
+{
+  "ref_id": "23",
+  "query_title": "Proxeed plus salvage rat testis from ischemia- reperfused injury by enhancing antioxidant’s activities and inhibition of iNOS expression",
+  "query_doi": "10.1016/j.biopha.2020.111086",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Proxeed plus salvage rat testis from ischemia- reperfused injury by enhancing antioxidant’s activities and inhibition of iNOS expression",
+  "verified_authors": [
+    "Janet Olayemi Sangodele",
+    "Zephaniah Inuwa",
+    "Bashir Lawal",
+    "Grace Adebayo-Gege",
+    "Bamidele Joseph Okoli",
+    "Fanyana Mtunzi"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "Biomedicine &amp; Pharmacotherapy",
+  "verified_doi": "10.1016/j.biopha.2020.111086",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 18,
+  "abstract": "Testicular torsion is an acute urological emergency condition that occurs due to obstruction of blood flow to the testicles which may result in ischemia and loss of testicular functions. This study examined the protective effects of Proxeed Plus (PP), a dietary supplement on testicular ischemia/reperfusion (I/R) injured rats using oxidative stress markers, hormonal levels, apoptotic parameters, histological and immunohistochemistry analysis at 4 h and after 7 days of reperfusion. The protective treatment of the I/R injured rats with PP at 1000 and 5000 mg/kg body weight (bw) resulted in significant increases in the serum and tissue antioxidative defense capacities (superoxide dismutase, reduced glutathione, catalase, glutathione-s-transferase, and glutathione peroxidase), sex hormones (luteinizing hormone, follicle-stimulating hormone, and testosterone), also reduce pro-oxidative markers (malondialdehyde and hydrogen peroxide), serum iNOS and apoptotic parameters (Caspase -3 and Caspase -9) in comparison to the results detected in the I/R untreated rats. It was also observed that PP ameliorated histological changes of I/R injured rats; increased spermatogenetic activity, seminiferous tubular diameter, Leydig cell mass, and reduced expressions of testicular inducible nitric oxide synthase (iNOS). Therefore, the therapeutic use of Proxeed Plus could be considered a promising approach in averting testicular damage against I/R injury.",
+  "tldr": "It was observed that PP ameliorated histological changes of I/R injured rats; increased spermatogenetic activity, seminiferous tubular diameter, Leydig cell mass, and reduced expressions of testicular inducible nitric oxide synthase (iNOS).",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.sciencedirect.com/science/article/pii/S0753332220312798/pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

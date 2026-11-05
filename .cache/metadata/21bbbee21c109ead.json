@@ -1,0 +1,53 @@
+{
+  "ref_id": "52",
+  "query_title": "Mitochondrial membrane potential (MMP) regulates sperm motility",
+  "query_doi": "10.1007/s11626-016-0061-x",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Mitochondrial membrane potential (MMP) regulates sperm motility",
+  "verified_authors": [
+    "Saurabh Kumar Agnihotri",
+    "Ankit Kumar Agrawal",
+    "Bilal Ahmad Hakim",
+    "A. L. Vishwakarma",
+    "T. Narender",
+    "Rekha Sachan",
+    "Monika Sachdev"
+  ],
+  "verified_year": "2016",
+  "verified_venue": "In Vitro Cellular &amp; Developmental Biology - Animal",
+  "verified_doi": "10.1007/s11626-016-0061-x",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 137,
+  "abstract": "Sperm motility is the major decisive factor in determining male fertility. The objective of the present study was to analyse the effect of mitochondrial membrane potential (MMP) on the temporal regulation of sperm motility. Observations were recorded in various rodent species and among differentially motile sperm fractions including swim up and leftover layer of human semen sample using JC-1 stain (a marker of the MMP) through FACS. Swim-up sperms having highest motility showed significantly higher MMP as compared to leftover …",
+  "tldr": "MMP can be considered as a potential regulator and indicator of sperm motility and hence could be directly related to male fertility.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Google Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "arXiv",
+    "DergiPark",
+    "Google Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar",
+    "Google Scholar"
+  ],
+  "pdf_url": "http://link.springer.com/content/pdf/10.1007/s11626-016-0061-x.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

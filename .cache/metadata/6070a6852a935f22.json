@@ -1,0 +1,44 @@
+{
+  "ref_id": "43",
+  "query_title": "Azoospermia and multi-organ damage in juvenile rats exposed to α-Terpineol from weaning to sexual maturity",
+  "query_doi": "10.1016/j.taap.2024.117106",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Azoospermia and multi-organ damage in juvenile rats exposed to α-Terpineol from weaning to sexual maturity",
+  "verified_authors": [
+    "Sneha Suma Hegde",
+    "Vijaykumar B. Malashetty"
+  ],
+  "verified_year": "2024",
+  "verified_venue": "Toxicology and Applied Pharmacology",
+  "verified_doi": "10.1016/j.taap.2024.117106",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 8,
+  "abstract": "This study aimed to evaluate the repeated oral administration of α-terpineol in juvenile Wistar rats over a 70-day period. The objective was to assess the potential systemic and reproductive toxicity of α-terpineol when administered by gavage at doses of 75, 150, and 300 mg/kg/day to juvenile Wistar rats for 70 days from postnatal day 24. The control group received corn oil for 70 days. During the study, various parameters were evaluated, including clinical signs, body weight, food intake, neurobehavioral observations, haematology, serum biochemistry, organ weights, steroidogenic gene expression, and histopathological examination. No toxicity-related changes were observed in body weight, food intake, neurobehavioral observations, or steroidogenic gene expression. However, sperm evaluation revealed a complete absence of sperm and delayed sexual maturation. Total cholesterol was significantly elevated in both sexes, and serum testosterone was reduced at the 150 and 300 mg/kg doses. Microscopic examination showed severe pathological changes in the testes, epididymis, liver, and kidneys of both males and females. After the 14-day recovery period, total cholesterol levels returned to the normal range, but no recovery was observed in the other organs. The no-observed-adverse-effect level was 75 mg/kg/day for male rats based on the histopathological findings in the testes, liver, and kidneys, and for female rats based on the kidney and liver histopathology.",
+  "tldr": "No toxicity-related changes were observed in body weight, food intake, neurobehavioral observations, or steroidogenic gene expression, but sperm evaluation revealed a complete absence of sperm and delayed sexual maturation in juvenile Wistar rats.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": null,
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

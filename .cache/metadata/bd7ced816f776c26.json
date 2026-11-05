@@ -1,0 +1,43 @@
+{
+  "ref_id": "120",
+  "query_title": "Regulation of mammalian spermatogenesis by miRNAs",
+  "query_doi": "10.1016/j.semcdb.2021.05.009",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Regulation of mammalian spermatogenesis by miRNAs",
+  "verified_authors": [
+    "William H. Walker"
+  ],
+  "verified_year": "2022",
+  "verified_venue": "Seminars in Cell &amp; Developmental Biology",
+  "verified_doi": "10.1016/j.semcdb.2021.05.009",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 68,
+  "abstract": "Male fertility requires the continual production of sperm by the process of spermatogenesis. This process requires the correct timing of regulatory signals to germ cells during each phase of their development. MicroRNAs (miRNAs) in germ cells and supporting Sertoli cells respond to regulatory signals and cause down- or upregulation of mRNAs and proteins required to produce proteins that act in various pathways to support spermatogenesis. The targets and functional consequences of altered miRNA expression in undifferentiated and differentiating spermatogonia, spermatocytes, spermatids and Sertoli cells are discussed. Mechanisms are reviewed by which miRNAs contribute to decisions that promote spermatogonia stem cell self-renewal versus differentiation, entry into and progression through meiosis, differentiation of spermatids, as well as the regulation of Sertoli cell proliferation and differentiation. Also discussed are miRNA actions providing the very first signals for the differentiation of spermatogonia stem cells in a non-human primate model of puberty initiation.",
+  "tldr": "Mechanisms are reviewed by which miRNAs contribute to decisions that promote spermatogonia stem cell self-renewal versus differentiation, entry into and progression through meiosis, differentiation of sperMatids, as well as the regulation of Sertoli cell proliferation and differentiation.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://doi.org/10.1016/j.semcdb.2021.05.009",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

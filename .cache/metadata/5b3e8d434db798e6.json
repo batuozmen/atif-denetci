@@ -1,0 +1,49 @@
+{
+  "ref_id": "121",
+  "query_title": "Methionine supplementation-induced alteration of sheep seminal plasma miRNAs and proteome",
+  "query_doi": "10.1093/jas/skaf192",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Methionine supplementation-induced alteration of sheep seminal plasma miRNAs and proteome",
+  "verified_authors": [
+    "Jessica Townsend",
+    "Zongkai Peng",
+    "Mehmet Kizilaslan",
+    "Todd Taylor",
+    "Zhibo Yang",
+    "Nagib Ahsan",
+    "Hasan Khatib"
+  ],
+  "verified_year": "2025",
+  "verified_venue": "Journal of Animal Science",
+  "verified_doi": "10.1093/jas/skaf192",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 7,
+  "abstract": "Abstract Seminal plasma (SP) primarily serves as the transport medium for sperm; however, protein and miRNA expression in SP have been found to be indicative of reproductive function and have been used to identify changes in spermatogenesis. It is also postulated that SP proteins and miRNAs play a role in direct communication with the female reproductive tract to alter uterine function and drive physiological changes that increase pregnancy success. Importantly, SP has been shown to be susceptible to paternal diet, indicating another method in which altered fetal programming may occur. Most work regarding the role of SP in pregnancy establishment as well as dietary contributions to SP composition has been conducted in mice and humans; however, the effects of diet on SP composition in livestock species warrants further investigation. Therefore, this study aims to investigate how paternal diet can alter the proteome and miRNA composition of SP from sheep to better understand their potential roles in male fertility and fetal programming. Here, we examined how a prepubertal methionine-enriched diet affected the miRNA and protein compositions of SP in Polypay rams. Comparative proteomics revealed that a total of 28 SP proteins were significantly increased, and 32 were decreased in abundance (P &amp;lt; 0.05, fold change &amp;gt; 1.5) in response to methionine supplementation. Additionally, 138 significant miRNAs were identified in the SP from treatment versus control rams, with 80 upregulated and 58 downregulated (P &amp;lt; 0.05, fold change &amp;gt; 2). Given that miRNAs are known regulators of mRNA expression, we performed a functional enrichment analysis of our differentially expressed miRNAs and found that 79 miRNAs target 37 proteins exhibiting differential abundance. Gene Ontology analysis revealed that targeted proteins were enriched in biological processes, including reproduction, fertilization, and embryo development. Overall, these results demonstrate that the SP composition of rams is susceptible to a methionine-enriched diet and may impact male fertility and offspring development.",
+  "tldr": "The results demonstrate that the SP composition of rams is susceptible to a methionine-enriched diet and may impact male fertility and offspring development, and Gene Ontology analysis revealed that targeted proteins were enriched in biological processes including reproduction, fertilization, and embryo development.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://academic.oup.com/jas/advance-article-pdf/doi/10.1093/jas/skaf192/63465405/skaf192.pdf",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

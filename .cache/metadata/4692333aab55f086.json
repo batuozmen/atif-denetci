@@ -1,0 +1,48 @@
+{
+  "ref_id": "87",
+  "query_title": "Protective effects of sinapic acid against cyclophosphamide-induced testicular toxicity via inhibiting oxidative stress, caspase-3 and NF-kB activity in BALB/c mice",
+  "query_doi": "10.1111/and.14196",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Protective effects of sinapic acid against cyclophosphamide‐induced testicular toxicity via inhibiting oxidative stress, caspase‐3 and NF‐kB activity in BALB/c mice",
+  "verified_authors": [
+    "Shiva Rezaei",
+    "Seyed Jalal Hosseinimehr",
+    "Mehryar Zargari",
+    "Abbasali Karimpour Malekshah",
+    "Mansoureh Mirzaei",
+    "Fereshteh Talebpour Amiri"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "Andrologia",
+  "verified_doi": "10.1111/and.14196",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 35,
+  "abstract": "Cyclophosphamide (CP), as a chemotherapeutic agent, with the generation of oxidative stress leads to testicular toxicity. Sinapic acid (SA), as a phenylpropanoid compound has therapeutic activities. This research was planned to evaluate the improving effects of SA versus testicular injury induced by CP. Forty-eight mice were distributed into six groups: untreated, SA (5 and 10 mg/kg), CP (200 mg/kg) and CP + SA (5 and 10 mg/kg). SA was administrated for 7 successive days and CP was administered intraperitoneally on the 3rd day of study. On the 10th day of research, testicular toxicity was evaluated by sperm parameters test, tissue (oxidative stress parameters) and serum (testosterone) biochemical, histopathological, and immunohistochemical (Caspase-3 and NF-kB) assays. The findings illustrated that CP induces atypical appearance in tissue structure, disorder of sperm parameters dysfunction, decrease of testosterone, oxidative stress (an increase of MDA and decrease of GSH), apoptosis and inflammation in testicular tissue. SA administration protected testis from oxidative stress and improves testosterone level and structure. Moreover, immunohistochemical findings also showed that SA can inhibit Caspase-3 and NF-kB activity. Data have confirmed that SA could protect testis structure and its functions against CP-induced injury through antioxidant, anti-inflammatory and anti-apoptotic activities.",
+  "tldr": "Data have confirmed that SA could protect testis structure and its functions against CP-induced injury through antioxidant, anti-inflammatory and anti-apoptotic activities.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://onlinelibrary.wiley.com/doi/pdf/10.1111/and.14196",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}

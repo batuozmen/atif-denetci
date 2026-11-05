@@ -1,0 +1,46 @@
+{
+  "ref_id": "7",
+  "query_title": "Oxidative Stress, Testicular Inflammatory Pathways, and Male Reproduction",
+  "query_doi": "10.3390/ijms221810043",
+  "exists_online": true,
+  "title_match_score": 0.95,
+  "verified_title": "Oxidative Stress, Testicular Inflammatory Pathways, and Male Reproduction",
+  "verified_authors": [
+    "Sulagna Dutta",
+    "Pallav Sengupta",
+    "Petr Slama",
+    "Shubhadeep Roychoudhury"
+  ],
+  "verified_year": "2021",
+  "verified_venue": "International Journal of Molecular Sciences",
+  "verified_doi": "10.3390/ijms221810043",
+  "pmid": null,
+  "pmcid": null,
+  "is_retracted": false,
+  "retraction_details": "",
+  "citation_count": 416,
+  "abstract": "Inflammation is among the core causatives of male infertility. Despite male infertility being a serious global issue, “bits and pieces” of its complex etiopathology still remain missing. During inflammation, levels of proinflammatory mediators in the male reproductive tract are greater than usual. According to epidemiological research, in numerous cases of male infertility, patients suffer from acute or chronic inflammation of the genitourinary tract which typically occurs without symptoms. Inflammatory responses in the male genital system are inextricably linked to oxidative stress (OS). OS is detrimental to male fertility parameters as it causes oxidative damage to reproductive cells and intracellular components. Multifarious male infertility causative factors pave the way for impairing male reproductive functions via the common mechanisms of OS and inflammation, both of which are interlinked pathophysiological processes, and the occurrence of any one of them induces the other. Both processes may be simultaneously found in the pathogenesis of male infertility. Thus, the present article aims to explain the role of inflammation and OS in male infertility in detail, as well as to show the mechanistic pathways that link causative factors of male reproductive tract inflammation, OS induction, and oxidant-sensitive cellular cascades leading to male infertility.",
+  "tldr": "The present article aims to explain the role of inflammation and OS in male infertility in detail, as well as to show the mechanistic pathways that link causative factors of male reproductive tract inflammation, OS induction, and oxidant-sensitive cellular cascades leading to male infertility.",
+  "full_text": "",
+  "content_source": "CrossRef + OpenAlex + Semantic Scholar + Özet (Abstract)",
+  "sources_checked": [
+    "CrossRef",
+    "OpenAlex",
+    "PubMed/PMC",
+    "Semantic Scholar",
+    "Jina Reader (Agent-Reach)"
+  ],
+  "sources_found": [
+    "CrossRef",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "pdf_url": "https://www.mdpi.com/1422-0067/22/18/10043/pdf?version=1631948947",
+  "local_pdf_path": null,
+  "metadata_warnings": [],
+  "lookup_status": "found",
+  "lookup_error": "",
+  "has_full_text": false,
+  "has_abstract": true,
+  "full_text_length": 0
+}
