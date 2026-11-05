@@ -666,10 +666,12 @@ class SemanticRAGVerifier:
             "taşıyorsa karar kesinlikle 'DESTEKLENİYOR' olmalıdır.\n"
             "   Örnek: İddia='Dünyanın yüzde 90'ı sudan oluşur' ve Kanıt='Yüzde doksanı su olan dünyamız...' "
             "-> İkisi de %90 su oranını ifade eder -> KARAR: 'DESTEKLENİYOR'.\n"
-            "2. KİLİTLİ TAM METİN / SADECE ÖZET DURUMU ('KISMEN_DESTEKLENİYOR'): Eğer makalenin sadece "
-            "KISA ÖZETİ/BAŞLIĞI mevcutsa (tam metin kilitliyse), yazarın cümlesindeki ana konu/hastalık/mekanizma "
-            "makalenin özetiyle doğrudan uyumluysa ve hiçbir çelişki yoksa, spesifik bir alt detay özette "
-            "yazmasa bile karar 'KISMEN_DESTEKLENİYOR' (Özet Düzeyinde Uyumlu) olmalıdır.\n"
+            "2. SADECE ÖZET DURUMU (tam metin kilitliyse):\n"
+            "   a) Özet, yazarın cümlesindeki iddiayı DOĞRUDAN söylüyorsa (aynı sayı, aynı yön, aynı bulgu) "
+            "-> KARAR: 'DESTEKLENİYOR'.\n"
+            "   b) Özet yalnızca genel konuyu doğruluyor, iddianın spesifik alt detayını içermiyorsa "
+            "-> KARAR: 'KISMEN_DESTEKLENİYOR'.\n"
+            "   c) Özet iddiayla çelişiyorsa -> KARAR: 'ÇELİŞİYOR'.\n"
             "3. SAYISAL VEYA YÖN ÇELİŞKİSİ: İddiada '%90' denirken kanıtta '%70' deniyorsa veya 'artırmıştır' denirken "
             "'azaltmıştır' deniyorsa -> KARAR: 'ÇELİŞİYOR'.\n"
             "4. KANIT YETERSİZ / ALAKASIZ ATIF: Kanıt paragraflarında iddiadaki konuyla ilgili hiçbir bilimsel "
@@ -720,9 +722,13 @@ class SemanticRAGVerifier:
             else:
                 verdict = "KANIT_YETERSİZ"
 
-            explanation = parsed.get("explanation") or heuristic["explanation"]
-            if verdict == "KISMEN_DESTEKLENİYOR" and "kilitli" not in explanation.lower() and "özet" not in explanation.lower():
-                explanation = f"{heuristic['explanation']} (Hakem Notu: {explanation})"
+            explanation = (parsed.get("explanation") or "").strip()
+            if not explanation:
+                explanation = self._fallback_explanation(verdict, heuristic)
+            if verdict == "KISMEN_DESTEKLENİYOR" and (
+                "kilitli" not in explanation.lower() and "özet" not in explanation.lower()
+            ):
+                explanation = "☑️ Özet Düzeyinde Uyumlu (tam metin kilitli). " + explanation
 
             llm_result = {
                 "verdict": verdict,
@@ -791,6 +797,20 @@ class SemanticRAGVerifier:
             "anlamına GELMEZ: DOI'siz dergi makaleleri, kitaplar, tezler ve henüz indekslenmemiş "
             "yayınlar da bu durumda olabilir. Künyeyi elle kontrol edin veya PDF'ini yükleyin.",
         )
+
+    @staticmethod
+    def _fallback_explanation(verdict: str, heuristic: Dict[str, Any]) -> str:
+        """LLM boş açıklama döndürdüğünde kararla ÇELİŞMEYEN nötr bir metin üretir."""
+        if verdict == "KISMEN_DESTEKLENİYOR":
+            return (
+                "☑️ Özet Düzeyinde Uyumlu: Yalnızca özet/başlık erişilebildiği için iddianın spesifik "
+                "alt detayları doğrulanamadı; ana konu ve yön özetle uyumludur."
+            )
+        if verdict == "ÇELİŞİYOR":
+            return "Kanıt paragrafı, iddiayla çelişen bir bulgu içeriyor."
+        if verdict == "DESTEKLENİYOR" and heuristic.get("verdict") == "DESTEKLENİYOR":
+            return heuristic.get("explanation", "Kanıt, iddiayı destekliyor.")
+        return heuristic.get("explanation", "Kanıt değerlendirildi.")
 
     @staticmethod
     def _combine_decisions(

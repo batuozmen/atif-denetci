@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 23 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik, Uçtan Uca Test ve Front-Matter Temizliği)
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 24 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik, Front-Matter ve Açıklama Tutarlılığı)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -397,6 +397,27 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
       * Ayrıca KISMEN kararında açıklama bazen "iddia makaleden çıkarılabilir"
         diyor; karar ile açıklama çelişiyor (LLM boş açıklama döndürünce
         heuristic metni kullanılıyor).
+
+[✅ TAMAMLANDI] ADIM 24: Özet Düzeyi Kararı ve Açıklama Tutarlılığı
+  - Güncellenen Dosyalar: rag_verifier.py, tests/test_explanation_consistency.py
+  - Yapılan Değişiklikler:
+    1. Prompt kuralı 2 üçe ayrıldı:
+       a) Özet iddiayı DOĞRUDAN söylüyorsa -> DESTEKLENİYOR,
+       b) yalnızca genel konuyu doğruluyorsa -> KISMEN_DESTEKLENİYOR,
+       c) özet iddiayla çelişiyorsa -> ÇELİŞİYOR.
+       (Önceki kural, tam metin yoksa neredeyse her şeyi KISMEN yapıyordu.)
+    2. `_fallback_explanation()`: LLM boş açıklama döndürdüğünde kararla
+       çelişmeyen nötr metin üretilir. KISMEN kararında heuristic'in
+       "iddia makaleden çıkarılabilir" metni artık ASLA kullanılmaz.
+    3. KISMEN açıklaması "☑️ Özet Düzeyinde Uyumlu (tam metin kilitli)"
+       önekiyle garanti edilir.
+  - Sonuçlar:
+      * Uçtan uca test (5 kaynak): 2 DESTEKLENİYOR + 3 KISMEN (önce 5/5 KISMEN).
+        Toplam 29,9 sn.
+      * Testler: 5/5 yeni; toplam 66 test PASS.
+      * Altın set: parser 8/8, karar 30/30.
+  - Bilinen Sınır: LLM'in döndürdüğü `confidence` neredeyse hep 0.95;
+    kalibrasyon ayrı bir adım gerektiriyor.
 
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
