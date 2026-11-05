@@ -394,6 +394,9 @@ class DocumentParser:
         cleaned_text = self._normalize_unicode_superscripts(cleaned_text)
         body_text, references_text = self._split_body_and_references(cleaned_text)
 
+        # Başlık / yazar / kurum bloğu atıf taramasına girmesin (bkz. ADIM 23).
+        citation_body = self._strip_front_matter(body_text)
+
         warnings: List[str] = []
         if not references_text.strip():
             warnings.append(
@@ -402,11 +405,11 @@ class DocumentParser:
             )
 
         references = self._parse_references_section(references_text)
-        citations = self._extract_in_text_citations(body_text, references, references_text)
+        citations = self._extract_in_text_citations(citation_body, references, references_text)
 
         # İkinci Güvenlik Taraması (Yetim Kaynak Doğrulaması):
         # Eğer bir kaynak ilk taramada eşleşmediyse, yazar soyadı + yıl ana metinde geçiyor mu kontrol et
-        self._second_pass_orphan_recovery(body_text, references, citations)
+        self._second_pass_orphan_recovery(citation_body, references, citations)
 
         # Kesin Tutarlılık Kuralı: Her kaynağın kullanım sayısı (cited_in_text_count),
         # kendisine bağlanan gerçek kanıt cümlelerinin (citations) sayısına birebir eşitlenir.
@@ -467,6 +470,36 @@ class DocumentParser:
                 return body, refs
 
         return text, ""
+
+    # -----------------------------------------------------------------------
+    # 1b. Ön Bilgi (Front-Matter) Temizliği
+    # -----------------------------------------------------------------------
+
+    FRONT_MATTER_HEADING = re.compile(
+        r"(?im)^\s*(?:\d{1,2}[\.\)]?\s*)?(?:abstract|summary|özet|introduction|giriş)\b"
+    )
+
+    def _strip_front_matter(self, text: str) -> str:
+        """Başlık/yazar/kurum bloğunu atar; gövdeyi ilk bölüm başlığından başlatır.
+
+        Yalnızca başlık metnin ilk %30'unda (veya ilk 1500 karakterinde) bulunursa
+        kesme yapılır; aksi hâlde metin olduğu gibi bırakılır.
+        """
+        if not text:
+            return text
+        match = self.FRONT_MATTER_HEADING.search(text)
+        if match and 0 < match.start() <= max(1500, int(len(text) * 0.30)):
+            return text[match.start():].lstrip()
+        return text
+
+    @staticmethod
+    def _looks_like_front_matter(sentence: str) -> bool:
+        """Kurum/künye bloğuna benzeyen uzun cümleleri ayıklar (ikinci savunma)."""
+        if len(sentence) < 400:
+            return False
+        low = sentence.lower()
+        cues = ("department of", "faculty of", "university", "e-mail", "e‐mail", "correspondence", "†")
+        return any(cue in low for cue in cues)
 
     # -----------------------------------------------------------------------
     # 2. Kaynakça Maddelerini Ayrıştırma (Aksanlı Harf + Birleşik Kaynak Ayırıcı)
@@ -763,6 +796,9 @@ class DocumentParser:
 
         cit_counter = 1
         for idx, sent in enumerate(sentences):
+            # Künye/kurum bloğu cümleleri atıf cümlesi sayılmaz (ADIM 23).
+            if self._looks_like_front_matter(sent):
+                continue
             prev_sent = sentences[idx - 1] if idx > 0 else ""
             next_sent = sentences[idx + 1] if idx + 1 < len(sentences) else ""
             context_window = " ".join(p for p in [prev_sent, sent, next_sent] if p).strip()

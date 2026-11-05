@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 22 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik, Künye Güveni ve Uçtan Uca Test)
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 23 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik, Uçtan Uca Test ve Front-Matter Temizliği)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -370,6 +370,34 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
         Streamlit AppTest sandbox temp kısıtına takıldı).
   - Not: Bu adımda ürün kodu değiştirilmedi.
 
+[✅ TAMAMLANDI] ADIM 23: Ön Bilgi (Front-Matter) Temizliği
+  - Güncellenen Dosyalar: document_parser.py, tests/test_front_matter.py
+  - Tespit Edilen Hata (H4): Makalenin başlık + yazar + kurum bloğundaki üst
+    simgeler ([1], [2]...) metin içi atıf sanılıyordu. İlk 10 atıf, 851
+    karakterlik künye paragrafını "iddia cümlesi" olarak taşıyordu; bu yüzden
+    uçtan uca testteki kararlar anlamsızdı.
+  - Yapılan Değişiklikler:
+    1. `_strip_front_matter()`: gövde, ilk "Abstract / Özet / Summary /
+       Introduction / Giriş" başlığından başlatılır. Kesme yalnızca başlık ilk
+       %30 içindeyse yapılır; aksi hâlde metne dokunulmaz.
+    2. `_looks_like_front_matter()`: 400+ karakterlik ve "Department of /
+       Faculty of / University / e-mail / †" içeren cümleler ikinci savunma
+       olarak atıf taramasından çıkarılır.
+    3. Atıf çıkarma ve yetim kurtarma artık temizlenmiş gövde üzerinde çalışır.
+  - Sonuçlar:
+      * Manuscript.docx: 177 -> 167 atıf (10 sahte künye kaydı düştü);
+        ilk atıf artık gerçek: "Infertility is defined as ...".
+        Hayalet/yetim yine 0.
+      * Uçtan uca test: 5/5 kaynak bulundu; önbellek sayesinde toplam 30 sn.
+      * Testler: 61 test PASS (14+6+22+11+8); altın set 8/8 ve 30/30.
+  - Yeni Bulgu (H5 - ADIM 24'ye girdi):
+      * Beş kaynağın tamamı yalnızca özet düzeyinde olduğu için kararların
+        tamamı KISMEN_DESTEKLENİYOR çıktı. Karar, kanıttan çok "tam metin yok"
+        durumuna bağlı görünüyor.
+      * Ayrıca KISMEN kararında açıklama bazen "iddia makaleden çıkarılabilir"
+        diyor; karar ile açıklama çelişiyor (LLM boş açıklama döndürünce
+        heuristic metni kullanılıyor).
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
@@ -378,7 +406,8 @@ BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
    - Desteklenen Formatlar: Vancouver Numaralı ([1], (1), (2, 3), (3-6), üst simge ¹‚²)
                             ve APA Yazar-Yıl ((Yılmaz, 2022), (Smith et al., 2021a, 2021b))
    - Doğrulama Testleri   :
-     * Manuscript.docx (124 Kaynakça, 177 Metin İçi Atıf -> 0 Hayalet, 0 Yetim)
+     * Manuscript.docx (124 Kaynakça, 167 Metin İçi Atıf -> 0 Hayalet, 0 Yetim;
+       ADIM 23 öncesi 177 idi, 10 kayıt künye bloğundan geliyordu)
      * fphar-17-1910199.pdf (71 Kaynakça, 105 Metin İçi Atıf -> 0 Hayalet, 0 Yetim)
 
 2. 8 Kanallı Akademik İnternet Avcısı (academic_fetcher.py):
