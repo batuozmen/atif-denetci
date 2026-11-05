@@ -104,6 +104,8 @@ class FetchedPaper:
     pdf_url: Optional[str] = None
     local_pdf_path: Optional[str] = None
     metadata_warnings: List[str] = field(default_factory=list)
+    lookup_status: str = "not_found"            # "found" | "not_found" | "error"
+    lookup_error: str = ""                      # Ağ/API hatası varsa kısa açıklama
 
     @property
     def combined_evidence_text(self) -> str:
@@ -157,6 +159,12 @@ class AcademicFetcher:
         self.session = requests.Session()
         self.session.headers.update(DEFAULT_HEADERS)
 
+    @staticmethod
+    def _record_lookup_error(paper: FetchedPaper, channel: str, exc: Exception) -> None:
+        """Kanal hatasını kaydeder. Yalnızca ilk hata tutulur (kısa ve okunur kalsın)."""
+        if not paper.lookup_error:
+            paper.lookup_error = f"{channel}: {type(exc).__name__}: {exc}"[:300]
+
     # -----------------------------------------------------------------------
     # Ana Giriş Noktası: Tek Bir Kaynağı 8 Kanaldan Doğrula ve İçeriğini Çek
     # -----------------------------------------------------------------------
@@ -182,6 +190,7 @@ class AcademicFetcher:
                     cached_data.pop("has_abstract", None)
                     cached_data.pop("full_text_length", None)
                     cached_data["ref_id"] = ref.ref_id
+                    cached_data["lookup_status"] = "found" if cached_data.get("exists_online") else "not_found"
                     return FetchedPaper(**cached_data)
             except Exception:
                 pass
@@ -251,6 +260,14 @@ class AcademicFetcher:
         elif paper.abstract:
             content_tags.append("Özet (Abstract)")
         paper.content_source = " + ".join(content_tags) if content_tags else "Bulunamadı"
+
+        # Arama durumu: bulundu / bulunamadı / ağ hatası (DOGRULANAMADI kararı için)
+        if paper.exists_online:
+            paper.lookup_status = "found"
+        elif paper.lookup_error:
+            paper.lookup_status = "error"
+        else:
+            paper.lookup_status = "not_found"
 
         # Sonucu önbelleğe yaz
         try:
@@ -365,8 +382,8 @@ class AcademicFetcher:
             for link in item.get("link", []):
                 if "pdf" in str(link.get("content-type", "")).lower() and link.get("URL"):
                     paper.pdf_url = paper.pdf_url or link["URL"]
-        except Exception:
-            pass
+        except Exception as exc:
+            self._record_lookup_error(paper, "CrossRef", exc)
 
     def _find_best_crossref_match(
         self, ref: ReferenceItem, items: List[Dict[str, Any]]
@@ -511,8 +528,8 @@ class AcademicFetcher:
             pdf_candidate = best_oa.get("pdf_url") or oa_info.get("oa_url")
             if pdf_candidate and not paper.pdf_url:
                 paper.pdf_url = pdf_candidate
-        except Exception:
-            pass
+        except Exception as exc:
+            self._record_lookup_error(paper, "OpenAlex", exc)
 
     @staticmethod
     def _reconstruct_openalex_abstract(inverted_index: Dict[str, List[int]]) -> str:
@@ -609,8 +626,8 @@ class AcademicFetcher:
 
             if paper.pmcid:
                 self._fetch_pmc_fulltext(paper)
-        except Exception:
-            pass
+        except Exception as exc:
+            self._record_lookup_error(paper, "PubMed", exc)
 
     def _fetch_pmc_fulltext(self, paper: FetchedPaper) -> None:
         """PubMed Central (PMC) açık erişim makalesinin tam metnini XML üzerinden çeker."""
@@ -701,8 +718,8 @@ class AcademicFetcher:
                 paper.verified_doi = ext_ids["DOI"]
 
             paper.citation_count = max(paper.citation_count, int(s2_data.get("citationCount") or 0))
-        except Exception:
-            pass
+        except Exception as exc:
+            self._record_lookup_error(paper, "SemanticScholar", exc)
 
     def _query_arxiv(self, ref: ReferenceItem, paper: FetchedPaper) -> None:
         paper.sources_checked.append("arXiv")
@@ -748,8 +765,8 @@ class AcademicFetcher:
                     if id_el is not None and id_el.text and not paper.pdf_url:
                         paper.pdf_url = id_el.text.replace("/abs/", "/pdf/") + ".pdf"
                     break
-        except Exception:
-            pass
+        except Exception as exc:
+            self._record_lookup_error(paper, "arXiv", exc)
 
     # -----------------------------------------------------------------------
     # KANAL 5: DergiPark / TR Dizin & Google Scholar (Türkçe ve Genel Tarama)
@@ -798,8 +815,8 @@ class AcademicFetcher:
                                     else f"https://dergipark.org.tr{pdf_href}"
                                 )
                     break
-        except Exception:
-            pass
+        except Exception as exc:
+            self._record_lookup_error(paper, "DergiPark", exc)
 
     def _query_google_scholar(self, ref: ReferenceItem, paper: FetchedPaper) -> None:
         """Google Scholar üzerinden makale gerçekliğini, özet snippet'ini ve sağdaki [PDF] linkini tarar."""
@@ -833,8 +850,8 @@ class AcademicFetcher:
                     if pdf_link_el and pdf_link_el.get("href") and not paper.pdf_url:
                         paper.pdf_url = pdf_link_el["href"]
                     break
-        except Exception:
-            pass
+        except Exception as exc:
+            self._record_lookup_error(paper, "GoogleScholar", exc)
 
     # -----------------------------------------------------------------------
     # KANAL 6: Sci-Hub Otomatik Tam Metin PDF İndirici

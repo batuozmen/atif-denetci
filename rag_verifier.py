@@ -76,7 +76,7 @@ class VerificationResult:
     claim_sentence: str
     context_text: str
     ref_id: Optional[str]
-    verdict: str                       # "DESTEKLENİYOR" | "ÇELİŞİYOR" | "KANIT_YETERSİZ" | "SAHTE_KAYNAK" | "HAYALET_ATIF"
+    verdict: str                       # "DESTEKLENİYOR" | "ÇELİŞİYOR" | "KANIT_YETERSİZ" | "DOGRULANAMADI" | "SAHTE_KAYNAK" | "HAYALET_ATIF"
     confidence_score: float            # 0.0 - 1.0 güven skoru
     semantic_similarity: float         # En iyi kanıt paragrafının anlam benzerliği (0.0 - 1.0)
     best_evidence: str                 # Makaleden bulunan en güçlü kanıt paragrafı
@@ -462,10 +462,11 @@ class SemanticRAGVerifier:
         2. Makale gerçekse -> Kanıt paragraflarını Çok Dilli RAG ile bulur.
         3. Ollama (veya Semantik NLI Analizörü) ile anlam çıkarımı yapar.
         """
-        # Durum 1: Makale internette hiç bulunamadıysa (Halüsinasyon / Sahte Kaynak)
+        # Durum 1: Kaynak doğrulanamadı (hiç bulunamadı veya ağ hatası)
         if not paper.exists_online:
+            verdict, explanation = self._classify_missing_source(paper)
             alt_papers = []
-            if alternative_finder is not None:
+            if verdict == "SAHTE_KAYNAK" and alternative_finder is not None:
                 alt_papers = alternative_finder.suggest_real_papers(claim_sentence, top_k=3)
 
             return VerificationResult(
@@ -474,15 +475,11 @@ class SemanticRAGVerifier:
                 claim_sentence=claim_sentence,
                 context_text=context_text or claim_sentence,
                 ref_id=paper.ref_id,
-                verdict="SAHTE_KAYNAK",
-                confidence_score=0.95,
+                verdict=verdict,
+                confidence_score=0.90 if verdict == "SAHTE_KAYNAK" else 0.50,
                 semantic_similarity=0.0,
                 best_evidence="",
-                explanation=(
-                    "Bu kaynak CrossRef, OpenAlex, PubMed, Semantic Scholar, arXiv ve Google Scholar "
-                    "veritabanlarında bulunamadı. Yapay zeka tarafından uydurulmuş (halüsinasyon) "
-                    "bir kaynak olabilir. Lütfen aşağıdaki gerçek alternatif makalelerden birini kullanın."
-                ),
+                explanation=explanation,
                 metadata_warnings=paper.metadata_warnings,
                 alternative_papers=alt_papers,
                 used_llm_model="Kaynak Doğrulama Motoru",
@@ -710,6 +707,39 @@ class SemanticRAGVerifier:
             llm_result = None
 
         return self._combine_decisions(heuristic, llm_result)
+
+    @staticmethod
+    def _classify_missing_source(paper: FetchedPaper) -> Tuple[str, str]:
+        """Kaynağı doğrulanamayan kayıtları 'sahte' ile 'doğrulanamadı' arasında ayırır.
+
+        Kural: "bulunamadı" tek başına sahtelik kanıtı değildir. Sahte damgası
+        yalnızca somut bir uyumsuzluk (ör. DOI'nin başka makaleye ait olması)
+        varsa vurulur; aksi hâlde DOGRULANAMADI döner.
+        """
+        if paper.lookup_status == "error":
+            detail = f" ({paper.lookup_error})" if paper.lookup_error else ""
+            return (
+                "DOGRULANAMADI",
+                "Kaynak doğrulanamadı: İnternet araması sırasında ağ/API hatası oluştu"
+                f"{detail}. Bu bir kaynak hatası değil, geçici bir erişim sorunudur; "
+                "bağlantı düzelince tekrar deneyin.",
+            )
+
+        warnings_text = " ".join(paper.metadata_warnings or [])
+        if "Başlık–DOI Uyuşmazlığı" in warnings_text:
+            return (
+                "SAHTE_KAYNAK",
+                "Kaynakçadaki DOI numarası başka bir makaleye aittir (başlık ile DOI uyuşmuyor). "
+                "Bu, künyenin hatalı olduğunu gösterir; DOI ve başlığı düzeltin.",
+            )
+
+        checked = ", ".join(dict.fromkeys(paper.sources_checked)) or "hiçbir veritabanı"
+        return (
+            "DOGRULANAMADI",
+            f"Kaynak {checked} üzerinde arandı ancak bulunamadı. Bu, kaynağın sahte olduğu "
+            "anlamına GELMEZ: DOI'siz dergi makaleleri, kitaplar, tezler ve henüz indekslenmemiş "
+            "yayınlar da bu durumda olabilir. Künyeyi elle kontrol edin veya PDF'ini yükleyin.",
+        )
 
     @staticmethod
     def _combine_decisions(

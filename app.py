@@ -434,10 +434,11 @@ with tab1:
             cnt_con = sum(1 for r in results_list if r.verdict == "ÇELİŞİYOR")
             cnt_ins = sum(1 for r in results_list if r.verdict == "KANIT_YETERSİZ")
             cnt_fake = sum(1 for r in results_list if r.verdict == "SAHTE_KAYNAK")
+            cnt_unknown = sum(1 for r in results_list if r.verdict == "DOGRULANAMADI")
             cnt_ghost = sum(1 for r in results_list if r.verdict == "HAYALET_ATIF")
             cnt_ret = sum(1 for p in f_map.values() if p.is_retracted)
 
-            k1, k2, k3, k4, k5, k6, k7 = st.columns(7)
+            k1, k2, k3, k4, k5, k6, k7, k8 = st.columns(8)
             k1.metric("✅ Tam Desteklenen", cnt_sup)
             k2.metric(
                 "☑️ Özet Uyumlu",
@@ -447,16 +448,21 @@ with tab1:
             k3.metric("❌ Çelişen", cnt_con)
             k4.metric("⚠️ Kanıt Yetersiz", cnt_ins)
             k5.metric(
-                "🚨 Sahte / İnternette Yok",
+                "🚨 Sahte (kanıtlı)",
                 cnt_fake,
-                help="Kaynakça listesinde yazılmış ancak PubMed, CrossRef, OpenAlex ve Google Scholar'da gerçekte var olmayan (uydurma/hatalı) makale sayısı.",
+                help="Yalnızca somut kanıtla (ör. DOI'nin başka makaleye ait olması) 'sahte' sayılır. Bulunamayan kaynaklar buraya değil, 'Doğrulanamadı' sayacına yazılır.",
             )
             k6.metric(
+                "❓ Doğrulanamadı",
+                cnt_unknown,
+                help="Kaynak hiçbir veritabanında bulunamadı veya ağ hatası oluştu. Bu, kaynağın sahte olduğu anlamına gelmez.",
+            )
+            k7.metric(
                 "👻 Hayalet Atıf",
                 cnt_ghost,
                 help="Ana metinde atıf yapılmış ancak makalenin sonundaki Kaynakça listesine eklenmemiş atıf sayısı.",
             )
-            k7.metric("🛑 Geri Çekilmiş", cnt_ret)
+            k8.metric("🛑 Geri Çekilmiş", cnt_ret)
 
             # A) Kaynakça Gerçeklik Özeti Tablosu
             with st.expander("📚 Kaynakça Listesi İnternet Doğrulama Durumu (CrossRef / OpenAlex / PubMed / Sci-Hub)", expanded=True):
@@ -466,14 +472,16 @@ with tab1:
                         "Kaynak No": f"[{r_id}]",
                         "Durum": (
                             "🛑 GERİ ÇEKİLMİŞ" if fp.is_retracted
-                            else ("✅ Gerçek Makale" if fp.exists_online else "🚨 SAHTE / BULUNAMADI")
+                            else ("✅ Gerçek Makale" if fp.exists_online
+                                  else ("❓ DOĞRULANAMADI (ağ hatası)" if fp.lookup_status == "error"
+                                        else "❓ DOĞRULANAMADI (bulunamadı)"))
                         ),
                         "Doğrulanan Başlık": fp.verified_title or fp.query_title,
                         "Yazarlar": ", ".join(fp.verified_authors[:3]) if fp.verified_authors else "-",
                         "Yıl": fp.verified_year or "-",
                         "İçerik Kaynağı": fp.content_source,
                         "Atıf Sayısı": fp.citation_count,
-                        "Uyarılar": " | ".join(fp.metadata_warnings) if fp.metadata_warnings else "Sorun Yok",
+                        "Uyarılar": fp.lookup_error or (" | ".join(fp.metadata_warnings) if fp.metadata_warnings else "Sorun Yok"),
                     })
                 st.dataframe(pd.DataFrame(ref_rows), use_container_width=True, hide_index=True)
 
@@ -485,6 +493,7 @@ with tab1:
                     "KISMEN_DESTEKLENİYOR": "☑️",
                     "ÇELİŞİYOR": "❌",
                     "KANIT_YETERSİZ": "⚠️",
+                    "DOGRULANAMADI": "❓",
                     "SAHTE_KAYNAK": "🚨",
                     "HAYALET_ATIF": "👻",
                 }
@@ -777,9 +786,10 @@ with tab2:
                 s_con = sum(1 for r in t2_results if r.verdict == "ÇELİŞİYOR")
                 s_ins = sum(1 for r in t2_results if r.verdict == "KANIT_YETERSİZ")
                 s_fake = sum(1 for r in t2_results if r.verdict == "SAHTE_KAYNAK")
+                s_unknown = sum(1 for r in t2_results if r.verdict == "DOGRULANAMADI")
                 s_ghost = sum(1 for r in t2_results if r.verdict == "HAYALET_ATIF")
 
-                sk1, sk2, sk3, sk4, sk5, sk6 = st.columns(6)
+                sk1, sk2, sk3, sk4, sk5, sk6, sk7 = st.columns(7)
                 sk1.metric("✅ Tam Desteklenen", s_sup)
                 sk2.metric(
                     "☑️ Özet Uyumlu",
@@ -789,11 +799,16 @@ with tab2:
                 sk3.metric("❌ Çelişen", s_con)
                 sk4.metric("⚠️ Kanıt Yetersiz", s_ins)
                 sk5.metric(
-                    "🚨 Sahte / İnternette Yok",
+                    "🚨 Sahte (kanıtlı)",
                     s_fake,
-                    help="Kaynakça listesinde var ancak PubMed, CrossRef, OpenAlex ve Google Scholar'da gerçekte mevcut olmayan (uydurma/hatalı) makale sayısı.",
+                    help="Yalnızca somut kanıtla (ör. DOI'nin başka makaleye ait olması) 'sahte' sayılır.",
                 )
                 sk6.metric(
+                    "❓ Doğrulanamadı",
+                    s_unknown,
+                    help="Kaynak hiçbir veritabanında bulunamadı veya ağ hatası oluştu; sahte olduğu anlamına gelmez.",
+                )
+                sk7.metric(
                     "👻 Hayalet Atıf",
                     s_ghost,
                     help="Ana metinde atıf yapılmış ancak makalenin sonundaki Kaynakça listesine eklenmemiş atıf sayısı.",
@@ -804,6 +819,7 @@ with tab2:
                     "KISMEN_DESTEKLENİYOR": "☑️",
                     "ÇELİŞİYOR": "❌",
                     "KANIT_YETERSİZ": "⚠️",
+                    "DOGRULANAMADI": "❓",
                     "SAHTE_KAYNAK": "🚨",
                     "HAYALET_ATIF": "👻",
                 }
@@ -812,7 +828,8 @@ with tab2:
                     "KISMEN_DESTEKLENİYOR": "ÖZET DÜZEYİNDE UYUMLU (TAM METİN KİLİTLİ)",
                     "ÇELİŞİYOR": "ÇELİŞİYOR",
                     "KANIT_YETERSİZ": "KANIT YETERSİZ / ALAKASIZ ATIF",
-                    "SAHTE_KAYNAK": "SAHTE / İNTERNETTE YOK",
+                    "DOGRULANAMADI": "DOĞRULANAMADI (BULUNAMADI / AĞ HATASI)",
+                    "SAHTE_KAYNAK": "SAHTE / İNTERNETTE YOK (KANITLI)",
                     "HAYALET_ATIF": "HAYALET ATIF (KAYNAKÇADA YOK)",
                 }
                 for r in t2_results:
@@ -925,6 +942,7 @@ with tab3:
                 "Karar": r.verdict,
                 "Anlam Yakınlığı (%)": round(r.semantic_similarity * 100, 1),
                 "Güven (%)": round(r.confidence_score * 100, 0),
+                "Karar Kaynağı": r.decision_source or "-",
                 "Makaledeki İddia Cümleniz": r.claim_sentence,
                 "Doğrulanan Kaynak Başlığı": fp.verified_title if fp else "Kaynakçada Yok",
                 "Kaynak Durumu": fp.content_source if fp else "Hayalet Atıf",

@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 16 Tamamlandı (3 Katmanlı Hakem Mimarisi, Başlık-DOI Çapraz Denetimi ve Karar Politikası Düzeltmesi)
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 17 Tamamlandı (3 Katmanlı Hakem Mimarisi, Başlık-DOI Çapraz Denetimi, Karar Politikası ve Doğrulanamadı Durumu)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -236,6 +236,30 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
     "değil" ifadesinin alakasız yan cümlede geçtiği nadir durumlar için
     altın set ile ölçüm gerekiyor (bkz. ADIM 18 planı).
 
+[✅ TAMAMLANDI] ADIM 17: "Doğrulanamadı" Durumu ve Ağ Hatası Ayrımı
+  - Güncellenen Dosyalar: academic_fetcher.py, rag_verifier.py, app.py,
+    tests/test_lookup_status.py
+  - Tespit Edilen Hata: Ağ hatası veya zaman aşımı durumunda boş FetchedPaper
+    oluşuyor, exists_online=False kaldığı için kaynak "SAHTE_KAYNAK" olarak
+    raporlanıyordu. Ayrıca hiçbir veritabanında bulunamayan gerçek kaynaklar
+    (DOI'siz dergi, kitap, tez) da aynı damgayı yiyordu.
+  - Yapılan Değişiklikler:
+    1. FetchedPaper'a `lookup_status` ("found"/"not_found"/"error") ve
+       `lookup_error` alanları eklendi; hata veren kanal (CrossRef, OpenAlex,
+       PubMed, Semantic Scholar, arXiv, DergiPark, Google Scholar) kaydediliyor.
+    2. Yeni karar: DOGRULANAMADI. Ağ hatası -> DOGRULANAMADI; hiç bulunamadı ->
+       DOGRULANAMADI. SAHTE_KAYNAK yalnızca somut kanıtla (DOI başka makaleye
+       ait) veriliyor.
+    3. Arayüz: "Sahte (kanıtlı)" ve "Doğrulanamadı" ayrı sayaçlar; kaynak
+       tablosunda "❓ DOĞRULANAMADI (ağ hatası/bulunamadı)" ve hata mesajı.
+    4. Rapora "Karar Kaynağı" sütunu eklendi (llm/kural/kural+llm).
+  - Test Sonucu: tests/test_lookup_status.py -> 6/6 PASS
+      * ağ hatası -> DOGRULANAMADI
+      * bulunamadı -> DOGRULANAMADI (açıklamada "sahte değildir" ibaresi)
+      * DOI uyuşmazlığı -> SAHTE_KAYNAK + alternatif öneri
+  - Geriye Dönük Uyum: Eski önbellek dosyaları yeni alanlar olmadan da
+    yüklenebiliyor (varsayılan değerler).
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
@@ -252,15 +276,19 @@ BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
      arXiv, DergiPark / TR Dizin, Google Scholar, Sci-Hub ve Jina Reader.
    - Güvenlik: Retracted (Geri Çekilmiş) yayın tespiti, Başlık-DOI Çapraz Denetimi,
      ve "Ayırt Edici Bilimsel Terim" zorunluluğu ile sahte atıflara sıfır tolerans.
+   - Arama Durumu (ADIM 17): her kayıt `lookup_status` ile işaretlenir
+     ("found" / "not_found" / "error"). Hata veren kanal `lookup_error` alanına yazılır.
 
 3. Çok Dilli Semantik RAG & 4 Dereceli Hakem Motoru (rag_verifier.py):
    - Donanım Dostu Mimari: CPU üzerinde Çok Dilli Vektör Arama + RTX 3050 (4 GB VRAM)
      üzerinde yerel Ollama (`qwen2.5:3b`) anlam çıkarımı.
-   - 4 Dereceli Karar: ✅ Tam Desteklenen, ☑️ Özet Düzeyinde Uyumlu (Kilitli Tam Metin),
-     ⚠️ Kanıt Yetersiz / Alakasız Atıf, ❌ Çelişen ve 🚨 Sahte / İnternette Yok.
+   - Karar Düzeyleri: ✅ Tam Desteklenen, ☑️ Özet Düzeyinde Uyumlu (Kilitli Tam Metin),
+     ⚠️ Kanıt Yetersiz / Alakasız Atıf, ❌ Çelişen, ❓ Doğrulanamadı, 🚨 Sahte (kanıtlı).
    - Karar Politikası (ADIM 16): LLM kararı esastır; kural katmanı yalnızca nesnel
      çelişkilerde (sayı/yön/olumsuzluk) ve yalnızca "ÇELİŞİYOR" yönünde devreye girer.
      Her sonuçta `decision_source` alanı ("llm" / "kural" / "kural+llm") raporlanır.
-   - Doğrulama: tests/test_decision_policy.py -> 14/14 PASS (negasyon, sayı, yön,
-     LLM-kural çakışması ve Ollama kapalı senaryoları).
+   - Doğrulanamadı Ayrımı (ADIM 17): Ağ hatası veya hiç bulunamama -> DOGRULANAMADI;
+     SAHTE_KAYNAK yalnızca somut kanıtla (DOI başka makaleye ait) verilir.
+   - Doğrulama: tests/test_decision_policy.py -> 14/14 PASS; tests/test_lookup_status.py
+     -> 6/6 PASS.
 ================================================================================
