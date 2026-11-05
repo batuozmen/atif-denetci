@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 17 Tamamlandı (3 Katmanlı Hakem Mimarisi, Başlık-DOI Çapraz Denetimi, Karar Politikası ve Doğrulanamadı Durumu)
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 18 Tamamlandı (3 Katmanlı Hakem Mimarisi, Karar Politikası, Doğrulanamadı Durumu ve Hukuk/Güvenlik Paketi)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -260,6 +260,30 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
   - Geriye Dönük Uyum: Eski önbellek dosyaları yeni alanlar olmadan da
     yüklenebiliyor (varsayılan değerler).
 
+[✅ TAMAMLANDI] ADIM 18: Hukuk ve Güvenlik Paketi (Sci-Hub Varsayılan Kapalı, SSRF, Dosya Yolu)
+  - Güncellenen Dosyalar: academic_fetcher.py, app.py, tests/test_url_safety.py
+  - Tespit Edilen Riskler:
+    1. Sci-Hub varsayılan olarak AÇIKTI; kütüphane olarak import eden her çağrı
+       telif ihlali riski taşıyordu.
+    2. Kaynakçadan veya dış API yanıtından gelen PDF URL'leri doğrulanmadan
+       indiriliyordu (SSRF: 127.0.0.1, 10.x, 169.254.169.254 gibi adresler).
+    3. `ref_id` dosya adında temizlenmeden kullanılıyordu (yol aşımı riski).
+  - Yapılan Değişiklikler:
+    1. `enable_scihub` varsayılanı False yapıldı; arayüzde varsayılan kapalı
+       onay kutusu + hukuki uyarı ve önerilen alternatifler (Unpaywall, OpenAlex
+       OA, CORE, Europe PMC, kütüphane) eklendi.
+    2. `is_safe_public_url()`: yalnızca http/https ve genel IP adreslerine izin
+       verir; loopback, özel ağ, link-local, multicast, file/javascript/ftp
+       şemaları reddedilir. PDF indirme ve Jina Reader çağrılarında uygulanır.
+    3. `safe_ref_token()`: ref_id dosya adı için temizlenir ("../" ve "\" etkisiz).
+    4. Reddedilen adresler `lookup_error` alanına yazılır (sessiz yutulmaz).
+  - Test Sonucu: tests/test_url_safety.py -> 22/22 PASS
+      * 10 farklı tehlikeli URL reddi, 2 genel IP kabulü
+      * ref_id temizliği (yol aşımı denemeleri)
+      * Sci-Hub varsayılanının kapalı olduğu doğrulaması
+  - Not: Sci-Hub tamamen kaldırılmadı; kullanıcı bilinçli olarak açabilir.
+    Hukuki risk kullanıcı sorumluluğundadır (arayüzde açıkça belirtiliyor).
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
@@ -278,6 +302,9 @@ BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
      ve "Ayırt Edici Bilimsel Terim" zorunluluğu ile sahte atıflara sıfır tolerans.
    - Arama Durumu (ADIM 17): her kayıt `lookup_status` ile işaretlenir
      ("found" / "not_found" / "error"). Hata veren kanal `lookup_error` alanına yazılır.
+   - Hukuk ve Güvenlik (ADIM 18): Sci-Hub varsayılan olarak KAPALI; URL'ler
+     `is_safe_public_url` ile doğrulanır (özel ağ/file/javascript reddi); dosya
+     adlarında `safe_ref_token` kullanılır.
 
 3. Çok Dilli Semantik RAG & 4 Dereceli Hakem Motoru (rag_verifier.py):
    - Donanım Dostu Mimari: CPU üzerinde Çok Dilli Vektör Arama + RTX 3050 (4 GB VRAM)

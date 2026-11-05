@@ -21,8 +21,10 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import socket
 import sys
 import time
+import ipaddress
 import unicodedata
 import urllib.parse
 import xml.etree.ElementTree as ET
@@ -63,6 +65,59 @@ API_HEADERS = {
     "User-Agent": "TubitakAcademicVerifier/1.0 (mailto:academic-verifier@tubitak-rag.local)",
     "Accept": "application/json",
 }
+
+
+# ---------------------------------------------------------------------------
+# URL ve Dosya Adı Güvenliği (ADIM 18)
+# ---------------------------------------------------------------------------
+
+BLOCKED_HOSTNAMES = {
+    "localhost", "localhost.localdomain", "metadata", "metadata.google.internal",
+    "instance-data", "169.254.169.254",
+}
+
+
+def is_safe_public_url(url: str) -> bool:
+    """Yalnızca http/https ve genel (özel olmayan) adreslere izin verir.
+
+    Kaynakçadan veya dış API yanıtından gelen URL'ler doğrulanmadan
+    indirilmemelidir (SSRF koruması).
+    """
+    if not url or not isinstance(url, str):
+        return False
+    try:
+        parsed = urllib.parse.urlparse(url.strip())
+    except Exception:
+        return False
+    if parsed.scheme not in ("http", "https"):
+        return False
+    host = (parsed.hostname or "").strip().lower().rstrip(".")
+    if not host or host in BLOCKED_HOSTNAMES or host.endswith(".local") or host.endswith(".internal"):
+        return False
+    try:
+        infos = socket.getaddrinfo(host, None)
+    except Exception:
+        return False
+
+    for info in infos or []:
+        try:
+            ip = ipaddress.ip_address(info[4][0])
+        except ValueError:
+            return False
+        if (
+            ip.is_private or ip.is_loopback or ip.is_link_local
+            or ip.is_reserved or ip.is_multicast or ip.is_unspecified
+        ):
+            return False
+    return bool(infos)
+
+
+def safe_ref_token(value: Any, fallback: str = "ref") -> str:
+    """ref_id'yi dosya adında güvenle kullanılabilecek bir belirtece çevirir."""
+    token = re.sub(r"[^A-Za-z0-9._-]+", "_", str(value or ""))
+    token = re.sub(r"\.{2,}", ".", token)          # ".." dizilerini etkisizleştir
+    token = token.strip("._-")[:40].strip("._-")
+    return token or fallback
 
 SCIHUB_MIRRORS = [
     "https://sci-hub.se",
@@ -152,7 +207,7 @@ class AlternativePaper:
 class AcademicFetcher:
     """8 kanallı akademik doğrulama, özet ve tam metin (PDF/Web) çekme motoru."""
 
-    def __init__(self, timeout: int = 12, enable_scihub: bool = True, enable_jina: bool = True):
+    def __init__(self, timeout: int = 12, enable_scihub: bool = False, enable_jina: bool = True):
         self.timeout = timeout
         self.enable_scihub = enable_scihub
         self.enable_jina = enable_jina
@@ -925,6 +980,8 @@ class AcademicFetcher:
         yayıncı web sayfasını bot engeline takılmadan temiz Markdown metni olarak çeker.
         """
         paper.sources_checked.append("Jina Reader (Agent-Reach)")
+        if not is_safe_public_url(target_url):
+            return ""
         try:
             jina_url = f"https://r.jina.ai/{target_url}"
             headers = {
@@ -1021,6 +1078,11 @@ class AcademicFetcher:
 
     def _download_and_extract_pdf(self, pdf_url: str, paper: FetchedPaper, source_label: str) -> str:
         """PDF dosyasını indirir, .cache/pdfs/ altına kaydeder ve tüm sayfalarını okur."""
+        if not is_safe_public_url(pdf_url):
+            self._record_lookup_error(
+                paper, source_label, ValueError("Güvenli olmayan/özel ağ adresi reddedildi")
+            )
+            return ""
         try:
             resp = self.session.get(pdf_url, timeout=self.timeout + 6, allow_redirects=True)
             if resp.status_code != 200:
@@ -1035,7 +1097,7 @@ class AcademicFetcher:
     def _save_and_read_pdf_bytes(self, pdf_bytes: bytes, paper: FetchedPaper, source_label: str) -> str:
         try:
             file_hash = hashlib.md5(pdf_bytes[:4096]).hexdigest()[:12]
-            pdf_path = PDF_CACHE_DIR / f"ref_{paper.ref_id}_{file_hash}.pdf"
+            pdf_path = PDF_CACHE_DIR / f"ref_{safe_ref_token(paper.ref_id)}_{file_hash}.pdf"
             pdf_path.write_bytes(pdf_bytes)
             paper.local_pdf_path = str(pdf_path)
 

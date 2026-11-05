@@ -149,7 +149,16 @@ with st.sidebar:
 
     st.divider()
     st.subheader("🌐 İnternet Tarama Kanalları")
-    enable_scihub = st.checkbox("🔓 Sci-Hub Otomatik Tam Metin PDF İndirici", value=True, help="Ücretli/kilitli makalelerin DOI numarasıyla Sci-Hub üzerinden tam metin PDF'ini indirip okur.")
+    enable_scihub = st.checkbox(
+        "🔓 Sci-Hub Otomatik Tam Metin PDF İndirici (varsayılan KAPALI)",
+        value=False,
+        help=(
+            "⚠️ Hukuki uyarı: Sci-Hub üzerinden telifli makale indirmek birçok ülkede telif hakkı "
+            "ihlali sayılır ve kurumsal denetimde risk oluşturur. Bu seçenek varsayılan olarak "
+            "kapalıdır; açtığınızda sorumluluk kullanıcıya aittir. Önerilen alternatif: Unpaywall, "
+            "OpenAlex açık erişim, CORE, Europe PMC veya kütüphane erişimi."
+        ),
+    )
     enable_jina = st.checkbox("🕸️ Agent-Reach (Jina Reader) Web Okuyucu", value=True, help="Web sayfası formatındaki makaleleri r.jina.ai üzerinden bot engeline takılmadan okur.")
     enable_suggestions = st.checkbox("💡 Sahte/Çelişen Kaynak İçin Gerçek Makale Öner", value=True, help="Uydurma veya hatalı kaynak yakalandığında iddiayı destekleyen gerçek makaleler önerir.")
 
