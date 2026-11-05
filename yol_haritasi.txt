@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 19 Tamamlandı (Hakem Mimarisi, Karar Politikası, Doğrulanamadı, Hukuk/Güvenlik ve Altın Set Ölçümü)
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 20 Tamamlandı (Hakem Mimarisi, Karar Politikası, Doğrulanamadı, Güvenlik, Altın Set ve Kalibrasyon)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -306,6 +306,26 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
         harf eki yakalanmadığı için 2022a, 2022b'yi de eşliyor.
   - Not: Bu adımda koda dokunulmadı; yalnızca ölçüm altyapısı kuruldu.
 
+[✅ TAMAMLANDI] ADIM 20: Ölçümün Gösterdiği Kalibrasyon Düzeltmeleri
+  - Güncellenen Dosyalar: rag_verifier.py, document_parser.py
+  - Yapılan Değişiklikler:
+    H1. Sayı toleransı göreli hâle getirildi: |a-b| <= max(0.05, %1).
+        Önce %3.2 ile %2.8 "eşit" sayılıyordu (fark 0.4 <= 0.5), artık çelişki.
+    H2. Çelişki eşikleri düşürüldü: sayı çelişkisi 0.52 -> 0.45, negasyon
+        0.55 -> 0.45, yön çelişkisi 0.55 -> 0.45. Alakasız çiftler 0.2'nin
+        altında kaldığı için yanlış pozitif riski düşük.
+    H3. APA 2022a/2022b: ikinci güvenlik taraması yıl sonundaki harf ekini
+        yok sayıyordu; artık "2022b" yalnızca "2022b" ile eşleşiyor.
+  - Önce/Sonra (tests/eval/run_eval.py):
+      * Parser: 7/8 -> 8/8
+      * Karar motoru (katı): 26/30 (%87) -> 30/30 (%100)
+      * Sayı çelişkisi: 3/5 -> 5/5 | Negasyon: 4/5 -> 5/5 | Yön: 3/4 -> 4/4
+  - Regresyon Kontrolü:
+      * test_decision_policy.py 14/14, test_lookup_status.py 6/6,
+        test_url_safety.py 22/22 (toplam 42 test) — hepsi PASS.
+      * Gerçek Manuscript.docx: 124 kaynak, 177 atıf, 0 hayalet, 0 yetim
+        (APA düzeltmesi gerçek veride bozulma yaratmadı).
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
@@ -327,8 +347,9 @@ BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
    - Hukuk ve Güvenlik (ADIM 18): Sci-Hub varsayılan olarak KAPALI; URL'ler
      `is_safe_public_url` ile doğrulanır (özel ağ/file/javascript reddi); dosya
      adlarında `safe_ref_token` kullanılır.
-   - Ölçüm (ADIM 19): `tests/eval/run_eval.py` — parser 7/8, karar motoru 26/30
-     (%87 baseline). Açık hatalar: sayı toleransı, çelişki eşikleri, 2022a/b.
+   - Ölçüm (ADIM 19-20): `tests/eval/run_eval.py` — parser 8/8, karar motoru
+     30/30 (%100). Kalibrasyon: göreli sayı toleransı, 0.45 çelişki eşiği,
+     2022a/b ayrımı düzeltildi.
 
 3. Çok Dilli Semantik RAG & 4 Dereceli Hakem Motoru (rag_verifier.py):
    - Donanım Dostu Mimari: CPU üzerinde Çok Dilli Vektör Arama + RTX 3050 (4 GB VRAM)

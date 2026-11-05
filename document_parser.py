@@ -1143,10 +1143,14 @@ class DocumentParser:
                 continue
 
             surname_esc = re.escape(ref.first_author_surname)
-            year_4 = ref.year[:4]
+            ref_year_full = (ref.year or "").strip().lower()
+            year_4 = ref_year_full[:4]
+            # 2022a / 2022b ayrımı: harf eki varsa birebir eşleşmeli; yoksa [a-c] opsiyonel.
+            year_suffix = ref_year_full[4:5]
+            year_pat = re.escape(year_suffix) if year_suffix else "[a-c]?"
             # Soyadı ... (en fazla 100 karakter) ... Yıl VEYA aksansız soyadı araması
             pattern = re.compile(
-                rf"\b{surname_esc}\b.{{0,100}}?\b{year_4}[a-c]?\b",
+                rf"\b{surname_esc}\b.{{0,100}}?\b{year_4}{year_pat}\b",
                 re.IGNORECASE,
             )
             m = pattern.search(joined_body)
@@ -1154,7 +1158,7 @@ class DocumentParser:
                 # Aksanlı harf farkı varsa (örn: Castrén vs Castren) normalize arama yap
                 norm_s = normalize_surname_token(ref.first_author_surname)
                 if len(norm_s) >= 4:
-                    for y_m in re.finditer(rf"\b{year_4}[a-c]?\b", joined_body):
+                    for y_m in re.finditer(rf"\b{year_4}{year_pat}\b", joined_body):
                         start_pos = max(0, y_m.start() - 100)
                         window = joined_body[start_pos : y_m.end() + 20]
                         if norm_s in normalize_surname_token(window):

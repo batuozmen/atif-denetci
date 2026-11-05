@@ -834,7 +834,7 @@ class SemanticRAGVerifier:
         # terim varsa devreye girer; kural yalnızca ÇELİŞKİ yönünde sinyal üretir.
         claim_neg = has_negation(clean_claim)
         ev_neg = has_negation(best.text)
-        if claim_neg != ev_neg and sim >= 0.55 and len(shared_terms) >= 1:
+        if claim_neg != ev_neg and sim >= 0.45 and len(shared_terms) >= 1:
             return {
                 "verdict": "ÇELİŞİYOR",
                 "confidence": 0.86,
@@ -856,8 +856,12 @@ class SemanticRAGVerifier:
         # 1. Yüzdelik / Sayısal Karşılaştırma
         if claim_pcts and ev_pcts:
             # Aynı yüzdelik oran var mı? (Örn: %90 == yüzde doksan (%90))
+            def _pct_close(a: float, b: float) -> bool:
+                """Göreli tolerans: %3.2 ile %2.8 gibi farklı değerler eşleşmesin."""
+                return abs(a - b) <= max(0.05, 0.01 * max(abs(a), abs(b)))
+
             matched_pcts = [
-                cp for cp in claim_pcts if any(abs(cp - ep) <= 0.5 for ep in ev_pcts)
+                cp for cp in claim_pcts if any(_pct_close(cp, ep) for ep in ev_pcts)
             ]
             if matched_pcts and sim >= 0.55:
                 return {
@@ -877,7 +881,7 @@ class SemanticRAGVerifier:
                     "objective": False,
                     "model_used": "Çok Dilli Semantik NLI Motoru (CPU)",
                 }
-            elif not matched_pcts and sim >= 0.52:
+            elif not matched_pcts and sim >= 0.45:
                 # Konu aynı ama yüzdeler farklı! (ÇELİŞKİ)
                 revised = re.sub(
                     r"(?:%\s*\d+(?:[.,]\d+)?|\byüzde\s+[a-zçğıöşü0-9.,']+(?:\s+[a-zçğıöşü]+)?)",
@@ -911,7 +915,7 @@ class SemanticRAGVerifier:
         ev_inc = bool(re.search(increase_words, best.text, re.IGNORECASE))
         ev_dec = bool(re.search(decrease_words, best.text, re.IGNORECASE))
 
-        if sim >= 0.55 and ((claim_inc and ev_dec and not ev_inc) or (claim_dec and ev_inc and not ev_dec)):
+        if sim >= 0.45 and ((claim_inc and ev_dec and not ev_inc) or (claim_dec and ev_inc and not ev_dec)):
             return {
                 "verdict": "ÇELİŞİYOR",
                 "confidence": 0.88,
