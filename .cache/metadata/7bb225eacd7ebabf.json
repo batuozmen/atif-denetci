@@ -33,6 +33,8 @@
   "metadata_warnings": [
     "🚨 Bu makale CrossRef, OpenAlex, PubMed, Semantic Scholar ve Google Scholar dizinlerinde BULUNAMADI! Yapay zeka tarafından uydurulmuş (halüsinasyon) veya başlığı yanlış yazılmış olabilir."
   ],
+  "lookup_status": "not_found",
+  "lookup_error": "",
   "has_full_text": false,
   "has_abstract": false,
   "full_text_length": 0

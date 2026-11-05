@@ -541,16 +541,17 @@ class SemanticRAGVerifier:
             )
 
         # Adım 2: Çok Dilli Semantik RAG ile en yakın kanıt paragraflarını bul
-        top_chunks = self.retrieve_top_evidence(claim_sentence, evidence_corpus, top_k=4)
+        effective_claim = self._focus_claim_sentence(claim_sentence, marker)
+        top_chunks = self.retrieve_top_evidence(effective_claim, evidence_corpus, top_k=4)
         best_chunk = top_chunks[0] if top_chunks else EvidenceChunk(0, evidence_corpus[:500], 0.0)
 
         # Adım 3: Yerel Ollama LLM + Semantik NLI ile Anlam Çıkarımı Yap
-        llm_res = self._evaluate_entailment(claim_sentence, top_chunks, paper)
+        llm_res = self._evaluate_entailment(effective_claim, top_chunks, paper)
 
         verdict = llm_res["verdict"]
         alt_papers = []
         if verdict in ("ÇELİŞİYOR", "KANIT_YETERSİZ") and alternative_finder is not None:
-            alt_papers = alternative_finder.suggest_real_papers(claim_sentence, top_k=2)
+            alt_papers = alternative_finder.suggest_real_papers(effective_claim, top_k=2)
 
         sec_note = ""
         if best_chunk.is_secondary_citation:
@@ -797,6 +798,31 @@ class SemanticRAGVerifier:
             "anlamına GELMEZ: DOI'siz dergi makaleleri, kitaplar, tezler ve henüz indekslenmemiş "
             "yayınlar da bu durumda olabilir. Künyeyi elle kontrol edin veya PDF'ini yükleyin.",
         )
+
+    @staticmethod
+    def _focus_claim_sentence(claim: str, marker: str = "", max_len: int = 450) -> str:
+        """Çok uzun (paragraf hâline gelmiş) iddiaları atıf işaretini içeren cümleye indirger.
+
+        PDF'ten gelen ve nokta sonrası boşluk bulunmayan metinlerde birden fazla cümle
+        tek "iddia" gibi görünebiliyor; bu da yanlış çelişki kararlarına yol açıyor.
+        """
+        if not claim or len(claim) <= max_len:
+            return claim
+
+        idx = claim.find(marker) if marker else -1
+        if idx < 0:
+            idx = len(claim) // 2
+
+        start = claim.rfind(". ", 0, idx)
+        start = 0 if start < 0 else start + 2
+        end = claim.find(". ", idx)
+        end = len(claim) if end < 0 else end + 1
+
+        focused = claim[start:end].strip()
+        if len(focused) > max_len:
+            half = max_len // 2
+            focused = claim[max(0, idx - half): idx + half].strip()
+        return focused or claim
 
     @staticmethod
     def _fallback_explanation(verdict: str, heuristic: Dict[str, Any]) -> str:

@@ -409,7 +409,7 @@ class DocumentParser:
 
         # İkinci Güvenlik Taraması (Yetim Kaynak Doğrulaması):
         # Eğer bir kaynak ilk taramada eşleşmediyse, yazar soyadı + yıl ana metinde geçiyor mu kontrol et
-        self._second_pass_orphan_recovery(citation_body, references, citations)
+        warnings.extend(self._second_pass_orphan_recovery(citation_body, references, citations))
 
         # Kesin Tutarlılık Kuralı: Her kaynağın kullanım sayısı (cited_in_text_count),
         # kendisine bağlanan gerçek kanıt cümlelerinin (citations) sayısına birebir eşitlenir.
@@ -746,7 +746,10 @@ class DocumentParser:
         )
         protected = re.sub(r"(\d)\.(\d)", r"\1<DOT>\2", protected)
 
-        raw_sentences = re.split(r"(?<=[.!?])\s+|\n{2,}", protected)
+        raw_sentences = re.split(
+            r"(?<=[.!?])\s+|\n{2,}|(?<=[.!?])(?=[A-ZÇĞİÖŞÜ][a-zçğıöşü])",
+            protected,
+        )
         sentences: List[str] = []
         for s in raw_sentences:
             restored = s.replace("<DOT>", ".").strip()
@@ -1158,19 +1161,35 @@ class DocumentParser:
 
         return []
 
+    @staticmethod
+    def _first_author_initial(authors: str) -> str:
+        """'Yin, J., Sun, L.' veya 'Yin J' biçiminden ilk yazarın baş harfini çıkarır."""
+        if not authors:
+            return ""
+        chunk = authors.split(";")[0].strip()
+        m = re.match(r"([A-ZÇĞİÖŞÜ][\w\-'çğıöşü]+)\s*,?\s*([A-ZÇĞİÖŞÜ])\.?", chunk)
+        return m.group(2) if m else ""
+
     def _second_pass_orphan_recovery(
         self,
         body_text: str,
         references: List[ReferenceItem],
         citations: List[InTextCitation],
-    ) -> None:
+    ) -> List[str]:
         """
         İkinci Güvenlik Taraması:
         İlk taramada `cited_in_text_count == 0` kalan (Yetim görünen) her bir kaynak için,
         ilk yazarın soyadı ve yılı ana metin (body_text) içinde birbirine yakın (120 karakter)
         geçiyor mu diye kontrol eder. Tablo içi, şekil altı veya karmaşık parantez içi
         atıfları böylece %100 yakalar!
+
+        Ek olarak (ADIM 25):
+        - Yıl eki (2020a/b) yoksa ama metinde yazar baş harfi (Yin J. / Yin X.) varsa
+          doğru kaynağa bağlar.
+        - Hiçbir şekilde ayırt edilemiyorsa kaynağı "yetim" saymak yerine belirsiz
+          olarak işaretler ve uyarı döndürür.
         """
+        notes: List[str] = []
         joined_body = re.sub(r"\s+", " ", body_text)
         for ref in references:
             if ref.cited_in_text_count > 0:
@@ -1190,6 +1209,17 @@ class DocumentParser:
                 re.IGNORECASE,
             )
             m = pattern.search(joined_body)
+
+            # Yıl eki yok ama yazar baş harfiyle ayırt edilmiş olabilir: "Yin J. et al., 2020"
+            if not m and year_suffix:
+                initial = self._first_author_initial(ref.authors)
+                if initial:
+                    init_pattern = re.compile(
+                        rf"\b{surname_esc}\s+{re.escape(initial)}\.?\s*(?:et\s+al\.?)?\s*,?\s*\(?{year_4}\b",
+                        re.IGNORECASE,
+                    )
+                    m = init_pattern.search(joined_body)
+
             if not m:
                 # Aksanlı harf farkı varsa (örn: Castrén vs Castren) normalize arama yap
                 norm_s = normalize_surname_token(ref.first_author_surname)
@@ -1200,6 +1230,13 @@ class DocumentParser:
                         if norm_s in normalize_surname_token(window):
                             m = y_m
                             break
+
+            # Hâlâ ayırt edilemiyorsa: yıl eki belirsiz, ama soyadı + taban yıl geçiyor
+            ambiguous = False
+            if not m and year_suffix:
+                base_pattern = re.compile(rf"\b{surname_esc}\b.{{0,60}}?\b{year_4}\b", re.IGNORECASE)
+                m = base_pattern.search(joined_body)
+                ambiguous = bool(m)
 
             if m:
                 ref.cited_in_text_count += 1
@@ -1215,9 +1252,15 @@ class DocumentParser:
                         context_text=snippet,
                         matched_ref_id=ref.ref_id,
                         matched_reference=ref,
-                        expected_key=f"{ref.first_author_surname}, {ref.year}",
+                        expected_key="belirsiz-eslesme" if ambiguous else f"{ref.first_author_surname}, {ref.year}",
                     )
                 )
+                if ambiguous:
+                    notes.append(
+                        f"[{ref.ref_id}] '{ref.first_author_surname} {year_4}' atıfı yıl eki olmadan geçiyor; "
+                        f"hangi {year_4}a/b olduğu belirsiz, elle kontrol edin."
+                    )
+        return notes
 
 
 # ---------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 24 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik, Front-Matter ve Açıklama Tutarlılığı)
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 25 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik, Front-Matter, Açıklama Tutarlılığı ve Uzun İddia Düzeltmesi)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -418,6 +418,31 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
       * Altın set: parser 8/8, karar 30/30.
   - Bilinen Sınır: LLM'in döndürdüğü `confidence` neredeyse hep 0.95;
     kalibrasyon ayrı bir adım gerektiriyor.
+
+[✅ TAMAMLANDI] ADIM 25: Uzun İddia ve Yetim Kurtarma Düzeltmeleri
+  - Güncellenen Dosyalar: document_parser.py, rag_verifier.py,
+    tests/test_long_claim_orphan.py
+  - Yayınlanmış Makale Testinde Bulunan Hatalar:
+    H6. Metin "Yin J. et al., 2020" / "Yin X. et al., 2020" biçiminde atıf
+        yapıyor, kaynakça ise 2020a/2020b. Katı yıl-eki kuralı bu iki gerçek
+        atıfı "yetim" gösteriyordu.
+    H7. PDF'te nokta sonrası boşluk olmadığı için 12 iddia 400+ karakter
+        (en uzunu 563) çıkıyordu; çok cümleli iddia yanlış ÇELİŞİYOR kararı
+        üretiyordu (ör. APA_43).
+  - Yapılan Değişiklikler:
+    1. Cümle bölme: nokta sonrası boşluk olmasa da (".The") büyük harfle
+       başlayan yeni cümle ayrılır.
+    2. Yetim kurtarma: yıl eki yoksa yazar baş harfi (Yin J. / Yin X.) ile
+       doğru kaynağa bağlanır; yine ayırt edilemezse "belirsiz" uyarısı verilir
+       ve kaynak yetim sayılmaz.
+    3. `_focus_claim_sentence`: 450+ karakterlik iddialar, atıf işaretini
+       içeren cümleye indirgenerek değerlendirilir (rapor metni korunur).
+  - Sonuçlar (YAYINLANMIŞ MAKALE.pdf):
+      * Atıf 103 -> 105 (2 gerçek atıf geri geldi), yetim 2 -> 0, hayalet 0.
+      * APA_43 yanlış ÇELİŞİYOR -> DESTEKLENİYOR.
+      * 3 kaynak örneklem: 2 DESTEKLENİYOR + 1 KISMEN, 23,0 sn.
+      * Manuscript.docx: 124 kaynak / 167 atıf / 0 / 0 (değişmedi).
+  - Testler: 9/9 yeni; toplam 75 test PASS; altın set 8/8 ve 30/30.
 
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
