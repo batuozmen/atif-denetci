@@ -490,6 +490,7 @@ with tab1:
                         "Yıl": fp.verified_year or "-",
                         "İçerik Kaynağı": fp.content_source,
                         "Atıf Sayısı": fp.citation_count,
+                        "Eşleşme Güveni": f"%{fp.title_match_score * 100:.0f}" if fp.exists_online else "-",
                         "Uyarılar": fp.lookup_error or (" | ".join(fp.metadata_warnings) if fp.metadata_warnings else "Sorun Yok"),
                     })
                 st.dataframe(pd.DataFrame(ref_rows), use_container_width=True, hide_index=True)
@@ -540,6 +541,7 @@ with tab1:
                             st.write(f"- **Yıl & Dergi:** {fp.verified_year or '-'} | {fp.verified_venue or '-'}")
                             st.write(f"- **DOI:** `{fp.verified_doi or 'Yok'}`")
                             st.write(f"- **İçerik Kaynağı:** `{fp.content_source}`")
+                            st.write(f"- **Eşleşme Güveni:** %{fp.title_match_score * 100:.0f}")
                             if fp.local_pdf_path:
                                 st.success(f"📄 Tam Metin PDF İndirildi: `{fp.local_pdf_path}`")
                             for w in fp.metadata_warnings:
@@ -871,6 +873,7 @@ with tab2:
                                 st.write(f"- **Yıl & Dergi:** {fp.verified_year or '-'} | {fp.verified_venue or '-'}")
                                 st.write(f"- **DOI:** `{fp.verified_doi or 'Yok'}`")
                                 st.write(f"- **İçerik Kaynağı:** `{fp.content_source}`")
+                                st.write(f"- **Eşleşme Güveni:** %{fp.title_match_score * 100:.0f}")
                                 if fp.local_pdf_path:
                                     st.success(f"📄 Tam Metin PDF İndirildi: `{fp.local_pdf_path}`")
                                 for w in fp.metadata_warnings:
@@ -952,6 +955,7 @@ with tab3:
                 "Anlam Yakınlığı (%)": round(r.semantic_similarity * 100, 1),
                 "Güven (%)": round(r.confidence_score * 100, 0),
                 "Karar Kaynağı": r.decision_source or "-",
+                "Eşleşme Güveni (%)": round(r.match_score * 100, 0),
                 "Makaledeki İddia Cümleniz": r.claim_sentence,
                 "Doğrulanan Kaynak Başlığı": fp.verified_title if fp else "Kaynakçada Yok",
                 "Kaynak Durumu": fp.content_source if fp else "Hayalet Atıf",

@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 20 Tamamlandı (Hakem Mimarisi, Karar Politikası, Doğrulanamadı, Güvenlik, Altın Set ve Kalibrasyon)
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 21 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik ve Künye Eşleşme Güveni)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -326,6 +326,26 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
       * Gerçek Manuscript.docx: 124 kaynak, 177 atıf, 0 hayalet, 0 yetim
         (APA düzeltmesi gerçek veride bozulma yaratmadı).
 
+[✅ TAMAMLANDI] ADIM 21: Künye Eşleşme Güveni (Zayıf Eşleşme Koruması)
+  - Güncellenen Dosyalar: rag_verifier.py, app.py, tests/test_match_confidence.py
+  - Tespit Edilen Hata: `title_match_score` hesaplanıyor ancak nihai karara hiç
+    yansımıyordu. 0.68 benzerlikle zor eşleşen bir aday da, DOI'si birebir
+    doğrulanmış makale de aynı şekilde "gerçek" kabul ediliyordu. Yanlış eşleşme,
+    yanlış makaleyle anlam karşılaştırmasına ve yanlış hükme yol açıyordu.
+  - Yapılan Değişiklikler:
+    1. `MIN_TRUSTED_MATCH = 0.70`: başlık benzerliği bu eşiğin altındaysa künye
+       güvenilmez sayılır. DOI birebir doğrulandıysa skordan bağımsız güvenilir.
+    2. Zayıf veya bilinmeyen eşleşme -> DOGRULANAMADI (yanlış makaleyle hüküm
+       verilmez; kullanıcıya elle doğrulama/PDF yükleme önerilir).
+    3. `VerificationResult.match_score` alanı; arayüzde "Eşleşme Güveni" sütunu
+       ve cümle kartında yüzde gösterimi; rapora "Eşleşme Güveni (%)" sütunu.
+  - Test Sonucu: tests/test_match_confidence.py -> 11/11 PASS
+      * 0.70 sınırı, 0.699 reddi, skor yokluğu, DOI birebir/uyuşmaz senaryoları
+      * zayıf eşleşme -> DOGRULANAMADI, güçlü eşleşme -> normal akış
+  - Regresyon: toplam 53 test PASS; altın set 8/8 ve 30/30 korunuyor.
+  - Bilinen Sınır: 0.70 eşiği ampiriktir; gerçek makale setiyle kalibre edilmeli
+    (ADIM 22 uçtan uca test).
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
@@ -361,6 +381,8 @@ BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
      Her sonuçta `decision_source` alanı ("llm" / "kural" / "kural+llm") raporlanır.
    - Doğrulanamadı Ayrımı (ADIM 17): Ağ hatası veya hiç bulunamama -> DOGRULANAMADI;
      SAHTE_KAYNAK yalnızca somut kanıtla (DOI başka makaleye ait) verilir.
+   - Künye Güveni (ADIM 21): başlık eşleşmesi < 0.70 ise (DOI birebir değilse)
+     kaynak güvenilmez sayılır ve DOGRULANAMADI döner; `match_score` raporlanır.
    - Doğrulama: tests/test_decision_policy.py -> 14/14 PASS; tests/test_lookup_status.py
      -> 6/6 PASS.
 ================================================================================

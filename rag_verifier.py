@@ -51,6 +51,10 @@ PREFERRED_OLLAMA_MODELS = [
     "llama3.1:8b",
 ]
 
+# Zayıf künye eşleşmesi: bu skorun altındaki kaynaklarla anlam karşılaştırması
+# yapılmaz; sonuç "DOGRULANAMADI" olur (yanlış makaleyle hüküm vermemek için).
+MIN_TRUSTED_MATCH = 0.70
+
 
 # ---------------------------------------------------------------------------
 # Veri Yapıları
@@ -80,6 +84,7 @@ class VerificationResult:
     confidence_score: float            # 0.0 - 1.0 güven skoru
     semantic_similarity: float         # En iyi kanıt paragrafının anlam benzerliği (0.0 - 1.0)
     best_evidence: str                 # Makaleden bulunan en güçlü kanıt paragrafı
+    match_score: float = 0.0           # Kaynak künyesinin eşleşme güveni (0.0 - 1.0)
     top_chunks: List[EvidenceChunk] = field(default_factory=list)
     explanation: str = ""              # Neden destekleniyor / neden çelişiyor açıklaması
     claim_core_meaning: str = ""       # Cümlenin öz anlamı
@@ -486,6 +491,31 @@ class SemanticRAGVerifier:
                 decision_source="kural",
             )
 
+        # Durum 2: Künye zayıf eşleştiyse yanlış makaleyle hüküm verme
+        trusted, match_score, match_reason = self._match_confidence(paper)
+        if not trusted:
+            return VerificationResult(
+                citation_id=citation_id,
+                marker=marker,
+                claim_sentence=claim_sentence,
+                context_text=context_text or claim_sentence,
+                ref_id=paper.ref_id,
+                verdict="DOGRULANAMADI",
+                confidence_score=0.50,
+                semantic_similarity=0.0,
+                best_evidence="",
+                match_score=match_score,
+                explanation=(
+                    f"Kaynak künyesi zayıf eşleşti ({match_reason}; benzerlik "
+                    f"%{match_score * 100:.0f}). Yanlış makaleyle anlam karşılaştırması yapmamak için "
+                    "karar verilmedi. Lütfen künyeyi (yazar/yıl/DOI) elle doğrulayın veya makalenin "
+                    "PDF'ini yükleyin."
+                ),
+                metadata_warnings=paper.metadata_warnings,
+                used_llm_model="Künye Güven Denetçisi",
+                decision_source="kural",
+            )
+
         evidence_corpus = paper.combined_evidence_text
         if not evidence_corpus or len(evidence_corpus) < 30:
             return VerificationResult(
@@ -507,6 +537,7 @@ class SemanticRAGVerifier:
                 metadata_warnings=paper.metadata_warnings,
                 used_llm_model="Künye Doğrulayıcı",
                 decision_source="kural",
+                match_score=match_score,
             )
 
         # Adım 2: Çok Dilli Semantik RAG ile en yakın kanıt paragraflarını bul
@@ -551,6 +582,7 @@ class SemanticRAGVerifier:
             alternative_papers=alt_papers,
             used_llm_model=llm_res["model_used"],
             decision_source=llm_res.get("decision_source", ""),
+            match_score=match_score,
         )
 
     # -----------------------------------------------------------------------
@@ -707,6 +739,25 @@ class SemanticRAGVerifier:
             llm_result = None
 
         return self._combine_decisions(heuristic, llm_result)
+
+    @staticmethod
+    def _match_confidence(paper: FetchedPaper) -> Tuple[bool, float, str]:
+        """Künye eşleşmesinin güvenilir olup olmadığını belirler.
+
+        - DOI birebir doğrulandıysa güvenilir (başlık skoru düşük olsa bile).
+        - Aksi hâlde başlık benzerliği MIN_TRUSTED_MATCH üstünde olmalıdır.
+        """
+        doi = (paper.verified_doi or "").strip().lower()
+        query_doi = (paper.query_doi or "").strip().lower()
+        if doi and query_doi and doi == query_doi:
+            return True, 1.0, "DOI birebir doğrulandı"
+
+        score = float(paper.title_match_score or 0.0)
+        if score >= MIN_TRUSTED_MATCH:
+            return True, score, "başlık eşleşmesi güçlü"
+        if score <= 0.0:
+            return False, 0.0, "eşleşme skoru bilinmiyor"
+        return False, score, "başlık eşleşmesi zayıf"
 
     @staticmethod
     def _classify_missing_source(paper: FetchedPaper) -> Tuple[str, str]:
