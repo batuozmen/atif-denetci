@@ -91,6 +91,7 @@ class VerificationResult:
     metadata_warnings: List[str] = field(default_factory=list)
     alternative_papers: List[AlternativePaper] = field(default_factory=list)
     used_llm_model: str = ""
+    decision_source: str = ""          # "llm" | "kural" | "kural+llm" — kararı kim verdi?
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -225,6 +226,36 @@ def extract_numbers_and_percentages(text: str) -> Tuple[List[float], List[float]
             pass
 
     return percentages, numbers
+
+
+# ---------------------------------------------------------------------------
+# Olumsuzluk (negasyon) sinyali
+# ---------------------------------------------------------------------------
+# Amaç: "X azaltır" ile "X azaltmaz" gibi cümleleri embedding benzerliği
+# yakalayamaz; bu yüzden ayrı ve dar kapsamlı bir sözlük taraması yapılır.
+# Kural yalnızca ÇELİŞKİ yönünde sinyal üretir; asla "destekleniyor" üretmez.
+
+TR_NEGATION_RE = re.compile(
+    r"\b(?:değil|değildir|yok|yoktur|olmaz|olmadı|olmayan|etmez|etmedi|etmemiştir|"
+    r"göstermez|göstermedi|göstermemiştir|azaltmaz|azaltmadı|azaltmamıştır|"
+    r"artmaz|artmadı|artmamıştır|düşürmez|yükseltmez|sağlamaz|sağlamadı|"
+    r"bulunmamış|saptanmamış|gözlenmemiş|asla|hiçbir)\w*",
+    re.IGNORECASE,
+)
+
+EN_NEGATION_RE = re.compile(
+    r"\b(?:not|no|never|without|none|neither|nor|"
+    r"does\s+not|doesn't|did\s+not|didn't|is\s+not|isn't|was\s+not|wasn't|"
+    r"were\s+not|weren't|cannot|can't|fail(?:s|ed)?\s+to|failed\s+to)\b",
+    re.IGNORECASE,
+)
+
+
+def has_negation(text: str) -> bool:
+    """Metinde dar kapsamlı bir olumsuzluk ifadesi var mı?"""
+    if not text:
+        return False
+    return bool(TR_NEGATION_RE.search(text) or EN_NEGATION_RE.search(text))
 
 
 # ---------------------------------------------------------------------------
@@ -455,6 +486,7 @@ class SemanticRAGVerifier:
                 metadata_warnings=paper.metadata_warnings,
                 alternative_papers=alt_papers,
                 used_llm_model="Kaynak Doğrulama Motoru",
+                decision_source="kural",
             )
 
         evidence_corpus = paper.combined_evidence_text
@@ -477,6 +509,7 @@ class SemanticRAGVerifier:
                 is_retracted=paper.is_retracted,
                 metadata_warnings=paper.metadata_warnings,
                 used_llm_model="Künye Doğrulayıcı",
+                decision_source="kural",
             )
 
         # Adım 2: Çok Dilli Semantik RAG ile en yakın kanıt paragraflarını bul
@@ -520,6 +553,7 @@ class SemanticRAGVerifier:
             metadata_warnings=paper.metadata_warnings,
             alternative_papers=alt_papers,
             used_llm_model=llm_res["model_used"],
+            decision_source=llm_res.get("decision_source", ""),
         )
 
     # -----------------------------------------------------------------------
@@ -630,6 +664,7 @@ class SemanticRAGVerifier:
             "Lütfen anlam bütünlüğünü incele ve JSON çıktısını üret."
         )
 
+        llm_result: Optional[Dict[str, Any]] = None
         try:
             resp = ollama.chat(
                 model=self.ollama_model,
@@ -656,18 +691,11 @@ class SemanticRAGVerifier:
             else:
                 verdict = "KANIT_YETERSİZ"
 
-            # Eğer ön-analiz çok net bir sayısal eşleşme/çelişki veya özet düzeyinde güçlü uyum yakaladıysa
-            # küçük 3B modelin yanlışlıkla KANIT_YETERSİZ demesini engelle
-            if heuristic["strong_override"]:
-                verdict = heuristic["verdict"]
-            elif verdict == "KANIT_YETERSİZ" and heuristic["verdict"] in ("DESTEKLENİYOR", "KISMEN_DESTEKLENİYOR"):
-                verdict = heuristic["verdict"]
-
             explanation = parsed.get("explanation") or heuristic["explanation"]
             if verdict == "KISMEN_DESTEKLENİYOR" and "kilitli" not in explanation.lower() and "özet" not in explanation.lower():
                 explanation = f"{heuristic['explanation']} (Hakem Notu: {explanation})"
 
-            return {
+            llm_result = {
                 "verdict": verdict,
                 "confidence": float(parsed.get("confidence", heuristic["confidence"])),
                 "explanation": explanation,
@@ -679,7 +707,64 @@ class SemanticRAGVerifier:
         except Exception:
             # Ollama kapalıysa veya model henüz indirilmemişse bile sistem asla çökmez;
             # Çok dilli vektör + sayısal/kavramsal NLI motoru devreye girer!
-            return heuristic
+            llm_result = None
+
+        return self._combine_decisions(heuristic, llm_result)
+
+    @staticmethod
+    def _combine_decisions(
+        heuristic: Dict[str, Any], llm_result: Optional[Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """Kural katmanı ile LLM kararını tek bir nihai karara birleştirir.
+
+        Politika (ADIM 16):
+        - LLM kararı esastır: negasyon ve çıkarım gibi anlamsal durumlarda LLM,
+          kelime/vektör benzerliğinden daha güvenilirdir. Kural katmanı artık
+          "DESTEKLENİYOR" kararını ASLA dayatmaz.
+        - Kural katmanı yalnızca NESNEL çelişkilerde (sayı, yön, olumsuzluk)
+          LLM'i ezebilir; bu durumda bile yalnızca "ÇELİŞİYOR" yönünde.
+        - LLM yoksa/başarısızsa kural kararı döner (çevrimdışı çalışma korunur).
+        """
+        if llm_result is None:
+            out = dict(heuristic)
+            out["decision_source"] = "kural"
+            return out
+
+        hv = heuristic.get("verdict")
+        lv = llm_result.get("verdict")
+        objective = bool(heuristic.get("objective"))
+        source = "llm"
+
+        if objective and hv == "ÇELİŞİYOR":
+            source = "kural+llm" if lv == "ÇELİŞİYOR" else "kural"
+            if lv != "ÇELİŞİYOR":
+                llm_result = dict(llm_result)
+                llm_result["verdict"] = "ÇELİŞİYOR"
+                llm_result["explanation"] = (
+                    f"{heuristic.get('explanation', '')} "
+                    f"(LLM notu: {llm_result.get('explanation', '')})"
+                ).strip()
+                llm_result["confidence"] = max(
+                    float(heuristic.get("confidence", 0.8)),
+                    float(llm_result.get("confidence", 0.8)),
+                )
+                llm_result["suggested_revision"] = (
+                    llm_result.get("suggested_revision") or heuristic.get("suggested_revision", "")
+                )
+        elif lv == "KANIT_YETERSİZ" and heuristic.get("signal") == "numeric_match":
+            # Küçük modelin "kanıt yetersiz" ısrarını yalnızca nesnel sayı eşleşmesi kırabilir.
+            llm_result = dict(llm_result)
+            llm_result["verdict"] = "DESTEKLENİYOR"
+            llm_result["explanation"] = heuristic.get("explanation", "")
+            llm_result["confidence"] = max(0.90, float(llm_result.get("confidence", 0.0)))
+            source = "kural+llm"
+
+        out = dict(llm_result)
+        out["decision_source"] = source
+        for key in ("claim_meaning", "evidence_meaning", "suggested_revision"):
+            if not out.get(key):
+                out[key] = heuristic.get(key, "")
+        return out
 
     def _heuristic_semantic_nli(
         self, clean_claim: str, top_chunks: List[EvidenceChunk], paper: Optional[FetchedPaper] = None
@@ -698,6 +783,8 @@ class SemanticRAGVerifier:
                 "suggested_revision": "",
                 "hint": "Kanıt bulunamadı.",
                 "strong_override": False,
+                "signal": "no_evidence",
+                "objective": False,
                 "model_used": "Çok Dilli Semantik NLI Motoru (CPU)",
             }
 
@@ -711,6 +798,30 @@ class SemanticRAGVerifier:
 
         norm_claim = normalize_semantic_text(clean_claim)
         norm_ev = normalize_semantic_text(best.text)
+
+        # 0. Olumsuzluk (negasyon) çelişkisi: "azaltır" <-> "azaltmaz"
+        # Yalnızca yeterince güçlü anlamsal örtüşme ve en az bir ortak bilimsel
+        # terim varsa devreye girer; kural yalnızca ÇELİŞKİ yönünde sinyal üretir.
+        claim_neg = has_negation(clean_claim)
+        ev_neg = has_negation(best.text)
+        if claim_neg != ev_neg and sim >= 0.55 and len(shared_terms) >= 1:
+            return {
+                "verdict": "ÇELİŞİYOR",
+                "confidence": 0.86,
+                "explanation": (
+                    "Olumsuzluk (negasyon) çelişkisi yakalandı: İddia ile referans makaledeki "
+                    "kanıt paragrafı aynı konuyu ele alıyor, ancak biri olumlu diğeri olumsuz "
+                    "ifade ediyor (örn. 'azaltır' ↔ 'azaltmaz')."
+                ),
+                "claim_meaning": norm_claim,
+                "evidence_meaning": norm_ev[:240],
+                "suggested_revision": "Lütfen cümledeki olumluluk/olumsuzluk yönünü referans makaledeki kanıta göre düzeltin.",
+                "hint": "Olumsuzluk farkı var (iddia ile kanıt zıt kutuplu) -> ÇELİŞİYOR.",
+                "strong_override": True,
+                "signal": "negation_conflict",
+                "objective": True,
+                "model_used": "Çok Dilli Semantik NLI Motoru (CPU)",
+            }
 
         # 1. Yüzdelik / Sayısal Karşılaştırma
         if claim_pcts and ev_pcts:
@@ -731,7 +842,9 @@ class SemanticRAGVerifier:
                     "evidence_meaning": norm_ev[:240],
                     "suggested_revision": "",
                     "hint": f"Sayısal oran (%{matched_pcts[0]:g}) ve anlam birebir eşleşiyor -> DESTEKLENİYOR.",
-                    "strong_override": True,
+                    "strong_override": False,
+                    "signal": "numeric_match",
+                    "objective": False,
                     "model_used": "Çok Dilli Semantik NLI Motoru (CPU)",
                 }
             elif not matched_pcts and sim >= 0.52:
@@ -755,6 +868,8 @@ class SemanticRAGVerifier:
                     "suggested_revision": revised,
                     "hint": f"Sayısal çelişki var: İddia %{claim_pcts[0]:g} diyor ama kanıt %{ev_pcts[0]:g} diyor -> ÇELİŞİYOR.",
                     "strong_override": True,
+                    "signal": "numeric_conflict",
+                    "objective": True,
                     "model_used": "Çok Dilli Semantik NLI Motoru (CPU)",
                 }
 
@@ -779,6 +894,8 @@ class SemanticRAGVerifier:
                 "suggested_revision": "Lütfen cümledeki artış/azalış yönünü referans makaledeki kanıt paragrafına göre güncelleyin.",
                 "hint": "Etki yönü zıt (artış vs azalış) -> ÇELİŞİYOR.",
                 "strong_override": True,
+                "signal": "direction_conflict",
+                "objective": True,
                 "model_used": "Çok Dilli Semantik NLI Motoru (CPU)",
             }
 
@@ -796,7 +913,9 @@ class SemanticRAGVerifier:
                 "evidence_meaning": norm_ev[:240],
                 "suggested_revision": "",
                 "hint": f"Yüksek semantik ve kavramsal benzerlik ({sim:.2f}, ortak terimler: {', '.join(shared_terms[:4])}) -> DESTEKLENİYOR.",
-                "strong_override": sim >= 0.65,
+                "strong_override": False,
+                "signal": "semantic_support",
+                "objective": False,
                 "model_used": "Çok Dilli Semantik NLI Motoru (CPU)",
             }
         elif not has_full_text and (
@@ -820,6 +939,8 @@ class SemanticRAGVerifier:
                     "-> KISMEN_DESTEKLENİYOR (Özet Düzeyinde Uyumlu)."
                 ),
                 "strong_override": False,
+                "signal": "partial",
+                "objective": False,
                 "model_used": "Çok Dilli Semantik NLI Motoru (CPU)",
             }
         elif sim >= 0.48:
@@ -835,6 +956,8 @@ class SemanticRAGVerifier:
                 "suggested_revision": "",
                 "hint": f"Orta düzey benzerlik ({sim:.2f}), spesifik iddia tam doğrulanamadı -> KANIT_YETERSİZ.",
                 "strong_override": False,
+                "signal": "insufficient",
+                "objective": False,
                 "model_used": "Çok Dilli Semantik NLI Motoru (CPU)",
             }
         else:
@@ -851,6 +974,8 @@ class SemanticRAGVerifier:
                 "suggested_revision": "",
                 "hint": f"Düşük anlam benzerliği ({sim:.2f}) -> KANIT_YETERSİZ.",
                 "strong_override": False,
+                "signal": "no_match",
+                "objective": False,
                 "model_used": "Çok Dilli Semantik NLI Motoru (CPU)",
             }
 

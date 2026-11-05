@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 15 Tamamlandı (3 Katmanlı Hakem Mimarisi & Başlık-DOI Çapraz Denetimi)
+Son Güncelleme: 05.11.2026 - Adım 1 - Adım 16 Tamamlandı (3 Katmanlı Hakem Mimarisi, Başlık-DOI Çapraz Denetimi ve Karar Politikası Düzeltmesi)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -208,6 +208,34 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
        haksız yere "Kanıt Yetersiz" demek yerine "☑️ KISMEN_DESTEKLENİYOR
        (Özet Düzeyinde Uyumlu / Tam Metin Kilitli)" kararı verilmesi sağlandı.
 
+[✅ TAMAMLANDI] ADIM 16: Karar Politikası Düzeltmesi ve Negasyon (Olumsuzluk) Denetimi
+  - Güncellenen Dosyalar: rag_verifier.py, tests/test_decision_policy.py
+  - Tespit Edilen Hata: "İlaç belirtileri azaltır" ile "İlaç belirtileri azaltmaz"
+    cümleleri embedding benzerliğinde neredeyse aynı görünüyordu. Deterministik
+    katman bu durumda yanlışlıkla DESTEKLENİYOR diyor ve strong_override ile
+    LLM'in doğru "ÇELİŞİYOR" kararını eziyordu.
+  - Yapılan Değişiklikler:
+    1. Karar Politikası: LLM kararı artık esastır. Kural katmanı yalnızca NESNEL
+       çelişkilerde (sayı, yön, olumsuzluk) ve yalnızca "ÇELİŞİYOR" yönünde
+       LLM'i ezebilir. Kural katmanı artık asla "DESTEKLENİYOR" dayatmaz.
+    2. Negasyon Denetimi: Türkçe ve İngilizce olumsuzluk kalıpları (değil, yok,
+       azaltmaz, not, does not, without ...) taranır; iddia ile kanıt zıt
+       kutupluysa ve anlam benzerliği yeterliyse ÇELİŞİYOR kararı üretilir.
+       Kural yalnızca çelişki yönünde çalışır (yanlış "destekliyor" üretmez).
+    3. Şeffaflık: VerificationResult alanına `decision_source` eklendi
+       ("llm" / "kural" / "kural+llm"). Rapor, kararı kimin verdiğini gösterir.
+    4. Test Edilebilirlik: LLM kararı ile kural kararını birleştiren
+       `_combine_decisions` saf fonksiyonu ayrıldı; Ollama taklit edilerek
+       uçtan uca test yazıldı.
+  - Test Sonucu: tests/test_decision_policy.py -> 14/14 PASS
+      * TR/EN negasyon -> ÇELİŞİYOR
+      * %90 vs %71 -> ÇELİŞİYOR, "yüzde doksan" -> DESTEKLENİYOR
+      * LLM çelişkisi kural desteğini eziyor (eski hata artık yok)
+      * Ollama kapalıyken kural katmanı devreye giriyor
+  - Bilinen Sınır: Negasyon tespiti sözlük tabanlıdır; çift olumsuzluk ve
+    "değil" ifadesinin alakasız yan cümlede geçtiği nadir durumlar için
+    altın set ile ölçüm gerekiyor (bkz. ADIM 18 planı).
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
@@ -230,4 +258,9 @@ BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
      üzerinde yerel Ollama (`qwen2.5:3b`) anlam çıkarımı.
    - 4 Dereceli Karar: ✅ Tam Desteklenen, ☑️ Özet Düzeyinde Uyumlu (Kilitli Tam Metin),
      ⚠️ Kanıt Yetersiz / Alakasız Atıf, ❌ Çelişen ve 🚨 Sahte / İnternette Yok.
+   - Karar Politikası (ADIM 16): LLM kararı esastır; kural katmanı yalnızca nesnel
+     çelişkilerde (sayı/yön/olumsuzluk) ve yalnızca "ÇELİŞİYOR" yönünde devreye girer.
+     Her sonuçta `decision_source` alanı ("llm" / "kural" / "kural+llm") raporlanır.
+   - Doğrulama: tests/test_decision_policy.py -> 14/14 PASS (negasyon, sayı, yön,
+     LLM-kural çakışması ve Ollama kapalı senaryoları).
 ================================================================================
