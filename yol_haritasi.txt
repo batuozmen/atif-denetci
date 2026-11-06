@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 05.11.2026 - Adım 1 - Adım 26 Tamamlandı (Hakem Mimarisi, Kalibrasyon, Güvenlik, Front-Matter, Uzun İddia ve Ollama Zaman Aşımı)
+Son Güncelleme: 06.11.2026 - Adım 1 - Adım 28 Tamamlandı (Sadeleştirilmiş Arayüz, 3 Açıklamalı Özet Kartı, Anlaşılır Terimler ve Tek Ekranda Tam/Seçmeli Denetim)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -465,6 +465,45 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
   - Regresyon: toplam 80 test PASS; altın set 8/8 ve 30/30.
   - Not: Zaman aşımı HTTP istemcisine değil iş parçacığına bağlandı; böylece
     ollama-python sürümünden bağımsız çalışır.
+
+[✅ TAMAMLANDI] ADIM 27: Arayüz Okuma Kılavuzu (Sayıların Anlamı)
+  - Güncellenen Dosyalar: app.py
+  - Tespit Edilen Sorun: Kullanıcılar "anlam yakınlığı %70 ama neden çelişiyor?",
+    "eşleşme güveni ne demek?", "neden kısmen destekleniyor?" sorularını soruyordu.
+    Ekranda bu sayıların anlamını açıklayan hiçbir metin yoktu.
+  - Yapılan Değişiklikler:
+    1. `render_reading_guide()` eklendi; üç bölüm:
+       a) Anlam Yakınlığı: konu benzerliğidir, doğruluk değildir; "azaltır" ile
+          "azaltmaz" %90 benzer olabilir örneğiyle açıklanır.
+       b) Karar tablosu: 6 kararın (✅ ☑️ ❌ ⚠️ ❓ 🚨) anlamı tek tek yazılır.
+       c) Eşleşme Güveni: kaynağın kimliği; %100 DOI birebir, ~%95 başlık
+          benzerliği, %70 altı -> DOĞRULANAMADI.
+    2. "Neden %50 benzerlik kısmen, %70 benzerlik çelişiyor?" sorusuna özel
+       açıklama: benzerlik "aynı konu", karar "aynı yön" der.
+    3. Kılavuz hem 1. hem 2. sekmede, sonuç sayaçlarının altında görünür.
+    4. Sol menüye hatırlatma notu eklendi.
+  - Test: `py_compile` OK; `python app.py` hatasız (exit 0).
+  - Not: Karar mantığına dokunulmadı (kullanıcı isteğiyle yalnızca açıklama).
+
+[✅ TAMAMLANDI] ADIM 28: Arayüz Sadeleştirmesi, Açıklayıcı 3'lü Özet Kartları ve Anlaşılır Terimler
+  - Güncellenen Dosyalar: app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Teknik Jargon Yerine Açıklayıcı Terimler:
+       * "Hayalet Atıf" -> "Kaynakçada Eksik Atıf" (alt açıklamasıyla birlikte)
+       * "Yetim Kaynak" -> "Metinde Kullanılmayan Kaynak" (alt açıklamasıyla birlikte)
+       * "Anlam Yakınlığı (%)" -> "Konu Benzerliği (%)"
+       * "Eşleşme Güveni (%)" -> "Künye Doğruluk Oranı (%)"
+       * "Karar Kaynağı (llm/kural)" -> "Değerlendiren: Yapay Zeka Hakemi / Sayısal ve Dilbilgisel Kural Kontrolü"
+    2. 8 Küçük Sayaç Yerine 3 Açıklamalı Özet Kartı:
+       * 🟢 Sorunsuz / Doğrulanan Atıflar: Neden sorunsuz sayıldığını (Tam Uyumlu + Özetle Uyumlu) ve hiçbir değişiklik gerekmediğini açıklar.
+       * 🔴 Düzeltilmesi Gereken Hatalar: Neden düzeltilmesi gerektiğini (Çelişen Bilgi, Kaynakçada Eksik Atıf, Hatalı Künye/DOI, Yayından Geri Çekilmiş Makale) alt sayılarıyla tek tek açıklar.
+       * 🟡 Sizin Kontrol Etmeniz Gerekenler: Neden manuel kontrol gerektiğini (Makalede Bu Bilgi Bulunamadı, İnternette Erişilemedi/Bulunamadı) ve ne yapılması gerektiğini açıklar.
+    3. Tek Ekranda Adım Adım Akış ve Hızlı Filtreleme:
+       * Sayfa üstüne 3 adımlı "Neyin Nerede Olduğu" bilgi kartları eklendi.
+       * 1. Sekmede hem "Tüm Makaleyi Denetle" hem de "Sadece Seçtiğim Atıfları / Aralığı Denetle" birleştirildi.
+       * Sonuç kartlarının üstüne Hızlı Filtre (Tümü / 🔴 Sadece Düzeltilmesi Gerekenler / 🟡 Sadece Kontrol Edilecekler / 🟢 Sorunsuzlar) eklendi.
+       * Her cümle kartının içine "1. Sizin Cümleniz", "2. Neden Bu Sonuç Çıktı ve Ne Yapmalısınız?", "3. Kaynak Makaledeki İlgili Paragraf" kutuları yerleştirildi.
+       * Sol menüdeki teknik ayarlar "⚙️ Gelişmiş Teknik Ayarlar" açılır kutusuna taşındı.
 
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ

@@ -9,8 +9,6 @@ veya klasördeki `baslat.bat` dosyasına çift tıklayın.
 from __future__ import annotations
 
 import importlib
-import io
-import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
@@ -27,65 +25,28 @@ importlib.reload(document_parser)
 importlib.reload(academic_fetcher)
 importlib.reload(rag_verifier)
 
-from document_parser import DocumentParser, ParsedManuscript, ReferenceItem
+from document_parser import DocumentParser, ParsedManuscript, ReferenceItem, InTextCitation
 from academic_fetcher import AcademicFetcher, FetchedPaper
 from rag_verifier import SemanticRAGVerifier, VerificationResult
 
 
 # ---------------------------------------------------------------------------
-# Sayfa Yapılandırması ve Görsel Stil (CSS)
+# Sayfa Yapılandırması
 # ---------------------------------------------------------------------------
 
 st.set_page_config(
-    page_title="TÜBİTAK Akademik Atıf & Anlam Denetçisi",
+    page_title="TÜBİTAK Akademik Atıf ve Kaynakça Denetçisi",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-st.markdown(
-    """
-    <style>
-    .verdict-badge {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 6px;
-        font-weight: 700;
-        font-size: 0.92rem;
-    }
-    .v-supported { background-color: #d1fae5; color: #065f46; border: 1px solid #10b981; }
-    .v-contradicted { background-color: #fee2e2; color: #991b1b; border: 1px solid #ef4444; }
-    .v-insufficient { background-color: #fef3c7; color: #92400e; border: 1px solid #f59e0b; }
-    .v-fake { background-color: #f3e8ff; color: #6b21a8; border: 1px solid #a855f7; }
-    .evidence-box {
-        background-color: #f8fafc;
-        border-left: 4px solid #3b82f6;
-        padding: 12px 16px;
-        border-radius: 4px;
-        font-size: 0.95rem;
-        color: #1e293b;
-        margin: 8px 0;
-    }
-    .revision-box {
-        background-color: #ecfdf5;
-        border-left: 4px solid #10b981;
-        padding: 12px 16px;
-        border-radius: 4px;
-        font-size: 0.95rem;
-        color: #064e3b;
-        margin: 8px 0;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
 
 # ---------------------------------------------------------------------------
-# Önbellekli Motor Nesneleri (RAM ve Hız Koruması)
+# Önbellekli Motor Nesneleri
 # ---------------------------------------------------------------------------
 
-@st.cache_resource(show_spinner="Çok dilli semantik anlam modeli (CPU) hazırlanıyor...")
+@st.cache_resource(show_spinner="Anlam kontrol motoru hazırlanıyor...")
 def get_verifier(ollama_model: str) -> SemanticRAGVerifier:
     return SemanticRAGVerifier(ollama_model=ollama_model, embedding_device="cpu")
 
@@ -99,7 +60,221 @@ USER_PDF_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # ---------------------------------------------------------------------------
-# Örnek Demo Makalesi (Tek Tuşla Test İçin)
+# Anlaşılır Terim ve Karar Açıklama Yardımcıları
+# ---------------------------------------------------------------------------
+
+def human_decision_source(source_code: str) -> str:
+    """Teknik karar kaynağı kodunu anlaşılır Türkçeye çevirir."""
+    mapping = {
+        "llm": "Yapay Zeka Hakemi",
+        "kural": "Sayısal / Dilbilgisel Kural Kontrolü",
+        "kural+llm": "Yapay Zeka + Sayısal Kural Kontrolü",
+    }
+    return mapping.get(source_code or "", "Otomatik Kontrol")
+
+
+def get_verdict_info(verdict: str, is_retracted: bool = False) -> Dict[str, str]:
+    """
+    Her bir teknik karar kodunu:
+    - Hangi ana gruba girdiğine ('error', 'manual', 'ok'),
+    - Anlaşılır başlığa,
+    - Neden bu kararın verildiğine ve kullanıcının ne yapması gerektiğine çevirir.
+    """
+    if is_retracted:
+        return {
+            "group": "error",
+            "badge": "🛑 DÜZELTİLMELİ — Yayından Geri Çekilmiş Makale",
+            "short_label": "Yayından Geri Çekilmiş (Retracted)",
+            "why": "Atıf yaptığınız bu makale, bilimsel hata veya etik ihlal nedeniyle dergi tarafından resmi olarak geri çekilmiştir.",
+            "action": "Bu kaynağı makalenizden çıkarıp yerine geçerli ve güncel bir makale eklemelisiniz.",
+        }
+
+    info_map = {
+        "DESTEKLENİYOR": {
+            "group": "ok",
+            "badge": "✅ SORUNSUZ — Kaynak Makaleyle Tam Uyumlu",
+            "short_label": "Tam Uyumlu (Doğrulandı)",
+            "why": "Makalenizde yazdığınız cümledeki bilgi, referans gösterdiğiniz makalenin içeriğiyle doğrudan örtüşüyor.",
+            "action": "Herhangi bir düzeltme yapmanıza gerek yoktur.",
+        },
+        "KISMEN_DESTEKLENİYOR": {
+            "group": "ok",
+            "badge": "☑️ SORUNSUZ — Makale Özetiyle Uyumlu (Tam Metin Kilitli)",
+            "short_label": "Özetle Uyumlu (Tam Metin Ücretli/Kilitli)",
+            "why": "Kaynak makale internette doğrulandı ve özeti (abstract) sizin cümlenizin konusuyla uyumlu. Ancak yayıncı tam metin PDF'ini kilitli tuttuğu için kontrol özet üzerinden yapıldı.",
+            "action": "Genel olarak uyumludur. Cümlenizde çok özel bir sayı/tablo detayı varsa ve makalenin PDF'i bilgisayarınızda mevcutsa sol menüden yükleyerek tam metin kontrolü de yaptırabilirsiniz.",
+        },
+        "ÇELİŞİYOR": {
+            "group": "error",
+            "badge": "❌ DÜZELTİLMELİ — Kaynak Makaleyle Çelişiyor",
+            "short_label": "Kaynak Makaleyle Çelişen Bilgi",
+            "why": "Cümlenizdeki bilgi (sayısal oran, artış/azalış yönü veya olumlu/olumsuz ifade) kaynak makaledeki bulgunun tam tersini söylüyor.",
+            "action": "Cümlenizi aşağıdaki 'Önerilen Düzeltilmiş Cümle'ye göre güncelleyin veya yanlış kaynağa atıf yaptıysanız doğru kaynağı gösterin.",
+        },
+        "HAYALET_ATIF": {
+            "group": "error",
+            "badge": "🚨 DÜZELTİLMELİ — Kaynakça Listesinde Eksik",
+            "short_label": "Kaynakça Listesinde Eksik Atıf",
+            "why": "Makale metni içinde bu kaynağa atıf yapmışsınız ancak makalenin sonundaki 'Kaynakça / References' listesine bu makaleyi yazmamışsınız.",
+            "action": "Bu kaynağın tam künyesini makalenizin sonundaki Kaynakça listesine ekleyin veya metin içindeki atıfı silin.",
+        },
+        "SAHTE_KAYNAK": {
+            "group": "error",
+            "badge": "🚨 DÜZELTİLMELİ — Hatalı / Uyuşmayan Kaynak Künyesi",
+            "short_label": "Hatalı Künye (DOI Başka Makaleye Ait)",
+            "why": "Kaynakçada yazdığınız DOI numarası veya künye bilgisi internette bambaşka bir makaleye ait görünüyor (kopyala-yapıştır hatası veya uydurma kaynak olabilir).",
+            "action": "Kaynakçadaki makale başlığını ve DOI numarasını kontrol edip gerçek makale künyesiyle düzeltin.",
+        },
+        "KANIT_YETERSİZ": {
+            "group": "manual",
+            "badge": "⚠️ KONTROL EDİLMELİ — Makalede Bu Bilgiye Rastlanmadı",
+            "short_label": "Makalede Bu Bilgi Bulunamadı",
+            "why": "Kaynak makale internette bulundu ancak erişilebilen metninde sizin cümlenizdeki iddiayı doğrulayan veya çürüten bir ifade yer almıyor (bilgi kilitli tam metin sayfalarında veya tablolarda geçiyor olabilir).",
+            "action": "Atıfı doğru makaleye yaptığınızdan emin olmak için ilgili kaynağı gözle kontrol edin. Makalenin tam PDF'i elinizdeyse sol menüden yükleyip tekrar denetleyebilirsiniz.",
+        },
+        "DOGRULANAMADI": {
+            "group": "manual",
+            "badge": "❓ KONTROL EDİLMELİ — Makaleye İnternette Erişilemedi",
+            "short_label": "İnternette Bulunamadı / Erişilemedi",
+            "why": "Bu kaynak uluslararası akademik veritabanlarında bulunamadı, başlık benzerliği düşük kaldı veya anlık internet bağlantı hatası oluştu. (Basılı kitap, tez veya yerel dergi olabilir; sahte olduğu anlamına gelmez).",
+            "action": "Kaynakçadaki yazımını (yazar, yıl, başlık) gözle kontrol edin. Eğer PDF dosyası bilgisayarınızda varsa sol menüden yükleyebilirsiniz.",
+        },
+    }
+    return info_map.get(
+        verdict,
+        {
+            "group": "manual",
+            "badge": f"ℹ️ {verdict}",
+            "short_label": verdict,
+            "why": "Değerlendirme tamamlandı.",
+            "action": "Sonucu inceleyin.",
+        },
+    )
+
+
+def render_reading_guide() -> None:
+    """Kullanıcının ekrandaki tüm terimleri ve sayıları tek bakışta anlamasını sağlayan açık rehber."""
+    with st.expander("📖 Ekrandaki Terimler ve Yüzdeler Ne Anlama Geliyor? (Açıklamalı Rehber)", expanded=False):
+        st.markdown(
+            """
+#### 1) Renk Gruplarının Anlamı Nedir?
+- 🟢 **Sorunsuz / Doğrulanan Atıflar:** Kaynak makale internette bulundu ve cümlenizdeki bilgi makaleyle uyumlu. Değişiklik yapmanıza gerek yoktur.
+- 🔴 **Düzeltilmesi Gereken Hatalar:** Cümleniz kaynak makaleyle **çelişiyor**, atıf yaptığınız kaynak **Kaynakça listesinde eksik**, **DOI numarası başka makaleye ait** veya makale **yayından geri çekilmiş**. Makalenizi göndermeden önce mutlaka düzeltmelisiniz.
+- 🟡 **Sizin Kontrol Etmeniz Gerekenler:** Sistem makaleye internette ulaşamadı (kitap/tez olabilir) veya makalenin açık özetinde cümlenizdeki spesifik detayı göremedi. Hata olmak zorunda değildir; sizin gözle kontrol etmeniz önerilir.
+
+---
+
+#### 2) Yüzde (%) Oranları Ne Demektir?
+- **Konu Benzerliği (%):** Sizin cümleniz ile referans makaledeki paragrafın **aynı konudan** bahsetme oranıdır.
+  - *Önemli Not:* Konu benzerliğinin yüksek olması cümlenizin doğru olduğu anlamına **gelmez**. Örneğin *"İlaç ağrıyı azaltır"* ile *"İlaç ağrıyı azaltmaz"* cümlelerinin konusu %90 aynıdır ama anlamları tam terstir. Sistem bu oranı sadece makale içindeki ilgili paragrafı bulmak için kullanır.
+- **Künye Doğruluk Oranı (%):** İnternette bulunan makalenin, sizin kaynakçada yazdığınız makale olduğundan ne kadar emin olduğumuzu gösterir.
+  - **%100:** DOI numarası birebir eşleşti (kesin doğru makale).
+  - **%90 – %99:** Makale başlığı ve yazarları birebir eşleşti.
+  - **%70 altı:** Benzerlik zayıf olduğu için sistem yanlış makaleyle kıyaslama yapmamak adına sonucu **"Kontrol Edilmeli"** olarak işaretler.
+"""
+        )
+
+
+def run_verification_pipeline(
+    citations_to_check: List[InTextCitation],
+    selected_model: str,
+    enable_scihub: bool,
+    enable_jina: bool,
+    enable_suggestions: bool,
+) -> tuple[List[VerificationResult], Dict[str, FetchedPaper]]:
+    """Seçilen atıfların kaynaklarını internetten çeker ve anlam doğrulamasını çalıştırır."""
+    fetcher = AcademicFetcher(enable_scihub=enable_scihub, enable_jina=enable_jina)
+    verifier = get_verifier(selected_model)
+
+    needed_refs_map: Dict[str, ReferenceItem] = {}
+    for cit in citations_to_check:
+        if cit.matched_reference is not None and cit.matched_ref_id:
+            needed_refs_map[cit.matched_ref_id] = cit.matched_reference
+
+    fetched_map: Dict[str, FetchedPaper] = dict(st.session_state.get("fetched_map", {}))
+    refs_to_fetch = [
+        r_it
+        for r_id, r_it in needed_refs_map.items()
+        if r_id not in fetched_map
+        or not fetched_map[r_id].exists_online
+        or len(fetched_map[r_id].abstract) < 200
+    ]
+
+    prog = st.progress(0, text="1/2: Kaynak makaleler internet veritabanlarında aranıyor...")
+
+    if refs_to_fetch:
+        done_r = 0
+        total_r = len(refs_to_fetch)
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            fut_map = {
+                executor.submit(fetcher.verify_and_fetch, r_it, USER_PDF_DIR): r_it
+                for r_it in refs_to_fetch
+            }
+            for fut in as_completed(fut_map):
+                r_it = fut_map[fut]
+                done_r += 1
+                try:
+                    fetched_map[r_it.ref_id] = fut.result()
+                except Exception as exc:
+                    fetched_map[r_it.ref_id] = FetchedPaper(
+                        ref_id=r_it.ref_id,
+                        query_title=r_it.title or r_it.raw_text,
+                        query_doi=r_it.doi,
+                        lookup_status="error",
+                        lookup_error=f"{type(exc).__name__}: {exc}"[:200],
+                    )
+                prog.progress(
+                    int((done_r / max(1, total_r * 2)) * 100),
+                    text=f"🌐 1/2: Kaynak kontrol ediliyor [{done_r}/{total_r}]: {(r_it.title or r_it.raw_text)[:65]}...",
+                )
+
+    results: List[VerificationResult] = []
+    total_c = len(citations_to_check)
+    for idx_c, cit in enumerate(citations_to_check, start=1):
+        prog.progress(
+            50 + int((idx_c / max(1, total_c)) * 50),
+            text=f"🧠 2/2: Cümle ve kaynak uyumu inceleniyor [{idx_c}/{total_c}]: {cit.marker}...",
+        )
+        if cit.matched_ref_id is None or cit.matched_ref_id not in fetched_map:
+            alt_list = fetcher.suggest_real_papers(cit.claim_sentence, top_k=3) if enable_suggestions else []
+            results.append(
+                VerificationResult(
+                    citation_id=cit.citation_id,
+                    marker=cit.marker,
+                    claim_sentence=cit.claim_sentence,
+                    context_text=cit.context_text,
+                    ref_id=None,
+                    verdict="HAYALET_ATIF",
+                    confidence_score=1.0,
+                    semantic_similarity=0.0,
+                    best_evidence="",
+                    explanation=(
+                        f"Metin içinde '{cit.marker}' olarak atıf yapılmış ancak makalenin "
+                        "sonundaki Kaynakça bölümünde bu kaynak yer almıyor."
+                    ),
+                    alternative_papers=alt_list,
+                    used_llm_model="Biçimsel Kontrol",
+                    decision_source="kural",
+                )
+            )
+        else:
+            p_obj = fetched_map[cit.matched_ref_id]
+            v_res = verifier.verify_claim_against_paper(
+                claim_sentence=cit.claim_sentence,
+                paper=p_obj,
+                citation_id=cit.citation_id,
+                marker=cit.marker,
+                context_text=cit.context_text,
+                alternative_finder=fetcher if enable_suggestions else None,
+            )
+            results.append(v_res)
+
+    prog.progress(100, text=f"✅ Denetim tamamlandı! Toplam {total_c} atıf incelendi.")
+    return results, fetched_map
+
+
+# ---------------------------------------------------------------------------
+# Örnek Demo Makalesi
 # ---------------------------------------------------------------------------
 
 DEMO_MANUSCRIPT_TEXT = """1. GİRİŞ VE LİTERATÜR ÖZETİ
@@ -117,55 +292,38 @@ KAYNAKÇA
 
 
 # ---------------------------------------------------------------------------
-# Sol Yan Menü (Sidebar): Sistem Durumu ve Ayarlar
+# Sol Yan Menü (Sidebar): Sade ve Anlaşılır Düzen
 # ---------------------------------------------------------------------------
 
 with st.sidebar:
-    st.title("⚙️ Sistem & Model Ayarları")
-    st.caption("RTX 3050 (4 GB VRAM) & 8 GB RAM Optimize Mod")
+    st.title("🎓 Kontrol Paneli")
 
-    # Ollama Durum Kontrolü
     temp_verifier = SemanticRAGVerifier(embedding_device="cpu")
     ollama_ok, default_model, installed_models = temp_verifier.check_ollama_status()
 
     if ollama_ok and installed_models:
-        st.success(f"🟢 Ollama Aktif ({len(installed_models)} model hazır)")
-        selected_model = st.selectbox(
-            "Kullanılacak Yerel Dil Modeli (Ollama):",
-            options=installed_models,
-            index=installed_models.index(default_model) if default_model in installed_models else 0,
+        st.success(
+            "Yapay Zeka Hakemi ve İnternet Tarayıcısı kullanıma hazır.",
+            title="🟢 Sistem Hazır",
         )
     elif ollama_ok and not installed_models:
-        st.warning("🟡 Ollama çalışıyor ancak henüz model indirilmemiş.")
-        st.code("ollama pull qwen2.5:3b", language="powershell")
-        selected_model = "qwen2.5:3b"
+        st.warning(
+            "Ollama açık ancak dil modeli indirilmemiş. Kural tabanlı kontrol aktif.",
+            title="🟡 Kısmi Mod",
+        )
     else:
         st.info(
-            "ℹ️ Ollama şu an arka planda açık değil. Sistem otomatik olarak "
-            "**Çok Dilli Semantik Vektör + Sayısal NLI Motoru (CPU)** ile çalışacaktır. "
-            "(Ollama'yı açtığınızda otomatik bağlanır)."
+            "Yerel dil modeli (Ollama) kapalı; sistem otomatik olarak Sayısal ve Çok Dilli Kural Motoru ile çalışıyor.",
+            title="ℹ️ Otomatik Kural Modu Aktif",
         )
-        selected_model = "llama3.2"
 
-    st.divider()
-    st.subheader("🌐 İnternet Tarama Kanalları")
-    enable_scihub = st.checkbox(
-        "🔓 Sci-Hub Otomatik Tam Metin PDF İndirici (varsayılan KAPALI)",
-        value=False,
-        help=(
-            "⚠️ Hukuki uyarı: Sci-Hub üzerinden telifli makale indirmek birçok ülkede telif hakkı "
-            "ihlali sayılır ve kurumsal denetimde risk oluşturur. Bu seçenek varsayılan olarak "
-            "kapalıdır; açtığınızda sorumluluk kullanıcıya aittir. Önerilen alternatif: Unpaywall, "
-            "OpenAlex açık erişim, CORE, Europe PMC veya kütüphane erişimi."
-        ),
+    st.subheader("📂 Kaynak PDF'leriniz (İsteğe Bağlı)")
+    st.caption(
+        "İnternette tam metni ücretli/kilitli olan kaynak makalelerin PDF dosyaları bilgisayarınızda varsa "
+        "buraya yükleyin. Sistem sadece özet yerine doğrudan yüklediğiniz tam metni okur."
     )
-    enable_jina = st.checkbox("🕸️ Agent-Reach (Jina Reader) Web Okuyucu", value=True, help="Web sayfası formatındaki makaleleri r.jina.ai üzerinden bot engeline takılmadan okur.")
-    enable_suggestions = st.checkbox("💡 Sahte/Çelişen Kaynak İçin Gerçek Makale Öner", value=True, help="Uydurma veya hatalı kaynak yakalandığında iddiayı destekleyen gerçek makaleler önerir.")
-
-    st.divider()
-    st.subheader("📂 Ek Yerel Referans PDF'leriniz (İsteğe Bağlı)")
     uploaded_ref_pdfs = st.file_uploader(
-        "Bilgisayarınızda kayıtlı referans makale PDF'leri varsa buraya bırakabilirsiniz:",
+        "Referans makale PDF dosyalarını seçin:",
         type=["pdf"],
         accept_multiple_files=True,
     )
@@ -173,52 +331,98 @@ with st.sidebar:
         for up_pdf in uploaded_ref_pdfs:
             target_path = USER_PDF_DIR / up_pdf.name
             target_path.write_bytes(up_pdf.getvalue())
-        st.success(f"📎 {len(uploaded_ref_pdfs)} referans PDF yerel havuza eklendi.")
+        st.success(f"📎 {len(uploaded_ref_pdfs)} adet kaynak PDF dosyası sisteme eklendi.")
 
     st.divider()
     st.markdown(
-        "**Aktif Arama Motorları:**\n"
-        "- CrossRef & OpenAlex (Künye + Retraction)\n"
-        "- PubMed & PMC (Tam Metin)\n"
-        "- Semantic Scholar & arXiv\n"
-        "- Google Scholar & DergiPark\n"
-        "- Sci-Hub & Jina Reader"
+        """
+**📌 Renklerin Kısa Anlamı:**
+- 🟢 **Sorunsuz:** Kaynak ve cümle uyumlu.
+- 🔴 **Düzeltilmeli:** Çelişki, eksik kaynakça veya hatalı DOI var.
+- 🟡 **Kontrol Edilmeli:** Makaleye internette ulaşılamadı veya bilgi özet dışında bir sayfada.
+"""
     )
 
+    with st.expander("⚙️ Gelişmiş Teknik Ayarlar", expanded=False):
+        if ollama_ok and installed_models:
+            selected_model = st.selectbox(
+                "Yapay Zeka Dil Modeli:",
+                options=installed_models,
+                index=installed_models.index(default_model) if default_model in installed_models else 0,
+            )
+        else:
+            selected_model = default_model or "qwen2.5:3b"
+            st.caption(f"Varsayılan model: `{selected_model}`")
+
+        enable_suggestions = st.checkbox(
+            "Hatalı/eksik kaynaklar için alternatif gerçek makale öner",
+            value=True,
+        )
+        enable_jina = st.checkbox(
+            "Web sayfalarını genişletilmiş okuyucu (Jina) ile tara",
+            value=True,
+        )
+        enable_scihub = st.checkbox(
+            "Sci-Hub tam metin PDF indiriciyi kullan (varsayılan kapalı)",
+            value=False,
+            help=(
+                "Hukuki uyarı: Sci-Hub üzerinden telifli makale indirmek birçok ülkede telif hakkı "
+                "ihlali sayılır. Varsayılan olarak kapalıdır; açtığınızda sorumluluk kullanıcıya aittir."
+            ),
+        )
+
 
 # ---------------------------------------------------------------------------
-# Ana Başlık
+# Ana Başlık ve "Neyin Nerede Olduğu" 3 Adımlı Yol Haritası
 # ---------------------------------------------------------------------------
 
-st.title("🎓 TÜBİTAK Akademik Makale, Kaynakça ve Semantik Atıf Denetçisi")
+st.title("🎓 Akademik Makale, Kaynakça ve Atıf Doğrulama Sistemi")
 st.markdown(
-    "Makalenizdeki **kaynakların gerçekliğini**, **geri çekilip çekilmediğini (Retracted)**, "
-    "**biçimsel atıf uyumunu** ve atıf yaptığınız cümledeki **anlamın (paraphrase / çeviri dahil)** "
-    "referans makaleden çıkarılıp çıkarılamayacağını denetler."
+    "Makalenizdeki **atıf–kaynakça uyumunu**, kaynakların **internetteki gerçekliğini** ve "
+    "yazdığınız cümlelerin **kaynak makaleyle çelişip çelişmediğini** anlaşılır şekilde kontrol eder."
 )
 
+step1_col, step2_col, step3_col = st.columns(3)
+with step1_col.container(border=True, height="stretch"):
+    st.markdown("**1️⃣ Adım: Makalenizi Yükleyin**")
+    st.caption(
+        "Word (`.docx`), PDF (`.pdf`) veya metin dosyanızı yükleyin. "
+        "**Kaynakçada unutulan atıflar** ve **metinde hiç kullanılmayan kaynaklar** anında listelenir."
+    )
+with step2_col.container(border=True, height="stretch"):
+    st.markdown("**2️⃣ Adım: Doğrulamayı Başlatın**")
+    st.caption(
+        "İster **tüm makaleyi**, ister **sadece seçtiğiniz atıfları** (örneğin ilk 10 atıfı) "
+        "internetten taratıp cümlelerinizin doğruluğunu kontrol edin."
+    )
+with step3_col.container(border=True, height="stretch"):
+    st.markdown("**3️⃣ Adım: Hataları Düzeltin & İndirin**")
+    st.caption(
+        "**Düzeltilmesi gereken** ve **kontrol edilmesi gereken** atıfları nedenleriyle görün; "
+        "sonuçları Excel veya Word uyumlu rapor olarak indirin."
+    )
+
 tab1, tab2, tab3 = st.tabs([
-    "📄 1. Tam Makale Otomatik Denetimi (.docx / .pdf)",
-    "⚡ 2. Seçmeli / Aralıklı Atıf & Anlam Çıkarımı Testi",
-    "📊 3. Denetim Raporu & Excel/Markdown Çıktısı",
+    "📄 1. Makale Yükle ve Denetle (Ana Ekran)",
+    "✍️ 2. Hızlı Tek Cümle Testi (Dosya Yüklemeden)",
+    "📊 3. Toplu Tablo ve Rapor İndir (Excel / Word)",
 ])
 
 
 # ===========================================================================
-# SEKME 1: TAM MAKALE OTOMATİK DENETİMİ
+# SEKME 1: MAKALE YÜKLE VE DENETLE (ANA EKRAN)
 # ===========================================================================
 
 with tab1:
-    col_up, col_demo = st.columns([3, 1])
+    st.subheader("1️⃣ Makale Dosyanızı Yükleyin")
+    col_up, col_demo = st.columns([3, 1], vertical_alignment="bottom")
     with col_up:
         uploaded_manuscript = st.file_uploader(
-            "Kendi yazdığınız makaleyi yükleyin (.docx, .pdf veya .txt):",
+            "Makalenizi buradan seçin (.docx, .pdf veya .txt):",
             type=["docx", "pdf", "txt"],
         )
     with col_demo:
-        st.write("")
-        st.write("")
-        load_demo = st.button("🧪 Örnek TÜBİTAK Makalesi Yükle (Demo)", use_container_width=True)
+        load_demo = st.button("🧪 Örnek Makaleyle Dene", width="stretch")
 
     if load_demo:
         st.session_state["manuscript_text"] = DEMO_MANUSCRIPT_TEXT
@@ -238,45 +442,83 @@ with tab1:
         )
 
     if parsed_doc is not None:
+        # Yeni makale yüklendiyse seçim ve sonuç önbelleğini sıfırla
+        if st.session_state.get("active_doc_name") != parsed_doc.filename:
+            st.session_state["active_doc_name"] = parsed_doc.filename
+            st.session_state["selected_cit_indices"] = set(range(1, min(6, len(parsed_doc.citations) + 1)))
+            st.session_state["editor_ver"] = 0
+            st.session_state["fetched_map"] = {}
+            st.session_state.pop("verification_results", None)
+
         st.session_state["current_parsed_doc"] = parsed_doc
-        st.subheader(f"📑 1. Aşama: Biçimsel Tarama Özeti — `{parsed_doc.filename}`")
 
-        m1, m2, m3, m4 = st.columns(4)
-        m1.metric("📚 Kaynakça Sayısı", len(parsed_doc.references))
-        m2.metric("📌 Metin İçi Atıf Sayısı", len(parsed_doc.citations))
-        m3.metric(
-            "🚨 Hayalet Atıf (Kaynakçada Yok)",
-            len(parsed_doc.ghost_citations),
-            delta="-Hata" if parsed_doc.ghost_citations else "Temiz",
-            delta_color="inverse" if parsed_doc.ghost_citations else "normal",
-        )
-        m4.metric(
-            "⚠️ Yetim Kaynak (Metinde Yok)",
-            len(parsed_doc.orphan_references),
-            delta="-Uyarı" if parsed_doc.orphan_references else "Temiz",
-            delta_color="inverse" if parsed_doc.orphan_references else "normal",
+        st.divider()
+        st.subheader(f"2️⃣ Biçimsel Kaynakça ve Atıf Kontrolü — `{parsed_doc.filename}`")
+        st.caption(
+            "Bu bölüm internet araması yapmadan, doğrudan makalenizin kendi içindeki "
+            "**Metin İçi Atıflar** ile **Kaynakça Listesi** arasındaki uyumu gösterir."
         )
 
-        # Biçimsel Uyarı Kutuları (Hayalet Atıf & Yetim Kaynak)
+        b1, b2, b3, b4 = st.columns(4)
+        with b1.container(border=True, height="stretch"):
+            st.metric("📚 Kaynakçadaki Makale Sayısı", len(parsed_doc.references))
+            st.caption("Makale sonundaki Kaynakça listesinde bulunan toplam referans sayısı.")
+        with b2.container(border=True, height="stretch"):
+            st.metric("📌 Metin İçi Atıf Sayısı", len(parsed_doc.citations))
+            st.caption("Makale cümleleri içinde parantez veya numarayla yapılan toplam atıf sayısı.")
+        with b3.container(border=True, height="stretch"):
+            ghost_n = len(parsed_doc.ghost_citations)
+            st.metric(
+                "🚨 Kaynakçada Eksik Atıf",
+                ghost_n,
+                delta="Düzeltilmeli" if ghost_n else "Sorun Yok",
+                delta_color="inverse" if ghost_n else "normal",
+            )
+            st.caption("Metin içinde atıf yapılmış ama Kaynakça listesine yazılmamış kaynaklar.")
+        with b4.container(border=True, height="stretch"):
+            orphan_n = len(parsed_doc.orphan_references)
+            st.metric(
+                "⚠️ Metinde Kullanılmayan Kaynak",
+                orphan_n,
+                delta="Düzeltilmeli" if orphan_n else "Sorun Yok",
+                delta_color="inverse" if orphan_n else "normal",
+            )
+            st.caption("Kaynakça listesinde yazılı olan ama metinde hiçbir cümlede kullanılmamış kaynaklar.")
+
         if parsed_doc.ghost_citations or parsed_doc.orphan_references:
-            with st.expander("⚠️ TÜBİTAK Biçimsel Atıf/Kaynakça Uyumsuzluklarını Gör (Hemen Düzeltilmeli)", expanded=True):
+            with st.container(border=True):
+                st.markdown("#### 🔧 Biçimsel Olarak Düzeltmeniz Gereken Kaynakça Sorunları")
                 if parsed_doc.ghost_citations:
-                    st.error("**🚨 Hayalet Atıflar (Ana metinde atıf yapılmış ancak Kaynakça listesinde YOK!):**")
+                    st.error(
+                        f"Makalenizde **{len(parsed_doc.ghost_citations)} adet Kaynakçada Eksik Atıf** bulundu. "
+                        "Çünkü metin içinde bu kaynaklara atıf yapmışsınız ancak makale sonundaki Kaynakça listesine eklememişsiniz:",
+                        title="🚨 Kaynakça Listesine Eklenmesi Gerekenler",
+                    )
                     for gc in parsed_doc.ghost_citations:
-                        st.markdown(f"- **Atıf:** `{gc.marker}` — *Cümle:* \"{gc.claim_sentence}\"")
+                        st.markdown(f"- **Eksik Atıf:** `{gc.marker}` — *Geçtiği Cümle:* \"{gc.claim_sentence}\"")
+
                 if parsed_doc.orphan_references:
-                    st.warning("**⚠️ Yetim Kaynaklar (Kaynakça listesinde var ancak ana metinde HİÇ KULLANILMAMIŞ!):**")
+                    st.warning(
+                        f"Kaynakça listenizde **{len(parsed_doc.orphan_references)} adet Metinde Kullanılmayan Kaynak** bulundu. "
+                        "Çünkü bu kaynakları Kaynakça bölümüne yazmışsınız ancak makale metninde hiçbir cümlede atıf yapmamışsınız "
+                        "(metin içinde uygun yere atıf ekleyin veya kaynakçadan çıkarın):",
+                        title="⚠️ Metin İçinde Hiç Kullanılmayan Kaynaklar",
+                    )
                     for orp in parsed_doc.orphan_references:
                         st.markdown(f"- **[{orp.ref_id}]** {orp.raw_text}")
+        else:
+            st.success(
+                "Makalenizdeki tüm metin içi atıflar Kaynakça listesiyle eksiksiz eşleşti "
+                "(Kaynakçada eksik atıf yok, metinde kullanılmayan kaynak yok).",
+                title="✅ Biçimsel Kaynakça Kontrolü Tamamen Temiz",
+            )
 
-        # 1. AŞAMA ŞEFFAFLIK: Eşleşme Kanıt Tablosu
         with st.expander(
-            f"📋 Eşleşme Kanıt Tablosunu İncele ({len(parsed_doc.references)} Kaynak & {len(parsed_doc.citations)} Metin İçi Atıf Nereden Yakalandı?)",
+            f"📋 Hangi Kaynağın Hangi Cümlede Kullanıldığını Gör ({len(parsed_doc.references)} Kaynak Eşleşme Listesi)",
             expanded=False,
         ):
             st.caption(
-                "Aşağıdaki tabloda kaynakçadaki her bir makalenin ana metinde kaç kez geçtiğini, "
-                "hangi parantez işaretiyle yakalandığını ve geçtiği gerçek cümleyi görebilirsiniz."
+                "Kaynakçanızdaki her bir makalenin metin içinde kaç kez kullanıldığını ve yakalandığı örnek cümleyi aşağıda görebilirsiniz."
             )
             ref_to_cits: Dict[str, List[Any]] = {}
             for c_item in parsed_doc.citations:
@@ -287,24 +529,333 @@ with tab1:
             for r_item in parsed_doc.references:
                 matched_c_list = ref_to_cits.get(r_item.ref_id, [])
                 markers_str = ", ".join(dict.fromkeys(c.marker for c in matched_c_list)) if matched_c_list else "—"
-                first_sent = matched_c_list[0].claim_sentence if matched_c_list else "❌ Metinde kullanılmamış (Yetim)"
+                first_sent = matched_c_list[0].claim_sentence if matched_c_list else "❌ Metinde hiç kullanılmamış"
                 proof_rows.append({
                     "Kaynak No": f"[{r_item.ref_id}]",
-                    "İlk Yazar & Yıl": f"{r_item.first_author_surname or 'Bilinmiyor'} ({r_item.year or '?'})",
-                    "Metinde Kullanım": f"{r_item.cited_in_text_count} kez",
-                    "Yakalanan İşaret": markers_str,
-                    "Makale Başlığı / Kaynak": (r_item.title or r_item.raw_text)[:95],
-                    "Metinde Geçtiği Örnek Cümle (Kanıt)": first_sent[:180],
+                    "İlk Yazar ve Yıl": f"{r_item.first_author_surname or 'Bilinmiyor'} ({r_item.year or '?'})",
+                    "Kaç Kez Kullanıldı": f"{r_item.cited_in_text_count} kez",
+                    "Metindeki İşareti": markers_str,
+                    "Kaynak Başlığı": (r_item.title or r_item.raw_text)[:95],
+                    "Geçtiği Örnek Cümle": first_sent[:180],
                 })
-            st.dataframe(pd.DataFrame(proof_rows), use_container_width=True, hide_index=True)
+            st.dataframe(pd.DataFrame(proof_rows), hide_index=True)
 
-        # CANLI SABOTAJ / SAĞLAMLIK TESTİ (Sistemin Hataları Gerçekten Yakaladığını Kanıtla)
-        with st.expander("🧪 Sistemden %100 Emin Ol: Tek Tıkla Canlı Tuzak (Sabotaj) Testi Yap", expanded=False):
-            st.info(
-                "Bu buton, yüklediğiniz makale dosyasına dokunmadan bellekte **2 kasıtlı hata (1 Hayalet Atıf + 1 Yetim Kaynak)** "
-                "enjekte eder ve sistemin bu hataları halının altına süpürmeyip anında yakaladığını canlı olarak kanıtlar."
+        # -------------------------------------------------------------------
+        # ADIM 3: İNTERNET VE İÇERİK DOĞRULAMASI (TAM VEYA SEÇMELİ)
+        # -------------------------------------------------------------------
+        st.divider()
+        st.subheader("3️⃣ Kaynakların Gerçekliğini ve Cümle Uyumu Denetimini Başlatın")
+        st.caption(
+            "Burada kaynaklarınız internet veritabanlarından (CrossRef, PubMed, OpenAlex vb.) bulunur "
+            "ve makalenizde yazdığınız her bir cümlenin kaynak makaleyle **uyumlu olup olmadığı / çelişip çelişmediği** kontrol edilir."
+        )
+
+        all_cits = parsed_doc.citations
+        total_cits_n = len(all_cits)
+
+        scope_choice = st.radio(
+            "Hangi atıfları denetlemek istiyorsunuz?",
+            options=[
+                f"🚀 Tüm Makaleyi Denetle ({total_cits_n} atıfın tamamı)",
+                "🎯 Sadece Seçtiğim Atıfları veya Belirli Bir Aralığı Denetle (Örn: İlk 5 veya 1–20 arası — Daha Hızlı)",
+            ],
+            horizontal=True,
+        )
+
+        citations_to_run: List[InTextCitation] = []
+
+        if scope_choice.startswith("🚀"):
+            citations_to_run = all_cits
+            needed_unique_refs = len({c.matched_ref_id for c in citations_to_run if c.matched_ref_id})
+            run_btn = st.button(
+                f"🚀 Tüm Makaleyi Denetle ({len(citations_to_run)} Atıf / {needed_unique_refs} Kaynak Makale)",
+                type="primary",
+                width="stretch",
+                disabled=(len(citations_to_run) == 0),
             )
-            if st.button("🧨 Bu Makaleye 2 Gizli Tuzak Ekle ve Sistemin Yakaladığını Kanıtla", use_container_width=True):
+        else:
+            if "selected_cit_indices" not in st.session_state:
+                st.session_state["selected_cit_indices"] = set(range(1, min(6, total_cits_n + 1)))
+            if "editor_ver" not in st.session_state:
+                st.session_state["editor_ver"] = 0
+
+            with st.container(border=True):
+                st.markdown("**Hızlı Aralık Seçimi veya Listeden İşaretleme:**")
+                ctrl1, ctrl2, ctrl3, ctrl4, ctrl5 = st.columns([1.2, 1.2, 1.8, 1.4, 1.4], vertical_alignment="bottom")
+                with ctrl1:
+                    r_start = st.number_input("Başlangıç No:", min_value=1, max_value=max(1, total_cits_n), value=1, step=1)
+                with ctrl2:
+                    r_end = st.number_input(
+                        "Bitiş No:",
+                        min_value=1,
+                        max_value=max(1, total_cits_n),
+                        value=min(10, max(1, total_cits_n)),
+                        step=1,
+                    )
+                with ctrl3:
+                    if st.button(f"🔢 {min(r_start, r_end)} – {max(r_start, r_end)} Arasını Seç", width="stretch"):
+                        s_i, e_i = min(int(r_start), int(r_end)), max(int(r_start), int(r_end))
+                        st.session_state["selected_cit_indices"] = set(range(s_i, e_i + 1))
+                        st.session_state["editor_ver"] += 1
+                        st.rerun()
+                with ctrl4:
+                    if st.button(f"✅ Tümünü Seç ({total_cits_n})", width="stretch"):
+                        st.session_state["selected_cit_indices"] = set(range(1, total_cits_n + 1))
+                        st.session_state["editor_ver"] += 1
+                        st.rerun()
+                with ctrl5:
+                    if st.button("🧹 Seçimi Temizle", width="stretch"):
+                        st.session_state["selected_cit_indices"] = set()
+                        st.session_state["editor_ver"] += 1
+                        st.rerun()
+
+                current_sel_set = st.session_state["selected_cit_indices"]
+                editor_rows = []
+                for idx_c, c_obj in enumerate(all_cits, start=1):
+                    ref_obj = c_obj.matched_reference
+                    ref_summary = (
+                        f"[{c_obj.matched_ref_id}] {ref_obj.first_author_surname or ''} ({ref_obj.year or '?'}) — {(ref_obj.title or ref_obj.raw_text)[:75]}"
+                        if ref_obj
+                        else "🚨 Kaynakça Listesinde Eksik"
+                    )
+                    editor_rows.append({
+                        "Seç": idx_c in current_sel_set,
+                        "Atıf No": idx_c,
+                        "Atıf İşareti": c_obj.marker,
+                        "Eşleşen Kaynak": ref_summary,
+                        "Makalenizdeki Cümle": c_obj.claim_sentence,
+                    })
+
+                edited_df = st.data_editor(
+                    pd.DataFrame(editor_rows),
+                    key=f"cit_selector_{parsed_doc.filename}_{st.session_state['editor_ver']}",
+                    hide_index=True,
+                    height=280,
+                    disabled=["Atıf No", "Atıf İşareti", "Eşleşen Kaynak", "Makalenizdeki Cümle"],
+                    column_config={
+                        "Seç": st.column_config.CheckboxColumn("☑️ Seç", default=False),
+                        "Atıf No": st.column_config.NumberColumn("No", width="small"),
+                        "Atıf İşareti": st.column_config.TextColumn("Atıf İşareti", width="small"),
+                        "Eşleşen Kaynak": st.column_config.TextColumn("Kaynakçadaki Karşılığı", width="large"),
+                        "Makalenizdeki Cümle": st.column_config.TextColumn("Makalenizdeki İddia Cümlesi", width="large"),
+                    },
+                )
+
+                selected_indices = [
+                    int(row["Atıf No"]) for _, row in edited_df.iterrows() if bool(row["Seç"])
+                ]
+                st.session_state["selected_cit_indices"] = set(selected_indices)
+                citations_to_run = [all_cits[i - 1] for i in selected_indices]
+                needed_unique_refs = len({c.matched_ref_id for c in citations_to_run if c.matched_ref_id})
+
+            run_btn = st.button(
+                f"🚀 Seçilen {len(citations_to_run)} Atıfı ({needed_unique_refs} Kaynak Makale) Denetle",
+                type="primary",
+                width="stretch",
+                disabled=(len(citations_to_run) == 0),
+            )
+
+        if run_btn and citations_to_run:
+            results_out, fetched_out = run_verification_pipeline(
+                citations_to_check=citations_to_run,
+                selected_model=selected_model,
+                enable_scihub=enable_scihub,
+                enable_jina=enable_jina,
+                enable_suggestions=enable_suggestions,
+            )
+            st.session_state["verification_results"] = results_out
+            st.session_state["fetched_map"] = fetched_out
+
+        # -------------------------------------------------------------------
+        # ADIM 4: DENETİM SONUÇLARI (3 AÇIKLAMALI ÖZET KUTUSU + FİLTRE + KARTLAR)
+        # -------------------------------------------------------------------
+        if "verification_results" in st.session_state and st.session_state["verification_results"]:
+            results_list: List[VerificationResult] = st.session_state["verification_results"]
+            f_map: Dict[str, FetchedPaper] = st.session_state.get("fetched_map", {})
+
+            st.divider()
+            st.subheader(f"4️⃣ Denetim Sonuçları Özeti ({len(results_list)} Atıf İncelendi)")
+
+            # Alt kırılım sayıları
+            cnt_sup = sum(1 for r in results_list if r.verdict == "DESTEKLENİYOR" and not r.is_retracted)
+            cnt_part = sum(1 for r in results_list if r.verdict == "KISMEN_DESTEKLENİYOR" and not r.is_retracted)
+
+            cnt_con = sum(1 for r in results_list if r.verdict == "ÇELİŞİYOR" and not r.is_retracted)
+            cnt_ghost = sum(1 for r in results_list if r.verdict == "HAYALET_ATIF" and not r.is_retracted)
+            cnt_fake = sum(1 for r in results_list if r.verdict == "SAHTE_KAYNAK" and not r.is_retracted)
+            cnt_ret = sum(1 for r in results_list if r.is_retracted)
+
+            cnt_ins = sum(1 for r in results_list if r.verdict == "KANIT_YETERSİZ" and not r.is_retracted)
+            cnt_unk = sum(1 for r in results_list if r.verdict == "DOGRULANAMADI" and not r.is_retracted)
+
+            total_ok = cnt_sup + cnt_part
+            total_error = cnt_con + cnt_ghost + cnt_fake + cnt_ret
+            total_manual = cnt_ins + cnt_unk
+
+            # 3 BÜYÜK VE AÇIKLAYICI ÖZET KARTI
+            sum_col1, sum_col2, sum_col3 = st.columns(3)
+
+            with sum_col1.container(border=True, height="stretch"):
+                st.metric("🟢 Sorunsuz / Doğrulanan Atıflar", f"{total_ok} Atıf")
+                st.markdown("**Neden sorunsuz sayıldı?**")
+                st.markdown(
+                    f"- ✅ **{cnt_sup} Tam Uyumlu:** Cümlenizdeki bilgi kaynak makaleyle doğrudan örtüşüyor.\n"
+                    f"- ☑️ **{cnt_part} Özetle Uyumlu:** Kaynak makale gerçek ve özeti cümlenizle uyumlu "
+                    f"*(tam metin PDF'i ücretli/kilitli olduğu için özet üzerinden doğrulandı)*."
+                )
+                st.caption("👉 **Ne yapmalısınız?** Bu atıflar için hiçbir değişiklik yapmanıza gerek yoktur.")
+
+            with sum_col2.container(border=True, height="stretch"):
+                st.metric(
+                    "🔴 Düzeltilmesi Gereken Hatalar",
+                    f"{total_error} Atıf",
+                    delta="Mutlaka Düzeltilmeli" if total_error > 0 else "Hata Yok",
+                    delta_color="inverse" if total_error > 0 else "normal",
+                )
+                st.markdown("**Neden düzeltilmesi gerekiyor?**")
+                st.markdown(
+                    f"- ❌ **{cnt_con} Çelişen Bilgi:** Cümlenizdeki sayı, yön veya yargı kaynak makaledeki bulgunun tersini söylüyor.\n"
+                    f"- 🚨 **{cnt_ghost} Kaynakçada Eksik Atıf:** Metinde atıf yapılmış ama Kaynakça listesine yazılmamış.\n"
+                    f"- 🚨 **{cnt_fake} Hatalı Künye / DOI:** Yazılan DOI numarası başka bir makaleye ait.\n"
+                    f"- 🛑 **{cnt_ret} Geri Çekilmiş Makale:** Makale dergi tarafından yayından kaldırılmış (Retracted)."
+                )
+                st.caption("👉 **Ne yapmalısınız?** Aşağıdaki listeden bu cümleleri açıp önerilen düzeltmeleri uygulayın.")
+
+            with sum_col3.container(border=True, height="stretch"):
+                st.metric(
+                    "🟡 Sizin Kontrol Etmeniz Gerekenler",
+                    f"{total_manual} Atıf",
+                    delta="Gözle Kontrol Önerilir" if total_manual > 0 else "Kontrol Gerekmiyor",
+                    delta_color="off",
+                )
+                st.markdown("**Neden manuel kontrol gerekiyor?**")
+                st.markdown(
+                    f"- ⚠️ **{cnt_ins} Makalede Bu Bilgi Bulunamadı:** Makale bulundu ama açık özetinde cümlenizdeki spesifik detay yer almıyor *(bilgi kilitli tam metin sayfalarında olabilir)*.\n"
+                    f"- ❓ **{cnt_unk} İnternette Erişilemedi:** Kaynak veritabanlarında bulunamadı, bağlantı zaman aşımına uğradı veya künye benzerliği düşük kaldı *(kitap/tez olabilir, sahte demek değildir)*."
+                )
+                st.caption("👉 **Ne yapmalısınız?** Kaynağın doğruluğunu gözle kontrol edin veya PDF'i varsa sol menüden yükleyin.")
+
+            render_reading_guide()
+
+            # HIZLI FİLTRELEME ÇUBUĞU
+            st.markdown("#### 🔍 Cümle Bazlı Detaylı İnceleme ve Çözüm Önerileri")
+            filter_options = [
+                f"📋 Tümünü Göster ({len(results_list)})",
+                f"🔴 Sadece Düzeltilmesi Gerekenler ({total_error})",
+                f"🟡 Sadece Kontrol Edilecekler ({total_manual})",
+                f"🟢 Sorunsuz / Doğrulananlar ({total_ok})",
+            ]
+            selected_filter = st.segmented_control(
+                "Görmek istediğiniz grubu seçin:",
+                options=filter_options,
+                default=filter_options[0],
+            ) or filter_options[0]
+
+            filtered_results: List[VerificationResult] = []
+            for r in results_list:
+                v_info = get_verdict_info(r.verdict, is_retracted=r.is_retracted)
+                if selected_filter.startswith("🔴") and v_info["group"] != "error":
+                    continue
+                if selected_filter.startswith("🟡") and v_info["group"] != "manual":
+                    continue
+                if selected_filter.startswith("🟢") and v_info["group"] != "ok":
+                    continue
+                filtered_results.append(r)
+
+            if not filtered_results:
+                st.info("Seçtiğiniz filtrede gösterilecek atıf bulunmuyor.")
+
+            for r in filtered_results:
+                v_info = get_verdict_info(r.verdict, is_retracted=r.is_retracted)
+                header_text = f"{v_info['badge']} | Atıf: {r.marker} — \"{r.claim_sentence[:90]}...\""
+                is_open_default = v_info["group"] in ("error", "manual")
+
+                with st.expander(header_text, expanded=is_open_default):
+                    c_left, c_right = st.columns([3, 2])
+                    with c_left:
+                        st.markdown(f"**📌 1. Sizin Makalenizdeki Cümle:**\n> {r.claim_sentence}")
+
+                        with st.container(border=True):
+                            st.markdown(f"**🧐 2. Neden Bu Sonuç Çıktı?**\n{v_info['why']}")
+                            st.markdown(f"**🧑‍⚖️ Detaylı Değerlendirme:** {r.explanation}")
+                            st.markdown(f"**🛠️ Ne Yapmalısınız?** {v_info['action']}")
+
+                        if r.suggested_revision:
+                            st.success(
+                                f"Makalenize doğrudan kopyalayıp yapıştırabileceğiniz düzeltilmiş cümle:\n\n"
+                                f"**\"{r.suggested_revision}\"**",
+                                title="✏️ Önerilen Düzeltilmiş Akademik Cümle",
+                            )
+
+                        if r.best_evidence:
+                            st.info(
+                                f"{r.best_evidence}",
+                                title=f"📖 3. Kaynak Makalede Bulunan İlgili Paragraf (Konu Benzerliği: %{r.semantic_similarity * 100:.0f})",
+                            )
+
+                        if r.is_secondary_citation and r.secondary_citation_note:
+                            st.warning(r.secondary_citation_note, title="ℹ️ İkincil Atıf Uyarısı")
+
+                    with c_right:
+                        with st.container(border=True):
+                            st.markdown("**🌐 Kaynak Makalenin Künye Bilgileri**")
+                            if r.ref_id and r.ref_id in f_map:
+                                fp = f_map[r.ref_id]
+                                st.markdown(f"- **Başlık:** {fp.verified_title or fp.query_title}")
+                                st.markdown(f"- **Yazarlar:** {', '.join(fp.verified_authors[:4]) or '-'}")
+                                st.markdown(f"- **Yıl ve Dergi:** {fp.verified_year or '-'} | {fp.verified_venue or '-'}")
+                                st.markdown(f"- **DOI Numarası:** `{fp.verified_doi or 'Belirtilmemiş'}`")
+                                st.markdown(f"- **Nereden Bulundu:** `{fp.content_source}`")
+                                st.markdown(
+                                    f"- **Künye Doğruluk Oranı:** "
+                                    f"{f'%{fp.title_match_score * 100:.0f}' if fp.exists_online else 'Doğrulanamadı'}"
+                                )
+                                st.markdown(f"- **Değerlendiren:** {human_decision_source(r.decision_source)}")
+                                if fp.local_pdf_path:
+                                    st.success(f"📄 Tam Metin PDF Okundu: `{fp.local_pdf_path}`")
+                                for w in fp.metadata_warnings:
+                                    st.warning(w)
+                            else:
+                                st.error("Bu atıf makale sonundaki Kaynakça listesinde bulunmuyor.")
+
+                        if r.alternative_papers:
+                            with st.container(border=True):
+                                st.markdown("**💡 Bu Cümleyi Destekleyen Gerçek Makale Önerileri:**")
+                                for alt in r.alternative_papers:
+                                    st.markdown(
+                                        f"- **{alt.title}** ({alt.authors}, {alt.year}) — *{alt.venue}* "
+                                        f"[DOI: `{alt.doi}` | Atıf: {alt.citation_count}]"
+                                    )
+
+            # KAYNAKÇA LİSTESİ ÖZET TABLOSU
+            with st.expander("📚 Kaynakça Listesindeki Makalelerin İnternet Doğrulama Tablosu", expanded=False):
+                st.caption("Kaynakçanızdaki her bir makalenin internette bulunup bulunmadığını ve künye doğruluk oranını gösterir.")
+                ref_rows = []
+                for r_id, fp in f_map.items():
+                    ref_rows.append({
+                        "Kaynak No": f"[{r_id}]",
+                        "İnternet Durumu": (
+                            "🛑 Yayından Geri Çekilmiş (Retracted)" if fp.is_retracted
+                            else ("✅ İnternette Doğrulandı" if fp.exists_online
+                                  else ("❓ Bağlantı Hatası (Kontrol Edin)" if fp.lookup_status == "error"
+                                        else "❓ Veritabanlarında Bulunamadı"))
+                        ),
+                        "Makale Başlığı": fp.verified_title or fp.query_title,
+                        "Yazarlar": ", ".join(fp.verified_authors[:3]) if fp.verified_authors else "-",
+                        "Yıl": fp.verified_year or "-",
+                        "Okunan İçerik": fp.content_source,
+                        "Künye Doğruluk Oranı": f"%{fp.title_match_score * 100:.0f}" if fp.exists_online else "-",
+                        "Not / Uyarı": fp.lookup_error or (" | ".join(fp.metadata_warnings) if fp.metadata_warnings else "Sorun Yok"),
+                    })
+                st.dataframe(pd.DataFrame(ref_rows), hide_index=True)
+
+        # İsteğe Bağlı Sistem Testi (En altta kapalı kutuda, kafa karıştırmaz)
+        with st.expander("🧪 Sistemin Hataları Yakaladığını Test Et (İsteğe Bağlı Deneme Aracı)", expanded=False):
+            st.caption(
+                "Bu buton, yüklediğiniz makale dosyasına zarar vermeden hafızada geçici olarak "
+                "1 adet 'Kaynakçada Eksik Atıf' ve 1 adet 'Metinde Kullanılmayan Kaynak' ekler ve sistemin bunları yakaladığını gösterir."
+            )
+            if st.button("🧨 Geçici Test Hatası Ekle ve Yakalandığını Gör", width="stretch"):
                 is_numbered_doc = any(r.number is not None for r in parsed_doc.references)
                 max_num = max((r.number for r in parsed_doc.references if r.number is not None), default=100)
                 fake_ghost_num = max_num + 1
@@ -313,669 +864,162 @@ with tab1:
                 if is_numbered_doc:
                     sabotaged_body = (
                         parsed_doc.body_text
-                        + f"\n\nBu kasıtlı test cümlesinde kaynakçada hiç var olmayan {fake_ghost_num} numaralı hayalet makaleye atıf yapılmıştır ({fake_ghost_num})."
+                        + f"\n\nBu kasıtlı test cümlesinde kaynakçada hiç var olmayan {fake_ghost_num} numaralı makaleye atıf yapılmıştır ({fake_ghost_num})."
                     )
                     sabotaged_refs = (
                         parsed_doc.references_text
-                        + f"\n{fake_orphan_num}. Oz B, Yilmaz A. Metinde hic kullanilmayan kasitli yetim kaynak tuzagi testi. Tubitak Test Journal. 2025;12(1):10-20."
+                        + f"\n{fake_orphan_num}. Oz B, Yilmaz A. Metinde hic kullanilmayan kasitli kaynak tuzagi testi. Tubitak Test Journal. 2025;12(1):10-20."
                     )
                 else:
                     sabotaged_body = (
                         parsed_doc.body_text
-                        + "\n\nBu kasıtlı test cümlesinde kaynakçada hiç var olmayan hayalet bir makaleye atıf yapılmıştır (Öztürk ve Yılmaz, 2029)."
+                        + "\n\nBu kasıtlı test cümlesinde kaynakçada hiç var olmayan bir makaleye atıf yapılmıştır (Öztürk ve Yılmaz, 2029)."
                     )
                     sabotaged_refs = (
                         parsed_doc.references_text
-                        + "\nSabotajcı, T., and Deneme, K. (2024). Metinde hiç atıf yapılmayan kasıtlı yetim kaynak tuzağı testi. J. Test Sci. 15 (2), 100-110."
+                        + "\nSabotajcı, T., and Deneme, K. (2024). Metinde hiç atıf yapılmayan kasıtlı kaynak tuzağı testi. J. Test Sci. 15 (2), 100-110."
                     )
 
                 sabotaged_full = sabotaged_body + "\n\nReferences\n" + sabotaged_refs
-                trap_result = parser.parse_text(sabotaged_full, filename=f"TUZAK_TESTI_{parsed_doc.filename}")
+                trap_result = parser.parse_text(sabotaged_full, filename=f"TEST_{parsed_doc.filename}")
 
-                st.success("✅ **Canlı Tuzak Testi Başarıyla Tamamlandı! Sistem Enjekte Edilen Her İki Hatayı da Anında Yakaladı:**")
+                st.success("✅ Test tamamlandı! Sistem eklenen her iki hatayı da anında yakaladı:")
                 tc1, tc2 = st.columns(2)
                 with tc1:
-                    st.error(f"🚨 **Yakalanan Hayalet Atıf Sayısı: {len(trap_result.ghost_citations)}**")
+                    st.error(f"🚨 Yakalanan Kaynakçada Eksik Atıf: {len(trap_result.ghost_citations)} adet")
                     for gc in trap_result.ghost_citations:
-                        st.markdown(f"- **Yakalanan Sahte Atıf:** `{gc.marker}` (`{gc.expected_key}`)\n- **Yakalandığı Cümle:** *\"{gc.claim_sentence}\"*")
+                        st.markdown(f"- `{gc.marker}` — *\"{gc.claim_sentence}\"*")
                 with tc2:
-                    st.warning(f"⚠️ **Yakalanan Yetim Kaynak Sayısı: {len(trap_result.orphan_references)}**")
+                    st.warning(f"⚠️ Yakalanan Metinde Kullanılmayan Kaynak: {len(trap_result.orphan_references)} adet")
                     for orp in trap_result.orphan_references:
-                        st.markdown(f"- **Yakalanan Yetim Kaynak:** `[{orp.ref_id}]` {orp.raw_text}")
-
-        st.divider()
-
-        # Tam Denetim Başlatma Butonu
-        start_audit = st.button(
-            "🚀 Tüm Kaynakları İnternetten Çek (Sci-Hub / PubMed / CrossRef) ve Anlam Çıkarımını Denetle",
-            type="primary",
-            use_container_width=True,
-        )
-
-        if start_audit:
-            fetcher = AcademicFetcher(enable_scihub=enable_scihub, enable_jina=enable_jina)
-            verifier = get_verifier(selected_model)
-
-            # 1. Önce tüm kaynakça maddelerini 5'li paralel iş parçacığı (Multi-Threading) ile internetten doğrula
-            fetched_map: Dict[str, FetchedPaper] = {}
-            total_refs = len(parsed_doc.references)
-            prog_bar = st.progress(0, text="İnternet akademik veritabanları 5'li paralel modda taranıyor...")
-
-            completed_refs = 0
-            with ThreadPoolExecutor(max_workers=5) as executor:
-                future_to_ref = {
-                    executor.submit(fetcher.verify_and_fetch, ref_item, USER_PDF_DIR): ref_item
-                    for ref_item in parsed_doc.references
-                }
-                for future in as_completed(future_to_ref):
-                    ref_item = future_to_ref[future]
-                    completed_refs += 1
-                    try:
-                        fetched_map[ref_item.ref_id] = future.result()
-                    except Exception:
-                        fetched_map[ref_item.ref_id] = FetchedPaper(
-                            ref_id=ref_item.ref_id,
-                            query_title=ref_item.title or ref_item.raw_text,
-                            query_doi=ref_item.doi,
-                        )
-                    prog_bar.progress(
-                        int((completed_refs / max(1, total_refs * 2)) * 100),
-                        text=f"🌐 [{completed_refs}/{total_refs}] Kaynak doğrulandı: {ref_item.title[:60]}...",
-                    )
-
-            # 2. Her bir metin içi atıf cümlesini eşleştiği kaynak makaleyle Semantik RAG üzerinden denetle
-            verification_results: List[VerificationResult] = []
-            total_cits = len(parsed_doc.citations)
-
-            for c_idx, cit in enumerate(parsed_doc.citations, start=1):
-                prog_bar.progress(
-                    50 + int((c_idx / max(1, total_cits)) * 50),
-                    text=f"🧠 [{c_idx}/{total_cits}] Semantik Anlam Çıkarımı yapılıyor: {cit.marker}...",
-                )
-                if cit.matched_ref_id is None or cit.matched_ref_id not in fetched_map:
-                    # Hayalet atıf: Kaynakçada yok ama kullanıcı cümlesi için gerçek makale önerelim
-                    alt_list = fetcher.suggest_real_papers(cit.claim_sentence, top_k=3) if enable_suggestions else []
-                    verification_results.append(
-                        VerificationResult(
-                            citation_id=cit.citation_id,
-                            marker=cit.marker,
-                            claim_sentence=cit.claim_sentence,
-                            context_text=cit.context_text,
-                            ref_id=None,
-                            verdict="HAYALET_ATIF",
-                            confidence_score=1.0,
-                            semantic_similarity=0.0,
-                            best_evidence="",
-                            explanation=(
-                                f"Metin içinde '{cit.marker}' olarak atıf yapılmış ancak makalenin "
-                                "sonundaki Kaynakça bölümünde bu kaynak yer almıyor!"
-                            ),
-                            alternative_papers=alt_list,
-                            used_llm_model="Biçimsel Denetçi",
-                        )
-                    )
-                else:
-                    paper_obj = fetched_map[cit.matched_ref_id]
-                    res = verifier.verify_claim_against_paper(
-                        claim_sentence=cit.claim_sentence,
-                        paper=paper_obj,
-                        citation_id=cit.citation_id,
-                        marker=cit.marker,
-                        context_text=cit.context_text,
-                        alternative_finder=fetcher if enable_suggestions else None,
-                    )
-                    verification_results.append(res)
-
-            prog_bar.progress(100, text="✅ Tüm makale ve atıf denetimi tamamlandı!")
-            st.session_state["fetched_map"] = fetched_map
-            st.session_state["verification_results"] = verification_results
-            st.session_state["last_parsed_doc"] = parsed_doc
-
-        # Sonuçları Göster
-        if "verification_results" in st.session_state and "fetched_map" in st.session_state:
-            results_list: List[VerificationResult] = st.session_state["verification_results"]
-            f_map: Dict[str, FetchedPaper] = st.session_state["fetched_map"]
-
-            st.subheader("🎯 2. Aşama: Anlam Çıkarımı ve Kaynak Doğrulama Sonuçları")
-
-            cnt_sup = sum(1 for r in results_list if r.verdict == "DESTEKLENİYOR")
-            cnt_part = sum(1 for r in results_list if r.verdict == "KISMEN_DESTEKLENİYOR")
-            cnt_con = sum(1 for r in results_list if r.verdict == "ÇELİŞİYOR")
-            cnt_ins = sum(1 for r in results_list if r.verdict == "KANIT_YETERSİZ")
-            cnt_fake = sum(1 for r in results_list if r.verdict == "SAHTE_KAYNAK")
-            cnt_unknown = sum(1 for r in results_list if r.verdict == "DOGRULANAMADI")
-            cnt_ghost = sum(1 for r in results_list if r.verdict == "HAYALET_ATIF")
-            cnt_ret = sum(1 for p in f_map.values() if p.is_retracted)
-
-            k1, k2, k3, k4, k5, k6, k7, k8 = st.columns(8)
-            k1.metric("✅ Tam Desteklenen", cnt_sup)
-            k2.metric(
-                "☑️ Özet Uyumlu",
-                cnt_part,
-                help="Kaynak %100 gerçek ve cümlenin ana konusu makale özetiyle örtüşüyor; ancak tam metin PDF'i ücretli/kilitli olduğu için özet düzeyinde doğrulandı.",
-            )
-            k3.metric("❌ Çelişen", cnt_con)
-            k4.metric("⚠️ Kanıt Yetersiz", cnt_ins)
-            k5.metric(
-                "🚨 Sahte (kanıtlı)",
-                cnt_fake,
-                help="Yalnızca somut kanıtla (ör. DOI'nin başka makaleye ait olması) 'sahte' sayılır. Bulunamayan kaynaklar buraya değil, 'Doğrulanamadı' sayacına yazılır.",
-            )
-            k6.metric(
-                "❓ Doğrulanamadı",
-                cnt_unknown,
-                help="Kaynak hiçbir veritabanında bulunamadı veya ağ hatası oluştu. Bu, kaynağın sahte olduğu anlamına gelmez.",
-            )
-            k7.metric(
-                "👻 Hayalet Atıf",
-                cnt_ghost,
-                help="Ana metinde atıf yapılmış ancak makalenin sonundaki Kaynakça listesine eklenmemiş atıf sayısı.",
-            )
-            k8.metric("🛑 Geri Çekilmiş", cnt_ret)
-
-            # A) Kaynakça Gerçeklik Özeti Tablosu
-            with st.expander("📚 Kaynakça Listesi İnternet Doğrulama Durumu (CrossRef / OpenAlex / PubMed / Sci-Hub)", expanded=True):
-                ref_rows = []
-                for r_id, fp in f_map.items():
-                    ref_rows.append({
-                        "Kaynak No": f"[{r_id}]",
-                        "Durum": (
-                            "🛑 GERİ ÇEKİLMİŞ" if fp.is_retracted
-                            else ("✅ Gerçek Makale" if fp.exists_online
-                                  else ("❓ DOĞRULANAMADI (ağ hatası)" if fp.lookup_status == "error"
-                                        else "❓ DOĞRULANAMADI (bulunamadı)"))
-                        ),
-                        "Doğrulanan Başlık": fp.verified_title or fp.query_title,
-                        "Yazarlar": ", ".join(fp.verified_authors[:3]) if fp.verified_authors else "-",
-                        "Yıl": fp.verified_year or "-",
-                        "İçerik Kaynağı": fp.content_source,
-                        "Atıf Sayısı": fp.citation_count,
-                        "Eşleşme Güveni": f"%{fp.title_match_score * 100:.0f}" if fp.exists_online else "-",
-                        "Uyarılar": fp.lookup_error or (" | ".join(fp.metadata_warnings) if fp.metadata_warnings else "Sorun Yok"),
-                    })
-                st.dataframe(pd.DataFrame(ref_rows), use_container_width=True, hide_index=True)
-
-            # B) Her Bir Metin İçi Atıf Cümlesinin Detaylı Denetim Kartları
-            st.markdown("### 🔍 Cümle Bazlı Atıf ve Anlam Çıkarımı Kartları")
-            for r in results_list:
-                icon_map = {
-                    "DESTEKLENİYOR": "✅",
-                    "KISMEN_DESTEKLENİYOR": "☑️",
-                    "ÇELİŞİYOR": "❌",
-                    "KANIT_YETERSİZ": "⚠️",
-                    "DOGRULANAMADI": "❓",
-                    "SAHTE_KAYNAK": "🚨",
-                    "HAYALET_ATIF": "👻",
-                }
-                icon = icon_map.get(r.verdict, "ℹ️")
-                header_text = f"{icon} [{r.verdict}] — Atıf: {r.marker} | \"{r.claim_sentence[:95]}...\""
-
-                with st.expander(header_text, expanded=(r.verdict not in ("DESTEKLENİYOR", "KISMEN_DESTEKLENİYOR"))):
-                    c_left, c_right = st.columns([3, 2])
-                    with c_left:
-                        st.markdown(f"**📝 Sizin Makalenizdeki İddia Cümlesi:**\n> {r.claim_sentence}")
-                        if r.best_evidence:
-                            st.markdown(
-                                f"**📖 Referans Makalede Bulunan Kanıt Paragrafı (Anlam Yakınlığı: %{r.semantic_similarity * 100:.1f}):**\n"
-                                f"<div class='evidence-box'>{r.best_evidence}</div>",
-                                unsafe_allow_html=True,
-                            )
-                        st.markdown(f"**🧑‍⚖️ Hakem Değerlendirmesi:** {r.explanation}")
-
-                        if r.is_secondary_citation and r.secondary_citation_note:
-                            st.info(r.secondary_citation_note)
-
-                        if r.suggested_revision:
-                            st.markdown(
-                                f"**✏️ Önerilen Akademik Cümle Düzeltmesi:**\n"
-                                f"<div class='revision-box'>{r.suggested_revision}</div>",
-                                unsafe_allow_html=True,
-                            )
-
-                    with c_right:
-                        if r.ref_id and r.ref_id in f_map:
-                            fp = f_map[r.ref_id]
-                            st.markdown("**🌐 Eşleşen Kaynak Künyesi:**")
-                            st.write(f"- **Başlık:** {fp.verified_title or fp.query_title}")
-                            st.write(f"- **Yazarlar:** {', '.join(fp.verified_authors[:4]) or '-'}")
-                            st.write(f"- **Yıl & Dergi:** {fp.verified_year or '-'} | {fp.verified_venue or '-'}")
-                            st.write(f"- **DOI:** `{fp.verified_doi or 'Yok'}`")
-                            st.write(f"- **İçerik Kaynağı:** `{fp.content_source}`")
-                            st.write(f"- **Eşleşme Güveni:** %{fp.title_match_score * 100:.0f}")
-                            if fp.local_pdf_path:
-                                st.success(f"📄 Tam Metin PDF İndirildi: `{fp.local_pdf_path}`")
-                            for w in fp.metadata_warnings:
-                                st.warning(w)
-
-                        if r.alternative_papers:
-                            st.markdown("**💡 Bu İddiayı Destekleyen Gerçek Alternatif Makale Önerileri:**")
-                            for alt in r.alternative_papers:
-                                st.markdown(
-                                    f"- **{alt.title}** ({alt.authors}, {alt.year}) — *{alt.venue}* "
-                                    f"[DOI: `{alt.doi}` | Atıf: {alt.citation_count}]"
-                                )
+                        st.markdown(f"- `[{orp.ref_id}]` {orp.raw_text}")
 
 
 # ===========================================================================
-# SEKME 2: SEÇMELİ / ARALIKLI ATIF & ANLAM ÇIKARIMI TESTİ
+# SEKME 2: HIZLI TEK CÜMLE TESTİ (DOSYA YÜKLEMEDEN)
 # ===========================================================================
 
 with tab2:
-    st.subheader("⚡ Seçmeli / Aralıklı Atıf & Anlam Çıkarımı Kontrol Merkezi")
-    active_doc: ParsedManuscript | None = st.session_state.get("current_parsed_doc")
-
-    test_mode = st.radio(
-        "Çalışma Modu Seçin:",
-        options=[
-            "📋 Yüklediğim Makaleden Atıf Seçerek Doğrula (Tek Tek / Çoklu / Aralık: 1-50 / Tümü)",
-            "✍️ Dışarıdan Manuel Cümle & Metin Testi (Serbest Giriş)",
-        ],
-        horizontal=True,
+    st.subheader("✍️ Dosya Yüklemeden Hızlı Cümle ve Kaynak Uyumu Testi")
+    st.caption(
+        "Makale dosyası yüklemeden, kendi yazdığınız tek bir cümle ile kaynak makalenin özetini/paragrafını "
+        "yan yana yapıştırarak birbirini destekleyip desteklemediğini hemen test edebilirsiniz."
     )
 
-    if test_mode.startswith("📋"):
-        if active_doc is None or not active_doc.citations:
-            st.warning(
-                "📂 Henüz yüklü bir makale bulunamadı. Lütfen **1. Sekmeden** makalenizi (`.docx` veya `.pdf`) yükleyin; "
-                "tüm atıflarınız seçilebilir liste olarak buraya otomatik gelecektir."
+    col1, col2 = st.columns(2)
+    with col1:
+        single_claim = st.text_area(
+            "📌 1. Sizin Makalenizde Yazdığınız Cümle:",
+            value="Dünyanın yüzde 90'nı sudan oluşur [1].",
+            height=140,
+        )
+    with col2:
+        single_ref_text = st.text_area(
+            "📖 2. Kaynak Makaledeki Paragraf veya Özet (Türkçe veya İngilizce):",
+            value=(
+                "Bu çalışmada gezegenlerin atmosferik ve yüzey bileşenleri incelenmiştir. "
+                "Yüzde doksanı su olan dünyamız, sıvı hidrosfer tabakası sayesinde iklim dengesini korur. "
+                "Diğer karasal gezegenlerde bu oran oldukça düşüktür."
+            ),
+            height=140,
+        )
+
+    if st.button("🔍 Bu Cümle Kaynak Paragrafla Uyumlu mu Kontrol Et", type="primary", width="stretch"):
+        verifier = get_verifier(selected_model)
+        dummy_paper = FetchedPaper(
+            ref_id="TEKİL",
+            query_title="Manuel Girilen Kaynak Metni",
+            query_doi=None,
+            exists_online=True,
+            title_match_score=1.0,
+            verified_title="Manuel Girilen Kaynak Metni",
+            abstract=single_ref_text,
+        )
+        res = verifier.verify_claim_against_paper(single_claim, dummy_paper)
+        v_info = get_verdict_info(res.verdict)
+
+        if v_info["group"] == "ok":
+            st.success(
+                f"**Neden:** {v_info['why']}\n\n**Detay:** {res.explanation}",
+                title=f"{v_info['badge']} (Konu Benzerliği: %{res.semantic_similarity * 100:.0f})",
+            )
+        elif v_info["group"] == "error":
+            st.error(
+                f"**Neden:** {v_info['why']}\n\n**Detay:** {res.explanation}\n\n**Ne Yapmalısınız:** {v_info['action']}",
+                title=f"{v_info['badge']} (Konu Benzerliği: %{res.semantic_similarity * 100:.0f})",
             )
         else:
-            all_cits = active_doc.citations
-            total_cits_n = len(all_cits)
-
-            st.success(
-                f"📂 **Aktif Makale:** `{active_doc.filename}` — Toplam **{total_cits_n} Metin İçi Atıf** ve "
-                f"**{len(active_doc.references)} Kaynak** hazır. Aşağıdan istediğiniz aralığı (`1-50` gibi) veya "
-                "istediğiniz tekil/çoklu atıfları kutucuklardan seçip doğrudan sorgulayabilirsiniz."
+            st.warning(
+                f"**Neden:** {v_info['why']}\n\n**Detay:** {res.explanation}\n\n**Ne Yapmalısınız:** {v_info['action']}",
+                title=f"{v_info['badge']} (Konu Benzerliği: %{res.semantic_similarity * 100:.0f})",
             )
 
-            # Makale değiştiyse seçim durumunu ve eski makalenin önbelleğini sıfırla
-            if st.session_state.get("tab2_doc_name") != active_doc.filename:
-                st.session_state["tab2_doc_name"] = active_doc.filename
-                st.session_state["tab2_selected_set"] = set(range(1, min(6, total_cits_n + 1)))
-                st.session_state["tab2_editor_ver"] = 0
-                st.session_state["fetched_map"] = {}
-                st.session_state.pop("tab2_results", None)
-
-            if "tab2_selected_set" not in st.session_state:
-                st.session_state["tab2_selected_set"] = set(range(1, min(6, total_cits_n + 1)))
-            if "tab2_editor_ver" not in st.session_state:
-                st.session_state["tab2_editor_ver"] = 0
-
-            # --- ÜST KONTROL ÇUBUĞU: ARALIK SEÇİMİ (1-50 vb.), TÜMÜNÜ SEÇ, TEMİZLE ---
-            ctrl1, ctrl2, ctrl3, ctrl4, ctrl5 = st.columns([1.2, 1.2, 1.8, 1.5, 1.5])
-            with ctrl1:
-                r_start = st.number_input(
-                    "Başlangıç Atıf No:",
-                    min_value=1,
-                    max_value=total_cits_n,
-                    value=1,
-                    step=1,
-                )
-            with ctrl2:
-                r_end = st.number_input(
-                    "Bitiş Atıf No:",
-                    min_value=1,
-                    max_value=total_cits_n,
-                    value=min(50, total_cits_n),
-                    step=1,
-                )
-            with ctrl3:
-                st.write("")
-                st.write("")
-                if st.button(f"🔢 Aralığı Seç ({min(r_start, r_end)} – {max(r_start, r_end)})", use_container_width=True):
-                    s_idx, e_idx = min(int(r_start), int(r_end)), max(int(r_start), int(r_end))
-                    st.session_state["tab2_selected_set"] = set(range(s_idx, e_idx + 1))
-                    st.session_state["tab2_editor_ver"] += 1
-                    st.rerun()
-            with ctrl4:
-                st.write("")
-                st.write("")
-                if st.button(f"✅ Tümünü Seç (1 – {total_cits_n})", use_container_width=True):
-                    st.session_state["tab2_selected_set"] = set(range(1, total_cits_n + 1))
-                    st.session_state["tab2_editor_ver"] += 1
-                    st.rerun()
-            with ctrl5:
-                st.write("")
-                st.write("")
-                if st.button("🧹 Seçimi Temizle", use_container_width=True):
-                    st.session_state["tab2_selected_set"] = set()
-                    st.session_state["tab2_editor_ver"] += 1
-                    st.rerun()
-
-            # --- İNTERAKTİF KUTUCUKLU (CHECKBOX) ATIF SEÇİM TABLOSU ---
-            current_sel_set = st.session_state["tab2_selected_set"]
-            editor_rows = []
-            for idx_c, c_obj in enumerate(all_cits, start=1):
-                ref_obj = c_obj.matched_reference
-                ref_summary = (
-                    f"[{c_obj.matched_ref_id}] {ref_obj.first_author_surname or ''} ({ref_obj.year or '?'}) — {(ref_obj.title or ref_obj.raw_text)[:75]}"
-                    if ref_obj
-                    else "🚨 Kaynakçada Yok (Hayalet Atıf)"
-                )
-                editor_rows.append({
-                    "Seç": idx_c in current_sel_set,
-                    "Atıf No": idx_c,
-                    "Atıf İşareti": c_obj.marker,
-                    "Eşleşen Kaynak": ref_summary,
-                    "Makalenizdeki İddia Cümlesi": c_obj.claim_sentence,
-                })
-
-            df_cits_editor = pd.DataFrame(editor_rows)
-            edited_df = st.data_editor(
-                df_cits_editor,
-                key=f"cit_selector_{active_doc.filename}_{st.session_state['tab2_editor_ver']}",
-                use_container_width=True,
-                hide_index=True,
-                height=340,
-                disabled=["Atıf No", "Atıf İşareti", "Eşleşen Kaynak", "Makalenizdeki İddia Cümlesi"],
-                column_config={
-                    "Seç": st.column_config.CheckboxColumn(
-                        "☑️ Seç",
-                        help="Doğrulamak istediğiniz atıfları tek tek veya çoklu olarak buradan işaretleyebilirsiniz.",
-                        default=False,
-                    ),
-                    "Atıf No": st.column_config.NumberColumn("No", width="small"),
-                    "Atıf İşareti": st.column_config.TextColumn("Parantez / İşaret", width="medium"),
-                    "Eşleşen Kaynak": st.column_config.TextColumn("Eşleşen Kaynakça", width="large"),
-                    "Makalenizdeki İddia Cümlesi": st.column_config.TextColumn("Makaledeki İddia Cümlesi", width="large"),
-                },
-            )
-
-            # Kullanıcının tablodaki anlık tiklerini oku
-            selected_indices = [
-                int(row["Atıf No"]) for _, row in edited_df.iterrows() if bool(row["Seç"])
-            ]
-            st.session_state["tab2_selected_set"] = set(selected_indices)
-            selected_cits_list = [all_cits[i - 1] for i in selected_indices]
-
-            # Seçilen atıfların ihtiyaç duyduğu tekil kaynakları belirle
-            needed_refs_map: Dict[str, ReferenceItem] = {}
-            for sc in selected_cits_list:
-                if sc.matched_reference is not None and sc.matched_ref_id:
-                    needed_refs_map[sc.matched_ref_id] = sc.matched_reference
-
-            run_selected_btn = st.button(
-                f"🚀 Seçilen {len(selected_cits_list)} Atıfı ({len(needed_refs_map)} Tekil Kaynak) İnternetten Çek ve Anlam Çıkarımını Doğrula",
-                type="primary",
-                use_container_width=True,
-                disabled=(len(selected_cits_list) == 0),
-            )
-
-            if run_selected_btn and selected_cits_list:
-                fetcher = AcademicFetcher(enable_scihub=enable_scihub, enable_jina=enable_jina)
-                verifier = get_verifier(selected_model)
-
-                # Daha önce çekilmiş kaynaklar varsa önbellekten (session_state) koru, ancak bulunamamış veya kısa özetli olanları v2 motoruyla tazele
-                fetched_map_tab2: Dict[str, FetchedPaper] = dict(st.session_state.get("fetched_map", {}))
-                refs_to_fetch = [
-                    r_it
-                    for r_id, r_it in needed_refs_map.items()
-                    if r_id not in fetched_map_tab2
-                    or not fetched_map_tab2[r_id].exists_online
-                    or len(fetched_map_tab2[r_id].abstract) < 200
-                ]
-
-                prog_t2 = st.progress(0, text="Seçilen atıfların kaynakları internetten doğrulanıyor...")
-
-                if refs_to_fetch:
-                    done_r = 0
-                    total_r = len(refs_to_fetch)
-                    with ThreadPoolExecutor(max_workers=5) as executor:
-                        fut_map = {
-                            executor.submit(fetcher.verify_and_fetch, r_it, USER_PDF_DIR): r_it
-                            for r_it in refs_to_fetch
-                        }
-                        for fut in as_completed(fut_map):
-                            r_it = fut_map[fut]
-                            done_r += 1
-                            try:
-                                fetched_map_tab2[r_it.ref_id] = fut.result()
-                            except Exception:
-                                fetched_map_tab2[r_it.ref_id] = FetchedPaper(
-                                    ref_id=r_it.ref_id,
-                                    query_title=r_it.title or r_it.raw_text,
-                                    query_doi=r_it.doi,
-                                )
-                            prog_t2.progress(
-                                int((done_r / max(1, total_r * 2)) * 100),
-                                text=f"🌐 [{done_r}/{total_r}] Kaynak çekildi: {(r_it.title or r_it.raw_text)[:60]}...",
-                            )
-
-                selected_results: List[VerificationResult] = []
-                total_sel_c = len(selected_cits_list)
-                for idx_sc, scit in enumerate(selected_cits_list, start=1):
-                    prog_t2.progress(
-                        50 + int((idx_sc / max(1, total_sel_c)) * 50),
-                        text=f"🧠 [{idx_sc}/{total_sel_c}] Anlam Çıkarımı yapılıyor: {scit.marker}...",
-                    )
-                    if scit.matched_ref_id is None or scit.matched_ref_id not in fetched_map_tab2:
-                        alt_list = fetcher.suggest_real_papers(scit.claim_sentence, top_k=3) if enable_suggestions else []
-                        selected_results.append(
-                            VerificationResult(
-                                citation_id=scit.citation_id,
-                                marker=scit.marker,
-                                claim_sentence=scit.claim_sentence,
-                                context_text=scit.context_text,
-                                ref_id=None,
-                                verdict="HAYALET_ATIF",
-                                confidence_score=1.0,
-                                semantic_similarity=0.0,
-                                best_evidence="",
-                                explanation=f"Metin içinde '{scit.marker}' olarak atıf yapılmış ancak Kaynakça bölümünde bulunamadı!",
-                                alternative_papers=alt_list,
-                                used_llm_model="Biçimsel Denetçi",
-                            )
-                        )
-                    else:
-                        p_obj = fetched_map_tab2[scit.matched_ref_id]
-                        v_res = verifier.verify_claim_against_paper(
-                            claim_sentence=scit.claim_sentence,
-                            paper=p_obj,
-                            citation_id=scit.citation_id,
-                            marker=scit.marker,
-                            context_text=scit.context_text,
-                            alternative_finder=fetcher if enable_suggestions else None,
-                        )
-                        selected_results.append(v_res)
-
-                prog_t2.progress(100, text=f"✅ Seçilen {total_sel_c} atıfın denetimi tamamlandı!")
-                st.session_state["fetched_map"] = fetched_map_tab2
-                st.session_state["tab2_results"] = selected_results
-                st.session_state["verification_results"] = selected_results
-
-            # Seçmeli Denetim Sonuçlarını Aynı Ekranda Göster
-            if "tab2_results" in st.session_state and st.session_state["tab2_results"]:
-                t2_results: List[VerificationResult] = st.session_state["tab2_results"]
-                f_map_t2: Dict[str, FetchedPaper] = st.session_state.get("fetched_map", {})
-
-                st.divider()
-                st.subheader(f"🎯 Seçilen Atıfların Anlam Çıkarımı Sonuçları ({len(t2_results)} Atıf)")
-
-                s_sup = sum(1 for r in t2_results if r.verdict == "DESTEKLENİYOR")
-                s_part = sum(1 for r in t2_results if r.verdict == "KISMEN_DESTEKLENİYOR")
-                s_con = sum(1 for r in t2_results if r.verdict == "ÇELİŞİYOR")
-                s_ins = sum(1 for r in t2_results if r.verdict == "KANIT_YETERSİZ")
-                s_fake = sum(1 for r in t2_results if r.verdict == "SAHTE_KAYNAK")
-                s_unknown = sum(1 for r in t2_results if r.verdict == "DOGRULANAMADI")
-                s_ghost = sum(1 for r in t2_results if r.verdict == "HAYALET_ATIF")
-
-                sk1, sk2, sk3, sk4, sk5, sk6, sk7 = st.columns(7)
-                sk1.metric("✅ Tam Desteklenen", s_sup)
-                sk2.metric(
-                    "☑️ Özet Uyumlu",
-                    s_part,
-                    help="Kaynak %100 gerçek ve cümlenin ana konusu makale özetiyle örtüşüyor; ancak tam metin PDF'i ücretli/kilitli olduğu için özet düzeyinde doğrulandı.",
-                )
-                sk3.metric("❌ Çelişen", s_con)
-                sk4.metric("⚠️ Kanıt Yetersiz", s_ins)
-                sk5.metric(
-                    "🚨 Sahte (kanıtlı)",
-                    s_fake,
-                    help="Yalnızca somut kanıtla (ör. DOI'nin başka makaleye ait olması) 'sahte' sayılır.",
-                )
-                sk6.metric(
-                    "❓ Doğrulanamadı",
-                    s_unknown,
-                    help="Kaynak hiçbir veritabanında bulunamadı veya ağ hatası oluştu; sahte olduğu anlamına gelmez.",
-                )
-                sk7.metric(
-                    "👻 Hayalet Atıf",
-                    s_ghost,
-                    help="Ana metinde atıf yapılmış ancak makalenin sonundaki Kaynakça listesine eklenmemiş atıf sayısı.",
-                )
-
-                icon_map = {
-                    "DESTEKLENİYOR": "✅",
-                    "KISMEN_DESTEKLENİYOR": "☑️",
-                    "ÇELİŞİYOR": "❌",
-                    "KANIT_YETERSİZ": "⚠️",
-                    "DOGRULANAMADI": "❓",
-                    "SAHTE_KAYNAK": "🚨",
-                    "HAYALET_ATIF": "👻",
-                }
-                verdict_label_map = {
-                    "DESTEKLENİYOR": "TAM DESTEKLENİYOR",
-                    "KISMEN_DESTEKLENİYOR": "ÖZET DÜZEYİNDE UYUMLU (TAM METİN KİLİTLİ)",
-                    "ÇELİŞİYOR": "ÇELİŞİYOR",
-                    "KANIT_YETERSİZ": "KANIT YETERSİZ / ALAKASIZ ATIF",
-                    "DOGRULANAMADI": "DOĞRULANAMADI (BULUNAMADI / AĞ HATASI)",
-                    "SAHTE_KAYNAK": "SAHTE / İNTERNETTE YOK (KANITLI)",
-                    "HAYALET_ATIF": "HAYALET ATIF (KAYNAKÇADA YOK)",
-                }
-                for r in t2_results:
-                    icon = icon_map.get(r.verdict, "ℹ️")
-                    v_label = verdict_label_map.get(r.verdict, r.verdict)
-                    hdr = f"{icon} [{v_label}] (Yakınlık: %{r.semantic_similarity * 100:.1f}) — Atıf: {r.marker} | \"{r.claim_sentence[:90]}...\""
-                    with st.expander(hdr, expanded=True):
-                        c_l, c_r = st.columns([3, 2])
-                        with c_l:
-                            st.markdown(f"**📝 Makalenizdeki İddia Cümlesi:**\n> {r.claim_sentence}")
-                            if r.best_evidence:
-                                st.markdown(
-                                    f"**📖 Referans Makalede Bulunan Kanıt Paragrafı (Anlam Yakınlığı: %{r.semantic_similarity * 100:.1f}):**\n"
-                                    f"<div class='evidence-box'>{r.best_evidence}</div>",
-                                    unsafe_allow_html=True,
-                                )
-                            st.markdown(f"**🧑‍⚖️ Hakem Değerlendirmesi:** {r.explanation}")
-                            if r.suggested_revision:
-                                st.markdown(
-                                    f"**✏️ Önerilen Cümle Düzeltmesi:**\n"
-                                    f"<div class='revision-box'>{r.suggested_revision}</div>",
-                                    unsafe_allow_html=True,
-                                )
-                        with c_r:
-                            if r.ref_id and r.ref_id in f_map_t2:
-                                fp = f_map_t2[r.ref_id]
-                                st.markdown("**🌐 Doğrulanan Kaynak Künyesi:**")
-                                st.write(f"- **Başlık:** {fp.verified_title or fp.query_title}")
-                                st.write(f"- **Yazarlar:** {', '.join(fp.verified_authors[:4]) or '-'}")
-                                st.write(f"- **Yıl & Dergi:** {fp.verified_year or '-'} | {fp.verified_venue or '-'}")
-                                st.write(f"- **DOI:** `{fp.verified_doi or 'Yok'}`")
-                                st.write(f"- **İçerik Kaynağı:** `{fp.content_source}`")
-                                st.write(f"- **Eşleşme Güveni:** %{fp.title_match_score * 100:.0f}")
-                                if fp.local_pdf_path:
-                                    st.success(f"📄 Tam Metin PDF İndirildi: `{fp.local_pdf_path}`")
-                                for w in fp.metadata_warnings:
-                                    st.warning(w)
-                            if r.alternative_papers:
-                                st.markdown("**💡 Alternatif Gerçek Makale Önerileri:**")
-                                for alt in r.alternative_papers:
-                                    st.markdown(
-                                        f"- **{alt.title}** ({alt.authors}, {alt.year}) — [DOI: `{alt.doi}`]"
-                                    )
-    else:
-        col1, col2 = st.columns(2)
-        with col1:
-            single_claim = st.text_area(
-                "✍️ Sizin Makalenizdeki İddia Cümlesi:",
-                value="Dünyanın yüzde 90'nı sudan oluşur [1].",
-                height=120,
-            )
-        with col2:
-            single_ref_text = st.text_area(
-                "📖 Referans Makaledeki Paragraf / Özet (Türkçe veya İngilizce):",
-                value=(
-                    "Bu çalışmada gezegenlerin atmosferik ve yüzey bileşenleri incelenmiştir. "
-                    "Yüzde doksanı su olan dünyamız, sıvı hidrosfer tabakası sayesinde iklim dengesini korur. "
-                    "Diğer karasal gezegenlerde bu oran oldukça düşüktür."
-                ),
-                height=120,
-            )
-
-        if st.button("🔍 Anlam Bütünlüğünü Test Et", type="primary"):
-            verifier = get_verifier(selected_model)
-            dummy_paper = FetchedPaper(
-                ref_id="TEKİL",
-                query_title="Manuel Referans Metni",
-                query_doi=None,
-                exists_online=True,
-                verified_title="Manuel Girilen Referans Metni",
-                abstract=single_ref_text,
-            )
-            res = verifier.verify_claim_against_paper(single_claim, dummy_paper)
-
-            if res.verdict == "DESTEKLENİYOR":
-                st.success(f"### ✅ KARAR: DESTEKLENİYOR (Anlam Yakınlığı: %{res.semantic_similarity * 100:.1f} | Güven: %{res.confidence_score * 100:.0f})")
-            elif res.verdict == "ÇELİŞİYOR":
-                st.error(f"### ❌ KARAR: ÇELİŞİYOR (Anlam Yakınlığı: %{res.semantic_similarity * 100:.1f} | Güven: %{res.confidence_score * 100:.0f})")
-            else:
-                st.warning(f"### ⚠️ KARAR: KANIT YETERSİZ (Anlam Yakınlığı: %{res.semantic_similarity * 100:.1f})")
-
-            st.markdown(f"**Açıklama:** {res.explanation}")
-            st.markdown(f"**Bulunan En Güçlü Kanıt Cümlesi:**\n> {res.best_evidence}")
-            if res.suggested_revision:
-                st.info(f"**✏️ Önerilen Düzeltme:** {res.suggested_revision}")
+        if res.best_evidence:
+            st.info(res.best_evidence, title="📖 Kaynak Metinde Bulunan En İlgili Cümle")
+        if res.suggested_revision:
+            st.success(res.suggested_revision, title="✏️ Önerilen Düzeltilmiş Cümle")
 
 
 # ===========================================================================
-# SEKME 3: DENETİM RAPORU VE EXCEL / MARKDOWN ÇIKTISI
+# SEKME 3: TOPLU TABLO VE RAPOR İNDİR (EXCEL / WORD)
 # ===========================================================================
 
 with tab3:
-    st.subheader("📊 TÜBİTAK Denetim Raporu İndir")
-    if "verification_results" not in st.session_state:
-        st.info("Henüz bir makale denetimi çalıştırılmadı. Lütfen 1. Sekmeden makalenizi yükleyip denetimi başlatın.")
+    st.subheader("📊 Denetim Raporu Tablosu ve İndirme Ekranı")
+    st.caption(
+        "1. Sekmede yaptığınız denetimin tüm sonuçlarını burada toplu tablo halinde görebilir, "
+        "Excel (`.csv`) veya Word/Metin (`.md`) dosyası olarak bilgisayarınıza indirebilirsiniz."
+    )
+
+    if "verification_results" not in st.session_state or not st.session_state["verification_results"]:
+        st.info(
+            "Henüz bir makale denetimi çalıştırılmadı. Lütfen **1. Sekmeden** makalenizi yükleyip denetimi başlatın.",
+            title="ℹ️ Rapor Hazır Değil",
+        )
     else:
-        results_list: List[VerificationResult] = st.session_state["verification_results"]
-        f_map: Dict[str, FetchedPaper] = st.session_state["fetched_map"]
+        results_list_t3: List[VerificationResult] = st.session_state["verification_results"]
+        f_map_t3: Dict[str, FetchedPaper] = st.session_state.get("fetched_map", {})
 
         rows = []
         md_lines = [
-            "# TÜBİTAK Akademik Makale ve Semantik Atıf Denetim Raporu",
+            "# Akademik Makale, Kaynakça ve Atıf Denetim Raporu",
             f"**Tarih:** {datetime.now().strftime('%d.%m.%Y %H:%M')}\n",
-            "## 1. Cümle Bazlı Atıf ve Çıkarım Sonuçları\n",
+            "## Cümle Bazlı Atıf ve Doğrulama Sonuçları\n",
         ]
 
-        for r in results_list:
-            fp = f_map.get(r.ref_id) if r.ref_id else None
+        for r in results_list_t3:
+            fp = f_map_t3.get(r.ref_id) if r.ref_id else None
+            v_info = get_verdict_info(r.verdict, is_retracted=r.is_retracted)
             rows.append({
                 "Atıf İşareti": r.marker,
-                "Karar": r.verdict,
-                "Anlam Yakınlığı (%)": round(r.semantic_similarity * 100, 1),
-                "Güven (%)": round(r.confidence_score * 100, 0),
-                "Karar Kaynağı": r.decision_source or "-",
-                "Eşleşme Güveni (%)": round(r.match_score * 100, 0),
-                "Makaledeki İddia Cümleniz": r.claim_sentence,
-                "Doğrulanan Kaynak Başlığı": fp.verified_title if fp else "Kaynakçada Yok",
-                "Kaynak Durumu": fp.content_source if fp else "Hayalet Atıf",
-                "Orijinal Kanıt Paragrafı": r.best_evidence[:400],
+                "Sonuç Durumu": v_info["short_label"],
+                "Neden Bu Sonuç Çıktı?": v_info["why"],
+                "Ne Yapmalısınız?": v_info["action"],
+                "Makalenizdeki Cümle": r.claim_sentence,
                 "Hakem Açıklaması": r.explanation,
-                "Önerilen Düzeltme": r.suggested_revision,
+                "Önerilen Düzeltilmiş Cümle": r.suggested_revision or "-",
+                "Kaynak Makale Başlığı": fp.verified_title if fp else "Kaynakça Listesinde Eksik",
+                "Okunan İçerik Kaynağı": fp.content_source if fp else "Kaynakçada Yok",
+                "Konu Benzerliği (%)": round(r.semantic_similarity * 100, 1),
+                "Künye Doğruluk Oranı (%)": round(r.match_score * 100, 0),
+                "Değerlendiren": human_decision_source(r.decision_source),
+                "Kaynak Makaledeki Kanıt Paragrafı": r.best_evidence[:400] if r.best_evidence else "-",
             })
 
             md_lines.extend([
-                f"### Atıf: `{r.marker}` — Karar: **{r.verdict}** (Anlam Yakınlığı: %{r.semantic_similarity * 100:.1f})",
-                f"- **İddia Cümleniz:** {r.claim_sentence}",
+                f"### Atıf: `{r.marker}` — **{v_info['badge']}**",
+                f"- **Makalenizdeki Cümle:** {r.claim_sentence}",
+                f"- **Neden Bu Sonuç Çıktı?:** {v_info['why']}",
+                f"- **Detaylı Açıklama:** {r.explanation}",
+                f"- **Ne Yapmalısınız?:** {v_info['action']}",
+                f"- **Önerilen Düzeltilmiş Cümle:** {r.suggested_revision or '-'}",
                 f"- **Eşleşen Kaynak:** {fp.verified_title if fp else 'Bulunamadı'} ({fp.content_source if fp else '-'})",
-                f"- **Hakem Açıklaması:** {r.explanation}",
                 f"- **Kanıt Paragrafı:** {r.best_evidence[:500] if r.best_evidence else '-'}",
-                f"- **Önerilen Düzeltme:** {r.suggested_revision or '-'}",
                 "",
             ])
 
         df_report = pd.DataFrame(rows)
-        st.dataframe(df_report, use_container_width=True, hide_index=True)
+        st.dataframe(df_report, hide_index=True)
 
         csv_bytes = df_report.to_csv(index=False).encode("utf-8-sig")
         md_bytes = "\n".join(md_lines).encode("utf-8")
@@ -983,17 +1027,17 @@ with tab3:
         dl_col1, dl_col2 = st.columns(2)
         with dl_col1:
             st.download_button(
-                "📥 Excel Uyumlu CSV Raporu İndir (.csv)",
+                "📥 Excel Uyumlu Tablo Olarak İndir (.csv)",
                 data=csv_bytes,
-                file_name="tubitak_atif_denetim_raporu.csv",
+                file_name="makale_atif_denetim_raporu.csv",
                 mime="text/csv",
-                use_container_width=True,
+                width="stretch",
             )
         with dl_col2:
             st.download_button(
-                "📥 Detaylı Hakem Raporu İndir (.md / .txt)",
+                "📥 Detaylı Rapor Olarak İndir (.md / Word Uyumlu)",
                 data=md_bytes,
-                file_name="tubitak_atif_denetim_raporu.md",
+                file_name="makale_atif_denetim_raporu.md",
                 mime="text/markdown",
-                use_container_width=True,
+                width="stretch",
             )
