@@ -737,33 +737,110 @@ with tab1:
 
             render_reading_guide()
 
-            # HIZLI FİLTRELEME ÇUBUĞU
-            st.markdown("#### 🔍 Cümle Bazlı Detaylı İnceleme ve Çözüm Önerileri")
+            # HIZLI VE ESNEK FİLTRELEME MERKEZİ
+            st.markdown("#### 🔍 Cümle Bazlı Detaylı İnceleme ve Filtreleme")
+
+            total_problems_and_manual = total_error + total_manual
+            preset_all = f"📋 Tümünü Göster ({len(results_list)})"
+            preset_all_issues = f"⚠️ Tüm Sorunlu + Kontrol Edilecekler ({total_problems_and_manual})"
+            preset_errors_only = f"🔴 Sadece Düzeltilmesi Gerekenler ({total_error})"
+            preset_contradictions = f"❌ Sadece Çelişenler ({cnt_con})"
+            preset_manual_only = f"🟡 Sadece Kontrol Edilecekler ({total_manual})"
+            preset_ok_only = f"🟢 Sadece Başarılı / Doğrulananlar ({total_ok})"
+            preset_custom = "🎛️ Özel Kombinasyon Seç (Çoklu Seçim)"
+
             filter_options = [
-                f"📋 Tümünü Göster ({len(results_list)})",
-                f"🔴 Sadece Düzeltilmesi Gerekenler ({total_error})",
-                f"🟡 Sadece Kontrol Edilecekler ({total_manual})",
-                f"🟢 Sorunsuz / Doğrulananlar ({total_ok})",
+                preset_all,
+                preset_all_issues,
+                preset_errors_only,
+                preset_contradictions,
+                preset_manual_only,
+                preset_ok_only,
+                preset_custom,
             ]
-            selected_filter = st.segmented_control(
-                "Görmek istediğiniz grubu seçin:",
-                options=filter_options,
-                default=filter_options[0],
-            ) or filter_options[0]
+
+            with st.container(border=True):
+                selected_filter = st.segmented_control(
+                    "Görmek istediğiniz sonuç grubunu seçin:",
+                    options=filter_options,
+                    default=preset_all,
+                ) or preset_all
+
+                # Özel kombinasyon seçildiyse alt kategorileri çoklu seçtir
+                custom_cat_map = {
+                    f"❌ Çelişenler ({cnt_con})": "CON",
+                    f"🚨 Kaynakçada Eksik ({cnt_ghost})": "GHOST",
+                    f"🚨 Hatalı Künye/DOI ({cnt_fake})": "FAKE",
+                    f"🛑 Geri Çekilmiş ({cnt_ret})": "RET",
+                    f"⚠️ Makalede Bilgi Bulunamadı ({cnt_ins})": "INS",
+                    f"❓ İnternette Erişilemedi ({cnt_unk})": "UNK",
+                    f"✅ Tam Uyumlu ({cnt_sup})": "SUP",
+                    f"☑️ Özetle Uyumlu ({cnt_part})": "PART",
+                }
+                selected_custom_codes: set[str] = set()
+                if selected_filter == preset_custom:
+                    default_custom = [
+                        k for k, v in custom_cat_map.items() if v in ("CON", "GHOST", "FAKE", "RET", "INS", "UNK")
+                    ]
+                    chosen_pills = st.pills(
+                        "Birlikte görmek istediğiniz kategorilere tıklayın (birden fazla seçebilirsiniz):",
+                        options=list(custom_cat_map.keys()),
+                        default=default_custom,
+                        selection_mode="multi",
+                    ) or []
+                    selected_custom_codes = {custom_cat_map[k] for k in chosen_pills if k in custom_cat_map}
+
+                search_query = st.text_input(
+                    "Cümle, yazar veya atıf numarası içinde ara",
+                    placeholder="🔎 İsteğe bağlı: Belirli bir atıf veya kelime arayın (Örn: [12], Yılmaz, %90)...",
+                    label_visibility="collapsed",
+                ).strip().lower()
+
+            def _result_category_code(r_obj: VerificationResult) -> str:
+                if r_obj.is_retracted:
+                    return "RET"
+                code_map = {
+                    "ÇELİŞİYOR": "CON",
+                    "HAYALET_ATIF": "GHOST",
+                    "SAHTE_KAYNAK": "FAKE",
+                    "KANIT_YETERSİZ": "INS",
+                    "DOGRULANAMADI": "UNK",
+                    "DESTEKLENİYOR": "SUP",
+                    "KISMEN_DESTEKLENİYOR": "PART",
+                }
+                return code_map.get(r_obj.verdict, "UNK")
 
             filtered_results: List[VerificationResult] = []
             for r in results_list:
                 v_info = get_verdict_info(r.verdict, is_retracted=r.is_retracted)
-                if selected_filter.startswith("🔴") and v_info["group"] != "error":
+                cat_code = _result_category_code(r)
+
+                if selected_filter == preset_all_issues and v_info["group"] not in ("error", "manual"):
                     continue
-                if selected_filter.startswith("🟡") and v_info["group"] != "manual":
+                elif selected_filter == preset_errors_only and v_info["group"] != "error":
                     continue
-                if selected_filter.startswith("🟢") and v_info["group"] != "ok":
+                elif selected_filter == preset_contradictions and cat_code != "CON":
                     continue
+                elif selected_filter == preset_manual_only and v_info["group"] != "manual":
+                    continue
+                elif selected_filter == preset_ok_only and v_info["group"] != "ok":
+                    continue
+                elif selected_filter == preset_custom and cat_code not in selected_custom_codes:
+                    continue
+
+                if search_query:
+                    haystack = f"{r.marker} {r.claim_sentence} {r.explanation}".lower()
+                    if search_query not in haystack:
+                        continue
+
                 filtered_results.append(r)
 
+            st.caption(
+                f"📌 Toplam **{len(results_list)}** atıf içinden seçtiğiniz filtreye uyan **{len(filtered_results)}** atıf gösteriliyor."
+            )
+
             if not filtered_results:
-                st.info("Seçtiğiniz filtrede gösterilecek atıf bulunmuyor.")
+                st.info("Seçtiğiniz filtreye uyan herhangi bir atıf bulunmuyor.")
 
             for r in filtered_results:
                 v_info = get_verdict_info(r.verdict, is_retracted=r.is_retracted)
@@ -980,16 +1057,43 @@ with tab3:
         results_list_t3: List[VerificationResult] = st.session_state["verification_results"]
         f_map_t3: Dict[str, FetchedPaper] = st.session_state.get("fetched_map", {})
 
+        t3_filter_opts = [
+            "📋 Tüm Sonuçlar",
+            "⚠️ Sadece Sorunlu + Kontrol Edilecekler (Başarılıları Gizle)",
+            "🔴 Sadece Düzeltilmesi Gerekenler",
+            "❌ Sadece Çelişenler",
+            "🟡 Sadece Kontrol Edilecekler",
+            "🟢 Sadece Başarılı / Doğrulananlar",
+        ]
+        t3_selected = st.segmented_control(
+            "Tabloda görmek ve indirmek istediğiniz grubu seçin:",
+            options=t3_filter_opts,
+            default=t3_filter_opts[0],
+        ) or t3_filter_opts[0]
+
         rows = []
         md_lines = [
             "# Akademik Makale, Kaynakça ve Atıf Denetim Raporu",
-            f"**Tarih:** {datetime.now().strftime('%d.%m.%Y %H:%M')}\n",
+            f"**Tarih:** {datetime.now().strftime('%d.%m.%Y %H:%M')}",
+            f"**Filtre:** {t3_selected}\n",
             "## Cümle Bazlı Atıf ve Doğrulama Sonuçları\n",
         ]
 
         for r in results_list_t3:
             fp = f_map_t3.get(r.ref_id) if r.ref_id else None
             v_info = get_verdict_info(r.verdict, is_retracted=r.is_retracted)
+
+            if t3_selected.startswith("⚠️") and v_info["group"] not in ("error", "manual"):
+                continue
+            elif t3_selected.startswith("🔴") and v_info["group"] != "error":
+                continue
+            elif t3_selected.startswith("❌") and (r.verdict != "ÇELİŞİYOR" or r.is_retracted):
+                continue
+            elif t3_selected.startswith("🟡") and v_info["group"] != "manual":
+                continue
+            elif t3_selected.startswith("🟢") and v_info["group"] != "ok":
+                continue
+
             rows.append({
                 "Atıf İşareti": r.marker,
                 "Sonuç Durumu": v_info["short_label"],
@@ -1018,6 +1122,7 @@ with tab3:
                 "",
             ])
 
+        st.caption(f"📌 Toplam **{len(results_list_t3)}** atıf içinden filtreye uyan **{len(rows)}** kayıt listeleniyor.")
         df_report = pd.DataFrame(rows)
         st.dataframe(df_report, hide_index=True)
 
