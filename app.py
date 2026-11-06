@@ -73,6 +73,44 @@ def human_decision_source(source_code: str) -> str:
     return mapping.get(source_code or "", "Otomatik Kontrol")
 
 
+ALL_FILTER_KEYS = ["SUP", "PART", "CON", "INS", "FAKE", "UNK", "GHOST", "RET"]
+
+
+def _result_category_code(r_obj: VerificationResult) -> str:
+    """Her bir doğrulama sonucunu 8 sayaç kategorisinden birine eşler."""
+    if r_obj.is_retracted:
+        return "RET"
+    code_map = {
+        "DESTEKLENİYOR": "SUP",
+        "KISMEN_DESTEKLENİYOR": "PART",
+        "ÇELİŞİYOR": "CON",
+        "KANIT_YETERSİZ": "INS",
+        "SAHTE_KAYNAK": "FAKE",
+        "DOGRULANAMADI": "UNK",
+        "HAYALET_ATIF": "GHOST",
+    }
+    return code_map.get(r_obj.verdict, "UNK")
+
+
+def _init_filter_state(prefix: str) -> None:
+    if f"{prefix}_ALL" not in st.session_state:
+        st.session_state[f"{prefix}_ALL"] = True
+        for k in ALL_FILTER_KEYS:
+            st.session_state[f"{prefix}_{k}"] = True
+
+
+def _on_toggle_all(prefix: str) -> None:
+    val = bool(st.session_state.get(f"{prefix}_ALL", True))
+    for k in ALL_FILTER_KEYS:
+        st.session_state[f"{prefix}_{k}"] = val
+
+
+def _on_toggle_single(prefix: str) -> None:
+    st.session_state[f"{prefix}_ALL"] = all(
+        bool(st.session_state.get(f"{prefix}_{k}", False)) for k in ALL_FILTER_KEYS
+    )
+
+
 def get_verdict_info(verdict: str, is_retracted: bool = False) -> Dict[str, str]:
     """
     Her bir teknik karar kodunu:
@@ -737,110 +775,95 @@ with tab1:
 
             render_reading_guide()
 
-            # HIZLI VE ESNEK FİLTRELEME MERKEZİ
+            # 9 TİKLİ (TÜMÜNÜ GÖSTER + 8 SAYAÇ) FİLTRELEME MERKEZİ
             st.markdown("#### 🔍 Cümle Bazlı Detaylı İnceleme ve Filtreleme")
+            st.caption(
+                "Hangi atıfları görmek istiyorsanız yanındaki kutucukları işaretleyin (birden fazla işaretleyebilirsiniz). "
+                "Yalnızca işaretli kutucuklara uyan atıflar aşağıda listelenir."
+            )
 
-            total_problems_and_manual = total_error + total_manual
-            preset_all = f"📋 Tümünü Göster ({len(results_list)})"
-            preset_all_issues = f"⚠️ Tüm Sorunlu + Kontrol Edilecekler ({total_problems_and_manual})"
-            preset_errors_only = f"🔴 Sadece Düzeltilmesi Gerekenler ({total_error})"
-            preset_contradictions = f"❌ Sadece Çelişenler ({cnt_con})"
-            preset_manual_only = f"🟡 Sadece Kontrol Edilecekler ({total_manual})"
-            preset_ok_only = f"🟢 Sadece Başarılı / Doğrulananlar ({total_ok})"
-            preset_custom = "🎛️ Özel Kombinasyon Seç (Çoklu Seçim)"
-
-            filter_options = [
-                preset_all,
-                preset_all_issues,
-                preset_errors_only,
-                preset_contradictions,
-                preset_manual_only,
-                preset_ok_only,
-                preset_custom,
-            ]
+            _init_filter_state("f1")
 
             with st.container(border=True):
-                selected_filter = st.segmented_control(
-                    "Görmek istediğiniz sonuç grubunu seçin:",
-                    options=filter_options,
-                    default=preset_all,
-                ) or preset_all
+                row1 = st.columns(5)
+                with row1[0]:
+                    st.checkbox(
+                        f"📋 Tümünü Göster ({len(results_list)})",
+                        key="f1_ALL",
+                        on_change=_on_toggle_all,
+                        args=("f1",),
+                    )
+                with row1[1]:
+                    st.checkbox(
+                        f"✅ Tam Desteklenen ({cnt_sup})",
+                        key="f1_SUP",
+                        on_change=_on_toggle_single,
+                        args=("f1",),
+                    )
+                with row1[2]:
+                    st.checkbox(
+                        f"☑️ Özet Uyumlu ({cnt_part})",
+                        key="f1_PART",
+                        on_change=_on_toggle_single,
+                        args=("f1",),
+                    )
+                with row1[3]:
+                    st.checkbox(
+                        f"❌ Çelişen ({cnt_con})",
+                        key="f1_CON",
+                        on_change=_on_toggle_single,
+                        args=("f1",),
+                    )
+                with row1[4]:
+                    st.checkbox(
+                        f"⚠️ Kanıt Yetersiz ({cnt_ins})",
+                        key="f1_INS",
+                        on_change=_on_toggle_single,
+                        args=("f1",),
+                    )
 
-                # Özel kombinasyon seçildiyse alt kategorileri çoklu seçtir
-                custom_cat_map = {
-                    f"❌ Çelişenler ({cnt_con})": "CON",
-                    f"🚨 Kaynakçada Eksik ({cnt_ghost})": "GHOST",
-                    f"🚨 Hatalı Künye/DOI ({cnt_fake})": "FAKE",
-                    f"🛑 Geri Çekilmiş ({cnt_ret})": "RET",
-                    f"⚠️ Makalede Bilgi Bulunamadı ({cnt_ins})": "INS",
-                    f"❓ İnternette Erişilemedi ({cnt_unk})": "UNK",
-                    f"✅ Tam Uyumlu ({cnt_sup})": "SUP",
-                    f"☑️ Özetle Uyumlu ({cnt_part})": "PART",
-                }
-                selected_custom_codes: set[str] = set()
-                if selected_filter == preset_custom:
-                    default_custom = [
-                        k for k, v in custom_cat_map.items() if v in ("CON", "GHOST", "FAKE", "RET", "INS", "UNK")
-                    ]
-                    chosen_pills = st.pills(
-                        "Birlikte görmek istediğiniz kategorilere tıklayın (birden fazla seçebilirsiniz):",
-                        options=list(custom_cat_map.keys()),
-                        default=default_custom,
-                        selection_mode="multi",
-                    ) or []
-                    selected_custom_codes = {custom_cat_map[k] for k in chosen_pills if k in custom_cat_map}
+                row2 = st.columns(5)
+                with row2[0]:
+                    st.checkbox(
+                        f"🚨 Sahte / Hatalı DOI ({cnt_fake})",
+                        key="f1_FAKE",
+                        on_change=_on_toggle_single,
+                        args=("f1",),
+                    )
+                with row2[1]:
+                    st.checkbox(
+                        f"❓ Doğrulanamadı ({cnt_unk})",
+                        key="f1_UNK",
+                        on_change=_on_toggle_single,
+                        args=("f1",),
+                    )
+                with row2[2]:
+                    st.checkbox(
+                        f"👻 Hayalet / Eksik ({cnt_ghost})",
+                        key="f1_GHOST",
+                        on_change=_on_toggle_single,
+                        args=("f1",),
+                    )
+                with row2[3]:
+                    st.checkbox(
+                        f"🛑 Geri Çekilmiş ({cnt_ret})",
+                        key="f1_RET",
+                        on_change=_on_toggle_single,
+                        args=("f1",),
+                    )
 
-                search_query = st.text_input(
-                    "Cümle, yazar veya atıf numarası içinde ara",
-                    placeholder="🔎 İsteğe bağlı: Belirli bir atıf veya kelime arayın (Örn: [12], Yılmaz, %90)...",
-                    label_visibility="collapsed",
-                ).strip().lower()
+            active_codes_f1 = {k for k in ALL_FILTER_KEYS if st.session_state.get(f"f1_{k}", False)}
 
-            def _result_category_code(r_obj: VerificationResult) -> str:
-                if r_obj.is_retracted:
-                    return "RET"
-                code_map = {
-                    "ÇELİŞİYOR": "CON",
-                    "HAYALET_ATIF": "GHOST",
-                    "SAHTE_KAYNAK": "FAKE",
-                    "KANIT_YETERSİZ": "INS",
-                    "DOGRULANAMADI": "UNK",
-                    "DESTEKLENİYOR": "SUP",
-                    "KISMEN_DESTEKLENİYOR": "PART",
-                }
-                return code_map.get(r_obj.verdict, "UNK")
-
-            filtered_results: List[VerificationResult] = []
-            for r in results_list:
-                v_info = get_verdict_info(r.verdict, is_retracted=r.is_retracted)
-                cat_code = _result_category_code(r)
-
-                if selected_filter == preset_all_issues and v_info["group"] not in ("error", "manual"):
-                    continue
-                elif selected_filter == preset_errors_only and v_info["group"] != "error":
-                    continue
-                elif selected_filter == preset_contradictions and cat_code != "CON":
-                    continue
-                elif selected_filter == preset_manual_only and v_info["group"] != "manual":
-                    continue
-                elif selected_filter == preset_ok_only and v_info["group"] != "ok":
-                    continue
-                elif selected_filter == preset_custom and cat_code not in selected_custom_codes:
-                    continue
-
-                if search_query:
-                    haystack = f"{r.marker} {r.claim_sentence} {r.explanation}".lower()
-                    if search_query not in haystack:
-                        continue
-
-                filtered_results.append(r)
+            filtered_results: List[VerificationResult] = [
+                r for r in results_list if _result_category_code(r) in active_codes_f1
+            ]
 
             st.caption(
-                f"📌 Toplam **{len(results_list)}** atıf içinden seçtiğiniz filtreye uyan **{len(filtered_results)}** atıf gösteriliyor."
+                f"📌 Toplam **{len(results_list)}** atıf içinden işaretlediğiniz tiklere uyan **{len(filtered_results)}** atıf gösteriliyor."
             )
 
             if not filtered_results:
-                st.info("Seçtiğiniz filtreye uyan herhangi bir atıf bulunmuyor.")
+                st.info("İşaretlediğiniz tiklere uyan herhangi bir atıf bulunmuyor.")
 
             for r in filtered_results:
                 v_info = get_verdict_info(r.verdict, is_retracted=r.is_retracted)
@@ -1057,42 +1080,99 @@ with tab3:
         results_list_t3: List[VerificationResult] = st.session_state["verification_results"]
         f_map_t3: Dict[str, FetchedPaper] = st.session_state.get("fetched_map", {})
 
-        t3_filter_opts = [
-            "📋 Tüm Sonuçlar",
-            "⚠️ Sadece Sorunlu + Kontrol Edilecekler (Başarılıları Gizle)",
-            "🔴 Sadece Düzeltilmesi Gerekenler",
-            "❌ Sadece Çelişenler",
-            "🟡 Sadece Kontrol Edilecekler",
-            "🟢 Sadece Başarılı / Doğrulananlar",
-        ]
-        t3_selected = st.segmented_control(
-            "Tabloda görmek ve indirmek istediğiniz grubu seçin:",
-            options=t3_filter_opts,
-            default=t3_filter_opts[0],
-        ) or t3_filter_opts[0]
+        t3_sup = sum(1 for r in results_list_t3 if r.verdict == "DESTEKLENİYOR" and not r.is_retracted)
+        t3_part = sum(1 for r in results_list_t3 if r.verdict == "KISMEN_DESTEKLENİYOR" and not r.is_retracted)
+        t3_con = sum(1 for r in results_list_t3 if r.verdict == "ÇELİŞİYOR" and not r.is_retracted)
+        t3_ins = sum(1 for r in results_list_t3 if r.verdict == "KANIT_YETERSİZ" and not r.is_retracted)
+        t3_fake = sum(1 for r in results_list_t3 if r.verdict == "SAHTE_KAYNAK" and not r.is_retracted)
+        t3_unk = sum(1 for r in results_list_t3 if r.verdict == "DOGRULANAMADI" and not r.is_retracted)
+        t3_ghost = sum(1 for r in results_list_t3 if r.verdict == "HAYALET_ATIF" and not r.is_retracted)
+        t3_ret = sum(1 for r in results_list_t3 if r.is_retracted)
+
+        _init_filter_state("f3")
+
+        with st.container(border=True):
+            r3_1 = st.columns(5)
+            with r3_1[0]:
+                st.checkbox(
+                    f"📋 Tümünü Göster ({len(results_list_t3)})",
+                    key="f3_ALL",
+                    on_change=_on_toggle_all,
+                    args=("f3",),
+                )
+            with r3_1[1]:
+                st.checkbox(
+                    f"✅ Tam Desteklenen ({t3_sup})",
+                    key="f3_SUP",
+                    on_change=_on_toggle_single,
+                    args=("f3",),
+                )
+            with r3_1[2]:
+                st.checkbox(
+                    f"☑️ Özet Uyumlu ({t3_part})",
+                    key="f3_PART",
+                    on_change=_on_toggle_single,
+                    args=("f3",),
+                )
+            with r3_1[3]:
+                st.checkbox(
+                    f"❌ Çelişen ({t3_con})",
+                    key="f3_CON",
+                    on_change=_on_toggle_single,
+                    args=("f3",),
+                )
+            with r3_1[4]:
+                st.checkbox(
+                    f"⚠️ Kanıt Yetersiz ({t3_ins})",
+                    key="f3_INS",
+                    on_change=_on_toggle_single,
+                    args=("f3",),
+                )
+
+            r3_2 = st.columns(5)
+            with r3_2[0]:
+                st.checkbox(
+                    f"🚨 Sahte / Hatalı DOI ({t3_fake})",
+                    key="f3_FAKE",
+                    on_change=_on_toggle_single,
+                    args=("f3",),
+                )
+            with r3_2[1]:
+                st.checkbox(
+                    f"❓ Doğrulanamadı ({t3_unk})",
+                    key="f3_UNK",
+                    on_change=_on_toggle_single,
+                    args=("f3",),
+                )
+            with r3_2[2]:
+                st.checkbox(
+                    f"👻 Hayalet / Eksik ({t3_ghost})",
+                    key="f3_GHOST",
+                    on_change=_on_toggle_single,
+                    args=("f3",),
+                )
+            with r3_2[3]:
+                st.checkbox(
+                    f"🛑 Geri Çekilmiş ({t3_ret})",
+                    key="f3_RET",
+                    on_change=_on_toggle_single,
+                    args=("f3",),
+                )
+
+        active_codes_f3 = {k for k in ALL_FILTER_KEYS if st.session_state.get(f"f3_{k}", False)}
 
         rows = []
         md_lines = [
             "# Akademik Makale, Kaynakça ve Atıf Denetim Raporu",
-            f"**Tarih:** {datetime.now().strftime('%d.%m.%Y %H:%M')}",
-            f"**Filtre:** {t3_selected}\n",
+            f"**Tarih:** {datetime.now().strftime('%d.%m.%Y %H:%M')}\n",
             "## Cümle Bazlı Atıf ve Doğrulama Sonuçları\n",
         ]
 
         for r in results_list_t3:
+            if _result_category_code(r) not in active_codes_f3:
+                continue
             fp = f_map_t3.get(r.ref_id) if r.ref_id else None
             v_info = get_verdict_info(r.verdict, is_retracted=r.is_retracted)
-
-            if t3_selected.startswith("⚠️") and v_info["group"] not in ("error", "manual"):
-                continue
-            elif t3_selected.startswith("🔴") and v_info["group"] != "error":
-                continue
-            elif t3_selected.startswith("❌") and (r.verdict != "ÇELİŞİYOR" or r.is_retracted):
-                continue
-            elif t3_selected.startswith("🟡") and v_info["group"] != "manual":
-                continue
-            elif t3_selected.startswith("🟢") and v_info["group"] != "ok":
-                continue
 
             rows.append({
                 "Atıf İşareti": r.marker,
