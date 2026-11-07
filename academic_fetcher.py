@@ -1001,8 +1001,401 @@ class AcademicFetcher:
         return ""
 
     # -----------------------------------------------------------------------
-    # KANAL 8: Alternatif Gerçek Makale Önerici (Sahte Kaynak Kurtarıcı)
+    # KANAL 8: Alternatif Gerçek Makale Önerici & Akıllı Cümle Kaynak Bulucu
     # -----------------------------------------------------------------------
+
+    # Sık geçen Türkçe akademik/tıbbi kavramların uluslararası (İngilizce) arama karşılıkları
+    TR_TO_EN_ACADEMIC_MAP: Dict[str, str] = {
+        "siklofosfamid": "cyclophosphamide",
+        "oksidatif": "oxidative",
+        "stres": "stress",
+        "stresi": "stress",
+        "sperm": "sperm",
+        "hareketliliği": "motility",
+        "hareketlilik": "motility",
+        "motilite": "motility",
+        "motilitesi": "motility",
+        "morfoloji": "morphology",
+        "morfolojik": "morphological",
+        "testis": "testis testicular",
+        "testiküler": "testicular",
+        "hücre": "cell",
+        "hücreleri": "cells",
+        "hücresi": "cell",
+        "apoptoz": "apoptosis",
+        "apoptozis": "apoptosis",
+        "inflamasyon": "inflammation",
+        "inflamatuar": "inflammatory",
+        "antioksidan": "antioxidant",
+        "hasar": "damage injury",
+        "hasarı": "damage injury",
+        "toksisite": "toxicity",
+        "toksik": "toxic",
+        "kanser": "cancer",
+        "akciğer": "lung",
+        "karaciğer": "liver hepatic",
+        "böbrek": "kidney renal",
+        "beyin": "brain cerebral",
+        "kalp": "heart cardiac",
+        "diyabet": "diabetes",
+        "hipertansiyon": "hypertension",
+        "depresyon": "depression",
+        "anksiyete": "anxiety",
+        "nöron": "neuron neuronal",
+        "nöroprotektif": "neuroprotective",
+        "mitokondri": "mitochondria",
+        "mitokondriyal": "mitochondrial",
+        "peroksidasyon": "peroxidation",
+        "peroksidasyonu": "peroxidation",
+        "glutatyon": "glutathione",
+        "katalaz": "catalase",
+        "süperoksit": "superoxide",
+        "dismutaz": "dismutase",
+        "malondialdehit": "malondialdehyde MDA",
+        "testosteron": "testosterone",
+        "fertilite": "fertility",
+        "infertilite": "infertility",
+        "kemoterapi": "chemotherapy",
+        "radyoterapi": "radiotherapy",
+        "derin": "deep",
+        "öğrenme": "learning",
+        "yapay": "artificial",
+        "zeka": "intelligence",
+        "zekâ": "intelligence",
+        "algoritma": "algorithm",
+        "sınıflandırma": "classification",
+        "tahmin": "prediction",
+        "doğruluk": "accuracy",
+        "tedavi": "treatment therapy",
+        "tedavisi": "treatment therapy",
+        "hastalık": "disease",
+        "hastalığı": "disease",
+        "gen": "gene",
+        "ekspresyonu": "expression",
+        "protein": "protein",
+        "enzim": "enzyme",
+        "reseptör": "receptor",
+    }
+
+    TR_STOPWORDS = {
+        "olan", "olarak", "için", "göre", "daha", "çok", "gibi", "kadar", "sonra", "önce",
+        "arasında", "üzerine", "tarafından", "birlikte", "ancak", "veya", "olup", "olduğu",
+        "nedeniyle", "sebebiyle", "sonucunda", "sayesinde", "rağmen", "karşı", "ilgili",
+        "önemli", "büyük", "yüksek", "düşük", "farklı", "çeşitli", "birçok", "bazı",
+        "tüm", "bütün", "her", "hiç", "hem", "ise", "ile", "ve", "de", "da", "bu", "şu",
+        "bir", "iki", "üç", "oldukça", "özellikle", "genellikle", "sadece", "yalnız",
+        "yalnızca", "ayrıca", "böylece", "dolayısıyla", "örneğin", "mesela", "yüzde",
+        "oranı", "oranında", "artış", "azalma", "azaltır", "artırır", "neden", "olur",
+        "gösterilmiştir", "bildirilmiştir", "bulunmuştur", "saptanmıştır", "incelenmiştir",
+    }
+
+    def build_search_queries_for_claim(
+        self, claim_sentence: str, ollama_model: Optional[str] = None
+    ) -> Tuple[str, str]:
+        """
+        Kullanıcının yazdığı atıf/iddia cümlesinden:
+        1) Orijinal dilde temiz anahtar kelime sorgusu (`native_query`)
+        2) Uluslararası veritabanları (PubMed, OpenAlex, Semantic Scholar) için İngilizce
+           akademik anahtar kelime sorgusu (`english_query`) üretir.
+        """
+        clean_claim = re.sub(r"\[[^\]]+\]|\([^)]*\d{4}[^)]*\)", " ", claim_sentence)
+        clean_claim = re.sub(r"[^\w\sçğıöşüÇĞİÖŞÜ\-]", " ", clean_claim)
+        raw_words = [
+            w for w in clean_claim.split()
+            if len(w) > 2 and w.lower() not in self.TR_STOPWORDS and not w.isdigit()
+        ]
+        native_query = " ".join(raw_words[:12]).strip()
+
+        # Sözlük tabanlı hızlı İngilizce terim çevirisi
+        en_terms: List[str] = []
+        for w in raw_words:
+            wl = w.lower()
+            if wl in self.TR_TO_EN_ACADEMIC_MAP:
+                en_terms.append(self.TR_TO_EN_ACADEMIC_MAP[wl])
+            else:
+                # Kök eşleşmesi (örn: "antioksidanların" -> "antioksidan")
+                matched_prefix = False
+                for tr_k, en_v in self.TR_TO_EN_ACADEMIC_MAP.items():
+                    if len(tr_k) >= 5 and wl.startswith(tr_k):
+                        en_terms.append(en_v)
+                        matched_prefix = True
+                        break
+                if not matched_prefix and re.match(r"^[a-zA-Z0-9\-]+$", w):
+                    # Zaten Latin/İngilizce bilimsel terimse (örn: Sertoli, Leydig, COVID-19, BDNF, TRPM2) koru
+                    en_terms.append(w)
+
+        dict_en_query = " ".join(dict.fromkeys(" ".join(en_terms).split()))[:140].strip()
+
+        # Eğer yerel Ollama açıksa çok hızlı (6 sn sınırıyla) İngilizce akademik arama terimlerini iste
+        llm_en_query = ""
+        if ollama_model:
+            try:
+                import ollama
+                resp = ollama.chat(
+                    model=ollama_model,
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": (
+                                "Translate the scientific claim into 5 to 8 concise English academic search keywords "
+                                "for PubMed/OpenAlex search. Output ONLY the English keywords separated by spaces, no punctuation or explanation."
+                            ),
+                        },
+                        {"role": "user", "content": claim_sentence[:350]},
+                    ],
+                    options={"temperature": 0.0, "num_predict": 30},
+                )
+                content = (
+                    getattr(getattr(resp, "message", None), "content", None)
+                    or resp.get("message", {}).get("content", "")
+                )
+                cleaned_llm = re.sub(r"[^a-zA-Z0-9\s\-]", " ", content or "")
+                cleaned_llm = re.sub(r"\s+", " ", cleaned_llm).strip()
+                if len(cleaned_llm) >= 8:
+                    llm_en_query = " ".join(cleaned_llm.split()[:10])
+            except Exception:
+                pass
+
+        english_query = llm_en_query or dict_en_query or native_query
+        return native_query, english_query
+
+    def search_candidate_papers_for_claim(
+        self,
+        claim_sentence: str,
+        max_candidates: int = 10,
+        year_from: Optional[int] = None,
+        only_open_access: bool = False,
+        ollama_model: Optional[str] = None,
+    ) -> Tuple[List[FetchedPaper], Dict[str, str]]:
+        """
+        Kullanıcının yazdığı tek bir cümle için OpenAlex, Semantic Scholar, Europe PMC (PubMed)
+        ve CrossRef üzerinde yayınlanmış gerçek makaleleri araştırır ve özetleriyle birlikte
+        FetchedPaper listesi olarak döndürür.
+        """
+        native_q, english_q = self.build_search_queries_for_claim(claim_sentence, ollama_model=ollama_model)
+        queries_to_try = list(dict.fromkeys(q for q in [english_q, native_q] if q and len(q) >= 4))
+
+        candidates_by_key: Dict[str, FetchedPaper] = {}
+        ref_counter = 1
+
+        def _add_candidate(fp: FetchedPaper) -> None:
+            nonlocal ref_counter
+            if fp.is_retracted or not fp.verified_title:
+                return
+            if not fp.abstract and not fp.tldr and not fp.full_text:
+                return
+            if year_from and fp.verified_year:
+                try:
+                    if int(str(fp.verified_year)[:4]) < int(year_from):
+                        return
+                except ValueError:
+                    pass
+            if only_open_access and not (fp.pdf_url or fp.full_text or fp.pmcid):
+                return
+
+            dedup_key = (
+                (fp.verified_doi or "").strip().lower()
+                or re.sub(r"[^\w]", "", fp.verified_title.lower())[:65]
+            )
+            if not dedup_key:
+                return
+
+            if dedup_key in candidates_by_key:
+                existing = candidates_by_key[dedup_key]
+                if len(fp.abstract) > len(existing.abstract):
+                    existing.abstract = fp.abstract
+                if fp.tldr and not existing.tldr:
+                    existing.tldr = fp.tldr
+                if fp.pdf_url and not existing.pdf_url:
+                    existing.pdf_url = fp.pdf_url
+                existing.citation_count = max(existing.citation_count, fp.citation_count)
+                for sf in fp.sources_found:
+                    if sf not in existing.sources_found:
+                        existing.sources_found.append(sf)
+                existing.content_source = " + ".join(existing.sources_found)
+            else:
+                fp.ref_id = f"ADAY_{ref_counter}"
+                ref_counter += 1
+                fp.exists_online = True
+                fp.title_match_score = 1.0
+                fp.lookup_status = "found"
+                fp.content_source = " + ".join(dict.fromkeys(fp.sources_found)) or "Akademik Veritabanı"
+                candidates_by_key[dedup_key] = fp
+
+        # 1. KANAL: OpenAlex (250M+ makale, hem İngilizce hem Türkçe özet desteği)
+        for q in queries_to_try:
+            try:
+                url = "https://api.openalex.org/works"
+                params: Dict[str, Any] = {
+                    "search": q,
+                    "per-page": max(10, max_candidates),
+                }
+                if year_from:
+                    params["filter"] = f"from_publication_date:{int(year_from)}-01-01"
+                resp = requests.get(url, params=params, headers=API_HEADERS, timeout=self.timeout)
+                if resp.status_code == 200:
+                    for w in resp.json().get("results", []):
+                        if w.get("is_retracted"):
+                            continue
+                        title = (w.get("title") or "").strip()
+                        inv_abs = w.get("abstract_inverted_index")
+                        abs_text = self._reconstruct_openalex_abstract(inv_abs).strip() if inv_abs else ""
+                        if not title or len(abs_text) < 60:
+                            continue
+                        auths = [
+                            a.get("author", {}).get("display_name", "")
+                            for a in w.get("authorships", [])
+                            if a.get("author", {}).get("display_name")
+                        ]
+                        year = str(w.get("publication_year") or "")
+                        doi = (w.get("doi") or "").replace("https://doi.org/", "").strip() or None
+                        venue = (
+                            ((w.get("primary_location") or {}).get("source") or {}).get("display_name")
+                            or "Akademik Dergi"
+                        )
+                        oa_info = w.get("open_access") or {}
+                        best_oa = w.get("best_oa_location") or {}
+                        pdf_url = best_oa.get("pdf_url") or oa_info.get("oa_url")
+
+                        _add_candidate(
+                            FetchedPaper(
+                                ref_id="TEMP",
+                                query_title=title,
+                                query_doi=doi,
+                                exists_online=True,
+                                title_match_score=1.0,
+                                verified_title=title,
+                                verified_authors=auths,
+                                verified_year=year,
+                                verified_venue=venue,
+                                verified_doi=doi,
+                                citation_count=int(w.get("cited_by_count") or 0),
+                                abstract=abs_text,
+                                pdf_url=pdf_url,
+                                sources_checked=["OpenAlex"],
+                                sources_found=["OpenAlex"],
+                            )
+                        )
+            except Exception:
+                pass
+
+        # 2. KANAL: Semantic Scholar (TL;DR + Zengin Özet + Atıf Sayısı)
+        for q in queries_to_try[:1]:
+            try:
+                fields = "title,authors,year,abstract,tldr,openAccessPdf,externalIds,citationCount,venue"
+                url = "https://api.semanticscholar.org/graph/v1/paper/search"
+                resp = requests.get(
+                    url,
+                    params={"query": q[:180], "limit": max(8, max_candidates), "fields": fields},
+                    headers=API_HEADERS,
+                    timeout=self.timeout,
+                )
+                if resp.status_code == 200:
+                    for item in resp.json().get("data", []):
+                        title = (item.get("title") or "").strip()
+                        abs_text = (item.get("abstract") or "").strip()
+                        tldr_obj = item.get("tldr")
+                        tldr_text = tldr_obj.get("text", "").strip() if isinstance(tldr_obj, dict) else ""
+                        if not title or (len(abs_text) < 50 and not tldr_text):
+                            continue
+                        auths = [a.get("name", "") for a in item.get("authors", []) if a.get("name")]
+                        year = str(item.get("year") or "")
+                        venue = (item.get("venue") or "").strip() or "Akademik Dergi"
+                        ext_ids = item.get("externalIds") or {}
+                        doi = ext_ids.get("DOI")
+                        oa_pdf = item.get("openAccessPdf")
+                        pdf_url = oa_pdf.get("url") if isinstance(oa_pdf, dict) else None
+
+                        _add_candidate(
+                            FetchedPaper(
+                                ref_id="TEMP",
+                                query_title=title,
+                                query_doi=doi,
+                                exists_online=True,
+                                title_match_score=1.0,
+                                verified_title=title,
+                                verified_authors=auths,
+                                verified_year=year,
+                                verified_venue=venue,
+                                verified_doi=doi,
+                                citation_count=int(item.get("citationCount") or 0),
+                                abstract=abs_text,
+                                tldr=tldr_text,
+                                pdf_url=pdf_url,
+                                sources_checked=["Semantic Scholar"],
+                                sources_found=["Semantic Scholar"],
+                            )
+                        )
+            except Exception:
+                pass
+
+        # 3. KANAL: Europe PMC / PubMed (Biyomedikal, Tıp, Yaşam Bilimleri Makaleleri)
+        for q in queries_to_try[:1]:
+            try:
+                url = "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
+                resp = requests.get(
+                    url,
+                    params={
+                        "query": q[:180],
+                        "resultType": "core",
+                        "pageSize": max(8, max_candidates),
+                        "format": "json",
+                    },
+                    headers=API_HEADERS,
+                    timeout=self.timeout,
+                )
+                if resp.status_code == 200:
+                    results = resp.json().get("resultList", {}).get("result", [])
+                    for item in results:
+                        title = re.sub(r"<[^>]+>", "", (item.get("title") or "")).strip().rstrip(".")
+                        abs_raw = item.get("abstractText") or ""
+                        abs_text = re.sub(r"<[^>]+>", " ", abs_raw)
+                        abs_text = re.sub(r"\s+", " ", abs_text).strip()
+                        if not title or len(abs_text) < 60:
+                            continue
+                        auth_str = item.get("authorString") or ""
+                        auths = [a.strip() for a in auth_str.rstrip(".").split(",") if a.strip()]
+                        year = str(item.get("pubYear") or "")
+                        venue = item.get("journalTitle") or "PubMed / Europe PMC"
+                        doi = item.get("doi")
+                        pmid = item.get("pmid")
+                        pmcid = item.get("pmcid")
+                        pdf_url = (
+                            f"https://europepmc.org/backend/ptpmcrender.fcgi?accid={pmcid}&blobtype=pdf"
+                            if pmcid
+                            else None
+                        )
+
+                        _add_candidate(
+                            FetchedPaper(
+                                ref_id="TEMP",
+                                query_title=title,
+                                query_doi=doi,
+                                exists_online=True,
+                                title_match_score=1.0,
+                                verified_title=title,
+                                verified_authors=auths,
+                                verified_year=year,
+                                verified_venue=venue,
+                                verified_doi=doi,
+                                pmid=pmid,
+                                pmcid=pmcid,
+                                citation_count=int(item.get("citedByCount") or 0),
+                                abstract=abs_text,
+                                pdf_url=pdf_url,
+                                sources_checked=["PubMed / Europe PMC"],
+                                sources_found=["PubMed / Europe PMC"],
+                            )
+                        )
+            except Exception:
+                pass
+
+        all_candidates = list(candidates_by_key.values())
+        return all_candidates[: max_candidates * 2], {
+            "native_query": native_q,
+            "english_query": english_q,
+            "total_raw_found": str(len(all_candidates)),
+        }
 
     def suggest_real_papers(self, claim_sentence: str, top_k: int = 3) -> List[AlternativePaper]:
         """

@@ -596,7 +596,7 @@ with step3_col.container(border=True, height="stretch"):
 
 tab1, tab2, tab3 = st.tabs([
     "📄 1. Makale Yükle ve Denetle (Ana Ekran)",
-    "✍️ 2. Hızlı Tek Cümle Testi (Dosya Yüklemeden)",
+    "🔍 2. Cümleme Uygun Akademik Makale ve Atıf Bul (Dosya Yüklemeden)",
     "📊 3. Toplu Tablo ve Rapor İndir (Excel / Word)",
 ])
 
@@ -1306,68 +1306,282 @@ with tab1:
 
 
 # ===========================================================================
-# SEKME 2: HIZLI TEK CÜMLE TESTİ (DOSYA YÜKLEMEDEN)
+# SEKME 2: CÜMLEME UYGUN AKADEMİK MAKALE VE ATIF BULUCU (DOSYA YÜKLEMEDEN)
 # ===========================================================================
 
+
+def _format_citation_strings(fp: FetchedPaper, idx: int = 1) -> Dict[str, str]:
+    """Bulunan bir makale için hazır metin içi atıf (APA/Vancouver) ve kaynakça künyesi üretir."""
+    authors = fp.verified_authors or []
+    year = fp.verified_year or "t.y."
+    title = fp.verified_title or fp.query_title
+    venue = fp.verified_venue or "Akademik Dergi"
+    doi_str = f" https://doi.org/{fp.verified_doi}" if fp.verified_doi else ""
+
+    def _surname(full_name: str) -> str:
+        parts = full_name.strip().split()
+        return parts[-1] if parts else full_name
+
+    if not authors:
+        intext_tr = f"(Anonim, {year})"
+        intext_en = f"(Anonymous, {year})"
+        apa_authors = "Anonim"
+    elif len(authors) == 1:
+        s1 = _surname(authors[0])
+        intext_tr = f"({s1}, {year})"
+        intext_en = f"({s1}, {year})"
+        apa_authors = authors[0]
+    elif len(authors) == 2:
+        s1, s2 = _surname(authors[0]), _surname(authors[1])
+        intext_tr = f"({s1} ve {s2}, {year})"
+        intext_en = f"({s1} & {s2}, {year})"
+        apa_authors = f"{authors[0]} & {authors[1]}"
+    else:
+        s1 = _surname(authors[0])
+        intext_tr = f"({s1} vd., {year})"
+        intext_en = f"({s1} et al., {year})"
+        apa_authors = ", ".join(authors[:6]) + (", et al." if len(authors) > 6 else "")
+
+    apa_ref = f"{apa_authors} ({year}). {title}. {venue}.{doi_str}".strip()
+    vanc_authors = ", ".join(authors[:6]) + (", et al." if len(authors) > 6 else "")
+    vanc_ref = f"[{idx}] {vanc_authors}. {title}. {venue}. {year}.{doi_str}".strip()
+
+    return {
+        "intext_tr": intext_tr,
+        "intext_en": intext_en,
+        "intext_num": f"[{idx}]",
+        "apa_ref": apa_ref,
+        "vanc_ref": vanc_ref,
+    }
+
+
 with tab2:
-    st.subheader("✍️ Dosya Yüklemeden Hızlı Cümle ve Kaynak Uyumu Testi")
+    st.subheader("🔍 Cümleme Uygun Yayınlanmış Akademik Makale ve Atıf Bulucu")
     st.caption(
-        "Makale dosyası yüklemeden, kendi yazdığınız tek bir cümle ile kaynak makalenin özetini/paragrafını "
-        "yan yana yapıştırarak birbirini destekleyip desteklemediğini hemen test edebilirsiniz."
+        "Makale dosyası yüklemeden, makalenizde yazdığınız (veya yazmayı düşündüğünüz) **herhangi bir bilimsel cümleyi** aşağıya yazın. "
+        "Sistem **OpenAlex, Semantic Scholar ve PubMed / Europe PMC** üzerinden yayınlanmış hakemli makaleleri otomatik tarar, "
+        "makalelerin özetlerini okuyup **sizin cümlenizi en güçlü destekleyen makaleleri** yukarıdan aşağıya sıralar ve "
+        "**kopyalamaya hazır Kaynakça künyesini** verir."
     )
 
-    col1, col2 = st.columns(2)
-    with col1:
-        single_claim = st.text_area(
-            "📌 1. Sizin Makalenizde Yazdığınız Cümle:",
-            value="Dünyanın yüzde 90'nı sudan oluşur [1].",
-            height=140,
+    claim_input_t2 = st.text_area(
+        "📌 Makalenizdeki Atıf Cümlesini Yazın (Türkçe veya İngilizce):",
+        value=(
+            "Siklofosfamid maruziyeti testiste oksidatif stresi artırarak "
+            "sperm motilitesini ve morfolojisini bozmaktadır."
+        ),
+        height=110,
+        placeholder="Örn: Derin öğrenme modelleri akciğer kanseri tespitinde yüksek doğruluk sağlamaktadır...",
+    )
+
+    opt_c1, opt_c2, opt_c3, opt_c4 = st.columns([1.2, 1.2, 1.3, 1.8], vertical_alignment="bottom")
+    with opt_c1:
+        max_papers_t2 = st.selectbox(
+            "İncelenecek Aday Makale:",
+            options=[6, 10, 15],
+            index=1,
+            help="Veritabanlarından çekilip yapay zekâ tarafından cümlenizle karşılaştırılacak makale sayısı.",
         )
-    with col2:
-        single_ref_text = st.text_area(
-            "📖 2. Kaynak Makaledeki Paragraf veya Özet (Türkçe veya İngilizce):",
-            value=(
-                "Bu çalışmada gezegenlerin atmosferik ve yüzey bileşenleri incelenmiştir. "
-                "Yüzde doksanı su olan dünyamız, sıvı hidrosfer tabakası sayesinde iklim dengesini korur. "
-                "Diğer karasal gezegenlerde bu oran oldukça düşüktür."
-            ),
-            height=140,
+    with opt_c2:
+        min_year_choice = st.selectbox(
+            "Yayın Yılı Filtresi:",
+            options=["Tüm Yıllar", "2015 ve sonrası", "2018 ve sonrası", "2020 ve sonrası", "2022 ve sonrası"],
+            index=0,
+        )
+    with opt_c3:
+        only_oa_t2 = st.checkbox(
+            "📄 Sadece Açık Erişim (PDF)",
+            value=False,
+            help="İşaretlenirse yalnızca ücretsiz PDF linki bulunan makaleleri listeler.",
+        )
+    with opt_c4:
+        search_btn_t2 = st.button(
+            "🔎 Bu Cümleye Uygun Akademik Makaleleri Araştır ve Sırala",
+            type="primary",
+            width="stretch",
         )
 
-    if st.button("🔍 Bu Cümle Kaynak Paragrafla Uyumlu mu Kontrol Et", type="primary", width="stretch"):
-        verifier = get_verifier(selected_model)
-        dummy_paper = FetchedPaper(
-            ref_id="TEKİL",
-            query_title="Manuel Girilen Kaynak Metni",
-            query_doi=None,
-            exists_online=True,
-            title_match_score=1.0,
-            verified_title="Manuel Girilen Kaynak Metni",
-            abstract=single_ref_text,
-        )
-        res = verifier.verify_claim_against_paper(single_claim, dummy_paper)
-        v_info = get_verdict_info(res.verdict)
-
-        if v_info["group"] == "ok":
-            st.success(
-                f"**Neden:** {v_info['why']}\n\n**Detay:** {res.explanation}",
-                title=f"{v_info['badge']} (Konu Benzerliği: %{res.semantic_similarity * 100:.0f})",
-            )
-        elif v_info["group"] == "error":
-            st.error(
-                f"**Neden:** {v_info['why']}\n\n**Detay:** {res.explanation}\n\n**Ne Yapmalısınız:** {v_info['action']}",
-                title=f"{v_info['badge']} (Konu Benzerliği: %{res.semantic_similarity * 100:.0f})",
-            )
+    if search_btn_t2:
+        if not claim_input_t2 or len(claim_input_t2.strip()) < 8:
+            st.warning("Lütfen araştırılacak anlamlı bir akademik cümle yazın.")
         else:
-            st.warning(
-                f"**Neden:** {v_info['why']}\n\n**Detay:** {res.explanation}\n\n**Ne Yapmalısınız:** {v_info['action']}",
-                title=f"{v_info['badge']} (Konu Benzerliği: %{res.semantic_similarity * 100:.0f})",
+            year_map = {
+                "Tüm Yıllar": None,
+                "2015 ve sonrası": 2015,
+                "2018 ve sonrası": 2018,
+                "2020 ve sonrası": 2020,
+                "2022 ve sonrası": 2022,
+            }
+            year_from_val = year_map.get(min_year_choice)
+
+            fetcher_t2 = AcademicFetcher(enable_scihub=enable_scihub, enable_jina=enable_jina)
+            verifier_t2 = get_verifier(selected_model)
+
+            with st.status("🌐 Akademik veritabanları taranıyor ve cümlenizle karşılaştırılıyor...", expanded=True) as status_box:
+                st.write("1️⃣ Cümlenizdeki bilimsel kavramlar analiz ediliyor ve OpenAlex, Semantic Scholar, PubMed taranıyor...")
+                candidates_t2, query_meta_t2 = fetcher_t2.search_candidate_papers_for_claim(
+                    claim_sentence=claim_input_t2.strip(),
+                    max_candidates=int(max_papers_t2),
+                    year_from=year_from_val,
+                    only_open_access=only_oa_t2,
+                    ollama_model=selected_model,
+                )
+
+                st.write(
+                    f"🔎 **Üretilen Arama Terimleri:** `{query_meta_t2.get('english_query', '')}` | "
+                    f"**Bulunan Aday Makale:** `{len(candidates_t2)}` adet"
+                )
+
+                if not candidates_t2:
+                    status_box.update(label="❌ Uygun makale bulunamadı.", state="error", expanded=True)
+                    st.session_state["tab2_ranked_results"] = []
+                else:
+                    # Önce tüm adayları hızlı Çok Dilli Semantik Vektör benzerliği ile sırala,
+                    # ardından en güçlü max_papers_t2 tanesini tam NLI/LLM denetiminden geçir.
+                    st.write("2️⃣ Aday makalelerin özetleri okunuyor ve cümlenizle anlam uyumu hesaplanıyor...")
+                    pre_scored: List[Tuple[float, FetchedPaper]] = []
+                    for cand_p in candidates_t2:
+                        top_ev = verifier_t2.retrieve_top_evidence(
+                            claim_input_t2.strip(), cand_p.combined_evidence_text, top_k=2
+                        )
+                        best_sim = top_ev[0].semantic_score if top_ev else 0.0
+                        pre_scored.append((best_sim, cand_p))
+
+                    pre_scored.sort(key=lambda x: x[0], reverse=True)
+                    shortlist = [p for _, p in pre_scored[: int(max_papers_t2)]]
+
+                    ranked_items: List[Dict[str, Any]] = []
+                    prog_t2 = st.progress(0, text="Makaleler cümlenizle tek tek karşılaştırılıyor...")
+                    for idx_p, cand_paper in enumerate(shortlist, start=1):
+                        prog_t2.progress(
+                            idx_p / len(shortlist),
+                            text=f"({idx_p}/{len(shortlist)}) İnceleniyor: {cand_paper.verified_title[:75]}...",
+                        )
+                        v_res = verifier_t2.verify_claim_against_paper(
+                            claim_sentence=claim_input_t2.strip(),
+                            paper=cand_paper,
+                            citation_id=f"FIND_{idx_p}",
+                            marker=f"[{idx_p}]",
+                        )
+
+                        # Sıralama puanı: Tam Destekleyenler en üstte, sonra Özet Uyumlu, sonra Konu Benzerliği ve Atıf Sayısı
+                        verdict_weight = {
+                            "DESTEKLENİYOR": 3.0,
+                            "KISMEN_DESTEKLENİYOR": 2.0,
+                            "KANIT_YETERSİZ": 1.0,
+                            "ÇELİŞİYOR": 0.2,
+                        }.get(v_res.verdict, 0.5)
+                        citation_bonus = min(0.25, (cand_paper.citation_count / 500.0) * 0.25)
+                        rank_score = verdict_weight + float(v_res.semantic_similarity) + citation_bonus
+
+                        ranked_items.append({
+                            "rank_score": rank_score,
+                            "paper": cand_paper,
+                            "result": v_res,
+                        })
+
+                    ranked_items.sort(key=lambda x: x["rank_score"], reverse=True)
+                    st.session_state["tab2_ranked_results"] = ranked_items
+                    st.session_state["tab2_last_claim"] = claim_input_t2.strip()
+                    st.session_state["tab2_query_meta"] = query_meta_t2
+                    status_box.update(
+                        label=f"✅ Araştırma tamamlandı! Cümlenize en uygun {len(ranked_items)} gerçek akademik makale sıralandı.",
+                        state="complete",
+                        expanded=False,
+                    )
+
+    if st.session_state.get("tab2_ranked_results"):
+        ranked_list: List[Dict[str, Any]] = st.session_state["tab2_ranked_results"]
+        q_meta: Dict[str, str] = st.session_state.get("tab2_query_meta", {})
+        last_claim_str: str = st.session_state.get("tab2_last_claim", "")
+
+        sup_n_t2 = sum(1 for item in ranked_list if item["result"].verdict in ("DESTEKLENİYOR", "KISMEN_DESTEKLENİYOR"))
+        con_n_t2 = sum(1 for item in ranked_list if item["result"].verdict == "ÇELİŞİYOR")
+
+        st.divider()
+        st.markdown(f"#### 📚 Cümleniz İçin Bulunan ve Sıralanan Akademik Makaleler ({len(ranked_list)} Makale)")
+        st.caption(
+            f"**Aranan Cümle:** *\"{last_claim_str}\"* | "
+            f"**Uluslararası Arama Terimleri:** `{q_meta.get('english_query', '-')}` | "
+            f"**Cümlenizi Destekleyen / Uyumlu Makale:** `{sup_n_t2}` adet"
+        )
+
+        for rank_idx, item in enumerate(ranked_list, start=1):
+            fp: FetchedPaper = item["paper"]
+            vr: VerificationResult = item["result"]
+            cit_fmt = _format_citation_strings(fp, idx=rank_idx)
+
+            if vr.verdict == "DESTEKLENİYOR":
+                badge_t2 = "✅ CÜMLENİZİ TAM DESTEKLİYOR"
+                why_t2 = "Bu makalenin bulguları yazdığınız cümleyi doğrudan destekliyor. Güvenle atıf yapabilirsiniz."
+            elif vr.verdict == "KISMEN_DESTEKLENİYOR":
+                badge_t2 = "☑️ CÜMLENİZLE UYUMLU (Özet Düzeyinde Destekliyor)"
+                why_t2 = "Bu makalenin konusu ve yönü cümlenizle örtüşüyor. Kaynak olarak kullanmaya uygundur."
+            elif vr.verdict == "ÇELİŞİYOR":
+                badge_t2 = "❌ DİKKAT: BU MAKALE CÜMLENİZLE ÇELİŞİYOR"
+                why_t2 = "Bu makale aynı konuyu inceliyor ancak sizin cümlenizin tersi yönde bir bulgu veya farklı bir sayı bildiriyor."
+            else:
+                badge_t2 = "🟡 AYNI KONUDA MAKALE (Yakın Literatür)"
+                why_t2 = "Bu makale cümlenizdeki bilimsel konuyla ilgili ancak özetinde spesifik iddianız doğrudan yer almıyor."
+
+            header_t2 = (
+                f"#{rank_idx} | {badge_t2} (Konu Benzerliği: %{vr.semantic_similarity * 100:.0f}) — "
+                f"{cit_fmt['intext_tr']} | {fp.verified_title[:85]}"
             )
 
-        if res.best_evidence:
-            st.info(res.best_evidence, title="📖 Kaynak Metinde Bulunan En İlgili Cümle")
-        if res.suggested_revision:
-            st.success(res.suggested_revision, title="✏️ Önerilen Düzeltilmiş Cümle")
+            with st.expander(header_t2, expanded=(rank_idx <= 3)):
+                left_c, right_c = st.columns([3, 2])
+                with left_c:
+                    st.markdown(f"**📖 Makale Başlığı:** **{fp.verified_title}**")
+                    st.markdown(
+                        f"**👥 Yazarlar:** {', '.join(fp.verified_authors[:6]) or 'Belirtilmemiş'} | "
+                        f"**📅 Yıl:** `{fp.verified_year or '-'}` | "
+                        f"**🏛️ Dergi:** *{fp.verified_venue or '-'}* | "
+                        f"**📈 Atıf Sayısı:** `{fp.citation_count}`"
+                    )
+
+                    if vr.verdict in ("DESTEKLENİYOR", "KISMEN_DESTEKLENİYOR"):
+                        st.success(f"**Neden Uygun?** {why_t2}\n\n**Yapay Zekâ Değerlendirmesi:** {vr.explanation}")
+                    elif vr.verdict == "ÇELİŞİYOR":
+                        st.error(f"**Neden Uygun Değil?** {why_t2}\n\n**Yapay Zekâ Değerlendirmesi:** {vr.explanation}")
+                    else:
+                        st.warning(f"**Durum:** {why_t2}\n\n**Yapay Zekâ Değerlendirmesi:** {vr.explanation}")
+
+                    if vr.best_evidence:
+                        st.info(
+                            vr.best_evidence,
+                            title=f"📌 Makalede Cümlenizi Destekleyen En Yakın Bölüm (Benzerlik: %{vr.semantic_similarity * 100:.0f})",
+                        )
+
+                    if fp.abstract:
+                        with st.expander("📄 Makalenin Tam Özetini (Abstract) Gör", expanded=False):
+                            st.write(fp.abstract)
+
+                with right_c:
+                    with st.container(border=True):
+                        st.markdown("**📋 Makalenize Kopyalamaya Hazır Atıf & Kaynakça**")
+                        st.caption("Sağ üstteki kopyala ikonuna tıklayarak doğrudan Word dosyanıza yapıştırabilirsiniz:")
+                        st.markdown("**1. Cümle Sonuna Yazılacak Metin İçi Atıf:**")
+                        st.code(
+                            f"Türkçe (APA): {cit_fmt['intext_tr']}\n"
+                            f"İngilizce   : {cit_fmt['intext_en']}\n"
+                            f"Numaralı    : {cit_fmt['intext_num']}",
+                            language="text",
+                        )
+                        st.markdown("**2. Kaynakça Listesine Eklenecek Künye (APA):**")
+                        st.code(cit_fmt["apa_ref"], language="text")
+                        st.markdown("**3. Numaralı Kaynakça Künyesi (Vancouver / IEEE):**")
+                        st.code(cit_fmt["vanc_ref"], language="text")
+
+                        links_md = []
+                        if fp.verified_doi:
+                            links_md.append(f"🔗 [DOI Sayfasını Aç](https://doi.org/{fp.verified_doi})")
+                        if fp.pmid:
+                            links_md.append(f"🏥 [PubMed Kaydı](https://pubmed.ncbi.nlm.nih.gov/{fp.pmid}/)")
+                        if fp.pdf_url:
+                            links_md.append(f"📄 [Ücretsiz PDF İndir]({fp.pdf_url})")
+                        if links_md:
+                            st.markdown(" &nbsp;|&nbsp; ".join(links_md))
 
 
 # ===========================================================================

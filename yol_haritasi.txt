@@ -519,6 +519,16 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
     3. Kaldığı Yerden Devam Etme ve Üzerine Ekleme (`merge_verification_results`):
        * Yarım kalmış veya parça parça yapılan analizlerde "⏭️ Kaldığım Yerden Devam Et — Sadece Doğrulanmamış Kalan X Atıfı Tamamla" seçeneği ve seçim tablosunda "✅ Doğrulandı / ⏳ Bekliyor" durumu ile "⏳ Doğrulanmamış İlk 10'u Seç" butonu eklendi.
 
+[✅ TAMAMLANDI] ADIM 30: 2. Sekme — "Cümleme Uygun Yayınlanmış Akademik Makale ve Atıf Bulucu"
+  - Güncellenen Dosyalar: academic_fetcher.py, app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Eski "Elle Paragraf Karşılaştırma" Kum Havuzunun İptali:
+       * Kullanıcı geri bildirimiyle 2. sekmedeki manuel paragraf yapıştırma ekranı tamamen kaldırıldı.
+    2. Çok Dilli Akademik Makale Arama ve Sıralama Motoru (`search_candidate_papers_for_claim`):
+       * Kullanıcının Türkçe veya İngilizce yazdığı tek bir cümledeki bilimsel kavramlar analiz edilerek (Türkçe-İngilizce bilimsel terim sözlüğü + yerel Ollama desteğiyle) OpenAlex, Semantic Scholar ve PubMed / Europe PMC veritabanlarında taranır.
+       * Bulunan aday makalelerin özetleri (`abstract`) ve ana bulguları (`tldr`) çekilip `SemanticRAGVerifier` ile kullanıcının cümlesiyle karşılaştırılır; cümleyi en güçlü destekleyen makaleler (`✅ CÜMLENİZİ TAM DESTEKLİYOR`, `☑️ CÜMLENİZLE UYUMLU`) en üstte olacak şekilde sıralanır.
+       * Her önerilen makale için tek tıkla kopyalanabilir **Metin İçi Atıf** (`(Yılmaz vd., 2022)` / `[1]`), **APA Kaynakça Künyesi**, **Vancouver Kaynakça Künyesi**, **Destekleyici Kanıt Paragrafı** ve **DOI / PubMed / Ücretsiz PDF** bağlantıları sunulur.
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
