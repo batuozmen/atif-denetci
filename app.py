@@ -947,56 +947,69 @@ with tab1:
                     st.session_state["selected_cit_indices"] = set(range(1, min(11, total_cits_n + 1)))
                 if "editor_ver" not in st.session_state:
                     st.session_state["editor_ver"] = 0
+                if "range_start_num" not in st.session_state or not (1 <= int(st.session_state["range_start_num"]) <= max(1, total_cits_n)):
+                    st.session_state["range_start_num"] = 1
+                if "range_end_num" not in st.session_state or not (1 <= int(st.session_state["range_end_num"]) <= max(1, total_cits_n)):
+                    st.session_state["range_end_num"] = min(10, max(1, total_cits_n))
+
+                def _apply_num_range_to_table():
+                    s_val = int(st.session_state.get("range_start_num", 1))
+                    e_val = int(st.session_state.get("range_end_num", 1))
+                    lo, hi = min(s_val, e_val), max(s_val, e_val)
+                    st.session_state["selected_cit_indices"] = set(range(lo, hi + 1))
+                    st.session_state["editor_ver"] = st.session_state.get("editor_ver", 0) + 1
+
+                def _select_all_cits():
+                    st.session_state["range_start_num"] = 1
+                    st.session_state["range_end_num"] = max(1, total_cits_n)
+                    st.session_state["selected_cit_indices"] = set(range(1, total_cits_n + 1))
+                    st.session_state["editor_ver"] = st.session_state.get("editor_ver", 0) + 1
+
+                def _clear_all_cits():
+                    st.session_state["selected_cit_indices"] = set()
+                    st.session_state["editor_ver"] = st.session_state.get("editor_ver", 0) + 1
 
                 st.caption(
-                    "💡 **Bu mod ne işe yarar?** Tüm makaleyi tek seferde beklemek yerine istediğiniz bir aralığı (örneğin **1 ile 15 arası** veya **doğrulanmamış ilk 10 atıfı**) "
-                    "seçip parça parça denetlemenizi sağlar. Seçtiğiniz aralık doğrulandığında önceki sonuçlarınızın üzerine eklenir."
+                    "💡 **Bu mod ne işe yarar?** Tüm makaleyi tek seferde beklemek yerine istediğiniz bir atıf numarası aralığını (örneğin **1 ile 20 arası**) "
+                    "sayı girerek veya tablodan tek tek işaretleyerek parça parça denetlemenizi sağlar. Sayı kutularına değer girdiğiniz anda tablodaki ilgili atıflar **otomatik olarak seçilir**."
                 )
 
-                # Tek satırda sade aralık seçici + Başlat butonu
-                bar1, bar2, bar3, bar4 = st.columns([1.6, 1.3, 1.1, 1.4], vertical_alignment="bottom")
+                # Tek satırda sade aralık seçici (Başlangıç No + Bitiş No + Tümünü Seç + Seçilenleri Temizle + Denetle)
+                bar1, bar2, bar3, bar4, bar5 = st.columns([0.9, 0.9, 1.0, 1.15, 1.45], vertical_alignment="bottom")
                 with bar1:
-                    quick_preset = st.selectbox(
-                        "Hızlı Seçim Şablonu:",
-                        options=[
-                            "Özel Aralık (Yan Çubuktan Seç)",
-                            "⏳ Doğrulanmamış İlk 10 Atıf",
-                            "⏳ Doğrulanmamış İlk 25 Atıf",
-                            f"✅ Tüm Atıflar (1 – {total_cits_n})",
-                            "🧹 Seçimi Temizle",
-                        ],
-                        index=0,
-                        help="Hazır bir grup seçebilir veya yan taraftaki kaydırma çubuğuyla özel numara aralığı belirleyebilirsiniz.",
+                    st.number_input(
+                        "Başlangıç Atıf No:",
+                        min_value=1,
+                        max_value=max(1, total_cits_n),
+                        step=1,
+                        key="range_start_num",
+                        on_change=_apply_num_range_to_table,
+                        help="Denetlemeye başlamak istediğiniz ilk atıf numarasını yazın. Yazdığınız anda aşağıdaki tabloda otomatik seçilir.",
                     )
                 with bar2:
-                    range_vals = st.slider(
-                        "Atıf Numarası Aralığı:",
+                    st.number_input(
+                        "Bitiş Atıf No:",
                         min_value=1,
-                        max_value=max(2, total_cits_n),
-                        value=(1, min(10, max(2, total_cits_n))),
+                        max_value=max(1, total_cits_n),
                         step=1,
-                        help="Denetlemek istediğiniz başlangıç ve bitiş atıf numaralarını sürükleyerek seçin.",
+                        key="range_end_num",
+                        on_change=_apply_num_range_to_table,
+                        help="Denetlemenin biteceği son atıf numarasını yazın. Yazdığınız anda aşağıdaki tabloda otomatik seçilir.",
                     )
                 with bar3:
-                    if st.button(
-                        ":material/check_box: Seçimi Tabloya Uygula",
+                    st.button(
+                        f":material/select_all: Tümünü Seç ({total_cits_n})",
                         width="stretch",
-                        help="Belirlediğiniz aralığı aşağıdaki tabloda otomatik işaretler.",
-                    ):
-                        if quick_preset.startswith("⏳ Doğrulanmamış İlk 10"):
-                            idxs = [i for i, c_o in enumerate(all_cits, start=1) if c_o.citation_id not in done_cit_ids][:10]
-                            st.session_state["selected_cit_indices"] = set(idxs)
-                        elif quick_preset.startswith("⏳ Doğrulanmamış İlk 25"):
-                            idxs = [i for i, c_o in enumerate(all_cits, start=1) if c_o.citation_id not in done_cit_ids][:25]
-                            st.session_state["selected_cit_indices"] = set(idxs)
-                        elif quick_preset.startswith("✅"):
-                            st.session_state["selected_cit_indices"] = set(range(1, total_cits_n + 1))
-                        elif quick_preset.startswith("🧹"):
-                            st.session_state["selected_cit_indices"] = set()
-                        else:
-                            st.session_state["selected_cit_indices"] = set(range(range_vals[0], range_vals[1] + 1))
-                        st.session_state["editor_ver"] += 1
-                        st.rerun()
+                        on_click=_select_all_cits,
+                        help="Makaledeki tüm atıfları tek tıkla tabloda işaretler.",
+                    )
+                with bar4:
+                    st.button(
+                        ":material/clear_all: Seçilenleri Temizle",
+                        width="stretch",
+                        on_click=_clear_all_cits,
+                        help="Tablodaki tüm işaretleri kaldırarak seçimi sıfırlar.",
+                    )
 
                 current_sel_set = st.session_state["selected_cit_indices"]
                 editor_rows = []
@@ -1040,7 +1053,7 @@ with tab1:
                 citations_to_run = [all_cits[i - 1] for i in selected_indices]
                 needed_unique_refs = len({c.matched_ref_id for c in citations_to_run if c.matched_ref_id})
 
-                with bar4:
+                with bar5:
                     run_btn = st.button(
                         f":material/play_arrow: Seçilen {len(citations_to_run)} Atıfı Denetle",
                         type="primary",

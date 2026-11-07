@@ -551,6 +551,15 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
        * `first_sent[:180]` ve `title[:95]` karakter kırpmaları tamamen kaldırıldı; cümlelerin ve başlıkların tamamı tablolara eksiksiz aktarıldı.
        * Sütun adı "Yakalandığı Metin İçi Cümle (Eşleşme Kanıtı)" olarak netleştirildi, tablonun ne işe yaradığı üst bilgi notuyla açıklandı ve `row_height` + `column_config` ile okunabilirlik artırıldı.
 
+[✅ TAMAMLANDI] ADIM 33: 3. Adım Aralık Seçici Sadeleştirmesi (Doğrudan Sayı Girişi ve Otomatik Tablo Seçimi)
+  - Güncellenen Dosyalar: app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Karmaşık Seçim Öğelerinin Kaldırılması:
+       * "Hızlı Seçim Şablonu" açılır menüsü (`st.selectbox`), kaydırma çubuğu (`st.slider`) ve ara "Seçimi Tabloya Uygula" butonu tamamen kaldırıldı.
+    2. Doğrudan Sayı Girişiyle Otomatik Tablo Seçimi (`on_change`):
+       * "Başlangıç Atıf No" ve "Bitiş Atıf No" sayı kutuları (`st.number_input`) eklendi; kullanıcı sayı girdiği anda ekstra butona basmaya gerek kalmadan tablodaki ilgili atıflar otomatik olarak işaretlenir.
+       * Kontrol satırı yalnızca 4 temel eylemle sınırlandırıldı: Atıf Numarası Aralığı (`Başlangıç No` / `Bitiş No`), `Tümünü Seç`, `Seçilenleri Temizle` ve `Seçilen X Atıfı Denetle`.
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
