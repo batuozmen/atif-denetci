@@ -529,6 +529,17 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
        * Bulunan aday makalelerin özetleri (`abstract`) ve ana bulguları (`tldr`) çekilip `SemanticRAGVerifier` ile kullanıcının cümlesiyle karşılaştırılır; cümleyi en güçlü destekleyen makaleler (`✅ CÜMLENİZİ TAM DESTEKLİYOR`, `☑️ CÜMLENİZLE UYUMLU`) en üstte olacak şekilde sıralanır.
        * Her önerilen makale için tek tıkla kopyalanabilir **Metin İçi Atıf** (`(Yılmaz vd., 2022)` / `[1]`), **APA Kaynakça Künyesi**, **Vancouver Kaynakça Künyesi**, **Destekleyici Kanıt Paragrafı** ve **DOI / PubMed / Ücretsiz PDF** bağlantıları sunulur.
 
+[✅ TAMAMLANDI] ADIM 31: Şık, Sade ve Orantılı Arayüz Yenilemesi (UI/UX Redesign)
+  - Güncellenen Dosyalar: .streamlit/config.toml, app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Profesyonel Tema ve Tipografi (`.streamlit/config.toml`):
+       * Google Fonts `Inter` ve `JetBrains Mono` yazı tipleri, yumuşatılmış köşe yarıçapları (`10px`), göz yormayan lacivert/slate renk paleti ve `1340px` ortalanmış sayfa genişliği uygulandı.
+    2. Kalabalık Kutuların ve Tam Ekran Yayılan Devasa Butonların Kaldırılması:
+       * Yan menü (`sidebar`) varsayılan olarak kapalı (`collapsed`) hale getirildi; sistem hazırlık durumu üst başlığın sağında şık bir `st.badge` olarak gösterildi.
+       * Üstteki kalabalık 3 tanıtım kutusu kaldırıldı; dosya yükleme, kayıtlı analiz açma ve örnek makale deneme seçenekleri tek bir `st.segmented_control` kartında birleştirildi.
+       * "3. Denetimi Başlat" bölümündeki 6 ayrı buton ve tam ekran uzanan devasa bar yerine; sağa hizalı, orantılı başlatma butonları, `st.segmented_control` mod seçici ve tek satırlık `Hızlı Seçim + Atıf Aralığı Slider + Seçilenleri Denetle` kontrol çubuğu kuruldu.
+       * 9 tikli filtreleme sistemi ve 3 ana özet kartı korunarak çok daha temiz, ferah ve kurumsal bir görünüme kavuşturuldu.
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
