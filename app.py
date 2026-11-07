@@ -229,7 +229,7 @@ def activate_loaded_session(
     for prefix in ("f1", "f3"):
         st.session_state[f"{prefix}_ALL"] = True
         for k in ALL_FILTER_KEYS:
-            st.session_state[f"{prefix}_{k}"] = True
+            st.session_state[f"{prefix}_{k}"] = False
 
 
 # ---------------------------------------------------------------------------
@@ -269,19 +269,26 @@ def _init_filter_state(prefix: str) -> None:
     if f"{prefix}_ALL" not in st.session_state:
         st.session_state[f"{prefix}_ALL"] = True
         for k in ALL_FILTER_KEYS:
-            st.session_state[f"{prefix}_{k}"] = True
+            st.session_state[f"{prefix}_{k}"] = False
 
 
 def _on_toggle_all(prefix: str) -> None:
-    val = bool(st.session_state.get(f"{prefix}_ALL", True))
-    for k in ALL_FILTER_KEYS:
-        st.session_state[f"{prefix}_{k}"] = val
+    if bool(st.session_state.get(f"{prefix}_ALL", False)):
+        for k in ALL_FILTER_KEYS:
+            st.session_state[f"{prefix}_{k}"] = False
 
 
 def _on_toggle_single(prefix: str) -> None:
-    st.session_state[f"{prefix}_ALL"] = all(
+    any_single = any(
         bool(st.session_state.get(f"{prefix}_{k}", False)) for k in ALL_FILTER_KEYS
     )
+    st.session_state[f"{prefix}_ALL"] = not any_single
+
+
+def _get_active_filter_codes(prefix: str) -> set[str]:
+    if bool(st.session_state.get(f"{prefix}_ALL", False)):
+        return set(ALL_FILTER_KEYS)
+    return {k for k in ALL_FILTER_KEYS if st.session_state.get(f"{prefix}_{k}", False)}
 
 
 def get_verdict_info(verdict: str, is_retracted: bool = False) -> Dict[str, str]:
@@ -1234,7 +1241,7 @@ with tab1:
                         args=("f1",),
                     )
 
-            active_codes_f1 = {k for k in ALL_FILTER_KEYS if st.session_state.get(f"f1_{k}", False)}
+            active_codes_f1 = _get_active_filter_codes("f1")
 
             filtered_results: List[VerificationResult] = [
                 r for r in results_list if _result_category_code(r) in active_codes_f1
@@ -1709,7 +1716,7 @@ with tab3:
                     args=("f3",),
                 )
 
-        active_codes_f3 = {k for k in ALL_FILTER_KEYS if st.session_state.get(f"f3_{k}", False)}
+        active_codes_f3 = _get_active_filter_codes("f3")
 
         rows = []
         md_lines = [

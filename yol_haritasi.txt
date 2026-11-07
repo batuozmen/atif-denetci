@@ -560,6 +560,15 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
        * "Başlangıç Atıf No" ve "Bitiş Atıf No" sayı kutuları (`st.number_input`) eklendi; kullanıcı sayı girdiği anda ekstra butona basmaya gerek kalmadan tablodaki ilgili atıflar otomatik olarak işaretlenir.
        * Kontrol satırı yalnızca 4 temel eylemle sınırlandırıldı: Atıf Numarası Aralığı (`Başlangıç No` / `Bitiş No`), `Tümünü Seç`, `Seçilenleri Temizle` ve `Seçilen X Atıfı Denetle`.
 
+[✅ TAMAMLANDI] ADIM 34: 9 Tikli Filtrelemede Varsayılan Tek Tik ("Tümünü Göster") ve Tek Tıkla Kategori Seçimi
+  - Güncellenen Dosyalar: app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Varsayılan Açılışta Sadece "📋 Tümünü Göster" Kutucuğunun İşaretli Gelmesi:
+       * `_init_filter_state` ve `activate_loaded_session` güncellenerek ilk açılışta yalnızca `📋 Tümünü Göster` tikli (`True`), diğer 8 kategori kutusu tiksiz (`False`) başlatıldı.
+    2. Akıllı Geçiş (`_on_toggle_single`, `_on_toggle_all`, `_get_active_filter_codes`):
+       * Kullanıcı 8 kategoriden herhangi birine tik attığı anda `📋 Tümünü Göster` tiki otomatik olarak kalkar ve yalnızca seçilen kategoriler listelenir.
+       * `📋 Tümünü Göster` tekrar işaretlendiğinde diğer 8 kategorideki tikler otomatik temizlenir ve tüm sonuçlar gösterilir.
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
