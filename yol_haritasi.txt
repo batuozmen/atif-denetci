@@ -504,6 +504,20 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
        * Sonuç kartlarının üstüne Hızlı Filtre (Tümü / 🔴 Sadece Düzeltilmesi Gerekenler / 🟡 Sadece Kontrol Edilecekler / 🟢 Sorunsuzlar) eklendi.
        * Her cümle kartının içine "1. Sizin Cümleniz", "2. Neden Bu Sonuç Çıktı ve Ne Yapmalısınız?", "3. Kaynak Makaledeki İlgili Paragraf" kutuları yerleştirildi.
        * Sol menüdeki teknik ayarlar "⚙️ Gelişmiş Teknik Ayarlar" açılır kutusuna taşındı.
+      * 9 tikli (📋 Tümünü Göster + 8 Sayaç) filtreleme kutucukları eklendi.
+
+[✅ TAMAMLANDI] ADIM 29: Analiz Kaydetme (.json), Dosyadan Geri Yükleme, Canlı Otomatik Kayıt ve Kaldığı Yerden Devam Etme
+  - Güncellenen Dosyalar: app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Analiz Paketini Bilgisayara İndirme (.json) ve Geri Yükleme:
+       * `serialize_session_bytes()` ve `deserialize_session_bytes()` eklendi.
+       * 1. Sekme ve 3. Sekmeye "💾 Bu Analiz Sonuçlarını Bilgisayarıma İndir (.json)" butonu eklendi.
+       * 1. Sekmenin en üstüne "💾 Kayıtlı Analiz Yükle (.json)" alanı eklendi; indirilen dosya yüklendiğinde tüm makale, kaynaklar, cümle kartları ve 9 tikli filtre 0.1 saniyede geri gelir.
+    2. Canlı Otomatik Kayıt (Auto-Save) ve Tek Tıkla Son Kayıtları Açma:
+       * Her bir atıf doğrulandığı anda sonuç `raporlar/oturumlar/<makale>.analiz.json` altına otomatik kaydedilir.
+       * Site yeniden açıldığında "Bilgisayarınızdaki Otomatik Kayıtlar" listesinden tek tıkla ("🔄 Kaydı Aç") veya aynı `.docx/.pdf` makalesi tekrar seçildiğinde otomatik olarak önceki analiz sonuçları geri yüklenir.
+    3. Kaldığı Yerden Devam Etme ve Üzerine Ekleme (`merge_verification_results`):
+       * Yarım kalmış veya parça parça yapılan analizlerde "⏭️ Kaldığım Yerden Devam Et — Sadece Doğrulanmamış Kalan X Atıfı Tamamla" seçeneği ve seçim tablosunda "✅ Doğrulandı / ⏳ Bekliyor" durumu ile "⏳ Doğrulanmamış İlk 10'u Seç" butonu eklendi.
 
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ

@@ -9,10 +9,12 @@ veya klasördeki `baslat.bat` dosyasına çift tıklayın.
 from __future__ import annotations
 
 import importlib
+import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 import pandas as pd
 import streamlit as st
@@ -26,8 +28,8 @@ importlib.reload(academic_fetcher)
 importlib.reload(rag_verifier)
 
 from document_parser import DocumentParser, ParsedManuscript, ReferenceItem, InTextCitation
-from academic_fetcher import AcademicFetcher, FetchedPaper
-from rag_verifier import SemanticRAGVerifier, VerificationResult
+from academic_fetcher import AcademicFetcher, FetchedPaper, AlternativePaper, safe_ref_token
+from rag_verifier import SemanticRAGVerifier, VerificationResult, EvidenceChunk
 
 
 # ---------------------------------------------------------------------------
@@ -57,6 +59,148 @@ def get_parser() -> DocumentParser:
 
 USER_PDF_DIR = Path(".cache/user_pdfs")
 USER_PDF_DIR.mkdir(parents=True, exist_ok=True)
+
+SESSIONS_DIR = Path("raporlar/oturumlar")
+SESSIONS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+# ---------------------------------------------------------------------------
+# Oturum Kaydetme, Geri Yükleme ve Kaldığı Yerden Devam Etme Yardımcıları
+# ---------------------------------------------------------------------------
+
+def _session_file_for_doc(filename: str) -> Path:
+    stem = safe_ref_token(Path(filename).stem, fallback="makale")
+    return SESSIONS_DIR / f"{stem}.analiz.json"
+
+
+def merge_verification_results(
+    all_citations: List[InTextCitation],
+    existing_results: List[VerificationResult],
+    new_results: List[VerificationResult],
+) -> List[VerificationResult]:
+    """Yeni doğrulanan atıfları önceki sonuçların üzerine yazar ve makale sırasını korur."""
+    by_id: Dict[str, VerificationResult] = {r.citation_id: r for r in existing_results}
+    for nr in new_results:
+        by_id[nr.citation_id] = nr
+
+    ordered: List[VerificationResult] = []
+    seen: set[str] = set()
+    for cit in all_citations:
+        if cit.citation_id in by_id:
+            ordered.append(by_id[cit.citation_id])
+            seen.add(cit.citation_id)
+    for cid, res in by_id.items():
+        if cid not in seen:
+            ordered.append(res)
+    return ordered
+
+
+def serialize_session_bytes(
+    parsed_doc: ParsedManuscript,
+    fetched_map: Dict[str, FetchedPaper],
+    verification_results: List[VerificationResult],
+) -> bytes:
+    """Tüm makale, çekilen kaynaklar ve doğrulama sonuçlarını tek bir JSON paketine dönüştürür."""
+    payload = {
+        "format_version": "1.0",
+        "saved_at": datetime.now().strftime("%d.%m.%Y %H:%M:%S"),
+        "filename": parsed_doc.filename,
+        "verified_count": len(verification_results),
+        "total_citations": len(parsed_doc.citations),
+        "parsed_doc": asdict(parsed_doc),
+        "fetched_map": {k: asdict(v) for k, v in fetched_map.items()},
+        "verification_results": [asdict(r) for r in verification_results],
+    }
+    return json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
+
+
+def save_session_to_disk(
+    parsed_doc: ParsedManuscript,
+    fetched_map: Dict[str, FetchedPaper],
+    verification_results: List[VerificationResult],
+) -> Optional[Path]:
+    """Analiz oturumunu raporlar/oturumlar/ klasörüne otomatik kaydeder."""
+    try:
+        target = _session_file_for_doc(parsed_doc.filename)
+        target.write_bytes(serialize_session_bytes(parsed_doc, fetched_map, verification_results))
+        return target
+    except Exception:
+        return None
+
+
+def deserialize_session_bytes(
+    raw_bytes: bytes,
+) -> tuple[ParsedManuscript, Dict[str, FetchedPaper], List[VerificationResult], str]:
+    """JSON analiz paketinden tüm veri nesnelerini eksiksiz geri oluşturur."""
+    data = json.loads(raw_bytes.decode("utf-8"))
+    saved_at = str(data.get("saved_at", "-"))
+    p_raw = data["parsed_doc"]
+
+    refs = [ReferenceItem(**r) for r in p_raw.get("references", [])]
+    ref_by_id = {r.ref_id: r for r in refs}
+
+    def _rebuild_cit(c_dict: Dict[str, Any]) -> InTextCitation:
+        c_copy = dict(c_dict)
+        m_id = c_copy.get("matched_ref_id")
+        c_copy["matched_reference"] = ref_by_id.get(m_id) if m_id else None
+        return InTextCitation(**c_copy)
+
+    cits = [_rebuild_cit(c) for c in p_raw.get("citations", [])]
+    ghosts = [_rebuild_cit(g) for g in p_raw.get("ghost_citations", [])]
+    orphans = [ReferenceItem(**o) for o in p_raw.get("orphan_references", [])]
+
+    parsed_doc = ParsedManuscript(
+        filename=p_raw.get("filename", data.get("filename", "makale.docx")),
+        total_chars=int(p_raw.get("total_chars", 0)),
+        body_text=p_raw.get("body_text", ""),
+        references_text=p_raw.get("references_text", ""),
+        references=refs,
+        citations=cits,
+        ghost_citations=ghosts,
+        orphan_references=orphans,
+        warnings=list(p_raw.get("warnings", [])),
+    )
+
+    fetched_map: Dict[str, FetchedPaper] = {}
+    for k, fp_dict in data.get("fetched_map", {}).items():
+        fp_copy = dict(fp_dict)
+        fp_copy.pop("has_full_text", None)
+        fp_copy.pop("has_abstract", None)
+        fp_copy.pop("full_text_length", None)
+        fetched_map[k] = FetchedPaper(**fp_copy)
+
+    results: List[VerificationResult] = []
+    for r_dict in data.get("verification_results", []):
+        r_copy = dict(r_dict)
+        r_copy["top_chunks"] = [EvidenceChunk(**ch) for ch in r_copy.get("top_chunks", [])]
+        r_copy["alternative_papers"] = [
+            AlternativePaper(**ap) for ap in r_copy.get("alternative_papers", [])
+        ]
+        results.append(VerificationResult(**r_copy))
+
+    return parsed_doc, fetched_map, results, saved_at
+
+
+def activate_loaded_session(
+    parsed_doc: ParsedManuscript,
+    fetched_map: Dict[str, FetchedPaper],
+    verification_results: List[VerificationResult],
+    notice_msg: str,
+) -> None:
+    """Geri yüklenen oturumu aktif session_state içine yerleştirir."""
+    st.session_state["restored_parsed_doc"] = parsed_doc
+    st.session_state["current_parsed_doc"] = parsed_doc
+    st.session_state["active_doc_name"] = parsed_doc.filename
+    st.session_state["fetched_map"] = fetched_map
+    st.session_state["verification_results"] = verification_results
+    st.session_state["selected_cit_indices"] = set(range(1, min(6, len(parsed_doc.citations) + 1)))
+    st.session_state["editor_ver"] = st.session_state.get("editor_ver", 0) + 1
+    st.session_state["session_restore_notice"] = notice_msg
+    # Tüm filtre tiklerini açık başlat
+    for prefix in ("f1", "f3"):
+        st.session_state[f"{prefix}_ALL"] = True
+        for k in ALL_FILTER_KEYS:
+            st.session_state[f"{prefix}_{k}"] = True
 
 
 # ---------------------------------------------------------------------------
@@ -214,13 +358,18 @@ def render_reading_guide() -> None:
 
 
 def run_verification_pipeline(
+    parsed_doc: ParsedManuscript,
     citations_to_check: List[InTextCitation],
     selected_model: str,
     enable_scihub: bool,
     enable_jina: bool,
     enable_suggestions: bool,
+    existing_results: Optional[List[VerificationResult]] = None,
 ) -> tuple[List[VerificationResult], Dict[str, FetchedPaper]]:
-    """Seçilen atıfların kaynaklarını internetten çeker ve anlam doğrulamasını çalıştırır."""
+    """
+    Seçilen atıfların kaynaklarını internetten çeker, anlam doğrulamasını çalıştırır,
+    mevcut sonuçlarla birleştirir ve her adımda diske otomatik kaydeder (auto-save).
+    """
     fetcher = AcademicFetcher(enable_scihub=enable_scihub, enable_jina=enable_jina)
     verifier = get_verifier(selected_model)
 
@@ -266,34 +415,32 @@ def run_verification_pipeline(
                     text=f"🌐 1/2: Kaynak kontrol ediliyor [{done_r}/{total_r}]: {(r_it.title or r_it.raw_text)[:65]}...",
                 )
 
-    results: List[VerificationResult] = []
+    merged_results: List[VerificationResult] = list(existing_results or [])
     total_c = len(citations_to_check)
     for idx_c, cit in enumerate(citations_to_check, start=1):
         prog.progress(
             50 + int((idx_c / max(1, total_c)) * 50),
-            text=f"🧠 2/2: Cümle ve kaynak uyumu inceleniyor [{idx_c}/{total_c}]: {cit.marker}...",
+            text=f"🧠 2/2: Cümle ve kaynak uyumu inceleniyor [{idx_c}/{total_c}]: {cit.marker} (Otomatik kaydediliyor)...",
         )
         if cit.matched_ref_id is None or cit.matched_ref_id not in fetched_map:
             alt_list = fetcher.suggest_real_papers(cit.claim_sentence, top_k=3) if enable_suggestions else []
-            results.append(
-                VerificationResult(
-                    citation_id=cit.citation_id,
-                    marker=cit.marker,
-                    claim_sentence=cit.claim_sentence,
-                    context_text=cit.context_text,
-                    ref_id=None,
-                    verdict="HAYALET_ATIF",
-                    confidence_score=1.0,
-                    semantic_similarity=0.0,
-                    best_evidence="",
-                    explanation=(
-                        f"Metin içinde '{cit.marker}' olarak atıf yapılmış ancak makalenin "
-                        "sonundaki Kaynakça bölümünde bu kaynak yer almıyor."
-                    ),
-                    alternative_papers=alt_list,
-                    used_llm_model="Biçimsel Kontrol",
-                    decision_source="kural",
-                )
+            v_res = VerificationResult(
+                citation_id=cit.citation_id,
+                marker=cit.marker,
+                claim_sentence=cit.claim_sentence,
+                context_text=cit.context_text,
+                ref_id=None,
+                verdict="HAYALET_ATIF",
+                confidence_score=1.0,
+                semantic_similarity=0.0,
+                best_evidence="",
+                explanation=(
+                    f"Metin içinde '{cit.marker}' olarak atıf yapılmış ancak makalenin "
+                    "sonundaki Kaynakça bölümünde bu kaynak yer almıyor."
+                ),
+                alternative_papers=alt_list,
+                used_llm_model="Biçimsel Kontrol",
+                decision_source="kural",
             )
         else:
             p_obj = fetched_map[cit.matched_ref_id]
@@ -305,10 +452,17 @@ def run_verification_pipeline(
                 context_text=cit.context_text,
                 alternative_finder=fetcher if enable_suggestions else None,
             )
-            results.append(v_res)
 
-    prog.progress(100, text=f"✅ Denetim tamamlandı! Toplam {total_c} atıf incelendi.")
-    return results, fetched_map
+        merged_results = merge_verification_results(parsed_doc.citations, merged_results, [v_res])
+        st.session_state["fetched_map"] = fetched_map
+        st.session_state["verification_results"] = merged_results
+        save_session_to_disk(parsed_doc, fetched_map, merged_results)
+
+    prog.progress(
+        100,
+        text=f"✅ Denetim tamamlandı ve otomatik kaydedildi! ({len(merged_results)}/{len(parsed_doc.citations)} atıf hazır)",
+    )
+    return merged_results, fetched_map
 
 
 # ---------------------------------------------------------------------------
@@ -452,17 +606,85 @@ tab1, tab2, tab3 = st.tabs([
 # ===========================================================================
 
 with tab1:
-    st.subheader("1️⃣ Makale Dosyanızı Yükleyin")
-    col_up, col_demo = st.columns([3, 1], vertical_alignment="bottom")
-    with col_up:
-        uploaded_manuscript = st.file_uploader(
-            "Makalenizi buradan seçin (.docx, .pdf veya .txt):",
-            type=["docx", "pdf", "txt"],
+    st.subheader("1️⃣ Makale Dosyanızı Yükleyin veya Kayıtlı Analizden Devam Edin")
+
+    up_left, up_right = st.columns(2)
+
+    with up_left.container(border=True, height="stretch"):
+        st.markdown("**📄 A) Yeni Makale Dosyası Yükle (`.docx`, `.pdf`, `.txt`)**")
+        st.caption(
+            "Makalenizi ilk kez yükleyecekseniz buradan seçin. "
+            "(Daha önce analiz ettiğiniz bir makaleyi seçerseniz kayıtlı sonuçları otomatik geri yüklenir)."
         )
-    with col_demo:
+        uploaded_manuscript = st.file_uploader(
+            "Makale dosyanızı seçin:",
+            type=["docx", "pdf", "txt"],
+            key="manuscript_file_uploader",
+        )
         load_demo = st.button("🧪 Örnek Makaleyle Dene", width="stretch")
 
+    with up_right.container(border=True, height="stretch"):
+        st.markdown("**💾 B) Kayıtlı Analiz Yükle / Kaldığın Yerden Devam Et**")
+        st.caption(
+            "20-30 dakika tekrar beklememek için daha önce indirdiğiniz `.json` analiz dosyasını "
+            "yükleyin veya otomatik kaydedilen son analizlerinizden birini tek tıkla açın."
+        )
+        uploaded_session_json = st.file_uploader(
+            "İndirdiğiniz analiz dosyasını (`.json`) buraya yükleyin:",
+            type=["json"],
+            key="session_json_uploader",
+        )
+        if uploaded_session_json is not None:
+            sig = f"{uploaded_session_json.name}_{uploaded_session_json.size}"
+            if st.session_state.get("last_uploaded_json_sig") != sig:
+                try:
+                    p_doc, f_m, v_res, s_at = deserialize_session_bytes(uploaded_session_json.getvalue())
+                    st.session_state["last_uploaded_json_sig"] = sig
+                    activate_loaded_session(
+                        p_doc,
+                        f_m,
+                        v_res,
+                        f"💾 '{p_doc.filename}' makalesinin analiz sonuçları ({len(v_res)}/{len(p_doc.citations)} atıf, Kayıt: {s_at}) dosyadan 0 saniyede geri yüklendi!",
+                    )
+                except Exception as exc:
+                    st.error(f"Analiz dosyası okunamadı: {exc}")
+
+        # Otomatik kaydedilen yerel oturumları listele
+        saved_files = sorted(SESSIONS_DIR.glob("*.analiz.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+        if saved_files:
+            session_labels: Dict[str, Path] = {}
+            for sf in saved_files[:15]:
+                try:
+                    meta = json.loads(sf.read_text(encoding="utf-8"))
+                    lbl = (
+                        f"📂 {meta.get('filename', sf.stem)} — "
+                        f"{meta.get('verified_count', 0)}/{meta.get('total_citations', '?')} Atıf Doğrulandı "
+                        f"({meta.get('saved_at', '')})"
+                    )
+                except Exception:
+                    lbl = f"📂 {sf.name}"
+                session_labels[lbl] = sf
+
+            sel_col, btn_col = st.columns([3, 1.4], vertical_alignment="bottom")
+            with sel_col:
+                chosen_saved_label = st.selectbox(
+                    "Bilgisayarınızdaki Otomatik Kayıtlar:",
+                    options=list(session_labels.keys()),
+                )
+            with btn_col:
+                if st.button("🔄 Kaydı Aç", type="primary", width="stretch"):
+                    sf_path = session_labels[chosen_saved_label]
+                    p_doc, f_m, v_res, s_at = deserialize_session_bytes(sf_path.read_bytes())
+                    activate_loaded_session(
+                        p_doc,
+                        f_m,
+                        v_res,
+                        f"🔄 '{p_doc.filename}' makalesinin kayıtlı analizi ({len(v_res)}/{len(p_doc.citations)} atıf, Kayıt: {s_at}) anında geri yüklendi!",
+                    )
+                    st.rerun()
+
     if load_demo:
+        st.session_state.pop("restored_parsed_doc", None)
         st.session_state["manuscript_text"] = DEMO_MANUSCRIPT_TEXT
         st.session_state["manuscript_name"] = "ornek_tubitak_makalesi.txt"
 
@@ -470,23 +692,56 @@ with tab1:
     parsed_doc: ParsedManuscript | None = None
 
     if uploaded_manuscript is not None:
-        parsed_doc = parser.parse_file(
-            uploaded_manuscript.getvalue(), filename=uploaded_manuscript.name
-        )
+        up_sig = f"{uploaded_manuscript.name}_{uploaded_manuscript.size}"
+        if st.session_state.get("last_uploaded_doc_sig") != up_sig:
+            st.session_state["last_uploaded_doc_sig"] = up_sig
+            st.session_state.pop("restored_parsed_doc", None)
+            # Eğer bu makalenin raporlar/oturumlar/ altında otomatik kaydı varsa onu da otomatik geri yükle!
+            auto_file = _session_file_for_doc(uploaded_manuscript.name)
+            if auto_file.exists():
+                try:
+                    p_doc, f_m, v_res, s_at = deserialize_session_bytes(auto_file.read_bytes())
+                    activate_loaded_session(
+                        p_doc,
+                        f_m,
+                        v_res,
+                        f"⚡ '{p_doc.filename}' için daha önce kaydedilmiş analiz ({len(v_res)}/{len(p_doc.citations)} atıf, Tarih: {s_at}) otomatik olarak geri yüklendi! Baştan beklemenize gerek yok.",
+                    )
+                    parsed_doc = p_doc
+                except Exception:
+                    parsed_doc = parser.parse_file(
+                        uploaded_manuscript.getvalue(), filename=uploaded_manuscript.name
+                    )
+            else:
+                parsed_doc = parser.parse_file(
+                    uploaded_manuscript.getvalue(), filename=uploaded_manuscript.name
+                )
+        elif "restored_parsed_doc" in st.session_state:
+            parsed_doc = st.session_state["restored_parsed_doc"]
+        else:
+            parsed_doc = parser.parse_file(
+                uploaded_manuscript.getvalue(), filename=uploaded_manuscript.name
+            )
+    elif "restored_parsed_doc" in st.session_state:
+        parsed_doc = st.session_state["restored_parsed_doc"]
     elif "manuscript_text" in st.session_state:
         parsed_doc = parser.parse_text(
             st.session_state["manuscript_text"],
             filename=st.session_state.get("manuscript_name", "demo_makale.txt"),
         )
 
+    if st.session_state.get("session_restore_notice"):
+        st.success(st.session_state["session_restore_notice"], title="✅ Kayıtlı Analiz Hazır")
+
     if parsed_doc is not None:
-        # Yeni makale yüklendiyse seçim ve sonuç önbelleğini sıfırla
+        # Yeni (farklı) bir makale yüklendiyse seçim ve sonuç önbelleğini sıfırla
         if st.session_state.get("active_doc_name") != parsed_doc.filename:
             st.session_state["active_doc_name"] = parsed_doc.filename
             st.session_state["selected_cit_indices"] = set(range(1, min(6, len(parsed_doc.citations) + 1)))
             st.session_state["editor_ver"] = 0
             st.session_state["fetched_map"] = {}
             st.session_state.pop("verification_results", None)
+            st.session_state.pop("session_restore_notice", None)
 
         st.session_state["current_parsed_doc"] = parsed_doc
 
@@ -579,30 +834,57 @@ with tab1:
             st.dataframe(pd.DataFrame(proof_rows), hide_index=True)
 
         # -------------------------------------------------------------------
-        # ADIM 3: İNTERNET VE İÇERİK DOĞRULAMASI (TAM VEYA SEÇMELİ)
+        # ADIM 3: İNTERNET VE İÇERİK DOĞRULAMASI (TAM, KALDIĞI YERDEN VEYA SEÇMELİ)
         # -------------------------------------------------------------------
         st.divider()
         st.subheader("3️⃣ Kaynakların Gerçekliğini ve Cümle Uyumu Denetimini Başlatın")
         st.caption(
             "Burada kaynaklarınız internet veritabanlarından (CrossRef, PubMed, OpenAlex vb.) bulunur "
-            "ve makalenizde yazdığınız her bir cümlenin kaynak makaleyle **uyumlu olup olmadığı / çelişip çelişmediği** kontrol edilir."
+            "ve makalenizde yazdığınız her bir cümlenin kaynak makaleyle **uyumlu olup olmadığı / çelişip çelişmediği** kontrol edilir. "
+            "**Her atıf doğrulandığında sonuç otomatik kaydedilir.**"
         )
 
         all_cits = parsed_doc.citations
         total_cits_n = len(all_cits)
+        existing_res_list: List[VerificationResult] = st.session_state.get("verification_results", [])
+        done_cit_ids = {r.citation_id for r in existing_res_list}
+        remaining_cits = [c for c in all_cits if c.citation_id not in done_cit_ids]
+
+        if done_cit_ids:
+            st.info(
+                f"📊 **Mevcut İlerleme Durumu:** Toplam **{total_cits_n}** atıftan **{len(done_cit_ids)}** tanesi zaten doğrulandı ve hafızada hazır "
+                f"(**{len(remaining_cits)}** atıf henüz doğrulanmadı). Yeni seçeceğiniz atıflar eski sonuçları silmeden üzerine eklenir.",
+                title="💾 Kayıtlı Sonuçlar Mevcut",
+            )
+
+        radio_opts = []
+        if remaining_cits and done_cit_ids:
+            radio_opts.append(
+                f"⏭️ Kaldığım Yerden Devam Et — Sadece Doğrulanmamış Kalan {len(remaining_cits)} Atıfı Tamamla"
+            )
+        radio_opts.extend([
+            "🎯 Sadece Seçtiğim Atıfları veya Belirli Bir Aralığı Denetle (Mevcut sonuçların üzerine ekler)",
+            f"🚀 Tüm Makaleyi Denetle ({total_cits_n} atıfın tamamı)",
+        ])
 
         scope_choice = st.radio(
             "Hangi atıfları denetlemek istiyorsunuz?",
-            options=[
-                f"🚀 Tüm Makaleyi Denetle ({total_cits_n} atıfın tamamı)",
-                "🎯 Sadece Seçtiğim Atıfları veya Belirli Bir Aralığı Denetle (Örn: İlk 5 veya 1–20 arası — Daha Hızlı)",
-            ],
+            options=radio_opts,
             horizontal=True,
         )
 
         citations_to_run: List[InTextCitation] = []
 
-        if scope_choice.startswith("🚀"):
+        if scope_choice.startswith("⏭️"):
+            citations_to_run = remaining_cits
+            needed_unique_refs = len({c.matched_ref_id for c in citations_to_run if c.matched_ref_id})
+            run_btn = st.button(
+                f"⏭️ Kalan {len(citations_to_run)} Doğrulanmamış Atıfı ({needed_unique_refs} Kaynak Makale) Tamamla",
+                type="primary",
+                width="stretch",
+                disabled=(len(citations_to_run) == 0),
+            )
+        elif scope_choice.startswith("🚀"):
             citations_to_run = all_cits
             needed_unique_refs = len({c.matched_ref_id for c in citations_to_run if c.matched_ref_id})
             run_btn = st.button(
@@ -619,7 +901,7 @@ with tab1:
 
             with st.container(border=True):
                 st.markdown("**Hızlı Aralık Seçimi veya Listeden İşaretleme:**")
-                ctrl1, ctrl2, ctrl3, ctrl4, ctrl5 = st.columns([1.2, 1.2, 1.8, 1.4, 1.4], vertical_alignment="bottom")
+                ctrl1, ctrl2, ctrl3, ctrl4, ctrl5, ctrl6 = st.columns([1.0, 1.0, 1.5, 1.6, 1.2, 1.2], vertical_alignment="bottom")
                 with ctrl1:
                     r_start = st.number_input("Başlangıç No:", min_value=1, max_value=max(1, total_cits_n), value=1, step=1)
                 with ctrl2:
@@ -631,18 +913,26 @@ with tab1:
                         step=1,
                     )
                 with ctrl3:
-                    if st.button(f"🔢 {min(r_start, r_end)} – {max(r_start, r_end)} Arasını Seç", width="stretch"):
+                    if st.button(f"🔢 {min(r_start, r_end)} – {max(r_start, r_end)} Seç", width="stretch"):
                         s_i, e_i = min(int(r_start), int(r_end)), max(int(r_start), int(r_end))
                         st.session_state["selected_cit_indices"] = set(range(s_i, e_i + 1))
                         st.session_state["editor_ver"] += 1
                         st.rerun()
                 with ctrl4:
-                    if st.button(f"✅ Tümünü Seç ({total_cits_n})", width="stretch"):
-                        st.session_state["selected_cit_indices"] = set(range(1, total_cits_n + 1))
+                    if st.button("⏳ Doğrulanmamış İlk 10'u Seç", width="stretch"):
+                        unverified_idx = [
+                            i for i, c_o in enumerate(all_cits, start=1) if c_o.citation_id not in done_cit_ids
+                        ][:10]
+                        st.session_state["selected_cit_indices"] = set(unverified_idx)
                         st.session_state["editor_ver"] += 1
                         st.rerun()
                 with ctrl5:
-                    if st.button("🧹 Seçimi Temizle", width="stretch"):
+                    if st.button(f"✅ Tümü ({total_cits_n})", width="stretch"):
+                        st.session_state["selected_cit_indices"] = set(range(1, total_cits_n + 1))
+                        st.session_state["editor_ver"] += 1
+                        st.rerun()
+                with ctrl6:
+                    if st.button("🧹 Temizle", width="stretch"):
                         st.session_state["selected_cit_indices"] = set()
                         st.session_state["editor_ver"] += 1
                         st.rerun()
@@ -659,6 +949,7 @@ with tab1:
                     editor_rows.append({
                         "Seç": idx_c in current_sel_set,
                         "Atıf No": idx_c,
+                        "Durum": "✅ Doğrulandı" if c_obj.citation_id in done_cit_ids else "⏳ Bekliyor",
                         "Atıf İşareti": c_obj.marker,
                         "Eşleşen Kaynak": ref_summary,
                         "Makalenizdeki Cümle": c_obj.claim_sentence,
@@ -669,10 +960,11 @@ with tab1:
                     key=f"cit_selector_{parsed_doc.filename}_{st.session_state['editor_ver']}",
                     hide_index=True,
                     height=280,
-                    disabled=["Atıf No", "Atıf İşareti", "Eşleşen Kaynak", "Makalenizdeki Cümle"],
+                    disabled=["Atıf No", "Durum", "Atıf İşareti", "Eşleşen Kaynak", "Makalenizdeki Cümle"],
                     column_config={
                         "Seç": st.column_config.CheckboxColumn("☑️ Seç", default=False),
                         "Atıf No": st.column_config.NumberColumn("No", width="small"),
+                        "Durum": st.column_config.TextColumn("Durum", width="small"),
                         "Atıf İşareti": st.column_config.TextColumn("Atıf İşareti", width="small"),
                         "Eşleşen Kaynak": st.column_config.TextColumn("Kaynakçadaki Karşılığı", width="large"),
                         "Makalenizdeki Cümle": st.column_config.TextColumn("Makalenizdeki İddia Cümlesi", width="large"),
@@ -687,7 +979,7 @@ with tab1:
                 needed_unique_refs = len({c.matched_ref_id for c in citations_to_run if c.matched_ref_id})
 
             run_btn = st.button(
-                f"🚀 Seçilen {len(citations_to_run)} Atıfı ({needed_unique_refs} Kaynak Makale) Denetle",
+                f"🚀 Seçilen {len(citations_to_run)} Atıfı ({needed_unique_refs} Kaynak Makale) Denetle ve Kaydet",
                 type="primary",
                 width="stretch",
                 disabled=(len(citations_to_run) == 0),
@@ -695,24 +987,42 @@ with tab1:
 
         if run_btn and citations_to_run:
             results_out, fetched_out = run_verification_pipeline(
+                parsed_doc=parsed_doc,
                 citations_to_check=citations_to_run,
                 selected_model=selected_model,
                 enable_scihub=enable_scihub,
                 enable_jina=enable_jina,
                 enable_suggestions=enable_suggestions,
+                existing_results=existing_res_list,
             )
             st.session_state["verification_results"] = results_out
             st.session_state["fetched_map"] = fetched_out
+            st.rerun()
 
         # -------------------------------------------------------------------
-        # ADIM 4: DENETİM SONUÇLARI (3 AÇIKLAMALI ÖZET KUTUSU + FİLTRE + KARTLAR)
+        # ADIM 4: DENETİM SONUÇLARI (KAYDETME ÇUBUĞU + 3 ÖZET KUTUSU + FİLTRE + KARTLAR)
         # -------------------------------------------------------------------
         if "verification_results" in st.session_state and st.session_state["verification_results"]:
             results_list: List[VerificationResult] = st.session_state["verification_results"]
             f_map: Dict[str, FetchedPaper] = st.session_state.get("fetched_map", {})
 
             st.divider()
-            st.subheader(f"4️⃣ Denetim Sonuçları Özeti ({len(results_list)} Atıf İncelendi)")
+            hdr_left, hdr_right = st.columns([2.2, 1.3], vertical_alignment="center")
+            with hdr_left:
+                st.subheader(
+                    f"4️⃣ Denetim Sonuçları Özeti ({len(results_list)} / {len(parsed_doc.citations)} Atıf İncelendi)"
+                )
+            with hdr_right:
+                session_bytes_t1 = serialize_session_bytes(parsed_doc, f_map, results_list)
+                safe_dl_stem = safe_ref_token(Path(parsed_doc.filename).stem, fallback="makale")
+                st.download_button(
+                    "💾 Bu Analiz Sonuçlarını Bilgisayarıma İndir (.json — Tekrar Yüklemek İçin)",
+                    data=session_bytes_t1,
+                    file_name=f"{safe_dl_stem}_analiz_kaydi.json",
+                    mime="application/json",
+                    type="primary",
+                    width="stretch",
+                )
 
             # Alt kırılım sayıları
             cnt_sup = sum(1 for r in results_list if r.verdict == "DESTEKLENİYOR" and not r.is_retracted)
@@ -1208,8 +1518,9 @@ with tab3:
 
         csv_bytes = df_report.to_csv(index=False).encode("utf-8-sig")
         md_bytes = "\n".join(md_lines).encode("utf-8")
+        cur_p_doc: Optional[ParsedManuscript] = st.session_state.get("current_parsed_doc")
 
-        dl_col1, dl_col2 = st.columns(2)
+        dl_col1, dl_col2, dl_col3 = st.columns(3)
         with dl_col1:
             st.download_button(
                 "📥 Excel Uyumlu Tablo Olarak İndir (.csv)",
@@ -1226,3 +1537,15 @@ with tab3:
                 mime="text/markdown",
                 width="stretch",
             )
+        with dl_col3:
+            if cur_p_doc is not None:
+                s_bytes_t3 = serialize_session_bytes(cur_p_doc, f_map_t3, results_list_t3)
+                s_stem_t3 = safe_ref_token(Path(cur_p_doc.filename).stem, fallback="makale")
+                st.download_button(
+                    "💾 Analiz Kaydını İndir (.json — Daha Sonra Yüklemek İçin)",
+                    data=s_bytes_t3,
+                    file_name=f"{s_stem_t3}_analiz_kaydi.json",
+                    mime="application/json",
+                    type="primary",
+                    width="stretch",
+                )
