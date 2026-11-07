@@ -561,26 +561,28 @@ with st.sidebar:
 
 
 # ---------------------------------------------------------------------------
-# Üst Başlık (Sade, Şık ve Tek Satırda)
+# Üst Başlık ve Sistemin Değerini Öne Çıkaran Karşılama Alanı
 # ---------------------------------------------------------------------------
 
-top_left, top_right = st.columns([3.5, 1.2], vertical_alignment="center")
+top_left, top_right = st.columns([3.4, 1.2], vertical_alignment="center")
 with top_left:
-    st.title(":material/school: Akademik Atıf ve Kaynakça Denetçisi")
-    st.caption(
-        "Makalenizdeki atıf–kaynakça uyumunu denetleyin, cümlelerinizin kaynaklarla çelişip çelişmediğini kontrol edin "
-        "veya yazdığınız cümlelere uygun gerçek akademik makaleler bulun."
+    st.title(":material/school: Akademik Makale, Kaynakça ve Semantik Atıf Denetçisi")
+    st.markdown(
+        "Hakemli dergi ve TÜBİTAK proje standartlarında **üç aşamalı akademik denetim asistanınız:** "
+        "Makalenizdeki **metin içi atıf–kaynakça bütünlüğünü** saniyeler içinde denetler, "
+        "kaynaklarınızın **8 uluslararası akademik veritabanındaki gerçekliğini ve geri çekilme (retraction) durumunu** sorgular "
+        "ve yazdığınız her bir cümlenin referans gösterdiğiniz makaleyle **anlamca örtüşüp örtüşmediğini** yapay zekâ hakemiyle doğrular."
     )
 with top_right:
     if ollama_ok and installed_models:
-        st.badge("Yapay Zekâ + Akademik Arama Hazır", icon=":material/verified:", color="green")
+        st.badge("Yapay Zekâ Hakemi + 8 Akademik Kanal Hazır", icon=":material/verified:", color="green")
     else:
         st.badge("Çok Dilli Semantik Kontrol Hazır", icon=":material/check_circle:", color="blue")
 
 tab1, tab2, tab3 = st.tabs([
-    ":material/fact_check: 1. Makale Denetle",
-    ":material/travel_explore: 2. Cümleme Uygun Makale Bul",
-    ":material/table_view: 3. Rapor ve Tablo İndir",
+    ":material/fact_check: 1. Makale Yükle ve Denetle",
+    ":material/travel_explore: 2. Cümleme Uygun Akademik Makale Bul",
+    ":material/table_view: 3. Detaylı Rapor ve Tablo İndir",
 ])
 
 
@@ -590,24 +592,33 @@ tab1, tab2, tab3 = st.tabs([
 
 with tab1:
     # -----------------------------------------------------------------------
-    # BÖLÜM 1: DOSYA VEYA KAYITLI OTURUM SEÇİMİ (TEK SADE KART)
+    # BÖLÜM 1: DOSYA VEYA KAYITLI OTURUM SEÇİMİ (AÇIKLAYICI VE SADE KART)
     # -----------------------------------------------------------------------
     saved_files = sorted(SESSIONS_DIR.glob("*.analiz.json"), key=lambda p: p.stat().st_mtime, reverse=True)
 
     with st.container(border=True):
+        st.markdown("**:material/upload_file: 1. Adım — Çalışma Yönteminizi Seçin**")
+        st.caption(
+            "Aşağıdaki üç seçenekten birine tıklayarak yeni bir makale analizi başlatabilir, "
+            "daha önce başladığınız bir analize kaldığınız yerden devam edebilir veya örnek makaleyle sistemi test edebilirsiniz:"
+        )
         entry_mode = st.segmented_control(
-            "İşlem seçin:",
+            "Çalışma yöntemi seçin:",
             options=[
-                "📄 Yeni Makale Yükle (.docx / .pdf)",
+                "📄 Yeni Makale Dosyası Yükle (.docx / .pdf)",
                 f"💾 Kayıtlı Analizden Devam Et ({len(saved_files)} Kayıt)",
-                "🧪 Örnek Makaleyle Dene",
+                "🧪 Örnek Makaleyle Sistemi Dene",
             ],
-            default="📄 Yeni Makale Yükle (.docx / .pdf)",
+            default="📄 Yeni Makale Dosyası Yükle (.docx / .pdf)",
             label_visibility="collapsed",
         )
 
         uploaded_manuscript = None
         if entry_mode and entry_mode.startswith("💾"):
+            st.caption(
+                "💡 **Bu bölüm ne işe yarar?** Daha önce analiz ettiğiniz bir makaleyi 20-30 dakika tekrar beklememek için "
+                "otomatik kaydedilen oturumlardan birini tek tıkla açabilir veya bilgisayarınıza indirdiğiniz `.json` analiz dosyasını yükleyebilirsiniz."
+            )
             col_s1, col_s2 = st.columns([1.4, 1.0], vertical_alignment="bottom")
             with col_s1:
                 if saved_files:
@@ -624,14 +635,20 @@ with tab1:
                             lbl = sf.name
                         session_labels[lbl] = sf
 
-                    sel_c, btn_c = st.columns([3.0, 1.1], vertical_alignment="bottom")
+                    sel_c, btn_c = st.columns([2.8, 1.2], vertical_alignment="bottom")
                     with sel_c:
                         chosen_saved_label = st.selectbox(
                             "Bilgisayarınızdaki otomatik kaydedilen analizler:",
                             options=list(session_labels.keys()),
+                            help="Siz çalışırken her atıf doğrulandığında sistemin otomatik olarak kaydettiği analizler.",
                         )
                     with btn_c:
-                        if st.button(":material/folder_open: Kaydı Aç", type="primary", width="stretch"):
+                        if st.button(
+                            ":material/folder_open: Seçili Kaydı Aç",
+                            type="primary",
+                            width="stretch",
+                            help="Seçtiğiniz makalenin tüm doğrulama sonuçlarını 1 saniyede ekrana geri yükler.",
+                        ):
                             sf_path = session_labels[chosen_saved_label]
                             p_doc, f_m, v_res, s_at = deserialize_session_bytes(sf_path.read_bytes())
                             activate_loaded_session(
@@ -646,7 +663,7 @@ with tab1:
 
             with col_s2:
                 uploaded_session_json = st.file_uploader(
-                    "Veya indirdiğiniz `.json` analiz dosyasını seçin:",
+                    "Veya indirdiğiniz `.json` analiz dosyasını buraya bırakın:",
                     type=["json"],
                     key="session_json_uploader",
                 )
@@ -666,20 +683,30 @@ with tab1:
                             st.error(f"Analiz dosyası okunamadı: {exc}")
 
         elif entry_mode and entry_mode.startswith("🧪"):
-            demo_c1, demo_c2 = st.columns([3.2, 1.2], vertical_alignment="center")
+            demo_c1, demo_c2 = st.columns([3.0, 1.2], vertical_alignment="center")
             with demo_c1:
                 st.caption(
-                    "Sistemi hemen denemek için içinde gerçek makale, uydurma kaynak ve sayısal iddia bulunan örnek makaleyi yükleyebilirsiniz."
+                    "💡 **Bu buton ne işe yarar?** Kendi makalenizi yüklemeden önce sistemin gerçek makaleleri nasıl doğruladığını, "
+                    "uydurma (sahte) kaynakları ve kaynakçada unutulan atıfları nasıl yakaladığını hazır bir örnek üzerinde hemen görmenizi sağlar."
                 )
             with demo_c2:
-                if st.button(":material/science: Örnek Makaleyi Yükle", type="primary", width="stretch"):
+                if st.button(
+                    ":material/science: Örnek Makaleyi Yükle",
+                    type="primary",
+                    width="stretch",
+                    help="Örnek TÜBİTAK makalesini yükler ve biçimsel kontrol sonuçlarını gösterir.",
+                ):
                     st.session_state.pop("restored_parsed_doc", None)
                     st.session_state["manuscript_text"] = DEMO_MANUSCRIPT_TEXT
                     st.session_state["manuscript_name"] = "ornek_tubitak_makalesi.txt"
                     st.rerun()
         else:
+            st.caption(
+                "💡 **Nasıl çalışır?** Word (`.docx`), PDF (`.pdf`) veya metin (`.txt`) formatındaki makalenizi aşağıya bırakın. "
+                "Sistem hem APA `(Yılmaz, 2022)` hem de numaralı `[1]` / `(1)` formatındaki tüm metin içi atıfları ve kaynakçayı otomatik ayrıştırır."
+            )
             uploaded_manuscript = st.file_uploader(
-                "Makale dosyanızı sürükleyip bırakın veya seçin (`.docx`, `.pdf`, `.txt`):",
+                "Makale dosyanızı sürükleyip bırakın veya bilgisayarınızdan seçin:",
                 type=["docx", "pdf", "txt"],
                 key="manuscript_file_uploader",
             )
@@ -740,32 +767,40 @@ with tab1:
         st.session_state["current_parsed_doc"] = parsed_doc
 
         # -------------------------------------------------------------------
-        # BÖLÜM 2: BİÇİMSEL KAYNAKÇA VE ATIF ÖZETİ (4 TEMİZ METRİK KUTUSU)
+        # BÖLÜM 2: BİÇİMSEL KAYNAKÇA VE ATIF ÖZETİ (4 AÇIKLAYICI METRİK KUTUSU)
         # -------------------------------------------------------------------
         st.space("small")
-        st.subheader(f":material/description: {parsed_doc.filename} — Kaynakça ve Atıf Özeti")
+        st.subheader(f":material/description: 2. Adım — `{parsed_doc.filename}` Biçimsel Kaynakça ve Atıf Bütünlüğü")
+        st.caption(
+            "Bu aşama internet taraması yapmadan önce makalenizin kendi içindeki **Metin İçi Atıflar** ile makale sonundaki "
+            "**Kaynakça (References)** listesini çapraz kontrol eder; unutulan veya açıkta kalan kaynakları anında tespit eder."
+        )
 
         b1, b2, b3, b4 = st.columns(4)
         with b1.container(border=True, height="stretch"):
             st.metric("Kaynakçadaki Makale", len(parsed_doc.references))
+            st.caption("Makale sonundaki Kaynakça listesinde yer alan toplam referans sayısı.")
         with b2.container(border=True, height="stretch"):
             st.metric("Metin İçi Atıf", len(parsed_doc.citations))
+            st.caption("Makale cümleleri içinde parantez veya numarayla yapılan toplam atıf sayısı.")
         with b3.container(border=True, height="stretch"):
             ghost_n = len(parsed_doc.ghost_citations)
             st.metric(
                 "Kaynakçada Eksik Atıf",
                 ghost_n,
-                delta="Düzeltilmeli" if ghost_n else "Temiz",
+                delta="Düzeltilmeli" if ghost_n else "Tam Uyumlu",
                 delta_color="inverse" if ghost_n else "normal",
             )
+            st.caption("Metin içinde atıf yapılmış ancak Kaynakça listesine eklenmesi unutulmuş kaynaklar.")
         with b4.container(border=True, height="stretch"):
             orphan_n = len(parsed_doc.orphan_references)
             st.metric(
                 "Metinde Kullanılmayan Kaynak",
                 orphan_n,
-                delta="Düzeltilmeli" if orphan_n else "Temiz",
+                delta="Düzeltilmeli" if orphan_n else "Tam Uyumlu",
                 delta_color="inverse" if orphan_n else "normal",
             )
+            st.caption("Kaynakça listesinde yazılı olduğu hâlde metinde hiçbir cümlede atıf yapılmamış kaynaklar.")
 
         if parsed_doc.ghost_citations or parsed_doc.orphan_references:
             with st.expander(
@@ -787,9 +822,14 @@ with tab1:
                         st.markdown(f"- **[{orp.ref_id}]** {orp.raw_text}")
 
         with st.expander(
-            f":material/list_alt: Kaynak Eşleşme Listesini İncele ({len(parsed_doc.references)} Kaynak)",
+            f":material/list_alt: Kaynak Eşleşme Kanıt Tablosunu İncele ({len(parsed_doc.references)} Kaynak)",
             expanded=False,
         ):
+            st.caption(
+                "💡 **Bu tablo ne işe yarar?** Kaynakçanızdaki her bir eserin makale metni içinde kaç kez kullanıldığını ve "
+                "sistemin o kaynağı metin içinde **gerçekten hangi cümlede yakaladığını (Eşleşme Kanıtı)** eksiksiz olarak gösterir. "
+                "*(Uzun bir cümlenin tamamını kutu içinde görmek için ilgili hücreye çift tıklayabilir veya tabloyu sağa kaydırabilirsiniz).* "
+            )
             ref_to_cits: Dict[str, List[Any]] = {}
             for c_item in parsed_doc.citations:
                 if c_item.matched_ref_id:
@@ -805,13 +845,29 @@ with tab1:
                     "Yazar ve Yıl": f"{r_item.first_author_surname or 'Bilinmiyor'} ({r_item.year or '?'})",
                     "Kullanım": f"{r_item.cited_in_text_count} kez",
                     "Metindeki İşareti": markers_str,
-                    "Kaynak Başlığı": (r_item.title or r_item.raw_text)[:95],
-                    "Örnek Cümle": first_sent[:180],
+                    "Kaynak Başlığı": (r_item.title or r_item.raw_text),
+                    "Yakalandığı Metin İçi Cümle (Eşleşme Kanıtı)": first_sent,
                 })
-            st.dataframe(pd.DataFrame(proof_rows), hide_index=True)
+            st.dataframe(
+                pd.DataFrame(proof_rows),
+                hide_index=True,
+                row_height=52,
+                column_config={
+                    "Kaynak No": st.column_config.TextColumn("Kaynak No", width="small"),
+                    "Yazar ve Yıl": st.column_config.TextColumn("Yazar ve Yıl", width="small"),
+                    "Kullanım": st.column_config.TextColumn("Kullanım", width="small"),
+                    "Metindeki İşareti": st.column_config.TextColumn("Metindeki İşareti", width="medium"),
+                    "Kaynak Başlığı": st.column_config.TextColumn("Kaynak Makale Başlığı", width="large"),
+                    "Yakalandığı Metin İçi Cümle (Eşleşme Kanıtı)": st.column_config.TextColumn(
+                        "Yakalandığı Metin İçi Cümle (Eşleşme Kanıtı)",
+                        width="large",
+                        help="Sistemin bu kaynağı makalenizin ana metni içinde tespit ettiği tam cümle.",
+                    ),
+                },
+            )
 
         # -------------------------------------------------------------------
-        # BÖLÜM 3: DENETİM BAŞLATMA MERKEZİ (SADE, KOMPAKT VE ORANTILI)
+        # BÖLÜM 3: DENETİM BAŞLATMA MERKEZİ (KAYDIRMASIZ TAM GÖRÜNÜM + AÇIKLAYICI REHBER)
         # -------------------------------------------------------------------
         st.space("small")
         all_cits = parsed_doc.citations
@@ -821,35 +877,34 @@ with tab1:
         remaining_cits = [c for c in all_cits if c.citation_id not in done_cit_ids]
 
         with st.container(border=True):
-            top_bar_l, top_bar_r = st.columns([2.4, 1.2], vertical_alignment="center")
-            with top_bar_l:
-                st.subheader(":material/travel_explore: Kaynak ve Cümle Uyumu Denetimi")
-                if done_cit_ids:
-                    st.caption(
-                        f"İlerleme: **{len(done_cit_ids)} / {total_cits_n}** atıf doğrulandı ve otomatik kaydedildi "
-                        f"(**{len(remaining_cits)}** atıf bekliyor)."
-                    )
-                else:
-                    st.caption(
-                        "Kaynaklarınız internet veritabanlarından bulunur ve cümlelerinizle çelişip çelişmediği kontrol edilir. "
-                        "Her atıf doğrulandığında otomatik kaydedilir."
-                    )
+            st.subheader(":material/travel_explore: 3. Adım — Kaynak Gerçekliği ve Semantik Cümle Uyumu Denetimi")
+            if done_cit_ids:
+                st.caption(
+                    f"📊 **Kayıtlı İlerleme Durumu:** Toplam **{total_cits_n}** atıftan **{len(done_cit_ids)}** tanesi zaten doğrulandı ve hafızada hazır "
+                    f"(**{len(remaining_cits)}** atıf henüz doğrulanmadı). Yeni başlatacağınız denetimler mevcut sonuçların üzerine eklenir."
+                )
+            else:
+                st.caption(
+                    "Bu aşamada makalenizdeki kaynaklar **CrossRef, OpenAlex, PubMed ve Semantic Scholar** üzerinden taranarak gerçeklikleri doğrulanır; "
+                    "ardından yazdığınız her bir cümlenin kaynak makaledeki bulgularla **uyumlu olup olmadığı veya çelişip çelişmediği** yapay zekâ hakemiyle denetlenir. "
+                    "**Doğrulanan her atıf anında bilgisayarınıza otomatik kaydedilir.**"
+                )
 
             seg_options = []
             if remaining_cits and done_cit_ids:
-                seg_options.append(f"⏭️ Kalan {len(remaining_cits)} Atıfı Tamamla")
+                seg_options.append(f"⏭️ Kaldığım Yerden Devam Et ({len(remaining_cits)} Kalan Atıf)")
             seg_options.extend([
-                f"🚀 Tüm Makaleyi Denetle ({total_cits_n} Atıf)",
-                "🎯 Belirli Bir Aralığı / Seçtiklerimi Denetle",
+                f"🚀 Tüm Makaleyi Baştan Sona Denetle ({total_cits_n} Atıf)",
+                "🎯 Belirli Bir Aralığı veya Seçtiğim Atıfları Denetle",
             ])
 
-            with top_bar_r:
-                scope_choice = st.segmented_control(
-                    "Denetim kapsamı:",
-                    options=seg_options,
-                    default=seg_options[0],
-                    label_visibility="collapsed",
-                )
+            st.markdown("**Denetim yöntemini seçin (her iki seçenek de kaydırma yapmadan doğrudan görünür):**")
+            scope_choice = st.segmented_control(
+                "Denetim kapsamı:",
+                options=seg_options,
+                default=seg_options[0],
+                label_visibility="collapsed",
+            )
 
             citations_to_run: List[InTextCitation] = []
 
@@ -859,7 +914,8 @@ with tab1:
                 act_col1, act_col2 = st.columns([2.6, 1.2], vertical_alignment="center")
                 with act_col1:
                     st.markdown(
-                        f"Daha önce doğrulanmış **{len(done_cit_ids)}** atıf korunacak; yalnızca kalan **{len(citations_to_run)}** atıf (**{needed_unique_refs}** kaynak makale) denetlenecek."
+                        f"💡 **Bu buton ne yapar?** Daha önce doğrulanan **{len(done_cit_ids)}** atıfa hiç dokunmadan, "
+                        f"yalnızca henüz incelenmemiş kalan **{len(citations_to_run)}** atıfı (**{needed_unique_refs}** kaynak makaleyi) denetleyip mevcut sonuçlarınızla birleştirir."
                     )
                 with act_col2:
                     run_btn = st.button(
@@ -875,11 +931,12 @@ with tab1:
                 act_col1, act_col2 = st.columns([2.6, 1.2], vertical_alignment="center")
                 with act_col1:
                     st.markdown(
-                        f"Makaledeki **{len(citations_to_run)}** metin içi atıf ve **{needed_unique_refs}** kaynak makale sırayla taranıp kaydedilecek."
+                        f"💡 **Bu buton ne yapar?** Makalenizdeki **{len(citations_to_run)}** metin içi atıfın tamamını ve "
+                        f"bunlara karşılık gelen **{needed_unique_refs}** kaynak makaleyi sırayla internetten tarar, cümle uyumunu denetler ve her adımda otomatik kaydeder."
                     )
                 with act_col2:
                     run_btn = st.button(
-                        f":material/rocket_launch: Denetimi Başlat ({len(citations_to_run)} Atıf)",
+                        f":material/rocket_launch: Tüm Makaleyi Denetle ({len(citations_to_run)} Atıf)",
                         type="primary",
                         width="stretch",
                         disabled=(len(citations_to_run) == 0),
@@ -891,30 +948,41 @@ with tab1:
                 if "editor_ver" not in st.session_state:
                     st.session_state["editor_ver"] = 0
 
+                st.caption(
+                    "💡 **Bu mod ne işe yarar?** Tüm makaleyi tek seferde beklemek yerine istediğiniz bir aralığı (örneğin **1 ile 15 arası** veya **doğrulanmamış ilk 10 atıfı**) "
+                    "seçip parça parça denetlemenizi sağlar. Seçtiğiniz aralık doğrulandığında önceki sonuçlarınızın üzerine eklenir."
+                )
+
                 # Tek satırda sade aralık seçici + Başlat butonu
                 bar1, bar2, bar3, bar4 = st.columns([1.6, 1.3, 1.1, 1.4], vertical_alignment="bottom")
                 with bar1:
                     quick_preset = st.selectbox(
-                        "Hızlı Seçim:",
+                        "Hızlı Seçim Şablonu:",
                         options=[
-                            "Özel Aralık (Yan Kutudan)",
+                            "Özel Aralık (Yan Çubuktan Seç)",
                             "⏳ Doğrulanmamış İlk 10 Atıf",
                             "⏳ Doğrulanmamış İlk 25 Atıf",
                             f"✅ Tüm Atıflar (1 – {total_cits_n})",
                             "🧹 Seçimi Temizle",
                         ],
                         index=0,
+                        help="Hazır bir grup seçebilir veya yan taraftaki kaydırma çubuğuyla özel numara aralığı belirleyebilirsiniz.",
                     )
                 with bar2:
                     range_vals = st.slider(
-                        "Atıf Aralığı Seçin:",
+                        "Atıf Numarası Aralığı:",
                         min_value=1,
                         max_value=max(2, total_cits_n),
                         value=(1, min(10, max(2, total_cits_n))),
                         step=1,
+                        help="Denetlemek istediğiniz başlangıç ve bitiş atıf numaralarını sürükleyerek seçin.",
                     )
                 with bar3:
-                    if st.button(":material/check_box: Aralığı Uygula", width="stretch"):
+                    if st.button(
+                        ":material/check_box: Seçimi Tabloya Uygula",
+                        width="stretch",
+                        help="Belirlediğiniz aralığı aşağıdaki tabloda otomatik işaretler.",
+                    ):
                         if quick_preset.startswith("⏳ Doğrulanmamış İlk 10"):
                             idxs = [i for i, c_o in enumerate(all_cits, start=1) if c_o.citation_id not in done_cit_ids][:10]
                             st.session_state["selected_cit_indices"] = set(idxs)
@@ -935,7 +1003,7 @@ with tab1:
                 for idx_c, c_obj in enumerate(all_cits, start=1):
                     ref_obj = c_obj.matched_reference
                     ref_summary = (
-                        f"[{c_obj.matched_ref_id}] {ref_obj.first_author_surname or ''} ({ref_obj.year or '?'}) — {(ref_obj.title or ref_obj.raw_text)[:70]}"
+                        f"[{c_obj.matched_ref_id}] {ref_obj.first_author_surname or ''} ({ref_obj.year or '?'}) — {(ref_obj.title or ref_obj.raw_text)}"
                         if ref_obj
                         else "🚨 Kaynakça Listesinde Eksik"
                     )
@@ -952,15 +1020,16 @@ with tab1:
                     pd.DataFrame(editor_rows),
                     key=f"cit_selector_{parsed_doc.filename}_{st.session_state['editor_ver']}",
                     hide_index=True,
-                    height=240,
+                    height=260,
+                    row_height=48,
                     disabled=["Atıf No", "Durum", "Atıf İşareti", "Eşleşen Kaynak", "Makalenizdeki Cümle"],
                     column_config={
                         "Seç": st.column_config.CheckboxColumn("Seç", default=False, width="small"),
                         "Atıf No": st.column_config.NumberColumn("No", width="small"),
                         "Durum": st.column_config.TextColumn("Durum", width="small"),
-                        "Atıf İşareti": st.column_config.TextColumn("Atıf", width="small"),
-                        "Eşleşen Kaynak": st.column_config.TextColumn("Kaynakçadaki Karşılığı", width="medium"),
-                        "Makalenizdeki Cümle": st.column_config.TextColumn("Makalenizdeki Cümle", width="large"),
+                        "Atıf İşareti": st.column_config.TextColumn("Atıf İşareti", width="small"),
+                        "Eşleşen Kaynak": st.column_config.TextColumn("Kaynakçadaki Karşılığı", width="large"),
+                        "Makalenizdeki Cümle": st.column_config.TextColumn("Makalenizdeki İddia Cümlesi", width="large"),
                     },
                 )
 
@@ -977,6 +1046,7 @@ with tab1:
                         type="primary",
                         width="stretch",
                         disabled=(len(citations_to_run) == 0),
+                        help="Tabloda işaretlediğiniz atıfları denetler ve otomatik olarak kaydeder.",
                     )
 
         if run_btn and citations_to_run:
@@ -1001,20 +1071,25 @@ with tab1:
             f_map: Dict[str, FetchedPaper] = st.session_state.get("fetched_map", {})
 
             st.space("small")
-            hdr_left, hdr_right = st.columns([2.6, 1.0], vertical_alignment="center")
+            hdr_left, hdr_right = st.columns([2.5, 1.1], vertical_alignment="center")
             with hdr_left:
                 st.subheader(
-                    f":material/analytics: Denetim Sonuçları ({len(results_list)} / {len(parsed_doc.citations)} Atıf İncelendi)"
+                    f":material/analytics: 4. Adım — Denetim Sonuçları Özeti ({len(results_list)} / {len(parsed_doc.citations)} Atıf İncelendi)"
+                )
+                st.caption(
+                    "İncelenen atıfların doğruluk dağılımını aşağıda görebilir; sağdaki butonla bu analiz oturumunu bilgisayarınıza yedekleyebilirsiniz."
                 )
             with hdr_right:
                 session_bytes_t1 = serialize_session_bytes(parsed_doc, f_map, results_list)
                 safe_dl_stem = safe_ref_token(Path(parsed_doc.filename).stem, fallback="makale")
                 st.download_button(
-                    ":material/download: Analizi İndir (.json)",
+                    ":material/download: Analiz Kaydını İndir (.json)",
                     data=session_bytes_t1,
                     file_name=f"{safe_dl_stem}_analiz_kaydi.json",
                     mime="application/json",
+                    type="primary",
                     width="stretch",
+                    help="Bu dosyayı indirerek daha sonra siteye yükleyebilir ve 20-30 dakika beklemeden aynı sonuçları 1 saniyede açabilirsiniz.",
                 )
 
             # Alt kırılım sayıları
@@ -1221,6 +1296,10 @@ with tab1:
                                     )
 
             with st.expander(":material/fact_check: Kaynakça Listesindeki Makalelerin İnternet Doğrulama Tablosu", expanded=False):
+                st.caption(
+                    "💡 **Bu tablo ne işe yarar?** Makalenizin sonundaki Kaynakça listesinde yer alan her bir makalenin uluslararası "
+                    "veritabanlarında bulunup bulunmadığını, hangi kanaldan okunduğunu ve künye doğruluk oranını toplu olarak listeler."
+                )
                 ref_rows = []
                 for r_id, fp in f_map.items():
                     ref_rows.append({
@@ -1238,7 +1317,7 @@ with tab1:
                         "Künye Doğruluk Oranı": f"%{fp.title_match_score * 100:.0f}" if fp.exists_online else "-",
                         "Not / Uyarı": fp.lookup_error or (" | ".join(fp.metadata_warnings) if fp.metadata_warnings else "Sorun Yok"),
                     })
-                st.dataframe(pd.DataFrame(ref_rows), hide_index=True)
+                st.dataframe(pd.DataFrame(ref_rows), hide_index=True, row_height=45)
 
 
 # ===========================================================================
@@ -1293,15 +1372,16 @@ def _format_citation_strings(fp: FetchedPaper, idx: int = 1) -> Dict[str, str]:
 
 with tab2:
     with st.container(border=True):
-        st.subheader(":material/travel_explore: Cümlenize Uygun Akademik Makale ve Atıf Bulucu")
-        st.caption(
-            "Makale yüklemeden, makalenizdeki herhangi bir bilimsel cümleyi aşağıya yazın. "
-            "Sistem **OpenAlex, Semantic Scholar ve PubMed** üzerinden yayınlanmış makaleleri tarar, "
-            "cümlenizi en güçlü destekleyenleri sıralar ve kopyalamaya hazır Kaynakça künyesini verir."
+        st.subheader(":material/travel_explore: Cümlenize Uygun Yayınlanmış Akademik Makale ve Atıf Bulucu")
+        st.markdown(
+            "Makale yazarken **\"Bu cümleme hangi akademik kaynağı atıf gösterebilirim?\"** diye düşündüğünüzde, "
+            "cümlenizi Türkçe veya İngilizce olarak aşağıya yazın. Sistem **OpenAlex (250M+ eser), Semantic Scholar ve PubMed** "
+            "veritabanlarını tarar, aday makalelerin özetlerini okuyarak **sizin cümlenizi bilimsel olarak en güçlü destekleyen çalışmaları** "
+            "yukarıdan aşağıya sıralar ve **tek tıkla kopyalamaya hazır APA / Vancouver kaynakça künyesini** sunar."
         )
 
         claim_input_t2 = st.text_area(
-            "Makalenizdeki atıf cümlesini yazın (Türkçe veya İngilizce):",
+            "📌 Makalenizdeki bilimsel iddia veya atıf cümlesini yazın (Türkçe veya İngilizce):",
             value=(
                 "Siklofosfamid maruziyeti testiste oksidatif stresi artırarak "
                 "sperm motilitesini ve morfolojisini bozmaktadır."
@@ -1316,23 +1396,27 @@ with tab2:
                 "İncelenecek Makale:",
                 options=[6, 10, 15],
                 index=1,
+                help="Veritabanlarından çekilip yapay zekâ tarafından cümlenizle karşılaştırılacak aday makale sayısı.",
             )
         with opt_c2:
             min_year_choice = st.selectbox(
-                "Yayın Yılı:",
+                "Yayın Yılı Filtresi:",
                 options=["Tüm Yıllar", "2015 ve sonrası", "2018 ve sonrası", "2020 ve sonrası", "2022 ve sonrası"],
                 index=0,
+                help="Yalnızca seçtiğiniz yıldan itibaren yayınlanmış güncel makaleleri getirmek için kullanın.",
             )
         with opt_c3:
             only_oa_t2 = st.checkbox(
                 "Sadece Açık Erişim (PDF)",
                 value=False,
+                help="İşaretlenirse yalnızca tam metin PDF bağlantısı açık olan makaleleri listeler.",
             )
         with opt_c4:
             search_btn_t2 = st.button(
                 ":material/search: Uygun Makaleleri Araştır ve Sırala",
                 type="primary",
                 width="stretch",
+                help="Yazdığınız cümleyi destekleyen gerçek akademik makaleleri internetten bulur ve uyum sırasına göre listeler.",
             )
 
     if search_btn_t2:
@@ -1640,7 +1724,7 @@ with tab3:
                 "Konu Benzerliği (%)": round(r.semantic_similarity * 100, 1),
                 "Künye Doğruluk Oranı (%)": round(r.match_score * 100, 0),
                 "Değerlendiren": human_decision_source(r.decision_source),
-                "Kaynak Makaledeki Kanıt Paragrafı": r.best_evidence[:400] if r.best_evidence else "-",
+                "Kaynak Makaledeki Kanıt Paragrafı": r.best_evidence if r.best_evidence else "-",
             })
 
             md_lines.extend([
@@ -1651,17 +1735,21 @@ with tab3:
                 f"- **Ne Yapmalısınız?:** {v_info['action']}",
                 f"- **Önerilen Düzeltilmiş Cümle:** {r.suggested_revision or '-'}",
                 f"- **Eşleşen Kaynak:** {fp.verified_title if fp else 'Bulunamadı'} ({fp.content_source if fp else '-'})",
-                f"- **Kanıt Paragrafı:** {r.best_evidence[:500] if r.best_evidence else '-'}",
+                f"- **Kanıt Paragrafı:** {r.best_evidence if r.best_evidence else '-'}",
                 "",
             ])
 
-        st.caption(f"Toplam **{len(results_list_t3)}** atıf içinden filtreye uyan **{len(rows)}** kayıt listeleniyor.")
+        st.caption(
+            f"Toplam **{len(results_list_t3)}** atıf içinden filtreye uyan **{len(rows)}** kayıt listeleniyor. "
+            "*(Uzun cümlelerin tamamını görmek için ilgili hücreye çift tıklayabilirsiniz).* "
+        )
         df_report = pd.DataFrame(rows)
-        st.dataframe(df_report, hide_index=True)
+        st.dataframe(df_report, hide_index=True, row_height=50)
 
         csv_bytes = df_report.to_csv(index=False).encode("utf-8-sig")
         md_bytes = "\n".join(md_lines).encode("utf-8")
 
+        st.caption("💡 **İndirme Seçenekleri:** Sonuçları Excel tablosu (`.csv`), Word uyumlu rapor (`.md`) veya tekrar siteye yüklenebilir analiz paketi (`.json`) olarak kaydedin:")
         dl_col1, dl_col2, dl_col3 = st.columns(3)
         with dl_col1:
             st.download_button(
@@ -1670,6 +1758,7 @@ with tab3:
                 file_name="makale_atif_denetim_raporu.csv",
                 mime="text/csv",
                 width="stretch",
+                help="Tüm denetim tablosunu Excel'de açabileceğiniz CSV formatında indirir.",
             )
         with dl_col2:
             st.download_button(
@@ -1678,6 +1767,7 @@ with tab3:
                 file_name="makale_atif_denetim_raporu.md",
                 mime="text/markdown",
                 width="stretch",
+                help="Her bir atıfın detaylı hakem değerlendirmesini yazılı rapor olarak indirir.",
             )
         with dl_col3:
             if cur_p_doc is not None:
@@ -1690,4 +1780,5 @@ with tab3:
                     mime="application/json",
                     type="primary",
                     width="stretch",
+                    help="Bu analiz oturumunu daha sonra 1. Sekmeden yükleyip kaldığınız yerden devam etmek için indirir.",
                 )

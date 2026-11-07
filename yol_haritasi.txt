@@ -540,6 +540,17 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
        * "3. Denetimi Başlat" bölümündeki 6 ayrı buton ve tam ekran uzanan devasa bar yerine; sağa hizalı, orantılı başlatma butonları, `st.segmented_control` mod seçici ve tek satırlık `Hızlı Seçim + Atıf Aralığı Slider + Seçilenleri Denetle` kontrol çubuğu kuruldu.
        * 9 tikli filtreleme sistemi ve 3 ana özet kartı korunarak çok daha temiz, ferah ve kurumsal bir görünüme kavuşturuldu.
 
+[✅ TAMAMLANDI] ADIM 32: Kaydırmasız Mod Seçici, Açıklayıcı Buton Rehberleri ve Kesintisiz Tablo Biçimi
+  - Güncellenen Dosyalar: app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Denetim Modu Seçicisinin Tam Genişlikte (Kaydırmasız) Gösterimi:
+       * "🚀 Tüm Makaleyi Baştan Sona Denetle" ve "🎯 Belirli Bir Aralığı veya Seçtiğim Atıfları Denetle" seçeneklerini barındıran `st.segmented_control` dar sağ sütundan çıkarılarak tam genişlikli satıra alındı; yatay kaydırma (scroll) sorunu tamamen giderildi.
+    2. Sitenin Değerini Öne Çıkaran Açıklayıcı Metinler ve Buton İpuçları:
+       * Üst karşılama alanına, 1./2./3./4. adımlara ve tüm eylem butonlarına ("💡 Bu buton ne yapar?", `help=...` ipuçları) sistemin akademik işlevini net ve özenli bir dille anlatan açıklamalar eklendi.
+    3. Kaynak Eşleşme Kanıt Tablosu ve Seçim Tablosunda Cümle Kesilmelerinin Giderilmesi:
+       * `first_sent[:180]` ve `title[:95]` karakter kırpmaları tamamen kaldırıldı; cümlelerin ve başlıkların tamamı tablolara eksiksiz aktarıldı.
+       * Sütun adı "Yakalandığı Metin İçi Cümle (Eşleşme Kanıtı)" olarak netleştirildi, tablonun ne işe yaradığı üst bilgi notuyla açıklandı ve `row_height` + `column_config` ile okunabilirlik artırıldı.
+
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
 --------------------------------------------------------------------------------
