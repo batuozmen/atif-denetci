@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 16.11.2026 - Adım 1 - Adım 38 Tamamlandı (GitHub Vitrin README.md Dokümantasyonu, Mermaid Mimari Şeması, main/master Dal Eşitlemesi ve Sekmeler Arası Aktif Makale Koruma)
+Son Güncelleme: 16.11.2026 - Adım 1 - Adım 39 Tamamlandı (1. Adım İçindeki 3 Çalışma Sekmesinin Hafıza İzolasyonu: Dosya Yükle, Kayıtlı Analiz ve Örnek Makale Verilerinin Birbirine Karışmaması)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -601,6 +601,13 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
        * Teknoloji rozetleri (Shields.io), uçtan uca `Mermaid` sistem mimarisi akış şeması, modüler teknoloji yığını tabloları, 8 kanallı veri madenciliği şelalesi, 4 dereceli hakem karar politikası, `%100` benchmark sonuç tablosu, adım adım `kurulum_yap.bat` / `baslat.bat` rehberi ve İngilizce özet eklendi.
     2. GitHub `main` ve `master` Dalı Eşitlemesi:
        * Tüm proje dosyaları GitHub üzerindeki varsayılan `main` dalına da gönderilerek (`git push -f origin master:main`) repo ana sayfasında ve `Download ZIP` indirmelerinde tüm projenin doğrudan görünmesi sağlandı.
+
+[✅ TAMAMLANDI] ADIM 39: 1. Adımdaki 3 Çalışma Yöntemi Sekmesinin (`upload`, `saved`, `demo`) Tam Hafıza İzolasyonu
+  - Güncellenen Dosyalar: app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Sekme Bazlı İzole Hafıza (`mode_buckets`):
+       * `_save_current_to_bucket()` ve `_load_bucket_to_current()` fonksiyonlarıyla "📄 Yeni Makale Dosyası Yükle", "💾 Kayıtlı Analizden Devam Et" ve "🧪 Örnek Makaleyle Sistemi Dene" sekmelerinin verileri birbirinden tamamen ayrıldı.
+       * 1. sekmeye yüklenen makale yalnızca 1. sekmede görünür; 2. veya 3. sekmeye tıklandığında orada henüz bir kayıt/örnek açılmadıysa alt kısım temiz kalır, 1. sekmeye geri dönüldüğünde ise kullanıcının yüklediği makale ve sonuçları kaldığı yerden geri gelir.
 
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ

@@ -215,13 +215,66 @@ def deserialize_session_bytes(
     return parsed_doc, fetched_map, results, saved_at
 
 
+def _get_mode_buckets() -> Dict[str, Dict[str, Any]]:
+    if "mode_buckets" not in st.session_state:
+        st.session_state["mode_buckets"] = {
+            "upload": {},
+            "saved": {},
+            "demo": {},
+        }
+    return st.session_state["mode_buckets"]
+
+
+def _save_current_to_bucket(mode_key: str) -> None:
+    buckets = _get_mode_buckets()
+    buckets[mode_key] = {
+        "parsed_doc": st.session_state.get("current_parsed_doc"),
+        "restored_parsed_doc": st.session_state.get("restored_parsed_doc"),
+        "active_doc_name": st.session_state.get("active_doc_name"),
+        "fetched_map": dict(st.session_state.get("fetched_map", {})),
+        "verification_results": list(st.session_state.get("verification_results", [])),
+        "uploaded_docx_bytes": st.session_state.get("uploaded_docx_bytes"),
+        "session_restore_notice": st.session_state.get("session_restore_notice"),
+        "selected_cit_indices": set(st.session_state.get("selected_cit_indices", set())),
+    }
+
+
+def _load_bucket_to_current(mode_key: str) -> None:
+    buckets = _get_mode_buckets()
+    b = buckets.get(mode_key, {})
+    for k in (
+        "current_parsed_doc",
+        "restored_parsed_doc",
+        "active_doc_name",
+        "uploaded_docx_bytes",
+        "session_restore_notice",
+    ):
+        if b.get(k) is not None:
+            st.session_state[k] = b[k]
+        else:
+            st.session_state.pop(k, None)
+
+    st.session_state["fetched_map"] = dict(b.get("fetched_map", {}))
+    if b.get("verification_results"):
+        st.session_state["verification_results"] = list(b["verification_results"])
+    else:
+        st.session_state.pop("verification_results", None)
+
+    if b.get("selected_cit_indices"):
+        st.session_state["selected_cit_indices"] = set(b["selected_cit_indices"])
+    else:
+        st.session_state.pop("selected_cit_indices", None)
+    st.session_state["editor_ver"] = st.session_state.get("editor_ver", 0) + 1
+
+
 def activate_loaded_session(
     parsed_doc: ParsedManuscript,
     fetched_map: Dict[str, FetchedPaper],
     verification_results: List[VerificationResult],
     notice_msg: str,
+    target_mode: Optional[str] = None,
 ) -> None:
-    """Geri yüklenen oturumu aktif session_state içine yerleştirir."""
+    """Geri yüklenen oturumu aktif session_state ve ilgili sekme hafızasına yerleştirir."""
     st.session_state["restored_parsed_doc"] = parsed_doc
     st.session_state["current_parsed_doc"] = parsed_doc
     st.session_state["active_doc_name"] = parsed_doc.filename
@@ -234,6 +287,8 @@ def activate_loaded_session(
         st.session_state[f"{prefix}_ALL"] = True
         for k in ALL_FILTER_KEYS:
             st.session_state[f"{prefix}_{k}"] = False
+    mode_k = target_mode or st.session_state.get("active_entry_mode", "upload")
+    _save_current_to_bucket(mode_k)
 
 
 # ---------------------------------------------------------------------------
@@ -763,8 +818,23 @@ with tab1:
             label_visibility="collapsed",
         )
 
-        uploaded_manuscript = None
         if entry_mode and entry_mode.startswith("💾"):
+            cur_mode_key = "saved"
+        elif entry_mode and entry_mode.startswith("🧪"):
+            cur_mode_key = "demo"
+        else:
+            cur_mode_key = "upload"
+
+        prev_mode_key = st.session_state.get("active_entry_mode")
+        if prev_mode_key is None:
+            st.session_state["active_entry_mode"] = cur_mode_key
+        elif prev_mode_key != cur_mode_key:
+            _save_current_to_bucket(prev_mode_key)
+            _load_bucket_to_current(cur_mode_key)
+            st.session_state["active_entry_mode"] = cur_mode_key
+
+        uploaded_manuscript = None
+        if cur_mode_key == "saved":
             st.caption(
                 "💡 **Bu bölüm ne işe yarar?** Daha önce analiz ettiğiniz bir makaleyi 20-30 dakika tekrar beklememek için "
                 "otomatik kaydedilen oturumlardan birini tek tıkla açabilir veya bilgisayarınıza indirdiğiniz `.json` analiz dosyasını yükleyebilirsiniz."
@@ -806,6 +876,7 @@ with tab1:
                                 f_m,
                                 v_res,
                                 f"'{p_doc.filename}' makalesinin kayıtlı analizi ({len(v_res)}/{len(p_doc.citations)} atıf) geri yüklendi.",
+                                target_mode="saved",
                             )
                             st.rerun()
                 else:
@@ -828,11 +899,12 @@ with tab1:
                                 f_m,
                                 v_res,
                                 f"'{p_doc.filename}' makalesinin analiz sonuçları ({len(v_res)}/{len(p_doc.citations)} atıf) dosyadan yüklendi.",
+                                target_mode="saved",
                             )
                         except Exception as exc:
                             st.error(f"Analiz dosyası okunamadı: {exc}")
 
-        elif entry_mode and entry_mode.startswith("🧪"):
+        elif cur_mode_key == "demo":
             demo_c1, demo_c2 = st.columns([3.0, 1.2], vertical_alignment="center")
             with demo_c1:
                 st.caption(
@@ -846,12 +918,17 @@ with tab1:
                     width="stretch",
                     help="Örnek TÜBİTAK makalesini yükler ve biçimsel kontrol sonuçlarını gösterir.",
                 ):
+                    p_demo = get_parser().parse_text(DEMO_MANUSCRIPT_TEXT, filename="ornek_tubitak_makalesi.txt")
                     st.session_state.pop("restored_parsed_doc", None)
-                    st.session_state.pop("current_parsed_doc", None)
                     st.session_state.pop("uploaded_docx_bytes", None)
-                    st.session_state.pop("last_uploaded_doc_sig", None)
-                    st.session_state["manuscript_text"] = DEMO_MANUSCRIPT_TEXT
-                    st.session_state["manuscript_name"] = "ornek_tubitak_makalesi.txt"
+                    st.session_state["current_parsed_doc"] = p_demo
+                    st.session_state["active_doc_name"] = p_demo.filename
+                    st.session_state["selected_cit_indices"] = set(range(1, min(6, len(p_demo.citations) + 1)))
+                    st.session_state["editor_ver"] = st.session_state.get("editor_ver", 0) + 1
+                    st.session_state["fetched_map"] = {}
+                    st.session_state.pop("verification_results", None)
+                    st.session_state.pop("session_restore_notice", None)
+                    _save_current_to_bucket("demo")
                     st.rerun()
         else:
             active_doc_preview: Optional[ParsedManuscript] = st.session_state.get("current_parsed_doc")
@@ -875,12 +952,11 @@ with tab1:
     parser = get_parser()
     parsed_doc: ParsedManuscript | None = None
 
-    if uploaded_manuscript is not None:
+    if cur_mode_key == "upload" and uploaded_manuscript is not None:
         if uploaded_manuscript.name.lower().endswith(".docx"):
             st.session_state["uploaded_docx_bytes"] = uploaded_manuscript.getvalue()
         else:
             st.session_state.pop("uploaded_docx_bytes", None)
-        st.session_state.pop("manuscript_text", None)
         up_sig = f"{uploaded_manuscript.name}_{uploaded_manuscript.size}"
         if st.session_state.get("last_uploaded_doc_sig") != up_sig:
             st.session_state["last_uploaded_doc_sig"] = up_sig
@@ -894,6 +970,7 @@ with tab1:
                         f_m,
                         v_res,
                         f"'{p_doc.filename}' için önceki analiz ({len(v_res)}/{len(p_doc.citations)} atıf, {s_at}) otomatik geri yüklendi.",
+                        target_mode="upload",
                     )
                     parsed_doc = p_doc
                 except Exception:
@@ -916,11 +993,6 @@ with tab1:
         parsed_doc = st.session_state["restored_parsed_doc"]
     elif "current_parsed_doc" in st.session_state:
         parsed_doc = st.session_state["current_parsed_doc"]
-    elif "manuscript_text" in st.session_state:
-        parsed_doc = parser.parse_text(
-            st.session_state["manuscript_text"],
-            filename=st.session_state.get("manuscript_name", "demo_makale.txt"),
-        )
 
     if st.session_state.get("session_restore_notice"):
         st.success(st.session_state["session_restore_notice"], icon=":material/restore:")
@@ -935,6 +1007,7 @@ with tab1:
             st.session_state.pop("session_restore_notice", None)
 
         st.session_state["current_parsed_doc"] = parsed_doc
+        _save_current_to_bucket(cur_mode_key)
 
         # -------------------------------------------------------------------
         # BÖLÜM 2: BİÇİMSEL KAYNAKÇA VE ATIF ÖZETİ (4 AÇIKLAYICI METRİK KUTUSU)
@@ -1329,6 +1402,7 @@ with tab1:
             )
             st.session_state["verification_results"] = results_out
             st.session_state["fetched_map"] = fetched_out
+            _save_current_to_bucket(cur_mode_key)
             st.rerun()
 
         # -------------------------------------------------------------------
