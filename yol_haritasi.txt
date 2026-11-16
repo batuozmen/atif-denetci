@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 16.11.2026 - Adım 1 - Adım 36 Tamamlandı (Kaynakça Güncellik ve Yıl Dağılımı Analizi, Orijinal Metne Dokunmadan Hakem Notlu Word (.docx) İnceleme Kopyası ve Başka PC'ler İçin %100 Otomatik Kurulum Sihirbazı)
+Son Güncelleme: 16.11.2026 - Adım 1 - Adım 37 Tamamlandı (Kaynakça Güncellik Analizi, Hakem Notlu Word (.docx) İnceleme Kopyası, Otomatik Kurulum Sihirbazı ve Sekmeler Arası Geçişte Aktif Makale Koruma)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -585,6 +585,14 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
        * Kullanıcının makale metnindeki hiçbir kelime veya cümle değiştirilmeden, yalnızca denetlenen atıfların bulunduğu paragrafların hemen altına renkli (`🔴 Düzeltilmeli`, `🟡 Kontrol Edilmeli`, `🟢 Sorunsuz`) `🔎 [ATIF DENETÇİ HAKEM NOTU]` bilgi kutuları eklenmiş `.docx` inceleme kopyası indirme butonu hem 1. Sekmeye hem 3. Sekmeye eklendi.
     2. Başka Bilgisayarlarda %100 Tam Kapasite Çalıştırma (`kurulum_yap.bat` & `baslat.bat`):
        * Yeni bir bilgisayara taşındığında Python 3.12, `.venv` kütüphaneleri, Ollama servisi ve `qwen2.5:3b` yerel yapay zekâ hakem modelini tek tıkla otomatik kuran `kurulum_yap.bat` sihirbazı ve akıllı `baslat.bat` başlatıcısı oluşturuldu.
+
+[✅ TAMAMLANDI] ADIM 37: 1. Adım Sekmeleri Arasında Geçiş Yaparken Yüklü Makalenin Kaybolmasını Önleme
+  - Güncellenen Dosyalar: app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Kalıcı Makale Hafızası (`current_parsed_doc`):
+       * 1. Adımdaki "📄 Yeni Makale Dosyası Yükle", "💾 Kayıtlı Analizden Devam Et" ve "🧪 Örnek Makaleyle Sistemi Dene" sekmeleri arasında geçiş yapıldığında `st.file_uploader` bileşeni ekrandan kalksa bile aktif makalenin `st.session_state["current_parsed_doc"]` üzerinden korunması sağlandı.
+    2. Aktif Makale Bilgi Göstergesi:
+       * Dosya yükleme sekmesine geri dönüldüğünde şu an yüklü olan makalenin adı, kaynak sayısı ve atıf sayısı üst bilgi olarak gösterilerek gereksiz yeniden yükleme ihtiyacı ortadan kaldırıldı.
 
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ

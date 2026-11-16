@@ -847,14 +847,25 @@ with tab1:
                     help="Örnek TÜBİTAK makalesini yükler ve biçimsel kontrol sonuçlarını gösterir.",
                 ):
                     st.session_state.pop("restored_parsed_doc", None)
+                    st.session_state.pop("current_parsed_doc", None)
+                    st.session_state.pop("uploaded_docx_bytes", None)
+                    st.session_state.pop("last_uploaded_doc_sig", None)
                     st.session_state["manuscript_text"] = DEMO_MANUSCRIPT_TEXT
                     st.session_state["manuscript_name"] = "ornek_tubitak_makalesi.txt"
                     st.rerun()
         else:
-            st.caption(
-                "💡 **Nasıl çalışır?** Word (`.docx`), PDF (`.pdf`) veya metin (`.txt`) formatındaki makalenizi aşağıya bırakın. "
-                "Sistem hem APA `(Yılmaz, 2022)` hem de numaralı `[1]` / `(1)` formatındaki tüm metin içi atıfları ve kaynakçayı otomatik ayrıştırır."
-            )
+            active_doc_preview: Optional[ParsedManuscript] = st.session_state.get("current_parsed_doc")
+            if active_doc_preview is not None:
+                st.caption(
+                    f"✅ **Şu An Yüklü Aktif Makale:** `{active_doc_preview.filename}` "
+                    f"(**{len(active_doc_preview.references)}** Kaynak, **{len(active_doc_preview.citations)}** Metin İçi Atıf) — "
+                    "Başka bir makaleye geçmek isterseniz aşağıdan yeni dosya seçebilirsiniz."
+                )
+            else:
+                st.caption(
+                    "💡 **Nasıl çalışır?** Word (`.docx`), PDF (`.pdf`) veya metin (`.txt`) formatındaki makalenizi aşağıya bırakın. "
+                    "Sistem hem APA `(Yılmaz, 2022)` hem de numaralı `[1]` / `(1)` formatındaki tüm metin içi atıfları ve kaynakçayı otomatik ayrıştırır."
+                )
             uploaded_manuscript = st.file_uploader(
                 "Makale dosyanızı sürükleyip bırakın veya bilgisayarınızdan seçin:",
                 type=["docx", "pdf", "txt"],
@@ -869,6 +880,7 @@ with tab1:
             st.session_state["uploaded_docx_bytes"] = uploaded_manuscript.getvalue()
         else:
             st.session_state.pop("uploaded_docx_bytes", None)
+        st.session_state.pop("manuscript_text", None)
         up_sig = f"{uploaded_manuscript.name}_{uploaded_manuscript.size}"
         if st.session_state.get("last_uploaded_doc_sig") != up_sig:
             st.session_state["last_uploaded_doc_sig"] = up_sig
@@ -894,12 +906,16 @@ with tab1:
                 )
         elif "restored_parsed_doc" in st.session_state:
             parsed_doc = st.session_state["restored_parsed_doc"]
+        elif "current_parsed_doc" in st.session_state:
+            parsed_doc = st.session_state["current_parsed_doc"]
         else:
             parsed_doc = parser.parse_file(
                 uploaded_manuscript.getvalue(), filename=uploaded_manuscript.name
             )
     elif "restored_parsed_doc" in st.session_state:
         parsed_doc = st.session_state["restored_parsed_doc"]
+    elif "current_parsed_doc" in st.session_state:
+        parsed_doc = st.session_state["current_parsed_doc"]
     elif "manuscript_text" in st.session_state:
         parsed_doc = parser.parse_text(
             st.session_state["manuscript_text"],
