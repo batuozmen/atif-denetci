@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 06.11.2026 - Adım 1 - Adım 28 Tamamlandı (Sadeleştirilmiş Arayüz, 3 Açıklamalı Özet Kartı, Anlaşılır Terimler ve Tek Ekranda Tam/Seçmeli Denetim)
+Son Güncelleme: 16.11.2026 - Adım 1 - Adım 36 Tamamlandı (Kaynakça Güncellik ve Yıl Dağılımı Analizi, Orijinal Metne Dokunmadan Hakem Notlu Word (.docx) İnceleme Kopyası ve Başka PC'ler İçin %100 Otomatik Kurulum Sihirbazı)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -568,6 +568,23 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
     2. Akıllı Geçiş (`_on_toggle_single`, `_on_toggle_all`, `_get_active_filter_codes`):
        * Kullanıcı 8 kategoriden herhangi birine tik attığı anda `📋 Tümünü Göster` tiki otomatik olarak kalkar ve yalnızca seçilen kategoriler listelenir.
        * `📋 Tümünü Göster` tekrar işaretlendiğinde diğer 8 kategorideki tikler otomatik temizlenir ve tüm sonuçlar gösterilir.
+
+[✅ TAMAMLANDI] ADIM 35: Kaynakça Güncellik (Yıl Dağılımı) ve Eski Literatür Analizi
+  - Güncellenen Dosyalar: app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. 3 Güncellik Kartı (Son 5 Yıl, Son 6–10 Yıl, 10 Yıldan Eski):
+       * 1. Sekmedeki 2. Adım altına açılır "📅 Kaynakça Güncellik ve Yıl Dağılımı Analizini İncele" paneli eklendi.
+       * Kaynakların yayın yılları ayıklanarak `🟢 Son 5 Yıl`, `🔵 Son 6–10 Yıl` ve `🟠 10 Yıldan Eski` sayıları, yüzdeleri (`%`), en eski–en yeni yıl aralığı ve ortanca (medyan) yılı hesaplandı.
+    2. Yıllara Göre Dağılım Grafiği ve 10 Yıldan Eski Kaynaklar Tablosu:
+       * Yıllara göre kaynak dağılım çubuk grafiği (`st.bar_chart`) ve 10 yıldan eski kaynakların hangileri olduğunu gösteren bilgi tablosu eklendi (hiçbir kaynağı otomatik değiştirmeden yalnızca rehberlik amaçlı).
+
+[✅ TAMAMLANDI] ADIM 36: Orijinal Metne Hiç Dokunmadan "Hakem Notlu Word (.docx) İnceleme Kopyası" ve Yeni Bilgisayarlar İçin %100 Tam Kurulum Sihirbazı
+  - Güncellenen Dosyalar: app.py, kurulum_yap.bat, baslat.bat, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Orijinal Metni Koruyan Hakem Notlu Word (`.docx`) İnceleme Kopyası (`build_annotated_review_docx_bytes`):
+       * Kullanıcının makale metnindeki hiçbir kelime veya cümle değiştirilmeden, yalnızca denetlenen atıfların bulunduğu paragrafların hemen altına renkli (`🔴 Düzeltilmeli`, `🟡 Kontrol Edilmeli`, `🟢 Sorunsuz`) `🔎 [ATIF DENETÇİ HAKEM NOTU]` bilgi kutuları eklenmiş `.docx` inceleme kopyası indirme butonu hem 1. Sekmeye hem 3. Sekmeye eklendi.
+    2. Başka Bilgisayarlarda %100 Tam Kapasite Çalıştırma (`kurulum_yap.bat` & `baslat.bat`):
+       * Yeni bir bilgisayara taşındığında Python 3.12, `.venv` kütüphaneleri, Ollama servisi ve `qwen2.5:3b` yerel yapay zekâ hakem modelini tek tıkla otomatik kuran `kurulum_yap.bat` sihirbazı ve akıllı `baslat.bat` başlatıcısı oluşturuldu.
 
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ

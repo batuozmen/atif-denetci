@@ -9,13 +9,17 @@ veya klasördeki `baslat.bat` dosyasına çift tıklayın.
 from __future__ import annotations
 
 import importlib
+import io
 import json
+import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
 
+import docx
+from docx.shared import Pt, RGBColor, Inches
 import pandas as pd
 import streamlit as st
 
@@ -378,10 +382,149 @@ def render_reading_guide() -> None:
 - **🟢 Sorunsuz / Doğrulanan Atıflar:** Kaynak makale internette bulundu ve cümlenizdeki bilgi makaleyle uyumlu. Değişiklik yapmanıza gerek yoktur.
 - **🔴 Düzeltilmesi Gereken Hatalar:** Cümleniz kaynak makaleyle **çelişiyor**, atıf yaptığınız kaynak **Kaynakça listesinde eksik**, **DOI numarası başka makaleye ait** veya makale **yayından geri çekilmiş**.
 - **🟡 Sizin Kontrol Etmeniz Gerekenler:** Sistem makaleye internette ulaşamadı (kitap/tez olabilir) veya makalenin açık özetinde cümlenizdeki spesifik detayı göremedi.
-- **Konu Benzerliği (%):** Cümleniz ile referans makaledeki paragrafın aynı konudan bahsetme oranıdır.
+- **Konu Benzerliği (%):** Cümleniz ile referans makaledeki paragrafın aynı konudan bahsetsetme oranıdır.
 - **Künye Doğruluk Oranı (%):** İnternette bulunan makalenin, kaynakçada yazdığınız makale olduğundan ne kadar emin olduğumuzu gösterir (`%100` = DOI birebir eşleşti).
 """
         )
+
+
+def build_annotated_review_docx_bytes(
+    parsed_doc: ParsedManuscript,
+    fetched_map: Dict[str, FetchedPaper],
+    results_list: List[VerificationResult],
+    original_docx_bytes: Optional[bytes] = None,
+) -> bytes:
+    """
+    Orijinal makale metnindeki HİÇBİR kelimeyi veya cümleyi değiştirmeden,
+    yalnızca denetlenen atıfların bulunduğu paragrafların hemen altına renkli
+    '🔎 [ATIF DENETÇİ HAKEM NOTU]' bilgi kutuları eklenmiş Word (.docx) inceleme kopyası üretir.
+    """
+    def _norm(s: str) -> str:
+        return re.sub(r"\s+", " ", (s or "").strip()).lower()
+
+    def _style_note_paragraph(p_obj: Any, r_item: VerificationResult) -> None:
+        v_info = get_verdict_info(r_item.verdict, is_retracted=r_item.is_retracted)
+        fp = fetched_map.get(r_item.ref_id) if r_item.ref_id else None
+        p_obj.paragraph_format.left_indent = Inches(0.35)
+        p_obj.paragraph_format.space_before = Pt(3)
+        p_obj.paragraph_format.space_after = Pt(6)
+
+        if v_info["group"] == "error":
+            color = RGBColor(185, 28, 28)  # Kırmızı (Düzeltilmeli)
+        elif v_info["group"] == "manual":
+            color = RGBColor(180, 83, 9)   # Turuncu (Kontrol Edilmeli)
+        else:
+            color = RGBColor(21, 128, 61)  # Yeşil (Sorunsuz)
+
+        head_run = p_obj.add_run(f"🔎 [ATIF DENETÇİ HAKEM NOTU — {v_info['badge']} | Atıf: {r_item.marker}]\n")
+        head_run.bold = True
+        head_run.font.size = Pt(9.5)
+        head_run.font.color.rgb = color
+
+        body_lines = [
+            f"• İncelenen Cümle: \"{r_item.claim_sentence}\"",
+            f"• Hakem Değerlendirmesi: {r_item.explanation}",
+            f"• Ne Yapmalısınız?: {v_info['action']}",
+        ]
+        if r_item.suggested_revision:
+            body_lines.append(f"• Önerilen Düzeltilmiş Cümle (İsteğe Bağlı): {r_item.suggested_revision}")
+        if fp and fp.verified_title:
+            body_lines.append(f"• Eşleşen Kaynak Makale: {fp.verified_title} ({fp.content_source})")
+        if r_item.best_evidence:
+            body_lines.append(f"• Kaynak Makaledeki Kanıt Paragrafı: \"{r_item.best_evidence[:350]}\"")
+
+        body_run = p_obj.add_run("\n".join(body_lines))
+        body_run.font.size = Pt(9)
+        body_run.font.color.rgb = RGBColor(51, 65, 85)
+
+    if original_docx_bytes:
+        try:
+            doc = docx.Document(io.BytesIO(original_docx_bytes))
+            orig_paras = list(doc.paragraphs)
+            matched_ids: set[str] = set()
+
+            # En üste inceleme bilgi başlığı ekle (orijinal paragraflara dokunmadan)
+            if orig_paras:
+                banner_p = doc.add_paragraph()
+                b_run = banner_p.add_run(
+                    "📋 [TÜBİTAK AKADEMİK ATIF DENETÇİSİ — HAKEM İNCELEME KOPYASI]\n"
+                    "Bu belgede orijinal makale metninizdeki hiçbir kelime veya cümle değiştirilmemiştir. "
+                    "Yalnızca denetlenen atıfların bulunduğu paragrafların hemen altına renkli hakem bilgi notları eklenmiştir.\n"
+                )
+                b_run.bold = True
+                b_run.font.size = Pt(10)
+                b_run.font.color.rgb = RGBColor(22, 105, 122)
+                orig_paras[0]._p.addprevious(banner_p._p)
+
+            for r in results_list:
+                claim_norm = _norm(r.claim_sentence)
+                probe = claim_norm[:45] if len(claim_norm) >= 45 else claim_norm
+                target_p = None
+                for p in orig_paras:
+                    p_norm = _norm(p.text)
+                    if probe and probe in p_norm:
+                        target_p = p
+                        break
+                if target_p is None and r.marker:
+                    for p in orig_paras:
+                        if r.marker in p.text:
+                            target_p = p
+                            break
+                if target_p is not None:
+                    note_p = doc.add_paragraph()
+                    _style_note_paragraph(note_p, r)
+                    target_p._p.addnext(note_p._p)
+                    matched_ids.add(r.citation_id)
+
+            unmatched = [r for r in results_list if r.citation_id not in matched_ids]
+            if unmatched:
+                doc.add_page_break()
+                doc.add_heading("Ek Hakem Denetim Notları", level=2)
+                for r in unmatched:
+                    np = doc.add_paragraph()
+                    _style_note_paragraph(np, r)
+
+            out_buf = io.BytesIO()
+            doc.save(out_buf)
+            return out_buf.getvalue()
+        except Exception:
+            pass
+
+    # Orijinal dosya .pdf / .txt ise veya .json kaydından yüklendiyse:
+    doc = docx.Document()
+    doc.add_heading(f"{parsed_doc.filename} — Hakem Notlu İnceleme Kopyası", level=1)
+    info_p = doc.add_paragraph(
+        "Bu belgede makalenizin orijinal metni korunmuş olup, denetlenen her bir atıf cümlesinin "
+        "altına sistemin hakem değerlendirme notları (değişiklik yapılmadan gösterim amacıyla) eklenmiştir."
+    )
+    info_p.runs[0].italic = True
+
+    body_paras = [bp.strip() for bp in (parsed_doc.body_text or "").split("\n") if bp.strip()]
+    matched_ids_fallback: set[str] = set()
+
+    for bp_text in body_paras:
+        p_elem = doc.add_paragraph(bp_text)
+        bp_norm = _norm(bp_text)
+        for r in results_list:
+            if r.citation_id in matched_ids_fallback:
+                continue
+            c_norm = _norm(r.claim_sentence)
+            probe = c_norm[:40] if len(c_norm) >= 40 else c_norm
+            if (probe and probe in bp_norm) or (r.marker and r.marker in bp_text):
+                note_p = doc.add_paragraph()
+                _style_note_paragraph(note_p, r)
+                matched_ids_fallback.add(r.citation_id)
+
+    unmatched_fb = [r for r in results_list if r.citation_id not in matched_ids_fallback]
+    if unmatched_fb:
+        doc.add_heading("Diğer Denetlenen Atıf Notları", level=2)
+        for r in unmatched_fb:
+            note_p = doc.add_paragraph()
+            _style_note_paragraph(note_p, r)
+
+    out_buf = io.BytesIO()
+    doc.save(out_buf)
+    return out_buf.getvalue()
 
 
 def run_verification_pipeline(
@@ -722,6 +865,10 @@ with tab1:
     parsed_doc: ParsedManuscript | None = None
 
     if uploaded_manuscript is not None:
+        if uploaded_manuscript.name.lower().endswith(".docx"):
+            st.session_state["uploaded_docx_bytes"] = uploaded_manuscript.getvalue()
+        else:
+            st.session_state.pop("uploaded_docx_bytes", None)
         up_sig = f"{uploaded_manuscript.name}_{uploaded_manuscript.size}"
         if st.session_state.get("last_uploaded_doc_sig") != up_sig:
             st.session_state["last_uploaded_doc_sig"] = up_sig
@@ -872,6 +1019,91 @@ with tab1:
                     ),
                 },
             )
+
+        # ADIM 35: KAYNAKÇA GÜNCELLİK VE YIL DAĞILIMI ANALİZİ
+        with st.expander(
+            f":material/calendar_month: Kaynakça Güncellik ve Yıl Dağılımı Analizini İncele ({len(parsed_doc.references)} Kaynak)",
+            expanded=False,
+        ):
+            st.caption(
+                "💡 **Bu analiz ne işe yarar?** TÜBİTAK ve hakemli dergilerde hakemlerin en çok dikkat ettiği kriterlerden biri "
+                "**literatür güncelliğidir** (kaynakların son 5–10 yıla dağılımı). Bu panel hiçbir kaynağınızı otomatik değiştirmez; "
+                "yalnızca kaynakçanızın yaş dağılımını ve 10 yıldan eski kaynaklarınızı tek bakışta görmenizi sağlar."
+            )
+            cur_year = datetime.now().year
+            valid_years: List[int] = []
+            older_ref_rows: List[Dict[str, Any]] = []
+            recent_5_cnt = 0
+            recent_10_cnt = 0
+            older_cnt = 0
+
+            for r_it in parsed_doc.references:
+                y_str = str(r_it.year or "").strip()
+                m_y = re.search(r"\b(19\d{2}|20\d{2})\b", y_str or r_it.raw_text)
+                if m_y:
+                    y_int = int(m_y.group(1))
+                    if 1900 <= y_int <= cur_year + 1:
+                        valid_years.append(y_int)
+                        if y_int >= cur_year - 4:
+                            recent_5_cnt += 1
+                        elif y_int >= cur_year - 9:
+                            recent_10_cnt += 1
+                        else:
+                            older_cnt += 1
+                            older_ref_rows.append({
+                                "Kaynak No": f"[{r_it.ref_id}]",
+                                "Yayın Yılı": y_int,
+                                "Kaç Yıllık": f"{cur_year - y_int} yıllık",
+                                "Yazar": r_it.first_author_surname or "Bilinmiyor",
+                                "Metinde Kullanım": f"{r_it.cited_in_text_count} kez",
+                                "Kaynak Başlığı / Künyesi": r_it.title or r_it.raw_text,
+                            })
+
+            tot_dated = max(1, len(valid_years))
+            pct_5 = round(recent_5_cnt * 100 / tot_dated)
+            pct_10 = round(recent_10_cnt * 100 / tot_dated)
+            pct_old = round(older_cnt * 100 / tot_dated)
+
+            yc1, yc2, yc3 = st.columns(3)
+            with yc1.container(border=True, height="stretch"):
+                st.metric(
+                    f"🟢 Son 5 Yıl ({cur_year - 4}–{cur_year})",
+                    f"{recent_5_cnt} Kaynak (%{pct_5})",
+                )
+                st.caption("En güncel bilimsel literatürü temsil eden kaynaklarınız.")
+            with yc2.container(border=True, height="stretch"):
+                st.metric(
+                    f"🔵 Son 6–10 Yıl ({cur_year - 9}–{cur_year - 5})",
+                    f"{recent_10_cnt} Kaynak (%{pct_10})",
+                )
+                st.caption("Yakın dönem literatürü temsil eden kaynaklarınız.")
+            with yc3.container(border=True, height="stretch"):
+                st.metric(
+                    f"🟠 10 Yıldan Eski ({cur_year - 10} ve öncesi)",
+                    f"{older_cnt} Kaynak (%{pct_old})",
+                )
+                if valid_years:
+                    st.caption(
+                        f"Yıl Aralığı: **{min(valid_years)} – {max(valid_years)}** · "
+                        f"Ortanca Yıl: **{sorted(valid_years)[len(valid_years) // 2]}**"
+                    )
+                else:
+                    st.caption("Kaynaklarda yıl bilgisi tespit edilemedi.")
+
+            if valid_years:
+                year_counts = pd.Series(valid_years).value_counts().sort_index()
+                chart_df = pd.DataFrame({"Yıl": year_counts.index.astype(str), "Kaynak Sayısı": year_counts.values})
+                st.markdown("**📊 Yıllara Göre Kaynak Dağılım Grafiği:**")
+                st.bar_chart(chart_df, x="Yıl", y="Kaynak Sayısı", height=210)
+
+            if older_ref_rows:
+                older_ref_rows.sort(key=lambda x: x["Yayın Yılı"])
+                st.markdown(f"**🕰️ 10 Yıldan Eski Kaynakların Listesi ({len(older_ref_rows)} Kaynak — Bilgi Amaçlı Gösterim):**")
+                st.dataframe(
+                    pd.DataFrame(older_ref_rows),
+                    hide_index=True,
+                    row_height=46,
+                )
 
         # -------------------------------------------------------------------
         # BÖLÜM 3: DENETİM BAŞLATMA MERKEZİ (KAYDIRMASIZ TAM GÖRÜNÜM + AÇIKLAYICI REHBER)
@@ -1091,17 +1323,32 @@ with tab1:
             f_map: Dict[str, FetchedPaper] = st.session_state.get("fetched_map", {})
 
             st.space("small")
-            hdr_left, hdr_right = st.columns([2.5, 1.1], vertical_alignment="center")
+            hdr_left, hdr_mid, hdr_right = st.columns([2.1, 1.05, 0.95], vertical_alignment="center")
             with hdr_left:
                 st.subheader(
                     f":material/analytics: 4. Adım — Denetim Sonuçları Özeti ({len(results_list)} / {len(parsed_doc.citations)} Atıf İncelendi)"
                 )
                 st.caption(
-                    "İncelenen atıfların doğruluk dağılımını aşağıda görebilir; sağdaki butonla bu analiz oturumunu bilgisayarınıza yedekleyebilirsiniz."
+                    "İncelenen atıfların doğruluk dağılımını aşağıda görebilir; orijinal metninize hiç dokunmadan kenar/paragraf notu eklenmiş Word inceleme kopyasını veya JSON analiz kaydını indirebilirsiniz."
+                )
+            with hdr_mid:
+                safe_dl_stem = safe_ref_token(Path(parsed_doc.filename).stem, fallback="makale")
+                annotated_docx_bytes_t1 = build_annotated_review_docx_bytes(
+                    parsed_doc=parsed_doc,
+                    fetched_map=f_map,
+                    results_list=results_list,
+                    original_docx_bytes=st.session_state.get("uploaded_docx_bytes"),
+                )
+                st.download_button(
+                    ":material/rate_review: Hakem Notlu Word (.docx) İndir",
+                    data=annotated_docx_bytes_t1,
+                    file_name=f"{safe_dl_stem}_hakem_notlu_inceleme.docx",
+                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    width="stretch",
+                    help="Orijinal makale metninizdeki hiçbir kelimeyi değiştirmeden, yalnızca denetlenen cümlelerin altına renkli Hakem İnceleme Notu eklenmiş Word kopyasını indirir.",
                 )
             with hdr_right:
                 session_bytes_t1 = serialize_session_bytes(parsed_doc, f_map, results_list)
-                safe_dl_stem = safe_ref_token(Path(parsed_doc.filename).stem, fallback="makale")
                 st.download_button(
                     ":material/download: Analiz Kaydını İndir (.json)",
                     data=session_bytes_t1,
@@ -1769,9 +2016,26 @@ with tab3:
         csv_bytes = df_report.to_csv(index=False).encode("utf-8-sig")
         md_bytes = "\n".join(md_lines).encode("utf-8")
 
-        st.caption("💡 **İndirme Seçenekleri:** Sonuçları Excel tablosu (`.csv`), Word uyumlu rapor (`.md`) veya tekrar siteye yüklenebilir analiz paketi (`.json`) olarak kaydedin:")
-        dl_col1, dl_col2, dl_col3 = st.columns(3)
+        st.caption("💡 **İndirme Seçenekleri:** Orijinal metne dokunmadan hakem notu eklenmiş Word (`.docx`) inceleme kopyasını, Excel tablosunu (`.csv`), metin raporunu (`.md`) veya analiz kaydını (`.json`) indirin:")
+        dl_col1, dl_col2, dl_col3, dl_col4 = st.columns(4)
         with dl_col1:
+            if cur_p_doc is not None:
+                s_stem_t3 = safe_ref_token(Path(cur_p_doc.filename).stem, fallback="makale")
+                annotated_docx_t3 = build_annotated_review_docx_bytes(
+                    parsed_doc=cur_p_doc,
+                    fetched_map=f_map_t3,
+                    results_list=results_list_t3,
+                    original_docx_bytes=st.session_state.get("uploaded_docx_bytes"),
+                )
+                st.download_button(
+                    ":material/rate_review: Hakem Notlu Word (.docx)",
+                    data=annotated_docx_t3,
+                    file_name=f"{s_stem_t3}_hakem_notlu_inceleme.docx",
+                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    width="stretch",
+                    help="Orijinal makale metninize hiç dokunmadan, sorunlu/denetlenen cümlelerin altına renkli hakem notu eklenmiş Word (.docx) inceleme kopyasını indirir.",
+                )
+        with dl_col2:
             st.download_button(
                 ":material/table: Excel Tablosu İndir (.csv)",
                 data=csv_bytes,
@@ -1780,16 +2044,16 @@ with tab3:
                 width="stretch",
                 help="Tüm denetim tablosunu Excel'de açabileceğiniz CSV formatında indirir.",
             )
-        with dl_col2:
+        with dl_col3:
             st.download_button(
-                ":material/description: Word / Metin Raporu İndir (.md)",
+                ":material/description: Metin Raporu İndir (.md)",
                 data=md_bytes,
                 file_name="makale_atif_denetim_raporu.md",
                 mime="text/markdown",
                 width="stretch",
                 help="Her bir atıfın detaylı hakem değerlendirmesini yazılı rapor olarak indirir.",
             )
-        with dl_col3:
+        with dl_col4:
             if cur_p_doc is not None:
                 s_bytes_t3 = serialize_session_bytes(cur_p_doc, f_map_t3, results_list_t3)
                 s_stem_t3 = safe_ref_token(Path(cur_p_doc.filename).stem, fallback="makale")
