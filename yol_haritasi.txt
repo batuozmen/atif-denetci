@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 16.11.2026 - Adım 1 - Adım 39 Tamamlandı (1. Adım İçindeki 3 Çalışma Sekmesinin Hafıza İzolasyonu: Dosya Yükle, Kayıtlı Analiz ve Örnek Makale Verilerinin Birbirine Karışmaması)
+Son Güncelleme: 16.11.2026 - Adım 1 - Adım 40 Tamamlandı (3 Çalışma Sekmesi İçin Doğrudan Kalıcı Hafıza Anahtarları: doc_upload, doc_saved, doc_demo)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -608,6 +608,13 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
     1. Sekme Bazlı İzole Hafıza (`mode_buckets`):
        * `_save_current_to_bucket()` ve `_load_bucket_to_current()` fonksiyonlarıyla "📄 Yeni Makale Dosyası Yükle", "💾 Kayıtlı Analizden Devam Et" ve "🧪 Örnek Makaleyle Sistemi Dene" sekmelerinin verileri birbirinden tamamen ayrıldı.
        * 1. sekmeye yüklenen makale yalnızca 1. sekmede görünür; 2. veya 3. sekmeye tıklandığında orada henüz bir kayıt/örnek açılmadıysa alt kısım temiz kalır, 1. sekmeye geri dönüldüğünde ise kullanıcının yüklediği makale ve sonuçları kaldığı yerden geri gelir.
+
+[✅ TAMAMLANDI] ADIM 40: 3 Çalışma Sekmesi İçin Doğrudan Kalıcı Hafıza Anahtarları (`doc_upload`, `doc_saved`, `doc_demo`)
+  - Güncellenen Dosyalar: app.py, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Kopyalamasız Doğrudan Sekme Anahtarları (`_save_mode_state`):
+       * ADIM 39'daki `parsed_doc` / `current_parsed_doc` anahtar adı uyuşmazlığı giderilerek her çalışma yöntemine kendi doğrudan ve kalıcı `session_state` anahtarları (`doc_upload`, `res_upload`, `fmap_upload` / `doc_saved`, `res_saved`, `fmap_saved` / `doc_demo`, `res_demo`, `fmap_demo`) tanımlandı.
+       * Hem "Yeni Makale Dosyası Yükle" hem de "Kayıtlı Analizden Devam Et" sekmelerinde açılan makalelerin ve doğrulama sonuçlarının sekme değiştirildiğinde kaybolmaması ve birbirine karışmaması garanti altına alındı.
 
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
