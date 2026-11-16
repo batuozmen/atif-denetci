@@ -2,7 +2,7 @@
 TÜBİTAK AKADEMİK MAKALE, KAYNAKÇA VE SEMANTİK ATIF DOĞRULAMA SİSTEMİ
 PROJE GÜNLÜĞÜ, KULLANIM KILAVUZU VE YOL HARİTASI
 ================================================================================
-Son Güncelleme: 16.11.2026 - Adım 1 - Adım 37 Tamamlandı (Kaynakça Güncellik Analizi, Hakem Notlu Word (.docx) İnceleme Kopyası, Otomatik Kurulum Sihirbazı ve Sekmeler Arası Geçişte Aktif Makale Koruma)
+Son Güncelleme: 16.11.2026 - Adım 1 - Adım 38 Tamamlandı (GitHub Vitrin README.md Dokümantasyonu, Mermaid Mimari Şeması, main/master Dal Eşitlemesi ve Sekmeler Arası Aktif Makale Koruma)
 
 --------------------------------------------------------------------------------
 BÖLÜM 1: SİSTEMİ NASIL ÇALIŞTIRIRSIN? (HIZLI BAŞLANGIÇ)
@@ -593,6 +593,14 @@ BÖLÜM 2: ŞU ANA KADAR TAMAMLANAN TÜM AŞAMALAR VE DEĞİŞİKLİKLER
        * 1. Adımdaki "📄 Yeni Makale Dosyası Yükle", "💾 Kayıtlı Analizden Devam Et" ve "🧪 Örnek Makaleyle Sistemi Dene" sekmeleri arasında geçiş yapıldığında `st.file_uploader` bileşeni ekrandan kalksa bile aktif makalenin `st.session_state["current_parsed_doc"]` üzerinden korunması sağlandı.
     2. Aktif Makale Bilgi Göstergesi:
        * Dosya yükleme sekmesine geri dönüldüğünde şu an yüklü olan makalenin adı, kaynak sayısı ve atıf sayısı üst bilgi olarak gösterilerek gereksiz yeniden yükleme ihtiyacı ortadan kaldırıldı.
+
+[✅ TAMAMLANDI] ADIM 38: GitHub Vitrin `README.md` Dokümantasyonu (Mermaid Mimari Şeması, Teknoloji Yığını Tabloları) ve `main` Dalı Eşitlemesi
+  - Güncellenen Dosyalar: README.md, yol_haritasi.txt
+  - Yapılan Değişiklikler:
+    1. Profesyonel GitHub `README.md` Vitrini:
+       * Teknoloji rozetleri (Shields.io), uçtan uca `Mermaid` sistem mimarisi akış şeması, modüler teknoloji yığını tabloları, 8 kanallı veri madenciliği şelalesi, 4 dereceli hakem karar politikası, `%100` benchmark sonuç tablosu, adım adım `kurulum_yap.bat` / `baslat.bat` rehberi ve İngilizce özet eklendi.
+    2. GitHub `main` ve `master` Dalı Eşitlemesi:
+       * Tüm proje dosyaları GitHub üzerindeki varsayılan `main` dalına da gönderilerek (`git push -f origin master:main`) repo ana sayfasında ve `Download ZIP` indirmelerinde tüm projenin doğrudan görünmesi sağlandı.
 
 --------------------------------------------------------------------------------
 BÖLÜM 3: MEVCUT SİSTEM DURUMU VE DOĞRULANAN KAPASİTE ÖZETİ
